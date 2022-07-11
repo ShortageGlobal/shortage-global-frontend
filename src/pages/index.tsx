@@ -6,13 +6,11 @@ import {
 import type { NextPageWithLayout } from 'pages/_app';
 import { useAppSelector } from 'app/hooks';
 
-import styles from '../styles/Home.module.scss';
-
 const IndexPage: NextPageWithLayout = () => {
   const { organizations } = useAppSelector(selectOrganizations);
 
   return (
-    <div className={styles.container}>
+    <div>
       organizations
       {organizations.results.map((org) => {
         return ' ' + org.name + ' ';
