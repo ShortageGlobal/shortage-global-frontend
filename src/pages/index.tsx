@@ -11,7 +11,7 @@ const IndexPage: NextPageWithLayout = () => {
 
   return (
     <div>
-      organizations
+      organizations <br />
       {organizations.results.map((org) => {
         return ' ' + org.name + ' ';
       })}

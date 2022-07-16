@@ -1,11 +1,12 @@
 import styles from './header.module.scss';
 import Link from 'next/link';
 import { Container, Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
+import { ActiveLink } from 'components/active-link/active-link';
 
 export function Header() {
   return (
     <header className={styles.header}>
-      <Navbar expand="lg" className={`${styles.navbar} fixed-top`}>
+      <Navbar expand="lg" fixed="top" className={styles.navbar}>
         <Container className={`${styles.container} border-bottom`}>
           <Link href="/" passHref>
             <Navbar.Brand>ShortageGlobal</Navbar.Brand>
@@ -22,22 +23,22 @@ export function Header() {
             </Form>
 
             <Nav>
-              <Link href="/how-it-works" passHref>
+              <ActiveLink href="/how-it-works" passHref>
                 <Nav.Link>How it works</Nav.Link>
-              </Link>
+              </ActiveLink>
 
               <NavDropdown title="For partners" id="basic-nav-dropdown">
-                <Link href="/for-partners/non-profit" passHref>
+                <ActiveLink href="/for-partners/non-profit" passHref>
                   <NavDropdown.Item>Non-profit</NavDropdown.Item>
-                </Link>
-                <Link href="/for-partners/corporate" passHref>
+                </ActiveLink>
+                <ActiveLink href="/for-partners/corporate" passHref>
                   <NavDropdown.Item>Corporate</NavDropdown.Item>
-                </Link>
+                </ActiveLink>
               </NavDropdown>
 
-              <Link href="/impact-stories" passHref>
+              <ActiveLink href="/impact-stories" passHref>
                 <Nav.Link>Impact Stories</Nav.Link>
-              </Link>
+              </ActiveLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
