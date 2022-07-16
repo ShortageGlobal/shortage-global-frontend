@@ -19,10 +19,6 @@ const IndexPage: NextPageWithLayout = () => {
   );
 };
 
-IndexPage.getLayout = function getLayout(page) {
-  return page;
-};
-
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
     await store.dispatch(fetchOrganizations());

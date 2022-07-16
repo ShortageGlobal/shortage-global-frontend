@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.header {
+  .navbar {
+    background-color: var(--bs-body-bg);
+
+    .container {
+      padding-top: $header-navbar-padding-y;
+      padding-bottom: $header-navbar-padding-y;
+    }
+
+    .navbar-collapse {
+      flex-grow: unset;
+    }
+  }
+}
