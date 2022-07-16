@@ -5,8 +5,8 @@
 // Functions first
 @import 'bootstrap/scss/functions';
 
-// Custom variables together with bootstrap variables
-@import './variables.scss';
+// Variables
+@import './_variables.scss';
 
 // Configuration
 @import 'bootstrap/scss/mixins';

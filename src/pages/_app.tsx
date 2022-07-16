@@ -1,4 +1,4 @@
-import '../styles/globals.scss';
+import 'styles/globals.scss';
 
 import type { ReactElement, ReactNode } from 'react';
 import Head from 'next/head';

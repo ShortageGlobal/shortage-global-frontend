@@ -1,5 +1,6 @@
 import styles from './header.module.scss';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Container, Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
 import { ActiveLink } from 'components/active-link/active-link';
 
@@ -9,7 +10,14 @@ export function Header() {
       <Navbar expand="lg" fixed="top" className={styles.navbar}>
         <Container className={`${styles.container} border-bottom`}>
           <Link href="/" passHref>
-            <Navbar.Brand>ShortageGlobal</Navbar.Brand>
+            <Navbar.Brand className={styles['navbar-brand']}>
+              <Image
+                src="/logo/ShortageGlobal-black.png"
+                alt="ShortageGlobal"
+                layout="fill"
+                priority
+              />
+            </Navbar.Brand>
           </Link>
 
           <Navbar.Toggle aria-controls="header-navbar-nav" />

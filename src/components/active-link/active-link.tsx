@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 /*
-  Sets 'active' prop to children. Used in Navbar
+  Sets 'active' prop to children. Used in Navbar.
   Inspired by: https://github.com/vercel/next.js/tree/canary/examples/active-class-name 
 */
 export function ActiveLink({ children, href, ...props }) {
