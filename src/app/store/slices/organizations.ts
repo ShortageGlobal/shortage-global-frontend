@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
-import { fetchOrganizations as fetchOrganizationsAxios } from 'app/services';
+import { fetchPromotedOrganizations as fetchPromotedOrganizationsAxios } from 'app/services';
 
 export const organizationsSlice = createSlice({
   name: 'organizations',
@@ -19,15 +19,15 @@ export const organizationsSlice = createSlice({
 
   extraReducers(builder) {
     builder
-      .addCase(fetchOrganizations.pending, (state) => {
+      .addCase(fetchPromotedOrganizations.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchOrganizations.fulfilled, (state, action) => {
+      .addCase(fetchPromotedOrganizations.fulfilled, (state, action) => {
         state.isLoading = false;
         state.organizations = action.payload;
       })
-      .addCase(fetchOrganizations.rejected, (state, action) => {
+      .addCase(fetchPromotedOrganizations.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
       });
@@ -40,10 +40,10 @@ export const { setOrganizations } = organizationsSlice.actions;
 // Selectors
 export const selectOrganizations = (state: AppState) => state.organizations;
 
-export const fetchOrganizations = createAsyncThunk(
-  'organizations/fetchOrganizations',
+export const fetchPromotedOrganizations = createAsyncThunk(
+  'organizations/fetchPromotedOrganizations',
   async () => {
-    const response = await fetchOrganizationsAxios();
+    const response = await fetchPromotedOrganizationsAxios();
     return response.data;
   }
 );

@@ -1,4 +1,7 @@
 @import 'bootstrap/scss/functions';
+
+$primary: #00b657;
+
 @import 'bootstrap/scss/variables';
 
 // Reboot
@@ -9,6 +12,11 @@ $link-hover-decoration: underline;
 $navbar-light-toggler-border-color: transparent;
 $navbar-padding-y: 0;
 $navbar-brand-padding-y: 0;
+$navbar-nav-link-padding-x: 0.7rem;
+$navbar-light-color: $body-color;
+$navbar-light-hover-color: rgba($primary, 1);
+$navbar-light-active-color: $navbar-light-hover-color;
+$navbar-toggler-focus-width: 0;
 
 // Header
 $header-height: 73px; // used for padding-top of main container, as header has fixed-top

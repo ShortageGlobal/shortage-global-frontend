@@ -2,6 +2,7 @@ import styles from './header.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
+import { User, Package } from 'react-feather';
 import { ActiveLink } from 'components/active-link/active-link';
 
 export function Header() {
@@ -47,6 +48,18 @@ export function Header() {
               <ActiveLink href="/impact-stories" passHref>
                 <Nav.Link>Impact Stories</Nav.Link>
               </ActiveLink>
+
+              <Link href="/" passHref>
+                <Nav.Link>
+                  <User />
+                </Nav.Link>
+              </Link>
+
+              <Link href="/" passHref>
+                <Nav.Link>
+                  <Package />
+                </Nav.Link>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
