@@ -1,6 +1,6 @@
 import { wrapper } from 'app/store';
 import {
-  fetchOrganizations,
+  fetchPromotedOrganizations,
   selectOrganizations,
 } from 'app/store/slices/organizations';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -21,7 +21,7 @@ const IndexPage: NextPageWithLayout = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
-    await store.dispatch(fetchOrganizations());
+    await store.dispatch(fetchPromotedOrganizations());
     return {
       props: {},
     };
