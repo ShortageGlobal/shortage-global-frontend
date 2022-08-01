@@ -1,4 +1,4 @@
-# ShortageGlobal
+# Shortage.Global Frontend
 
 https://frontend-ij85f.ondigitalocean.app/
 
@@ -9,6 +9,8 @@ https://frontend-ij85f.ondigitalocean.app/
 ```
 npm run dev
 ```
+
+You will need running [backend](https://github.com/ShortageGlobal/shortage-global-backend).
 
 #### Check types
 
