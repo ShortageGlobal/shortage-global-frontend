@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
-import { fetchPromotedOrganizations as fetchPromotedOrganizationsAxios } from 'app/services';
+import { fetchPromotedOrganizations as fetchPromotedOrganizationsAxios } from 'app/api';
 
 export const organizationsSlice = createSlice({
   name: 'organizations',
