@@ -6,10 +6,14 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import { organizationsReducer } from 'app/store/slices/organizations';
+import { promotedOrganizationsReducer } from 'app/store/slices/promoted-organizations';
+import { promotedCategoriesReducer } from 'app/store/slices/promoted-categories';
+import { promotedProductsReducer } from 'app/store/slices/promoted-products';
 
 const combinedReducer = combineReducers({
-  organizations: organizationsReducer,
+  promotedOrganizations: promotedOrganizationsReducer,
+  promotedCategories: promotedCategoriesReducer,
+  promotedProducts: promotedProductsReducer,
 });
 
 const reducer = (
@@ -21,7 +25,7 @@ const reducer = (
       ...state, // use previous state
       ...action.payload, // apply delta from hydration
     };
-    return nextState;
+    return nextState as ReturnType<typeof combinedReducer>;
   } else {
     return combinedReducer(state, action);
   }
@@ -32,10 +36,9 @@ export const makeStore = () =>
     reducer,
   });
 
-type Store = ReturnType<typeof makeStore>;
-
-export type AppDispatch = Store['dispatch'];
-export type AppState = ReturnType<Store['getState']>;
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppDispatch = AppStore['dispatch'];
+export type AppState = ReturnType<AppStore['getState']>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   AppState,

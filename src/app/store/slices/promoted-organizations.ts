@@ -1,14 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
 import { fetchPromotedOrganizations as fetchPromotedOrganizationsAxios } from 'app/api';
+import type { OrganizationPreview } from 'app/api/types';
 
-export const organizationsSlice = createSlice({
-  name: 'organizations',
+export const promotedOrganizationsSlice = createSlice({
+  name: 'promotedOrganizations',
 
   initialState: {
     organizations: null,
+    count: null,
     isLoading: false,
     error: null,
+  } as {
+    organizations?: OrganizationPreview[];
+    count?: number;
+    isLoading: boolean;
+    error?: unknown;
   },
 
   reducers: {
@@ -25,7 +32,8 @@ export const organizationsSlice = createSlice({
       })
       .addCase(fetchPromotedOrganizations.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.organizations = action.payload;
+        state.organizations = action.payload.results;
+        state.count = action.payload.count;
       })
       .addCase(fetchPromotedOrganizations.rejected, (state, action) => {
         state.isLoading = false;
@@ -35,17 +43,18 @@ export const organizationsSlice = createSlice({
 });
 
 // Actions
-export const { setOrganizations } = organizationsSlice.actions;
+export const { setOrganizations } = promotedOrganizationsSlice.actions;
 
 // Selectors
-export const selectOrganizations = (state: AppState) => state.organizations;
+export const selectPromotedOrganizations = (state: AppState) =>
+  state.promotedOrganizations;
 
 export const fetchPromotedOrganizations = createAsyncThunk(
-  'organizations/fetchPromotedOrganizations',
+  'promotedOrganizations/fetchPromotedOrganizations',
   async () => {
     const response = await fetchPromotedOrganizationsAxios();
     return response.data;
   }
 );
 
-export const organizationsReducer = organizationsSlice.reducer;
+export const promotedOrganizationsReducer = promotedOrganizationsSlice.reducer;

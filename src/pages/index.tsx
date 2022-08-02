@@ -1,19 +1,39 @@
 import { wrapper } from 'app/store';
 import {
   fetchPromotedOrganizations,
-  selectOrganizations,
-} from 'app/store/slices/organizations';
+  selectPromotedOrganizations,
+} from 'app/store/slices/promoted-organizations';
+import {
+  fetchPromotedCategories,
+  selectPromotedCategories,
+} from 'app/store/slices/promoted-categories';
+import {
+  fetchPromotedProducts,
+  selectPromotedProducts,
+} from 'app/store/slices/promoted-products';
 import type { NextPageWithLayout } from 'pages/_app';
 import { useAppSelector } from 'app/hooks';
 
 const IndexPage: NextPageWithLayout = () => {
-  const { organizations } = useAppSelector(selectOrganizations);
+  const { organizations } = useAppSelector(selectPromotedOrganizations);
+  const { categories } = useAppSelector(selectPromotedCategories);
+  const { products } = useAppSelector(selectPromotedProducts);
 
   return (
     <div>
       organizations <br />
-      {organizations.results.map((org) => {
+      {organizations?.map((org) => {
         return ' ' + org.name + ' ';
+      })}
+      <br />
+      categories <br />
+      {categories?.map((category) => {
+        return ' ' + category + ' ';
+      })}
+      <br />
+      products <br />
+      {products?.map((product) => {
+        return ' ' + product.name + ' ';
       })}
     </div>
   );
@@ -21,7 +41,11 @@ const IndexPage: NextPageWithLayout = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
-    await store.dispatch(fetchPromotedOrganizations());
+    await Promise.all([
+      store.dispatch(fetchPromotedOrganizations()),
+      store.dispatch(fetchPromotedCategories()),
+      store.dispatch(fetchPromotedProducts()),
+    ]);
     return {
       props: {},
     };
