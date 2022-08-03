@@ -9,11 +9,11 @@ export function Header() {
   return (
     <header className={styles.header}>
       <Navbar expand="lg" fixed="top" className={styles.navbar}>
-        <Container className={`${styles.container} border-bottom`}>
+        <Container className={styles.container}>
           <Link href="/" passHref>
-            <Navbar.Brand className={styles['navbar-brand']}>
+            <Navbar.Brand className={styles.navbarBrand}>
               <Image
-                src="/logo/ShortageGlobal-black.png"
+                src="/images/logo/ShortageGlobal-black.png"
                 alt="ShortageGlobal"
                 layout="fill"
                 priority
@@ -24,7 +24,7 @@ export function Header() {
           <Navbar.Toggle aria-controls="header-navbar-nav" />
 
           <Navbar.Collapse
-            className={styles['navbar-collapse']}
+            className={styles.navbarCollapse}
             id="header-navbar-nav"
           >
             <Form>

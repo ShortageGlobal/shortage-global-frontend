@@ -4,7 +4,8 @@ $primary: #00b657;
 
 @import 'bootstrap/scss/variables';
 
-// Reboot
+// Base
+$font-family-base: Jost, $font-family-sans-serif;
 $link-decoration: none;
 $link-hover-decoration: underline;
 
@@ -19,4 +20,4 @@ $navbar-light-active-color: $navbar-light-hover-color;
 $navbar-toggler-focus-width: 0;
 
 // Header
-$header-height: 73px; // used for padding-top of main container, as header has fixed-top
+$header-height: 82px; // used for padding-top of main container, because header has fixed-top

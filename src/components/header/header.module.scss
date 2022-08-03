@@ -3,19 +3,20 @@
 .header {
   .navbar {
     background-color: var(--bs-body-bg);
+    border-bottom: 1px solid $border-color;
 
     .container {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
     }
 
-    .navbar-brand {
+    .navbarBrand {
       position: relative;
       width: 200px;
       height: 28px;
     }
 
-    .navbar-collapse {
+    .navbarCollapse {
       flex-grow: unset;
     }
   }
