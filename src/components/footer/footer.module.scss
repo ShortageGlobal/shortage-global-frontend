@@ -1,3 +1,6 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
 .footer {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -10,17 +13,17 @@
     height: 28px;
   }
 
-  .copyright-block {
+  .copyrightBlock {
     margin-top: 0.5rem;
   }
 
-  .contact-mail {
+  .contactMail {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
 
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(md) {
       margin-top: 0.5rem;
       align-items: flex-start;
     }

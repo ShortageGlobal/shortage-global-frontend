@@ -22,7 +22,7 @@ export function Footer() {
             <Link href="/">
               <a className={styles.logo}>
                 <Image
-                  src="/logo/ShortageGlobal-black.png"
+                  src="/images/logo/ShortageGlobal-black.png"
                   alt="ShortageGlobal"
                   layout="fill"
                   priority
@@ -30,10 +30,10 @@ export function Footer() {
               </a>
             </Link>
 
-            <div className={styles['copyright-block']}>{copyrightText}</div>
+            <div className={styles.copyrightBlock}>{copyrightText}</div>
           </Col>
 
-          <Col md="6" className={styles['contact-mail']}>
+          <Col md="6" className={styles.contactMail}>
             <a href="mailto:info@shortage.global">info@shortage.global</a>
           </Col>
         </Row>

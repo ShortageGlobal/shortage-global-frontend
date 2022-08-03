@@ -13,6 +13,7 @@ import {
 } from 'app/store/slices/promoted-products';
 import type { NextPageWithLayout } from 'pages/_app';
 import { useAppSelector } from 'app/hooks';
+import { LandingBanner } from 'components/landing-banner/landing-banner';
 
 const IndexPage: NextPageWithLayout = () => {
   const { organizations } = useAppSelector(selectPromotedOrganizations);
@@ -21,6 +22,7 @@ const IndexPage: NextPageWithLayout = () => {
 
   return (
     <div>
+      <LandingBanner />
       organizations <br />
       {organizations?.map((org) => {
         return ' ' + org.name + ' ';

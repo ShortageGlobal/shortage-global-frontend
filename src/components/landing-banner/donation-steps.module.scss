@@ -1,0 +1,83 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.donationSteps {
+  $step-size: 80px;
+
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  counter-reset: landingStepsCounter;
+
+  > * + * {
+    margin-left: 1.5rem;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    @include media-breakpoint-up(xxl) {
+      flex: unset;
+    }
+  }
+
+  .stepWrap {
+    display: flex;
+    height: $step-size;
+  }
+
+  .stepWrap::before {
+    content: counter(landingStepsCounter);
+    counter-increment: landingStepsCounter;
+    display: flex;
+    flex-shrink: 0;
+    width: $step-size;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+    color: $primary;
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  li:not(:last-child) .stepWrap::after {
+    content: '';
+    display: block;
+    flex-shrink: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: $step-size/2 0 $step-size/2 $step-size/2;
+    border-color: transparent transparent transparent $primary;
+  }
+
+  .stepText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    background-color: $primary;
+
+    @include media-breakpoint-between(lg, xxl) {
+      padding: 1rem;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    flex-direction: column;
+
+    > * + * {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+
+    .stepWrap::after {
+      display: none !important;
+    }
+  }
+}
