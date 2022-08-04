@@ -14,6 +14,7 @@ import {
 import type { NextPageWithLayout } from 'pages/_app';
 import { useAppSelector } from 'app/hooks';
 import { LandingBanner } from 'components/landing-banner/landing-banner';
+import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 
 const IndexPage: NextPageWithLayout = () => {
   const { organizations } = useAppSelector(selectPromotedOrganizations);
@@ -23,11 +24,7 @@ const IndexPage: NextPageWithLayout = () => {
   return (
     <div>
       <LandingBanner />
-      organizations <br />
-      {organizations?.map((org) => {
-        return ' ' + org.name + ' ';
-      })}
-      <br />
+      <PromotedOrganizations organizations={organizations} />
       categories <br />
       {categories?.map((category) => {
         return ' ' + category + ' ';
