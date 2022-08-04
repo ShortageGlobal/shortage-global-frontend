@@ -2,8 +2,8 @@
 
 .header {
   .navbar {
-    background-color: var(--bs-body-bg);
-    border-bottom: 1px solid $border-color;
+    background-color: $header-background;
+    border-bottom: 1px solid $header-border-bottom-color;
 
     .container {
       padding-top: 1.2rem;

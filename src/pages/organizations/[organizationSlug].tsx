@@ -14,28 +14,13 @@ import {
 import type { NextPageWithLayout } from 'pages/_app';
 import { useAppSelector } from 'app/hooks';
 import { LandingBanner } from 'components/landing-banner/landing-banner';
-import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 
-const IndexPage: NextPageWithLayout = () => {
+const OrganizationPage: NextPageWithLayout = () => {
   const { organizations } = useAppSelector(selectPromotedOrganizations);
   const { categories } = useAppSelector(selectPromotedCategories);
   const { products } = useAppSelector(selectPromotedProducts);
 
-  return (
-    <div>
-      <LandingBanner />
-      <PromotedOrganizations organizations={organizations} />
-      categories <br />
-      {categories?.map((category) => {
-        return ' ' + category + ' ';
-      })}
-      <br />
-      products <br />
-      {products?.map((product) => {
-        return ' ' + product.name + ' ';
-      })}
-    </div>
-  );
+  return <div>organization page</div>;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -51,4 +36,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default IndexPage;
+export default OrganizationPage;

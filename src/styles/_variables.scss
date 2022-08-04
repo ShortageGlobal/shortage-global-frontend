@@ -21,3 +21,17 @@ $navbar-toggler-focus-width: 0;
 
 // Header
 $header-height: 82px; // used for padding-top of main container, because header has fixed-top
+$header-background: var(--bs-body-bg);
+$header-border-bottom-color: $border-color;
+
+// Footer
+$footer-background: #f4f6f8;
+
+// Error Page
+$error-page-status-code-border-color: var(--bs-gray-400);
+
+// Donation Steps
+$donation-step-color: $primary;
+
+// Promoted Organizations
+$promoted-organizations-border-color: $dark;

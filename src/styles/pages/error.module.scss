@@ -1,0 +1,41 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.errorPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+
+  .errorMessage {
+    display: flex;
+    text-align: center;
+
+    .statusCode {
+      padding-right: 1rem;
+      margin-right: 1rem;
+      border-right: 1px solid $error-page-status-code-border-color;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: center;
+
+      .statusCode {
+        margin-right: 0;
+        padding-right: 0;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-right: none;
+        border-bottom: 1px solid $error-page-status-code-border-color;
+      }
+    }
+  }
+
+  .homeButton {
+    margin-top: 2rem;
+  }
+}
