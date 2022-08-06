@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
-import { fetchPromotedProducts as fetchPromotedProductsAxios } from 'app/api';
+import {
+  fetchPromotedProducts as fetchPromotedProductsAxios,
+  FetchPromotedProductsParams,
+} from 'app/api';
 import type { ProductPreview } from 'app/api/types';
 
 export const promotedProductsSlice = createSlice({
@@ -51,8 +54,8 @@ export const selectPromotedProducts = (state: AppState) =>
 
 export const fetchPromotedProducts = createAsyncThunk(
   'promotedProducts/fetchPromotedProducts',
-  async () => {
-    const response = await fetchPromotedProductsAxios();
+  async (params: FetchPromotedProductsParams = {}) => {
+    const response = await fetchPromotedProductsAxios(params);
     return response.data;
   }
 );

@@ -10,15 +10,17 @@ export const promotedCategoriesSlice = createSlice({
     categories: null,
     isLoading: false,
     error: null,
+    currentCategory: null,
   } as {
     categories?: Category[];
     isLoading: boolean;
     error?: unknown;
+    currentCategory?: Category;
   },
 
   reducers: {
-    setCategories: (state, action) => {
-      state.categories = action.payload;
+    setCurrentCategory: (state, action) => {
+      state.currentCategory = action.payload;
     },
   },
 
@@ -40,7 +42,7 @@ export const promotedCategoriesSlice = createSlice({
 });
 
 // Actions
-export const { setCategories } = promotedCategoriesSlice.actions;
+export const { setCurrentCategory } = promotedCategoriesSlice.actions;
 
 // Selectors
 export const selectPromotedCategories = (state: AppState) =>

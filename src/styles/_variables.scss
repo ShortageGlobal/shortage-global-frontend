@@ -34,4 +34,7 @@ $error-page-status-code-border-color: var(--bs-gray-400);
 $donation-step-color: $primary;
 
 // Promoted Organizations
-$promoted-organizations-border-color: $dark;
+$promoted-organizations-border-color: var(--bs-dark);
+
+// Category Selector
+$category-selector-subHeader-color: var(--bs-gray-500);

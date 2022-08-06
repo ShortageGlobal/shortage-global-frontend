@@ -34,12 +34,16 @@ export function fetchPromotedCategories({
   });
 }
 
+export type FetchPromotedProductsParams = {
+  category?: Category;
+} & PaginationWithCancelTokenParams;
+
 export function fetchPromotedProducts({
   category = null,
   limit = null,
   offset = null,
   cancelToken = null,
-}: { category?: Category } & PaginationWithCancelTokenParams = {}) {
+}: FetchPromotedProductsParams = {}) {
   return axios.get<PaginatedResponse<ProductPreview>>(
     `${API_ROOT}/api/promoted/products/`,
     {
