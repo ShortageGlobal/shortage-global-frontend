@@ -4,7 +4,7 @@ import {
   fetchPromotedProducts as fetchPromotedProductsAxios,
   FetchPromotedProductsParams,
 } from 'app/api';
-import type { Category, ProductPreview } from 'app/api/types';
+import type { ProductPreview } from 'app/api/types';
 
 export const promotedProductsSlice = createSlice({
   name: 'promotedProducts',

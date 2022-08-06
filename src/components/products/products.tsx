@@ -1,6 +1,4 @@
 import styles from './products.module.scss';
-import Link from 'next/link';
-import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
 import { SectionHeader } from 'components/section-header/section-header';
 import { CategorySelector } from 'components/products/category-selector/category-selector';
@@ -11,14 +9,12 @@ type ProductsProps = {
   products: ProductPreview[];
   categories: Category[];
   currentCategory?: Category;
-  onCategorySelect: () => void;
 };
 
 export function Products({
   products,
   categories,
   currentCategory,
-  onCategorySelect,
 }: ProductsProps) {
   return (
     <Container>
@@ -31,7 +27,6 @@ export function Products({
             <CategorySelector
               categories={categories}
               currentCategory={currentCategory}
-              onCategorySelect={onCategorySelect}
             />
             <br />
             products <br />

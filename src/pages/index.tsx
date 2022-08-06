@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { wrapper } from 'app/store';
 import { useAppSelector } from 'app/hooks';
 import { fetchPromotedOrganizations } from 'app/store/slices/promoted-organizations';
