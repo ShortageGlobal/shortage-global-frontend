@@ -19,17 +19,15 @@ export function CategorySelector({
 }: CategorySelectorProps) {
   const categoriesLinks = useMemo(() => {
     return [
-      null,
-      ...(PRODUCT_CATEGORY_LIST as Category[]).filter((category) =>
-        categories.includes(category)
-      ),
-    ].map((category) => {
-      const categoryDetails =
-        PRODUCT_CATEGORY_DETAILS[category] || PRODUCT_CATEGORY_ALL;
+      PRODUCT_CATEGORY_ALL,
+      ...(PRODUCT_CATEGORY_LIST as Category[])
+        .filter((category) => categories.includes(category))
+        .map((category) => PRODUCT_CATEGORY_DETAILS[category]),
+    ].map((categoryDetails) => {
       return {
         ...categoryDetails,
-        categoryQuery: category,
-        isActive: category === currentCategory,
+        categoryQuery: categoryDetails.category,
+        isActive: categoryDetails.category === currentCategory,
       };
     });
   }, [categories, currentCategory]);
