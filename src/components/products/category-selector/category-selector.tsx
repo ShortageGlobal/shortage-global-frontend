@@ -34,7 +34,7 @@ export function CategorySelector({
 
   return (
     <div className={styles.categorySelector}>
-      <h5 className={styles.subHeader}>Select category</h5>
+      <h5 className={styles.subHeader}>Select a category</h5>
       <ul>
         {categoriesLinks?.map((categoryLink) => {
           return (
