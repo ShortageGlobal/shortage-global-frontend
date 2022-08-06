@@ -1,6 +1,7 @@
 import styles from './landing-banner.module.scss';
 import donationStepsStyles from './donation-steps.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
+import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
 
 export function LandingBanner() {
   return (
@@ -27,7 +28,7 @@ export function LandingBanner() {
                   role="button"
                   onClick={() => {
                     document
-                      .getElementById('needed-supplies-header')
+                      .getElementById(NEEDED_SUPPLIES_CONTAINER_ID)
                       ?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >

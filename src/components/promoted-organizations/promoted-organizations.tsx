@@ -2,19 +2,19 @@ import styles from './promoted-organizations.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
-import type { OrganizationPreview } from 'app/api/types';
+import { useAppSelector } from 'app/hooks';
+import { selectPromotedOrganizations } from 'app/store/slices/promoted-organizations';
+import { SectionHeader } from 'components/section-header/section-header';
 
-export function PromotedOrganizations({
-  organizations,
-}: {
-  organizations: OrganizationPreview[];
-}) {
+export function PromotedOrganizations() {
+  const { organizations } = useAppSelector(selectPromotedOrganizations);
+
   return (
     <Container>
       <Row>
         <Col>
           <div className={styles.promotedOrganizations}>
-            <h4 className={styles.heading}>Our Partners</h4>
+            <SectionHeader>Our partners</SectionHeader>
             <ul className={styles.organizationsList}>
               {organizations
                 .filter((organization) => organization.photo)

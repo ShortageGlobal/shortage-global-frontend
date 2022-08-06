@@ -17,9 +17,24 @@ export const PRODUCT_CATEGORY_DETAILS = Object.freeze({
   [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: { name: 'Save Animals' },
 });
 
+export const PRODUCT_CATEGORY_ALL = Object.freeze({
+  name: 'All',
+});
+
+export const PRODUCT_CATEGORY_LIST = Object.freeze([
+  PRODUCT_CATEGORY_KEY.VITAL_GOODS,
+  PRODUCT_CATEGORY_KEY.HEALTHCARE,
+  PRODUCT_CATEGORY_KEY.EDUCATION,
+  PRODUCT_CATEGORY_KEY.BABY_CARE,
+  PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
+]);
+
 // IMPORTANT: the list of package statuses must be synchronized with backend
 export const PACKAGE_STATUS = Object.freeze({
   REGISTERED: 'REGISTERED',
   CONFIRMED: 'CONFIRMED',
   DELIVERED: 'DELIVERED',
 });
+
+// used for scrolling
+export const NEEDED_SUPPLIES_CONTAINER_ID = 'needed-supplies-header';
