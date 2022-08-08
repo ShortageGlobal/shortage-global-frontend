@@ -40,6 +40,11 @@ export function ProductCard({ product, organizationSlug }: ProductCardProps) {
               <p className={classNames(styles.price, 'text-truncate')}>
                 {product.price}
               </p>
+              <p
+                className={classNames(styles.requestedAmount, 'text-truncate')}
+              >
+                {product.requested_amount} items requested
+              </p>
             </Card.Text>
 
             <span
