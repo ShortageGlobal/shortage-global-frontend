@@ -48,6 +48,7 @@ export const { setCurrentCategory } = promotedCategoriesSlice.actions;
 export const selectPromotedCategories = (state: AppState) =>
   state.promotedCategories;
 
+// API calls
 export const fetchPromotedCategories = createAsyncThunk(
   'promotedCategories/fetchPromotedCategories',
   async () => {
@@ -56,4 +57,5 @@ export const fetchPromotedCategories = createAsyncThunk(
   }
 );
 
+// Reducer
 export const promotedCategoriesReducer = promotedCategoriesSlice.reducer;

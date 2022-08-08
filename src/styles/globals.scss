@@ -19,4 +19,8 @@ body {
     padding-top: $header-height;
     flex-shrink: 0;
   }
+
+  .btn-primary {
+    color: $primary-button-color;
+  }
 }

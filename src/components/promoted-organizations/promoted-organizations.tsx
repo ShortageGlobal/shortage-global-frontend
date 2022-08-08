@@ -21,7 +21,12 @@ export function PromotedOrganizations() {
                 .map((organization) => {
                   return (
                     <li key={organization.slug}>
-                      <Link href={`/organizations/${organization.slug}/`}>
+                      <Link
+                        href={{
+                          pathname: '/organizations/[organizationSlug]',
+                          query: { organizationSlug: organization.slug },
+                        }}
+                      >
                         <a className={styles.organizationLink}>
                           <Image
                             src={organization.photo}

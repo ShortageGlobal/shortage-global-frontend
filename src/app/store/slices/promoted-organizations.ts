@@ -49,6 +49,7 @@ export const { setOrganizations } = promotedOrganizationsSlice.actions;
 export const selectPromotedOrganizations = (state: AppState) =>
   state.promotedOrganizations;
 
+// API calls
 export const fetchPromotedOrganizations = createAsyncThunk(
   'promotedOrganizations/fetchPromotedOrganizations',
   async () => {
@@ -57,4 +58,5 @@ export const fetchPromotedOrganizations = createAsyncThunk(
   }
 );
 
+// Reducer
 export const promotedOrganizationsReducer = promotedOrganizationsSlice.reducer;

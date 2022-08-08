@@ -1,6 +1,7 @@
 @import 'bootstrap/scss/functions';
 
 $primary: #00b657;
+$border-radius: 0;
 
 @import 'bootstrap/scss/variables';
 
@@ -8,6 +9,7 @@ $primary: #00b657;
 $font-family-base: Jost, $font-family-sans-serif;
 $link-decoration: none;
 $link-hover-decoration: underline;
+$primary-button-color: $white;
 
 // Navbar
 $navbar-light-toggler-border-color: transparent;
@@ -38,3 +40,12 @@ $promoted-organizations-border-color: var(--bs-dark);
 
 // Category Selector
 $category-selector-subHeader-color: var(--bs-gray-500);
+
+// Card
+$card-bg: $footer-background;
+$card-border-width: 0px;
+
+// Product Card
+$product-card-image-border-color: var(--bs-dark);
+$product-card-image-background-color: var(--bs-body-bg);
+$product-card-color: var(--bs-body-color);

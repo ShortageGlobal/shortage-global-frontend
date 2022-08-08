@@ -1,6 +1,7 @@
 import 'styles/globals.scss';
 
 import type { ReactElement, ReactNode } from 'react';
+import SSRProvider from 'react-bootstrap/SSRProvider';
 import Head from 'next/head';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
@@ -35,7 +36,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      {getLayout(<Component {...pageProps} />)}
+      <SSRProvider>{getLayout(<Component {...pageProps} />)}</SSRProvider>
     </>
   );
 }

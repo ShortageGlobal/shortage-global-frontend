@@ -4,48 +4,50 @@ import { useMemo } from 'react';
 import {
   PRODUCT_CATEGORY_LIST,
   PRODUCT_CATEGORY_DETAILS,
-  PRODUCT_CATEGORY_ALL,
+  PRODUCT_CATEGORY_ALL_KEY,
 } from 'app/constants';
 import type { Category } from 'app/api/types';
 
 type CategorySelectorProps = {
   categories: Category[];
   currentCategory?: Category;
+  onCategoryChange: (category: Category) => void;
 };
 
 export function CategorySelector({
   categories,
   currentCategory,
+  onCategoryChange,
 }: CategorySelectorProps) {
-  const categoriesLinks = useMemo(() => {
-    return [
-      PRODUCT_CATEGORY_ALL,
-      ...(PRODUCT_CATEGORY_LIST as Category[])
-        .filter((category) => categories.includes(category))
-        .map((category) => PRODUCT_CATEGORY_DETAILS[category]),
-    ].map((categoryDetails) => {
-      return {
-        ...categoryDetails,
-        categoryQuery: categoryDetails.category,
-        isActive: categoryDetails.category === currentCategory,
-      };
-    });
+  const categoriesDetails = useMemo(() => {
+    return (PRODUCT_CATEGORY_LIST as Category[])
+      .filter(
+        (category) =>
+          categories.includes(category) || category === PRODUCT_CATEGORY_ALL_KEY
+      )
+      .map((category) => PRODUCT_CATEGORY_DETAILS[category]);
   }, [categories, currentCategory]);
 
   return (
     <div className={styles.categorySelector}>
       <h5 className={styles.subHeader}>Select a category</h5>
       <ul>
-        {categoriesLinks?.map((categoryLink) => {
+        {categoriesDetails.map((categoryDetails) => {
+          const isActive = categoryDetails.key === currentCategory;
           return (
-            <li key={categoryLink.name}>
+            <li key={categoryDetails.name}>
               <Link
-                href={{ query: { category: categoryLink.categoryQuery } }}
-                scroll={false}
-                replace
+                href={{
+                  query: { category: categoryDetails.queryFilter },
+                }}
               >
-                <a>
-                  {categoryLink.name} {categoryLink.isActive ? '<<<' : ''}
+                <a
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onCategoryChange(categoryDetails.key as Category);
+                  }}
+                >
+                  {categoryDetails.name} {isActive ? '<<<' : ''}
                 </a>
               </Link>
             </li>

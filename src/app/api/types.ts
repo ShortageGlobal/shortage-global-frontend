@@ -1,12 +1,18 @@
 import type { CancelTokenSource } from 'axios';
-import { PRODUCT_CATEGORY_KEY, PACKAGE_STATUS } from 'app/constants';
+import {
+  PRODUCT_CATEGORY_KEY,
+  PRODUCT_CATEGORY_ALL_KEY,
+  PACKAGE_STATUS,
+} from 'app/constants';
 
 export type Limit = number;
 export type Offset = number;
 export type Slug = string;
 
-export type CategoryKey = keyof typeof PRODUCT_CATEGORY_KEY;
-export type Category = typeof PRODUCT_CATEGORY_KEY[CategoryKey];
+type CategoryKey = keyof typeof PRODUCT_CATEGORY_KEY;
+export type Category =
+  | typeof PRODUCT_CATEGORY_KEY[CategoryKey]
+  | typeof PRODUCT_CATEGORY_ALL_KEY;
 
 export type PackageStatusKey = keyof typeof PACKAGE_STATUS;
 export type PackageStatus = typeof PACKAGE_STATUS[PackageStatusKey];
@@ -67,8 +73,8 @@ type ProductBase = {
 
 export type ProductPreview = ProductBase & {
   position?: number;
-  organization_name: string;
-  organization_slug: Slug;
+  organization_name?: string;
+  organization_slug?: Slug;
 };
 
 export type Product = ProductBase & {

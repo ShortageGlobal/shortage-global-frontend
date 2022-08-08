@@ -25,6 +25,9 @@ export const promotedProductsSlice = createSlice({
     setProducts: (state, action) => {
       state.products = action.payload;
     },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
 
   extraReducers(builder) {
@@ -46,12 +49,13 @@ export const promotedProductsSlice = createSlice({
 });
 
 // Actions
-export const { setProducts } = promotedProductsSlice.actions;
+export const { setProducts, setIsLoading } = promotedProductsSlice.actions;
 
 // Selectors
 export const selectPromotedProducts = (state: AppState) =>
   state.promotedProducts;
 
+// API calls
 export const fetchPromotedProducts = createAsyncThunk(
   'promotedProducts/fetchPromotedProducts',
   async (params: FetchPromotedProductsParams = {}) => {
@@ -60,4 +64,5 @@ export const fetchPromotedProducts = createAsyncThunk(
   }
 );
 
+// Reducer
 export const promotedProductsReducer = promotedProductsSlice.reducer;

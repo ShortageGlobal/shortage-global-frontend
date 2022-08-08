@@ -6,11 +6,13 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { searchReducer } from 'app/store/slices/search';
 import { promotedOrganizationsReducer } from 'app/store/slices/promoted-organizations';
 import { promotedCategoriesReducer } from 'app/store/slices/promoted-categories';
 import { promotedProductsReducer } from 'app/store/slices/promoted-products';
 
 const combinedReducer = combineReducers({
+  search: searchReducer,
   promotedOrganizations: promotedOrganizationsReducer,
   promotedCategories: promotedCategoriesReducer,
   promotedProducts: promotedProductsReducer,
