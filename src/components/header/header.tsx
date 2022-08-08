@@ -1,11 +1,41 @@
 import styles from './header.module.scss';
+import { useCallback } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
 import { User, Package } from 'react-feather';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { selectSearch, setSearchQuery } from 'app/store/slices/search';
 import { ActiveLink } from 'components/active-link/active-link';
 
 export function Header() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { searchQuery } = useAppSelector(selectSearch);
+
+  const handleSearchQueryChange = useCallback(
+    (e) => {
+      const newSearchQuery = e.target.value;
+
+      // change "search" query parameter
+      router.replace(
+        {
+          pathname: router.pathname,
+          query: {
+            ...router.query,
+            search: newSearchQuery,
+          },
+        },
+        undefined,
+        { shallow: true } // do not run getServerSideProps
+      );
+
+      dispatch(setSearchQuery(newSearchQuery));
+    },
+    [router]
+  );
+
   return (
     <header className={styles.header}>
       <Navbar expand="lg" fixed="top" className={styles.navbar}>
@@ -27,8 +57,17 @@ export function Header() {
             className={styles.navbarCollapse}
             id="header-navbar-nav"
           >
-            <Form>
-              <Form.Control type="search" placeholder="Search" />
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchQueryChange}
+              />
             </Form>
 
             <Nav>

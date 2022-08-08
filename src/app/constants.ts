@@ -9,35 +9,43 @@ export const PRODUCT_CATEGORY_KEY = Object.freeze({
   SAVE_ANIMALS: 'SAVE_ANIMALS',
 });
 
+export const PRODUCT_CATEGORY_ALL_KEY = '_ALL_';
+
 export const PRODUCT_CATEGORY_DETAILS = Object.freeze({
+  [PRODUCT_CATEGORY_ALL_KEY]: {
+    key: PRODUCT_CATEGORY_ALL_KEY,
+    queryFilter: '',
+    name: 'All',
+  },
   [PRODUCT_CATEGORY_KEY.VITAL_GOODS]: {
-    category: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
+    key: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
+    queryFilter: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
     name: 'Vital Goods',
   },
   [PRODUCT_CATEGORY_KEY.HEALTHCARE]: {
-    category: PRODUCT_CATEGORY_KEY.HEALTHCARE,
+    key: PRODUCT_CATEGORY_KEY.HEALTHCARE,
+    queryFilter: PRODUCT_CATEGORY_KEY.HEALTHCARE,
     name: 'Healthcare',
   },
   [PRODUCT_CATEGORY_KEY.EDUCATION]: {
-    category: PRODUCT_CATEGORY_KEY.EDUCATION,
+    key: PRODUCT_CATEGORY_KEY.EDUCATION,
+    queryFilter: PRODUCT_CATEGORY_KEY.EDUCATION,
     name: 'Education',
   },
   [PRODUCT_CATEGORY_KEY.BABY_CARE]: {
-    category: PRODUCT_CATEGORY_KEY.BABY_CARE,
+    key: PRODUCT_CATEGORY_KEY.BABY_CARE,
+    queryFilter: PRODUCT_CATEGORY_KEY.BABY_CARE,
     name: 'Baby Care',
   },
   [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: {
-    category: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
+    key: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
+    queryFilter: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
     name: 'Save Animals',
   },
 });
 
-export const PRODUCT_CATEGORY_ALL = Object.freeze({
-  category: null,
-  name: 'All',
-});
-
 export const PRODUCT_CATEGORY_LIST = Object.freeze([
+  PRODUCT_CATEGORY_ALL_KEY,
   PRODUCT_CATEGORY_KEY.VITAL_GOODS,
   PRODUCT_CATEGORY_KEY.HEALTHCARE,
   PRODUCT_CATEGORY_KEY.EDUCATION,

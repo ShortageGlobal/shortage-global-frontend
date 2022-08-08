@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ROOT } from 'app/constants';
+import { API_ROOT, PRODUCT_CATEGORY_ALL_KEY } from 'app/constants';
 import type {
   CancelTokenParams,
   PaginationWithCancelTokenParams,
@@ -36,10 +36,12 @@ export function fetchPromotedCategories({
 
 export type FetchPromotedProductsParams = {
   category?: Category;
+  search?: string;
 } & PaginationWithCancelTokenParams;
 
 export function fetchPromotedProducts({
   category = null,
+  search = null,
   limit = null,
   offset = null,
   cancelToken = null,
@@ -48,7 +50,8 @@ export function fetchPromotedProducts({
     `${API_ROOT}/api/promoted/products/`,
     {
       params: {
-        category,
+        category: category !== PRODUCT_CATEGORY_ALL_KEY ? category : null,
+        search: search.trim() !== '' ? search : null,
         limit,
         offset,
       },
