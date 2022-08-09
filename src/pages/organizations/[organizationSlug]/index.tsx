@@ -1,3 +1,4 @@
+import Head from 'next/head';
 // import { wrapper } from 'app/store';
 // import {
 //   fetchOrganization,
@@ -9,7 +10,14 @@ import type { NextPageWithLayout } from 'pages/_app';
 // import { useAppSelector } from 'app/hooks';
 
 const OrganizationPage: NextPageWithLayout = () => {
-  return <div>organization page</div>;
+  return (
+    <>
+      <Head>
+        <title>Organization | ShortageGlobal</title>
+      </Head>
+      <div>organization page</div>
+    </>
+  );
 };
 
 // export const getServerSideProps = wrapper.getServerSideProps(

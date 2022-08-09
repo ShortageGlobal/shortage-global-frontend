@@ -19,7 +19,9 @@ const Error = ({ statusCode }: { statusCode: number }) => {
   return (
     <>
       <Head>
-        <title>{statusCode ? `${statusCode}: ${title}` : title}</title>
+        <title>
+          {statusCode ? `${statusCode}: ${title}` : title} | ShortageGlobal
+        </title>
       </Head>
       <div className={styles.errorPage}>
         <div className={styles.errorMessage}>
