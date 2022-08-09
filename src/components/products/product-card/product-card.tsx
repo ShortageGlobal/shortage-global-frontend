@@ -7,58 +7,82 @@ import type { ProductPreview, Slug } from 'app/api/types';
 
 type ProductCardProps = {
   product: ProductPreview;
-  organizationSlug: Slug;
+  organizationSlug?: Slug;
+  organizationName?: string;
 };
 
-export function ProductCard({ product, organizationSlug }: ProductCardProps) {
+export function ProductCard({
+  product,
+  organizationSlug,
+  organizationName,
+}: ProductCardProps) {
   return (
-    <Link
-      href={{
-        pathname: '/organizations/[organizationSlug]/products/[productSlug]',
-        query: { organizationSlug, productSlug: product.slug },
-      }}
-    >
-      <a
-        className={styles.productCard}
-        title={`Check details of ${product.name}`}
+    <Card className={styles.productCard}>
+      {/* 
+        Link cannot contain another link, so we have this workaround
+        See: https://stackoverflow.com/a/46707009/1065780 
+      */}
+      <Link
+        href={{
+          pathname: '/organizations/[organizationSlug]/products/[productSlug]',
+          query: { organizationSlug, productSlug: product.slug },
+        }}
       >
-        <Card>
-          <div className={styles.imageContainer}>
-            <Image
-              src={product.photo}
-              alt={product.name}
-              layout="fill"
-              objectFit="contain"
-            />
+        <a className={styles.productLinkOverlay}></a>
+      </Link>
+
+      <div className={styles.cardImage}>
+        <Image
+          src={product.photo}
+          alt={product.name}
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
+
+      <Card.Body className={styles.cardBody}>
+        <Card.Title className={classNames(styles.cardTitle, 'text-truncate')}>
+          {product.name}
+        </Card.Title>
+
+        <Card.Text as="div" className={styles.cardText}>
+          {/* price */}
+          <div className={classNames(styles.price, 'text-truncate')}>
+            {product.price}
           </div>
-          <Card.Body>
-            <Card.Title className={classNames(styles.title, 'text-truncate')}>
-              {product.name}
-            </Card.Title>
 
-            <Card.Text as="div">
-              <p className={classNames(styles.price, 'text-truncate')}>
-                {product.price}
-              </p>
-              <p
-                className={classNames(styles.requestedAmount, 'text-truncate')}
+          {/* requested amount */}
+          <div className={classNames(styles.requestedAmount, 'text-truncate')}>
+            {product.requested_amount} items requested
+          </div>
+
+          {/* organization */}
+          {organizationSlug && organizationName ? (
+            <div className="text-truncate">
+              by{' '}
+              <Link
+                href={{
+                  pathname: '/organizations/[organizationSlug]',
+                  query: { organizationSlug },
+                }}
               >
-                {product.requested_amount} items requested
-              </p>
-            </Card.Text>
+                <a className={styles.organizationLink}>{organizationName}</a>
+              </Link>
+            </div>
+          ) : null}
+        </Card.Text>
 
-            <span
-              className={classNames(
-                'btn',
-                'btn-primary',
-                styles.checkDetailsButton
-              )}
-            >
-              Check details
-            </span>
-          </Card.Body>
-        </Card>
-      </a>
-    </Link>
+        {/* Check details "button" */}
+        <span
+          className={classNames(
+            'btn',
+            'btn-primary',
+            styles.checkDetailsButton
+          )}
+        >
+          Check details
+        </span>
+      </Card.Body>
+    </Card>
   );
 }

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { wrapper } from 'app/store';
 import { fetchPromotedOrganizations } from 'app/store/slices/promoted-organizations';
 import {
@@ -16,6 +17,9 @@ import { PromotedProducts } from 'components/promoted-products/promoted-products
 const IndexPage: NextPageWithLayout = () => {
   return (
     <>
+      <Head>
+        <title>ShortageGlobal | Donate tangible goods</title>
+      </Head>
       <LandingBanner />
       <PromotedOrganizations />
       <PromotedProducts />

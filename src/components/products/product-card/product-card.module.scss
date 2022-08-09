@@ -1,38 +1,64 @@
 @import 'styles/variables';
 
 .productCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: var(--bs-gutter-x);
   color: $product-card-color;
+  text-align: center;
 
   &:hover {
     color: $product-card-color;
-    text-decoration: none;
 
-    .title {
-      text-decoration: underline;
-    }
-
-    .checkDetailsButton {
-    }
+    background-color: darken($card-bg, 5%);
   }
 
-  .imageContainer {
+  .productLinkOverlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  .cardImage {
     position: relative;
     height: 200px;
     border: 1px solid $product-card-image-border-color;
     background-color: $product-card-image-background-color;
+    z-index: 1;
   }
 
-  .title {
-    text-align: center;
+  .cardBody {
+    position: relative;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .cardText {
+    margin-bottom: 1rem;
+    color: $product-card-secondary-color;
+  }
+
+  .cardTitle {
     font-size: 1.15rem;
+    margin-bottom: 0;
   }
 
   .price {
-    text-align: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+
+  .organizationLink {
+    pointer-events: all;
+    color: $product-card-organization-link-color;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .checkDetailsButton {
