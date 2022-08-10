@@ -1,0 +1,11 @@
+@import 'styles/_variables';
+
+.globalNotification {
+  height: $global-notification-height;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: $global-notification-background-color;
+}

@@ -28,7 +28,10 @@ export function ProductCard({
           query: { organizationSlug, productSlug: product.slug },
         }}
       >
-        <a className={styles.productLinkOverlay}></a>
+        <a
+          className={styles.productLinkOverlay}
+          aria-label="Visit product page"
+        ></a>
       </Link>
 
       <div className={styles.cardImage}>

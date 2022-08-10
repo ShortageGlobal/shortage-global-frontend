@@ -2,6 +2,8 @@
 
 .header {
   .navbar {
+    display: flex;
+    flex-direction: column;
     background-color: $header-background;
     border-bottom: 1px solid $header-border-bottom-color;
 

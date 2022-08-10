@@ -7,7 +7,7 @@ import {
 } from 'app/store/slices/promoted-categories';
 import { fetchPromotedProducts } from 'app/store/slices/promoted-products';
 import { setSearchQuery } from 'app/store/slices/search';
-import { LandingBanner } from 'components/landing-banner/landing-banner';
+import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { Category } from 'app/api/types';
@@ -20,7 +20,7 @@ const IndexPage: NextPageWithLayout = () => {
       <Head>
         <title>ShortageGlobal | Donate tangible goods</title>
       </Head>
-      <LandingBanner />
+      <PromoBanner />
       <PromotedOrganizations />
       <PromotedProducts />
     </>
