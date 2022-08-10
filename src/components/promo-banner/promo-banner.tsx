@@ -1,11 +1,11 @@
-import styles from './landing-banner.module.scss';
-import donationStepsStyles from './donation-steps.module.scss';
+import styles from './promo-banner.module.scss';
+import donationStepsStyles from 'components/donation-steps/donation-steps.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
 
-export function LandingBanner() {
+export function PromoBanner() {
   return (
-    <Container className={styles.landingBanner}>
+    <Container className={styles.promoBanner}>
       <Row>
         <Col>
           <div className={styles.backgroundContainer}>

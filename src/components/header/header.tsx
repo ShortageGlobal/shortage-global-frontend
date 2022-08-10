@@ -8,6 +8,7 @@ import { User, Package } from 'react-feather';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectSearch, setSearchQuery } from 'app/store/slices/search';
 import { ActiveLink } from 'components/active-link/active-link';
+import { GlobalNotification } from 'components/global-notification/global-notification';
 
 export function Header() {
   const router = useRouter();
@@ -39,6 +40,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <Navbar expand="lg" fixed="top" className={styles.navbar}>
+        <GlobalNotification />
         <Container className={styles.container}>
           <Link href="/" passHref>
             <Navbar.Brand className={styles.navbarBrand}>
