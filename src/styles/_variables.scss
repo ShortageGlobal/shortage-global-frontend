@@ -46,6 +46,8 @@ $promoted-organizations-border-color: var(--bs-dark);
 
 // Category Selector
 $category-selector-subHeader-color: var(--bs-gray-500);
+$category-selector-color: var(--bs-body-color);
+$category-selector-color-active: $primary;
 
 // Card
 $card-bg: $footer-background;

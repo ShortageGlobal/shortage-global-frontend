@@ -12,12 +12,11 @@
     padding: 3.5rem;
     background-image: url('/images/banner_bg.png');
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: top right;
     background-size: cover;
 
     @include media-breakpoint-down(lg) {
       padding: 2.5rem;
-      background-position: 70% bottom;
     }
   }
 
