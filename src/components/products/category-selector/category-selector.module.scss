@@ -11,4 +11,39 @@
     font-size: 1.2rem;
     color: $category-selector-subHeader-color;
   }
+
+  .categoryList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    margin: 0 auto 2rem;
+    list-style: none;
+  }
+
+  .categoryLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 2rem;
+    width: 100px;
+    text-align: center;
+    color: $category-selector-color;
+
+    &.active {
+      color: $category-selector-color-active;
+      text-decoration: none;
+    }
+
+    .categoryLinkImage {
+      position: relative;
+      width: 60px;
+      height: 60px;
+    }
+
+    .hidden {
+      visibility: hidden;
+    }
+  }
 }

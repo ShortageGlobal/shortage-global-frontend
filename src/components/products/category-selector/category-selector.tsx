@@ -1,5 +1,7 @@
 import styles from './category-selector.module.scss';
 import Link from 'next/link';
+import Image from 'next/image';
+import classNames from 'classnames';
 import { useMemo } from 'react';
 import {
   PRODUCT_CATEGORY_LIST,
@@ -31,7 +33,7 @@ export function CategorySelector({
   return (
     <div className={styles.categorySelector}>
       <h5 className={styles.subHeader}>Select a category</h5>
-      <ul>
+      <ul className={styles.categoryList}>
         {categoriesDetails.map((categoryDetails) => {
           const isActive = categoryDetails.key === currentCategory;
           return (
@@ -42,12 +44,27 @@ export function CategorySelector({
                 }}
               >
                 <a
+                  className={classNames(styles.categoryLink, {
+                    [styles.active]: isActive,
+                  })}
                   onClick={(e) => {
                     e.preventDefault();
                     onCategoryChange(categoryDetails.key as Category);
                   }}
                 >
-                  {categoryDetails.name} {isActive ? '<<<' : ''}
+                  <span className={styles.categoryLinkImage}>
+                    <Image
+                      className={classNames({ [styles.hidden]: isActive })}
+                      src={categoryDetails.img}
+                      layout="fill"
+                    />
+                    <Image
+                      className={classNames({ [styles.hidden]: !isActive })}
+                      src={categoryDetails.imgActive}
+                      layout="fill"
+                    />
+                  </span>
+                  {categoryDetails.name}
                 </a>
               </Link>
             </li>

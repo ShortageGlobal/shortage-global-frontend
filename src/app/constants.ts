@@ -16,31 +16,43 @@ export const PRODUCT_CATEGORY_DETAILS = Object.freeze({
     key: PRODUCT_CATEGORY_ALL_KEY,
     queryFilter: '',
     name: 'All',
+    img: '/images/categories/supply_category_all_.svg',
+    imgActive: '/images/categories/supply_category_all_selected.svg',
   },
   [PRODUCT_CATEGORY_KEY.VITAL_GOODS]: {
     key: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
     queryFilter: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
     name: 'Vital Goods',
+    img: '/images/categories/supply_category_vital_.svg',
+    imgActive: '/images/categories/supply_category_vital_selected.svg',
   },
   [PRODUCT_CATEGORY_KEY.HEALTHCARE]: {
     key: PRODUCT_CATEGORY_KEY.HEALTHCARE,
     queryFilter: PRODUCT_CATEGORY_KEY.HEALTHCARE,
     name: 'Healthcare',
+    img: '/images/categories/supply_category_health_.svg',
+    imgActive: '/images/categories/supply_category_health_selected.svg',
   },
   [PRODUCT_CATEGORY_KEY.EDUCATION]: {
     key: PRODUCT_CATEGORY_KEY.EDUCATION,
     queryFilter: PRODUCT_CATEGORY_KEY.EDUCATION,
     name: 'Education',
+    img: '/images/categories/supply_category_education_.svg',
+    imgActive: '/images/categories/supply_category_education_selected.svg',
   },
   [PRODUCT_CATEGORY_KEY.BABY_CARE]: {
     key: PRODUCT_CATEGORY_KEY.BABY_CARE,
     queryFilter: PRODUCT_CATEGORY_KEY.BABY_CARE,
     name: 'Baby Care',
+    img: '/images/categories/supply_category_all_.svg',
+    imgActive: '/images/categories/supply_category_all_selected.svg',
   },
   [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: {
     key: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
     queryFilter: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
     name: 'Save Animals',
+    img: '/images/categories/supply_category_animals_.svg',
+    imgActive: '/images/categories/supply_category_animals_selected.svg',
   },
 });
 
