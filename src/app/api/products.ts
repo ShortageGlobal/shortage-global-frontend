@@ -34,11 +34,13 @@ export function fetchProducts({
   );
 }
 
+export type FetchProductParams = ProductSlugParams;
+
 export function fetchProduct({
   organizationSlug,
   productSlug,
   cancelToken = null,
-}: ProductSlugParams) {
+}: FetchProductParams) {
   return axios.get<Product>(
     `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/`,
     { cancelToken: cancelToken?.token }

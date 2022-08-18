@@ -29,6 +29,12 @@
     border: 1px solid $product-card-image-border-color;
     background-color: $product-card-image-background-color;
     z-index: 1;
+
+    .highDemandBadge {
+      position: absolute;
+      top: -1px;
+      left: -1px;
+    }
   }
 
   .cardBody {

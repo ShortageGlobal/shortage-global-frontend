@@ -10,12 +10,14 @@ import { searchReducer } from 'app/store/slices/search';
 import { promotedOrganizationsReducer } from 'app/store/slices/promoted-organizations';
 import { promotedCategoriesReducer } from 'app/store/slices/promoted-categories';
 import { promotedProductsReducer } from 'app/store/slices/promoted-products';
+import { productReducer } from 'app/store/slices/product';
 
 const combinedReducer = combineReducers({
   search: searchReducer,
   promotedOrganizations: promotedOrganizationsReducer,
   promotedCategories: promotedCategoriesReducer,
   promotedProducts: promotedProductsReducer,
+  product: productReducer,
 });
 
 const reducer = (
