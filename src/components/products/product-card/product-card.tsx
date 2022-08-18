@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import classNames from 'classnames';
+import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
 import type { ProductPreview, Slug } from 'app/api/types';
 
 type ProductCardProps = {
@@ -41,6 +42,9 @@ export function ProductCard({
           layout="fill"
           objectFit="contain"
         />
+        {product.top_priority ? (
+          <HighDemandBadge className={styles.highDemandBadge} />
+        ) : null}
       </div>
 
       <Card.Body className={styles.cardBody}>
