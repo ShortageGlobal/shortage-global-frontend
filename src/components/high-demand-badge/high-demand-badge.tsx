@@ -2,7 +2,11 @@ import styles from './high-demand-badge.module.scss';
 import Badge from 'react-bootstrap/Badge';
 import classNames from 'classnames';
 
-export function HighDemandBadge({ className }) {
+type Props = {
+  className?: 'string';
+};
+
+export function HighDemandBadge({ className }: Props) {
   return (
     <Badge
       className={classNames(styles.highDemandBadge, className)}

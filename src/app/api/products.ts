@@ -47,6 +47,8 @@ export function fetchProduct({
   );
 }
 
+export type FetchOnlineStoresParams = ProductSlugParams;
+
 export function fetchOnlineStores({
   organizationSlug,
   productSlug,

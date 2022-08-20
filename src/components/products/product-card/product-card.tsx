@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import classNames from 'classnames';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
+import { formatPrice } from 'app/helpers';
 import type { ProductPreview, Slug } from 'app/api/types';
 
 type ProductCardProps = {
@@ -55,7 +56,7 @@ export function ProductCard({
         <Card.Text as="div" className={styles.cardText}>
           {/* price */}
           <div className={classNames(styles.price, 'text-truncate')}>
-            {product.price}
+            {formatPrice(product.price)}
           </div>
 
           {/* requested amount */}

@@ -44,8 +44,8 @@ export const PRODUCT_CATEGORY_DETAILS = Object.freeze({
     key: PRODUCT_CATEGORY_KEY.BABY_CARE,
     queryFilter: PRODUCT_CATEGORY_KEY.BABY_CARE,
     name: 'Baby Care',
-    img: '/images/categories/supply_category_all_.svg',
-    imgActive: '/images/categories/supply_category_all_selected.svg',
+    img: '/images/categories/supply_category_baby_.svg',
+    imgActive: '/images/categories/supply_category_baby_selected.svg',
   },
   [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: {
     key: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
