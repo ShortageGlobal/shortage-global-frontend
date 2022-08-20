@@ -3,7 +3,7 @@ import Badge from 'react-bootstrap/Badge';
 import classNames from 'classnames';
 
 type Props = {
-  className?: 'string';
+  className?: string;
 };
 
 export function HighDemandBadge({ className }: Props) {

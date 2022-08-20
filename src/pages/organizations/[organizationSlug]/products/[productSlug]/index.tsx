@@ -9,15 +9,15 @@ import { fetchProduct } from 'app/store/slices/product';
 import { fetchInstructions } from 'app/store/slices/instructions';
 import { fetchOnlineStores } from 'app/store/slices/online-stores';
 import { selectProduct } from 'app/store/slices/product';
-import { selectInstructions } from 'app/store/slices/instructions';
-import { selectOnlineStores } from 'app/store/slices/online-stores';
+// import { selectInstructions } from 'app/store/slices/instructions';
+// import { selectOnlineStores } from 'app/store/slices/online-stores';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ProductPage: NextPageWithLayout = () => {
   const { product } = useAppSelector(selectProduct);
-  const { instructions } = useAppSelector(selectInstructions);
-  const { onlineStores } = useAppSelector(selectOnlineStores);
+  // const { instructions } = useAppSelector(selectInstructions);
+  // const { onlineStores } = useAppSelector(selectOnlineStores);
 
   return (
     <>
