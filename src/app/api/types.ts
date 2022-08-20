@@ -69,12 +69,11 @@ type ProductBase = {
   price?: string;
   requested_amount: number;
   top_priority: boolean;
+  organization: OrganizationPreview;
 };
 
 export type ProductPreview = ProductBase & {
   position?: number;
-  organization_name?: string;
-  organization_slug?: Slug;
 };
 
 export type Product = ProductBase & {

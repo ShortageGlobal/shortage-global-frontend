@@ -47,8 +47,8 @@ export function Products({
         <Row xl={5} lg={4} md={3} sm={2}>
           {products?.map((product) => {
             // only promoted products have "organization_slug" and "organization_name" property
-            const organizationSlug = product.organization_slug || null;
-            const organizationName = product.organization_name || null;
+            const organizationSlug = product.organization.slug || null;
+            const organizationName = product.organization.name || null;
             const key = `${organizationSlug}-${product.slug}`;
             return (
               <Col key={key}>

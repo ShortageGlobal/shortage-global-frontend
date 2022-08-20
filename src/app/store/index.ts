@@ -11,6 +11,8 @@ import { promotedOrganizationsReducer } from 'app/store/slices/promoted-organiza
 import { promotedCategoriesReducer } from 'app/store/slices/promoted-categories';
 import { promotedProductsReducer } from 'app/store/slices/promoted-products';
 import { productReducer } from 'app/store/slices/product';
+import { instructionsReducer } from 'app/store/slices/instructions';
+import { onlineStoresReducer } from 'app/store/slices/online-stores';
 
 const combinedReducer = combineReducers({
   search: searchReducer,
@@ -18,6 +20,8 @@ const combinedReducer = combineReducers({
   promotedCategories: promotedCategoriesReducer,
   promotedProducts: promotedProductsReducer,
   product: productReducer,
+  instructions: instructionsReducer,
+  onlineStores: onlineStoresReducer,
 });
 
 const reducer = (
