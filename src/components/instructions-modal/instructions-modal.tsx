@@ -17,9 +17,7 @@ export function InstructionsModal({
   onHide,
   onConfirm,
 }: InstructionsModalProps) {
-  const [selectedInstruction, setSelectedInstruction] = useState(
-    instructions?.[0]
-  );
+  const [selectedInstruction] = useState(instructions?.[0]);
 
   return (
     <Modal
