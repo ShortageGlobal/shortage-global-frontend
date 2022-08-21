@@ -64,3 +64,13 @@ $product-card-organization-link-color: $primary;
 
 // Badge
 $badge-border-color: var(--bs-dark);
+
+// Modal
+$modal-content-border-radius: 0;
+$modal-content-border-width: 0;
+$modal-header-border-width: 0;
+$modal-footer-border-width: 0;
+
+// Instructions Modal
+$instructions-modal-blockquote-background-color: var(--bs-gray-100);
+$instructions-modal-blockquote-border-color: $border-color;
