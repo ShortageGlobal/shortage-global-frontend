@@ -19,8 +19,27 @@ body {
     padding-top: $header-height;
     flex-shrink: 0;
   }
+}
 
-  .btn-primary {
+.btn-primary {
+  &,
+  &:hover,
+  &:active,
+  &:focus {
     color: $primary-button-color;
+  }
+}
+
+.modal-dialog {
+  word-break: break-word;
+
+  .modal-header {
+    padding: 2rem 2rem 0rem;
+  }
+  .modal-body {
+    padding: 2rem;
+  }
+  .modal-footer {
+    padding: 0rem 2rem 2rem;
   }
 }

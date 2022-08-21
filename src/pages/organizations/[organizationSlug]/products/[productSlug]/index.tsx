@@ -1,4 +1,5 @@
 import styles from 'styles/pages/product.module.scss';
+import { useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -9,15 +10,40 @@ import { fetchProduct } from 'app/store/slices/product';
 import { fetchInstructions } from 'app/store/slices/instructions';
 import { fetchOnlineStores } from 'app/store/slices/online-stores';
 import { selectProduct } from 'app/store/slices/product';
-// import { selectInstructions } from 'app/store/slices/instructions';
-// import { selectOnlineStores } from 'app/store/slices/online-stores';
+import { selectInstructions } from 'app/store/slices/instructions';
+import { selectOnlineStores } from 'app/store/slices/online-stores';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
+import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import type { NextPageWithLayout } from 'pages/_app';
+import { OnlineStoresModal } from 'components/online-stores-modal/online-stores-modal';
 
 const ProductPage: NextPageWithLayout = () => {
   const { product } = useAppSelector(selectProduct);
-  // const { instructions } = useAppSelector(selectInstructions);
-  // const { onlineStores } = useAppSelector(selectOnlineStores);
+  const { instructions } = useAppSelector(selectInstructions);
+  const { onlineStores } = useAppSelector(selectOnlineStores);
+
+  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
+  const [showOnlineStoresModal, setShowOnlineStoresModal] = useState(false);
+
+  const handleShowInstructionsModal = useCallback(() => {
+    setShowInstructionsModal(true);
+  }, []);
+
+  const handleHideInstructionsModal = useCallback(() => {
+    setShowInstructionsModal(false);
+  }, []);
+
+  const handleAddProduct = useCallback(() => {
+    setShowInstructionsModal(false);
+  }, []);
+
+  const handleShowOnlineStoresModal = useCallback(() => {
+    setShowOnlineStoresModal(true);
+  }, []);
+
+  const handleHideOnlineStoresModal = useCallback(() => {
+    setShowOnlineStoresModal(false);
+  }, []);
 
   return (
     <>
@@ -68,17 +94,36 @@ const ProductPage: NextPageWithLayout = () => {
               </div>
             </div>
 
-            {/* Order and deliver */}
-            <div className={styles.orderSection}>
-              <h5>Order and deliver in a few clicks</h5>
+            {onlineStores.length > 0 ? (
+              /* Has online stores */
+              <div className={styles.orderSection}>
+                <h5>Order and deliver in a few clicks</h5>
 
-              <div className={styles.buttonsGroup}>
-                <Button size="lg">I want to order</Button>
-                <Button size="lg" variant="outline-dark">
-                  I want to send
-                </Button>
+                <div className={styles.buttonsGroup}>
+                  <Button size="lg" onClick={handleShowOnlineStoresModal}>
+                    I want to order
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline-dark"
+                    onClick={handleShowInstructionsModal}
+                  >
+                    I want to send
+                  </Button>
+                </div>
               </div>
-            </div>
+            ) : (
+              /* No online stores  */
+              <div className={styles.orderSection}>
+                <h5>Found items in your area?</h5>
+
+                <div className={styles.buttonsGroup}>
+                  <Button size="lg" onClick={handleShowInstructionsModal}>
+                    Check delivery instructions
+                  </Button>
+                </div>
+              </div>
+            )}
           </Col>
         </Row>
 
@@ -103,6 +148,19 @@ const ProductPage: NextPageWithLayout = () => {
           </Col>
         </Row>
       </Container>
+
+      <InstructionsModal
+        show={showInstructionsModal}
+        instructions={instructions}
+        onHide={handleHideInstructionsModal}
+        onConfirm={handleAddProduct}
+      />
+
+      <OnlineStoresModal
+        show={showOnlineStoresModal}
+        onlineStores={onlineStores}
+        onHide={handleHideOnlineStoresModal}
+      />
     </>
   );
 };
