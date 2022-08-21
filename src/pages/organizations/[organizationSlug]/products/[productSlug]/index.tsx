@@ -149,18 +149,22 @@ const ProductPage: NextPageWithLayout = () => {
         </Row>
       </Container>
 
-      <InstructionsModal
-        show={showInstructionsModal}
-        instructions={instructions}
-        onHide={handleHideInstructionsModal}
-        onConfirm={handleAddProduct}
-      />
+      {instructions?.length > 0 ? (
+        <InstructionsModal
+          show={showInstructionsModal}
+          instructions={instructions}
+          onHide={handleHideInstructionsModal}
+          onConfirm={handleAddProduct}
+        />
+      ) : null}
 
-      <OnlineStoresModal
-        show={showOnlineStoresModal}
-        onlineStores={onlineStores}
-        onHide={handleHideOnlineStoresModal}
-      />
+      {onlineStores?.length > 0 ? (
+        <OnlineStoresModal
+          show={showOnlineStoresModal}
+          onlineStores={onlineStores}
+          onHide={handleHideOnlineStoresModal}
+        />
+      ) : null}
     </>
   );
 };
