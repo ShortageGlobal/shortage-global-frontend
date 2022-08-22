@@ -1,5 +1,5 @@
 import styles from 'styles/pages/product.module.scss';
-import { useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -12,6 +12,12 @@ import { fetchOnlineStores } from 'app/store/slices/online-stores';
 import { selectProduct } from 'app/store/slices/product';
 import { selectInstructions } from 'app/store/slices/instructions';
 import { selectOnlineStores } from 'app/store/slices/online-stores';
+import {
+  Breadcrumbs,
+  getHomeCrumb,
+  getOrganizationCrumb,
+  getProductCrumb,
+} from 'components/breadcrumbs/breadcrumbs';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -21,6 +27,22 @@ const ProductPage: NextPageWithLayout = () => {
   const { product } = useAppSelector(selectProduct);
   const { instructions } = useAppSelector(selectInstructions);
   const { onlineStores } = useAppSelector(selectOnlineStores);
+
+  const breadcrumbs = useMemo(() => {
+    return [
+      getHomeCrumb(),
+      getOrganizationCrumb({
+        organizationSlug: product.organization.slug,
+        organizationName: product.organization.name,
+      }),
+      getProductCrumb({
+        organizationSlug: product.organization.slug,
+        productSlug: product.slug,
+        productName: product.name,
+        isActive: true,
+      }),
+    ];
+  }, [product]);
 
   const [showInstructionsModal, setShowInstructionsModal] = useState(false);
   const [showOnlineStoresModal, setShowOnlineStoresModal] = useState(false);
@@ -51,7 +73,12 @@ const ProductPage: NextPageWithLayout = () => {
         <title>{product.name} | ShortageGlobal</title>
       </Head>
 
-      <Container>
+      <Container className={styles.product}>
+        <Row>
+          <Col>
+            <Breadcrumbs items={breadcrumbs} />
+          </Col>
+        </Row>
         <Row>
           {/* Photo */}
           <Col md={6} className={styles.photoContainer}>

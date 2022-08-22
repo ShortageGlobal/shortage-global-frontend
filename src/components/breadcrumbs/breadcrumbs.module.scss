@@ -1,0 +1,10 @@
+@import 'styles/_variables';
+
+.breadcrumb {
+  flex-wrap: nowrap;
+  margin: 1.5rem 0;
+
+  .link {
+    color: $breadcrumbs-link-color;
+  }
+}
