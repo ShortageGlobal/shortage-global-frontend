@@ -7,10 +7,12 @@ import type {
   Instruction,
 } from 'app/api/types';
 
+export type FetchOrganizationParams = OrganizationSlugParams;
+
 export function fetchOrganization({
   organizationSlug,
   cancelToken = null,
-}: OrganizationSlugParams) {
+}: FetchOrganizationParams) {
   return axios.get<Organization>(
     `${API_ROOT}/api/organizations/${organizationSlug}/`,
     { cancelToken: cancelToken?.token }
