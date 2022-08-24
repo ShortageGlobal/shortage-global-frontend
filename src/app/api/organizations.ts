@@ -8,13 +8,12 @@ import type {
 } from 'app/api/types';
 
 export type FetchOrganizationParams = OrganizationSlugParams;
-
 export function fetchOrganization({
   organizationSlug,
   cancelToken = null,
 }: FetchOrganizationParams) {
   return axios.get<Organization>(
-    `${API_ROOT}/api/organizations/${organizationSlug}/`,
+    encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/`),
     { cancelToken: cancelToken?.token }
   );
 }
@@ -24,19 +23,20 @@ export function fetchCategories({
   cancelToken = null,
 }: OrganizationSlugParams) {
   return axios.get<Category[]>(
-    `${API_ROOT}/api/organizations/${organizationSlug}/categories/`,
+    encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/categories/`),
     { cancelToken: cancelToken?.token }
   );
 }
 
 export type FetchInstructionsParams = OrganizationSlugParams;
-
 export function fetchInstructions({
   organizationSlug,
   cancelToken = null,
 }: OrganizationSlugParams) {
   return axios.get<Instruction[]>(
-    `${API_ROOT}/api/organizations/${organizationSlug}/instructions/`,
+    encodeURI(
+      `${API_ROOT}/api/organizations/${organizationSlug}/instructions/`
+    ),
     { cancelToken: cancelToken?.token }
   );
 }

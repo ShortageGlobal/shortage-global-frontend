@@ -4,7 +4,8 @@ import {
   fetchPromotedProducts as fetchPromotedProductsAxios,
   FetchPromotedProductsParams,
 } from 'app/api';
-import type { ProductPreview } from 'app/api/types';
+import { serizalizeAxiosError } from 'app/helpers';
+import type { AxiosSerializedError, ProductPreview } from 'app/api/types';
 
 export const promotedProductsSlice = createSlice({
   name: 'promotedProducts',
@@ -18,7 +19,7 @@ export const promotedProductsSlice = createSlice({
     products?: ProductPreview[];
     count?: number;
     isLoading: boolean;
-    error?: unknown;
+    error?: AxiosSerializedError;
   },
 
   reducers: {
@@ -43,7 +44,7 @@ export const promotedProductsSlice = createSlice({
       })
       .addCase(fetchPromotedProducts.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.payload as AxiosSerializedError;
       });
   },
 });
@@ -58,9 +59,13 @@ export const selectPromotedProducts = (state: AppState) =>
 // API calls
 export const fetchPromotedProducts = createAsyncThunk(
   'promotedProducts/fetchPromotedProducts',
-  async (params: FetchPromotedProductsParams = {}) => {
-    const response = await fetchPromotedProductsAxios(params);
-    return response.data;
+  async (params: FetchPromotedProductsParams = {}, { rejectWithValue }) => {
+    try {
+      const response = await fetchPromotedProductsAxios(params);
+      return response.data;
+    } catch (rejection) {
+      return rejectWithValue(serizalizeAxiosError(rejection));
+    }
   }
 );
 

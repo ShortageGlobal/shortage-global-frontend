@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
 import { fetchPromotedCategories as fetchPromotedCategoriesAxios } from 'app/api';
-import type { Category } from 'app/api/types';
+import { serizalizeAxiosError } from 'app/helpers';
+import type { AxiosSerializedError, Category } from 'app/api/types';
 
 export const promotedCategoriesSlice = createSlice({
   name: 'promotedCategories',
@@ -14,7 +15,7 @@ export const promotedCategoriesSlice = createSlice({
   } as {
     categories?: Category[];
     isLoading: boolean;
-    error?: unknown;
+    error?: AxiosSerializedError;
     currentCategory?: Category;
   },
 
@@ -36,7 +37,7 @@ export const promotedCategoriesSlice = createSlice({
       })
       .addCase(fetchPromotedCategories.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.payload as AxiosSerializedError;
       });
   },
 });
@@ -51,9 +52,13 @@ export const selectPromotedCategories = (state: AppState) =>
 // API calls
 export const fetchPromotedCategories = createAsyncThunk(
   'promotedCategories/fetchPromotedCategories',
-  async () => {
-    const response = await fetchPromotedCategoriesAxios();
-    return response.data;
+  async (_params, { rejectWithValue }) => {
+    try {
+      const response = await fetchPromotedCategoriesAxios();
+      return response.data;
+    } catch (rejection) {
+      return rejectWithValue(serizalizeAxiosError(rejection));
+    }
   }
 );
 

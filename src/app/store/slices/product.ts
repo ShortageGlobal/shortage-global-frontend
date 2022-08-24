@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
 import { fetchProduct as fetchProductAxios, FetchProductParams } from 'app/api';
-import type { Product } from 'app/api/types';
+import { serizalizeAxiosError } from 'app/helpers';
+import type { AxiosSerializedError, Product } from 'app/api/types';
 
 export const productSlice = createSlice({
   name: 'product',
@@ -13,7 +14,7 @@ export const productSlice = createSlice({
   } as {
     product?: Product;
     isLoading: boolean;
-    error?: unknown;
+    error?: AxiosSerializedError;
   },
 
   reducers: {},
@@ -30,7 +31,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProduct.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.payload as AxiosSerializedError;
       });
   },
 });
@@ -41,9 +42,13 @@ export const selectProduct = (state: AppState) => state.product;
 // API calls
 export const fetchProduct = createAsyncThunk(
   'product/fetchProduct',
-  async (params: FetchProductParams) => {
-    const response = await fetchProductAxios(params);
-    return response.data;
+  async (params: FetchProductParams, { rejectWithValue }) => {
+    try {
+      const response = await fetchProductAxios(params);
+      return response.data;
+    } catch (rejection) {
+      return rejectWithValue(serizalizeAxiosError(rejection));
+    }
   }
 );
 
