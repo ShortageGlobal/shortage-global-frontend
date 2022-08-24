@@ -19,7 +19,7 @@ export function createPackage({
   cancelToken = null,
 }: PackageCreationParams) {
   return axios.post(
-    `${API_ROOT}/api/organizations/${organizationSlug}/packages/`,
+    encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/packages/`),
     {
       full_name: fullName,
       email,
@@ -40,7 +40,9 @@ export function fetchPackageStatus({
   cancelToken = null,
 }: { packageId: string } & OrganizationSlugParams) {
   return axios.get<PackageStatusResponse>(
-    `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/`,
+    encodeURI(
+      `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/`
+    ),
     { cancelToken: cancelToken?.token }
   );
 }

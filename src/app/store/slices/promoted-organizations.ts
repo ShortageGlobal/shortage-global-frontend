@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
 import { fetchPromotedOrganizations as fetchPromotedOrganizationsAxios } from 'app/api';
-import type { OrganizationPreview } from 'app/api/types';
+import { serizalizeAxiosError } from 'app/helpers';
+import type { AxiosSerializedError, OrganizationPreview } from 'app/api/types';
 
 export const promotedOrganizationsSlice = createSlice({
   name: 'promotedOrganizations',
@@ -15,7 +16,7 @@ export const promotedOrganizationsSlice = createSlice({
     organizations?: OrganizationPreview[];
     count?: number;
     isLoading: boolean;
-    error?: unknown;
+    error?: AxiosSerializedError;
   },
 
   reducers: {
@@ -37,7 +38,7 @@ export const promotedOrganizationsSlice = createSlice({
       })
       .addCase(fetchPromotedOrganizations.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.payload as AxiosSerializedError;
       });
   },
 });
@@ -52,9 +53,13 @@ export const selectPromotedOrganizations = (state: AppState) =>
 // API calls
 export const fetchPromotedOrganizations = createAsyncThunk(
   'promotedOrganizations/fetchPromotedOrganizations',
-  async () => {
-    const response = await fetchPromotedOrganizationsAxios();
-    return response.data;
+  async (_params, { rejectWithValue }) => {
+    try {
+      const response = await fetchPromotedOrganizationsAxios();
+      return response.data;
+    } catch (rejection) {
+      return rejectWithValue(serizalizeAxiosError(rejection));
+    }
   }
 );
 

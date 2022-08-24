@@ -4,7 +4,8 @@ import {
   fetchOnlineStores as fetchOnlineStoresAxios,
   FetchOnlineStoresParams,
 } from 'app/api';
-import type { OnlineStore } from 'app/api/types';
+import { serizalizeAxiosError } from 'app/helpers';
+import type { AxiosSerializedError, OnlineStore } from 'app/api/types';
 
 export const onlineStoresSlice = createSlice({
   name: 'onlineStores',
@@ -16,7 +17,7 @@ export const onlineStoresSlice = createSlice({
   } as {
     onlineStores?: OnlineStore[];
     isLoading: boolean;
-    error?: unknown;
+    error?: AxiosSerializedError;
   },
 
   reducers: {},
@@ -33,7 +34,7 @@ export const onlineStoresSlice = createSlice({
       })
       .addCase(fetchOnlineStores.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.payload as AxiosSerializedError;
       });
   },
 });
@@ -44,9 +45,13 @@ export const selectOnlineStores = (state: AppState) => state.onlineStores;
 // API calls
 export const fetchOnlineStores = createAsyncThunk(
   'onlineStores/fetchOnlineStores',
-  async (params: FetchOnlineStoresParams) => {
-    const response = await fetchOnlineStoresAxios(params);
-    return response.data;
+  async (params: FetchOnlineStoresParams, { rejectWithValue }) => {
+    try {
+      const response = await fetchOnlineStoresAxios(params);
+      return response.data;
+    } catch (rejection) {
+      return rejectWithValue(serizalizeAxiosError(rejection));
+    }
   }
 );
 

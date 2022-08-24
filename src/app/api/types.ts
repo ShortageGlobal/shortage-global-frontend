@@ -5,6 +5,15 @@ import {
   PACKAGE_STATUS,
 } from 'app/constants';
 
+export type AxiosSerializedError = {
+  status: number;
+  statusText: string;
+  code: string;
+  message: string;
+  data: unknown;
+  headers: unknown;
+};
+
 export type Limit = number;
 export type Offset = number;
 export type Slug = string;

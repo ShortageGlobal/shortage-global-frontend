@@ -22,7 +22,7 @@ export function fetchProducts({
 } & OrganizationSlugParams &
   PaginationParams) {
   return axios.get<PaginatedResponse<ProductPreview>>(
-    `${API_ROOT}/api/organizations/${organizationSlug}/products/`,
+    encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/products/`),
     {
       params: {
         category,
@@ -35,27 +35,29 @@ export function fetchProducts({
 }
 
 export type FetchProductParams = ProductSlugParams;
-
 export function fetchProduct({
   organizationSlug,
   productSlug,
   cancelToken = null,
 }: FetchProductParams) {
   return axios.get<Product>(
-    `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/`,
+    encodeURI(
+      `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/`
+    ),
     { cancelToken: cancelToken?.token }
   );
 }
 
 export type FetchOnlineStoresParams = ProductSlugParams;
-
 export function fetchOnlineStores({
   organizationSlug,
   productSlug,
   cancelToken = null,
 }: ProductSlugParams) {
   return axios.get<OnlineStore[]>(
-    `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/online-stores/`,
+    encodeURI(
+      `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/online-stores/`
+    ),
     { cancelToken: cancelToken?.token }
   );
 }

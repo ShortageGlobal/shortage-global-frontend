@@ -15,7 +15,7 @@ export function fetchPromotedOrganizations({
   cancelToken = null,
 }: PaginationWithCancelTokenParams = {}) {
   return axios.get<PaginatedResponse<OrganizationPreview>>(
-    `${API_ROOT}/api/promoted/organizations/`,
+    encodeURI(`${API_ROOT}/api/promoted/organizations/`),
     {
       params: {
         limit,
@@ -29,16 +29,18 @@ export function fetchPromotedOrganizations({
 export function fetchPromotedCategories({
   cancelToken = null,
 }: CancelTokenParams = {}) {
-  return axios.get<Category[]>(`${API_ROOT}/api/promoted/categories/`, {
-    cancelToken: cancelToken?.token,
-  });
+  return axios.get<Category[]>(
+    encodeURI(`${API_ROOT}/api/promoted/categories/`),
+    {
+      cancelToken: cancelToken?.token,
+    }
+  );
 }
 
 export type FetchPromotedProductsParams = {
   category?: Category;
   search?: string;
 } & PaginationWithCancelTokenParams;
-
 export function fetchPromotedProducts({
   category = null,
   search = null,
@@ -47,7 +49,7 @@ export function fetchPromotedProducts({
   cancelToken = null,
 }: FetchPromotedProductsParams = {}) {
   return axios.get<PaginatedResponse<ProductPreview>>(
-    `${API_ROOT}/api/promoted/products/`,
+    encodeURI(`${API_ROOT}/api/promoted/products/`),
     {
       params: {
         category: category !== PRODUCT_CATEGORY_ALL_KEY ? category : null,

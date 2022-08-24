@@ -4,7 +4,8 @@ import {
   fetchOrganization as fetchOrganizationAxios,
   FetchOrganizationParams,
 } from 'app/api';
-import type { Organization } from 'app/api/types';
+import { serizalizeAxiosError } from 'app/helpers';
+import type { AxiosSerializedError, Organization } from 'app/api/types';
 
 export const organizationSlice = createSlice({
   name: 'organization',
@@ -16,7 +17,7 @@ export const organizationSlice = createSlice({
   } as {
     organization?: Organization;
     isLoading: boolean;
-    error?: unknown;
+    error?: AxiosSerializedError;
   },
 
   reducers: {},
@@ -33,7 +34,7 @@ export const organizationSlice = createSlice({
       })
       .addCase(fetchOrganization.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.payload as AxiosSerializedError;
       });
   },
 });
@@ -44,9 +45,13 @@ export const selectOrganization = (state: AppState) => state.organization;
 // API calls
 export const fetchOrganization = createAsyncThunk(
   'organization/fetchOrganization',
-  async (params: FetchOrganizationParams) => {
-    const response = await fetchOrganizationAxios(params);
-    return response.data;
+  async (params: FetchOrganizationParams, { rejectWithValue }) => {
+    try {
+      const response = await fetchOrganizationAxios(params);
+      return response.data;
+    } catch (rejection) {
+      return rejectWithValue(serizalizeAxiosError(rejection));
+    }
   }
 );
 

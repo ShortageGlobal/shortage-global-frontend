@@ -4,7 +4,8 @@ import {
   fetchInstructions as fetchInstructionsAxios,
   FetchInstructionsParams,
 } from 'app/api';
-import type { Instruction } from 'app/api/types';
+import { serizalizeAxiosError } from 'app/helpers';
+import type { AxiosSerializedError, Instruction } from 'app/api/types';
 
 export const instructionsSlice = createSlice({
   name: 'instructions',
@@ -16,7 +17,7 @@ export const instructionsSlice = createSlice({
   } as {
     instructions?: Instruction[];
     isLoading: boolean;
-    error?: unknown;
+    error?: AxiosSerializedError;
   },
 
   reducers: {},
@@ -33,7 +34,7 @@ export const instructionsSlice = createSlice({
       })
       .addCase(fetchInstructions.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.payload as AxiosSerializedError;
       });
   },
 });
@@ -44,9 +45,13 @@ export const selectInstructions = (state: AppState) => state.instructions;
 // API calls
 export const fetchInstructions = createAsyncThunk(
   'instructions/fetchInstructions',
-  async (params: FetchInstructionsParams) => {
-    const response = await fetchInstructionsAxios(params);
-    return response.data;
+  async (params: FetchInstructionsParams, { rejectWithValue }) => {
+    try {
+      const response = await fetchInstructionsAxios(params);
+      return response.data;
+    } catch (rejection) {
+      return rejectWithValue(serizalizeAxiosError(rejection));
+    }
   }
 );
 

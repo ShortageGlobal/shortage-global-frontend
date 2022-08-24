@@ -207,6 +207,20 @@ export const getServerSideProps = wrapper.getServerSideProps(
       store.dispatch(fetchInstructions({ organizationSlug })),
     ]);
 
+    const { product, onlineStores, instructions } = store.getState();
+
+    if (
+      [
+        product.error?.status,
+        onlineStores.error?.status,
+        instructions.error?.status,
+      ].includes(404)
+    ) {
+      return {
+        notFound: true,
+      };
+    }
+
     return {
       props: {},
     };
