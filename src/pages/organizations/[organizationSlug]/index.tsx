@@ -58,6 +58,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
       // store.dispatch(fetchProducts()),
     ]);
 
+    const { organization } = store.getState();
+
+    if (organization.error?.status === 404) {
+      return {
+        notFound: true,
+      };
+    }
+
     return {
       props: {},
     };
