@@ -1,6 +1,6 @@
 import styles from './promo-banner.module.scss';
 import donationStepsStyles from 'components/donation-steps/donation-steps.module.scss';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Badge } from 'react-bootstrap';
 import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
 
 export function PromoBanner() {
@@ -18,6 +18,16 @@ export function PromoBanner() {
                 <span className="text-uppercase">goods</span> directly to
                 charity and receive a photo report of delivery where it is
                 needed
+              </p>
+
+              <p className={styles.taxDeductableBadgeContainer}>
+                <Badge
+                  className={styles.taxDeductableBadge}
+                  bg="warning"
+                  text="dark"
+                >
+                  All donations are tax deductible
+                </Badge>
               </p>
             </div>
 
