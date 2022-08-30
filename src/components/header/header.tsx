@@ -1,11 +1,12 @@
 import styles from './header.module.scss';
-import { useCallback } from 'react';
+import { useCallback, useState, useMemo } from 'react';
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
 import { User, Package } from 'react-feather';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
 import { selectSearch, setSearchQuery } from 'app/store/slices/search';
 import { ActiveLink } from 'components/active-link/active-link';
 import { GlobalNotification } from 'components/global-notification/global-notification';
@@ -14,6 +15,21 @@ export function Header() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { searchQuery } = useAppSelector(selectSearch);
+  const [isWindowScrollAtTop, setIsWindowScrollAtTop] = useState(true);
+
+  const { isRootRoute } = useMemo(() => {
+    return {
+      isRootRoute: router.route === '/',
+    };
+  }, [router]);
+
+  useScrollPosition(({ currPos }) => {
+    setIsWindowScrollAtTop(currPos.y === 0);
+  });
+
+  const showNavbarBorder = useMemo(() => {
+    return !isRootRoute || !isWindowScrollAtTop;
+  }, [isRootRoute, isWindowScrollAtTop]);
 
   const handleSearchQueryChange = useCallback(
     (e) => {
@@ -39,7 +55,13 @@ export function Header() {
 
   return (
     <header className={styles.header}>
-      <Navbar expand="lg" fixed="top" className={styles.navbar}>
+      <Navbar
+        expand="lg"
+        fixed="top"
+        className={classNames(styles.navbar, {
+          [styles.navbarWithBorder]: showNavbarBorder,
+        })}
+      >
         <GlobalNotification />
         <Container className={styles.container}>
           <Link href="/" passHref>

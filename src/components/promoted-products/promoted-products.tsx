@@ -33,7 +33,6 @@ export function PromotedProducts() {
 
   const debouncedFetchProducts = useDebouncedCallback(
     ({ category, search }: { category: Category; search: string }) => {
-      console.log('fetch', category, search);
       // fetch products
       const cancelToken = getFetchProductsCancelToken();
       dispatch(fetchPromotedProducts({ category, search, cancelToken }));

@@ -4,19 +4,56 @@
 .promoBanner {
   display: flex;
   flex-direction: column;
-  color: $white;
+  color: $promo-banner-text-color;
 
   .backgroundContainer {
     display: flex;
     flex-direction: column;
+    position: relative;
     padding: 3.5rem;
-    background-image: url('/images/banner_bg.png');
+    background-image: url('/images/promo_banner_bg.png');
     background-repeat: no-repeat;
     background-position: top right;
     background-size: cover;
+    overflow: hidden;
+
+    &::after {
+      content: 'all donations are tax deductible';
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: $promo-tax-deductible-background;
+      padding: 5px 50px;
+      transform: rotate(30deg);
+      transform-origin: 100px 150px;
+      box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 75%);
+      color: $promo-tax-deductible-color;
+    }
+
+    .taxDeductableBadgeContainer {
+      display: none;
+
+      .taxDeductableBadge {
+        border: 1px solid $badge-border-color;
+        color: $promo-tax-deductible-color;
+        background-color: $promo-tax-deductible-background;
+        font-weight: 400;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      &::after {
+        display: none;
+      }
+
+      .taxDeductableBadgeContainer {
+        display: block;
+      }
+    }
 
     @include media-breakpoint-down(lg) {
       padding: 2.5rem;
+      background-image: url('/images/promo_banner_bg_vertical.png');
     }
   }
 
@@ -38,6 +75,7 @@
     font-weight: normal;
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    margin-right: 2rem;
 
     p {
       margin-bottom: 0;
