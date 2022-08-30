@@ -1,18 +1,13 @@
-import {
-  useRef,
-  DependencyList,
-  MutableRefObject,
-  useLayoutEffect,
-} from 'react';
+import { useRef, DependencyList, MutableRefObject, useEffect } from 'react';
 
-type IPosition = {
+type Position = {
   x: number;
   y: number;
 };
 
-type IScrollProps = {
-  prevPos: IPosition;
-  currPos: IPosition;
+type ScrollProps = {
+  prevPos: Position;
+  currPos: Position;
 };
 
 type ElementRef = MutableRefObject<HTMLElement | undefined>;
@@ -56,7 +51,7 @@ const getScrollPosition = ({
 };
 
 export const useScrollPosition = (
-  effect: (props: IScrollProps) => void,
+  effect: (props: ScrollProps) => void,
   deps?: DependencyList,
   element?: ElementRef,
   useWindow?: boolean,
@@ -74,7 +69,7 @@ export const useScrollPosition = (
     throttleTimeout = null;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isBrowser) {
       return undefined;
     }

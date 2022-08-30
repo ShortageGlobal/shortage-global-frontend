@@ -1,5 +1,5 @@
 import styles from './header.module.scss';
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -16,20 +16,33 @@ export function Header() {
   const dispatch = useAppDispatch();
   const { searchQuery } = useAppSelector(selectSearch);
   const [isWindowScrollAtTop, setIsWindowScrollAtTop] = useState(true);
+  const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
 
-  const { isRootRoute } = useMemo(() => {
+  const { isRootRoute, isOrganizationRoute } = useMemo(() => {
+    console.log(router.route);
     return {
       isRootRoute: router.route === '/',
+      isOrganizationRoute: router.route === '/organizations/[organizationSlug]',
     };
   }, [router]);
 
+  // collapse navbar on route change
+  useEffect(() => {
+    setIsNavbarExpanded(false);
+  }, [router]);
+
+  // change isWindowScroll based on the scroll position
   useScrollPosition(({ currPos }) => {
     setIsWindowScrollAtTop(currPos.y === 0);
-  });
+  }, []);
 
   const showNavbarBorder = useMemo(() => {
-    return !isRootRoute || !isWindowScrollAtTop;
-  }, [isRootRoute, isWindowScrollAtTop]);
+    return !isRootRoute || !isWindowScrollAtTop || isNavbarExpanded;
+  }, [isRootRoute, isWindowScrollAtTop, isNavbarExpanded]);
+
+  const shouldShowSearchField = useMemo(() => {
+    return isRootRoute || isOrganizationRoute;
+  }, [isRootRoute, isOrganizationRoute]);
 
   const handleSearchQueryChange = useCallback(
     (e) => {
@@ -53,11 +66,17 @@ export function Header() {
     [router]
   );
 
+  const handleNavbarToggle = useCallback((newIsNavbarExpanded) => {
+    setIsNavbarExpanded(newIsNavbarExpanded);
+  }, []);
+
   return (
     <header className={styles.header}>
       <Navbar
         expand="lg"
         fixed="top"
+        expanded={isNavbarExpanded}
+        onToggle={handleNavbarToggle}
         className={classNames(styles.navbar, {
           [styles.navbarWithBorder]: showNavbarBorder,
         })}
@@ -81,18 +100,20 @@ export function Header() {
             className={styles.navbarCollapse}
             id="header-navbar-nav"
           >
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                value={searchQuery}
-                onChange={handleSearchQueryChange}
-              />
-            </Form>
+            {shouldShowSearchField ? (
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={handleSearchQueryChange}
+                />
+              </Form>
+            ) : null}
 
             <Nav>
               <ActiveLink href="/how-it-works" passHref>
