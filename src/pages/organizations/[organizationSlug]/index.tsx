@@ -3,19 +3,26 @@ import { useMemo } from 'react';
 import Head from 'next/head';
 import { Container, Row, Col } from 'react-bootstrap';
 import { wrapper } from 'app/store';
+import { useAppSelector } from 'app/hooks';
 import {
   fetchOrganization,
   selectOrganization,
 } from 'app/store/slices/organization';
-// import { fetchCategories, selectCategories } from 'app/store/slices/categories';
-// import { fetchProducts, selectProducts } from 'app/store/slices/products';
+import {
+  fetchCategories,
+  setCurrentCategory,
+} from 'app/store/slices/categories';
+import { fetchProducts } from 'app/store/slices/products';
+import { setSearchQuery } from 'app/store/slices/search';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getOrganizationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import { OrganizationProducts } from 'components/organization-products/organization-products';
+import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'app/constants';
+import type { Category } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
-import { useAppSelector } from 'app/hooks';
 
 const OrganizationPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
@@ -44,6 +51,8 @@ const OrganizationPage: NextPageWithLayout = () => {
           </Col>
         </Row>
       </Container>
+
+      <OrganizationProducts />
     </>
   );
 };
@@ -54,8 +63,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     await Promise.all([
       store.dispatch(fetchOrganization({ organizationSlug })),
-      // store.dispatch(fetchCategories()),
-      // store.dispatch(fetchProducts()),
+      store.dispatch(fetchCategories({ organizationSlug })),
     ]);
 
     const { organization } = store.getState();
@@ -65,6 +73,31 @@ export const getServerSideProps = wrapper.getServerSideProps(
         notFound: true,
       };
     }
+
+    // try to extract category from query parameters
+    const { categories } = store.getState().categories;
+    const categoryQuery = context.query.category as Category;
+    const currentCategory = categories.includes(categoryQuery)
+      ? categoryQuery
+      : PRODUCT_CATEGORY_ALL_KEY;
+    store.dispatch(setCurrentCategory(currentCategory));
+
+    // try to extract search from query parameters
+    let search = context.query.search;
+    if (typeof search !== 'string') {
+      search = '';
+    }
+    store.dispatch(setSearchQuery(search));
+
+    // fetch products
+    await store.dispatch(
+      fetchProducts({
+        organizationSlug,
+        category: currentCategory,
+        search,
+        limit: PRODUCTS_PAGE_SIZE,
+      })
+    );
 
     return {
       props: {},

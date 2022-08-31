@@ -6,27 +6,27 @@ import {
   useCancelToken,
   useDidMountEffect,
 } from 'app/hooks';
+import { selectOrganization } from 'app/store/slices/organization';
 import {
   setCurrentCategory,
-  selectPromotedCategories,
-} from 'app/store/slices/promoted-categories';
+  selectCategories,
+} from 'app/store/slices/categories';
 import { selectSearch } from 'app/store/slices/search';
 import {
-  fetchPromotedProducts,
-  selectPromotedProducts,
+  fetchProducts,
+  selectProducts,
   setIsLoading,
-} from 'app/store/slices/promoted-products';
+} from 'app/store/slices/products';
 import { PRODUCTS_PAGE_SIZE } from 'app/constants';
 import { Products } from 'components/products/products';
 import type { Category } from 'app/api/types';
 
-export function PromotedProducts() {
+export function OrganizationProducts() {
   const dispatch = useAppDispatch();
-  const { categories, currentCategory } = useAppSelector(
-    selectPromotedCategories
-  );
+  const { organization } = useAppSelector(selectOrganization);
+  const { categories, currentCategory } = useAppSelector(selectCategories);
   const { searchQuery } = useAppSelector(selectSearch);
-  const { products, count, isLoading } = useAppSelector(selectPromotedProducts);
+  const { products, count, isLoading } = useAppSelector(selectProducts);
   const getFetchProductsCancelToken = useCancelToken();
 
   const debouncedFetchProducts = useDebouncedCallback(
@@ -44,7 +44,14 @@ export function PromotedProducts() {
       // fetch products
       const cancelToken = getFetchProductsCancelToken();
       dispatch(
-        fetchPromotedProducts({ category, search, offset, limit, cancelToken })
+        fetchProducts({
+          organizationSlug: organization.slug,
+          category,
+          search,
+          offset,
+          limit,
+          cancelToken,
+        })
       );
     },
     250
@@ -82,7 +89,7 @@ export function PromotedProducts() {
       isLoading={isLoading}
       categories={categories}
       currentCategory={currentCategory}
-      getOrganizationSlug={(product) => product.organization.slug}
+      getOrganizationSlug={() => organization.slug}
       onCategoryChange={handleCategoryChange}
       onShowMore={handleShowMore}
     />
