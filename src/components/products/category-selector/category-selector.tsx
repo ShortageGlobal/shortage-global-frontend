@@ -1,8 +1,9 @@
 import styles from './category-selector.module.scss';
+import { useMemo, useEffect } from 'react';
+import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import classNames from 'classnames';
-import { useMemo } from 'react';
+import { useRouter } from 'next/router';
 import {
   PRODUCT_CATEGORY_LIST,
   PRODUCT_CATEGORY_DETAILS,
@@ -21,6 +22,9 @@ export function CategorySelector({
   currentCategory,
   onCategoryChange,
 }: CategorySelectorProps) {
+  const router = useRouter();
+
+  // filter out unavailable categories
   const categoriesDetails = useMemo(() => {
     return (PRODUCT_CATEGORY_LIST as Category[])
       .filter(
@@ -30,19 +34,50 @@ export function CategorySelector({
       .map((category) => PRODUCT_CATEGORY_DETAILS[category]);
   }, [categories, currentCategory]);
 
+  // change "category" query parameter when category changes
+  useEffect(() => {
+    if (
+      router.query.category === currentCategory ||
+      (!router.query.category && currentCategory === PRODUCT_CATEGORY_ALL_KEY)
+    ) {
+      return;
+    }
+
+    const categoryDetails = PRODUCT_CATEGORY_DETAILS[currentCategory];
+
+    // change "category" query parameter
+    const queryParams = { ...router.query };
+    if (currentCategory !== PRODUCT_CATEGORY_ALL_KEY) {
+      queryParams.category = categoryDetails.queryFilter;
+    } else {
+      delete queryParams.category;
+    }
+
+    router.replace(
+      { pathname: router.pathname, query: queryParams },
+      undefined,
+      { shallow: true } // do not run getServerSideProps
+    );
+  }, [router, currentCategory]);
+
   return (
     <div className={styles.categorySelector}>
       <h5 className={styles.subHeader}>Select a category</h5>
       <ul className={styles.categoryList}>
         {categoriesDetails.map((categoryDetails) => {
           const isActive = categoryDetails.key === currentCategory;
+
+          // define "category" query parameter
+          const query = { ...router.query };
+          if (categoryDetails.queryFilter) {
+            query.category = categoryDetails.queryFilter;
+          } else {
+            delete query.category;
+          }
+
           return (
             <li key={categoryDetails.name}>
-              <Link
-                href={{
-                  query: { category: categoryDetails.queryFilter },
-                }}
-              >
+              <Link href={{ query }}>
                 <a
                   className={classNames(styles.categoryLink, {
                     [styles.active]: isActive,

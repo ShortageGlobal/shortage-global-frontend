@@ -4,22 +4,20 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Container, Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { User, Package } from 'react-feather';
-import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
-import { selectSearch, setSearchQuery } from 'app/store/slices/search';
+import { useScrollPosition } from 'app/hooks';
 import { ActiveLink } from 'components/active-link/active-link';
+import { SearchProducts } from 'components/header/search/search';
 import { GlobalNotification } from 'components/global-notification/global-notification';
 
 export function Header() {
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const { searchQuery } = useAppSelector(selectSearch);
   const [isWindowScrollAtTop, setIsWindowScrollAtTop] = useState(true);
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
 
+  // track current route
   const { isRootRoute, isOrganizationRoute } = useMemo(() => {
-    console.log(router.route);
     return {
       isRootRoute: router.route === '/',
       isOrganizationRoute: router.route === '/organizations/[organizationSlug]',
@@ -29,42 +27,22 @@ export function Header() {
   // collapse navbar on route change
   useEffect(() => {
     setIsNavbarExpanded(false);
-  }, [router]);
+  }, [router.route]);
 
   // change isWindowScroll based on the scroll position
   useScrollPosition(({ currPos }) => {
     setIsWindowScrollAtTop(currPos.y === 0);
   }, []);
 
+  // control navbar border visibility
   const showNavbarBorder = useMemo(() => {
     return !isRootRoute || !isWindowScrollAtTop || isNavbarExpanded;
   }, [isRootRoute, isWindowScrollAtTop, isNavbarExpanded]);
 
+  // control search field visibility
   const shouldShowSearchField = useMemo(() => {
     return isRootRoute || isOrganizationRoute;
   }, [isRootRoute, isOrganizationRoute]);
-
-  const handleSearchQueryChange = useCallback(
-    (e) => {
-      const newSearchQuery = e.target.value;
-
-      // change "search" query parameter
-      router.replace(
-        {
-          pathname: router.pathname,
-          query: {
-            ...router.query,
-            search: newSearchQuery,
-          },
-        },
-        undefined,
-        { shallow: true } // do not run getServerSideProps
-      );
-
-      dispatch(setSearchQuery(newSearchQuery));
-    },
-    [router]
-  );
 
   const handleNavbarToggle = useCallback((newIsNavbarExpanded) => {
     setIsNavbarExpanded(newIsNavbarExpanded);
@@ -100,20 +78,7 @@ export function Header() {
             className={styles.navbarCollapse}
             id="header-navbar-nav"
           >
-            {shouldShowSearchField ? (
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={handleSearchQueryChange}
-                />
-              </Form>
-            ) : null}
+            {shouldShowSearchField ? <SearchProducts /> : null}
 
             <Nav>
               <ActiveLink href="/how-it-works" passHref>

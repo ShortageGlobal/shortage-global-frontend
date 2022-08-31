@@ -1,5 +1,8 @@
 import styles from './products.module.scss';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useCallback } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useAppDispatch } from 'app/hooks';
+import { setSearchQuery } from 'app/store/slices/search';
 import { SectionHeader } from 'components/section-header/section-header';
 import { CategorySelector } from 'components/products/category-selector/category-selector';
 import { ProductCard } from 'components/products/product-card/product-card';
@@ -21,6 +24,13 @@ export function Products({
   currentCategory,
   onCategoryChange,
 }: ProductsProps) {
+  const dispatch = useAppDispatch();
+
+  // clear search value
+  const handleSearchClear = useCallback(() => {
+    dispatch(setSearchQuery(''));
+  }, []);
+
   return (
     <div className={styles.products}>
       {/* Header and Category Selector */}
@@ -62,6 +72,26 @@ export function Products({
           })}
         </Row>
       </Container>
+
+      {/* No products match the given query */}
+      {!products?.length ? (
+        <Container>
+          <Row>
+            <Col>
+              <div className={styles.noProductsMessage}>
+                <p>No products match the given query</p>
+                <Button
+                  variant="outline-dark"
+                  disabled={isLoading}
+                  onClick={handleSearchClear}
+                >
+                  Clear search
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      ) : null}
     </div>
   );
 }
