@@ -20,8 +20,6 @@ export function SearchProducts() {
 
   // change "search" query parameter when search value changes
   useEffect(() => {
-    console.log('set search query');
-
     if (
       router.query.search === searchQuery ||
       (!router.query.search && !searchQuery)
