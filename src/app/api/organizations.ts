@@ -18,7 +18,7 @@ export function fetchOrganization({
   );
 }
 
-export type FetchCategoresParams = OrganizationSlugParams;
+export type FetchCategoriesParams = OrganizationSlugParams;
 export function fetchCategories({
   organizationSlug,
   cancelToken = null,

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'app/store';
 import {
   fetchCategories as fetchCategoriesAxios,
-  FetchCategoresParams,
+  FetchCategoriesParams,
 } from 'app/api';
 import { serizalizeAxiosError } from 'app/helpers';
 import type { AxiosSerializedError, Category } from 'app/api/types';
@@ -54,7 +54,7 @@ export const selectCategories = (state: AppState) => state.categories;
 // API calls
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
-  async (params: FetchCategoresParams, { rejectWithValue }) => {
+  async (params: FetchCategoriesParams, { rejectWithValue }) => {
     try {
       const response = await fetchCategoriesAxios(params);
       return response.data;
