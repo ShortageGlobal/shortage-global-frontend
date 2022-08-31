@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import { useDebouncedCallback } from 'use-debounce';
 import {
   useAppDispatch,
@@ -11,7 +10,7 @@ import {
   setCurrentCategory,
   selectPromotedCategories,
 } from 'app/store/slices/promoted-categories';
-import { selectSearch, setSearchQuery } from 'app/store/slices/search';
+import { selectSearch } from 'app/store/slices/search';
 import {
   fetchPromotedProducts,
   selectPromotedProducts,
@@ -19,10 +18,8 @@ import {
 } from 'app/store/slices/promoted-products';
 import { Products } from 'components/products/products';
 import type { Category } from 'app/api/types';
-import { PRODUCT_CATEGORY_DETAILS } from 'app/constants';
 
 export function PromotedProducts() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const { categories, currentCategory } = useAppSelector(
     selectPromotedCategories
@@ -37,9 +34,10 @@ export function PromotedProducts() {
       const cancelToken = getFetchProductsCancelToken();
       dispatch(fetchPromotedProducts({ category, search, cancelToken }));
     },
-    500
+    250
   );
 
+  // fetch products client-side
   useDidMountEffect(() => {
     dispatch(setIsLoading(true));
     debouncedFetchProducts({ category: currentCategory, search: searchQuery });
@@ -49,29 +47,9 @@ export function PromotedProducts() {
   }, [currentCategory, searchQuery]);
 
   // user selected another product category
-  const handleCategoryChange = useCallback(
-    (category: Category) => {
-      const categoryDetails = PRODUCT_CATEGORY_DETAILS[category];
-
-      // change "category" query parameter and clear "search"
-      router.replace(
-        {
-          pathname: router.pathname,
-          query: {
-            ...router.query,
-            category: categoryDetails.queryFilter,
-            search: '',
-          },
-        },
-        undefined,
-        { shallow: true } // do not run getServerSideProps
-      );
-
-      dispatch(setCurrentCategory(category));
-      dispatch(setSearchQuery(''));
-    },
-    [currentCategory, router]
-  );
+  const handleCategoryChange = useCallback((category: Category) => {
+    dispatch(setCurrentCategory(category));
+  }, []);
 
   return (
     <Products
