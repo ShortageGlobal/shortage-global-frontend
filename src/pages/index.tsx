@@ -11,6 +11,7 @@ import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PRODUCT_CATEGORY_ALL_KEY } from 'app/constants';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
+import { PRODUCTS_PAGE_SIZE } from 'app/constants';
 import type { Category } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
@@ -52,7 +53,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     // fetch products
     await store.dispatch(
-      fetchPromotedProducts({ category: currentCategory, search })
+      fetchPromotedProducts({
+        category: currentCategory,
+        search,
+        limit: PRODUCTS_PAGE_SIZE,
+      })
     );
 
     return {

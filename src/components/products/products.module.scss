@@ -4,6 +4,16 @@
   margin-top: 2rem;
   margin-bottom: 3rem;
 
+  .productsContainer {
+    margin-top: 1.2rem;
+    transition: opacity 125ms ease-out;
+  }
+
+  .productsContainerLoading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   .showMoreContainer {
     display: flex;
     justify-content: center;

@@ -66,8 +66,14 @@ export function PromotedProducts() {
 
   // user clicked "Show more"
   const handleShowMore = useCallback(() => {
-    //
-  }, []);
+    dispatch(setIsLoading(true));
+    debouncedFetchProducts({
+      category: currentCategory,
+      search: searchQuery,
+      offset: products.length,
+      limit: PRODUCTS_PAGE_SIZE,
+    });
+  }, [currentCategory, searchQuery, products]);
 
   return (
     <Products
