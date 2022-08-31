@@ -74,3 +74,5 @@ export const PACKAGE_STATUS = Object.freeze({
 
 // used for scrolling
 export const NEEDED_SUPPLIES_CONTAINER_ID = 'needed-supplies-header';
+
+export const PRODUCTS_PAGE_SIZE = 15;

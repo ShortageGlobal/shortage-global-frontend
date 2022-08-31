@@ -37,12 +37,17 @@ export function ProductCard({
       </Link>
 
       <div className={styles.cardImage}>
-        <Image
-          src={product.photo}
-          alt={product.name}
-          layout="fill"
-          objectFit="contain"
-        />
+        {/* photo */}
+        {product.photo ? (
+          <Image
+            src={product.photo}
+            alt={product.name}
+            layout="fill"
+            objectFit="contain"
+          />
+        ) : null}
+
+        {/* top priority */}
         {product.top_priority ? (
           <HighDemandBadge className={styles.highDemandBadge} />
         ) : null}
@@ -56,7 +61,11 @@ export function ProductCard({
         <Card.Text as="div" className={styles.cardText}>
           {/* price */}
           <div className={classNames(styles.price, 'text-truncate')}>
-            {formatPrice(product.price)}
+            {product.price === null ? (
+              <i>Price is not set</i>
+            ) : (
+              formatPrice(product.price)
+            )}
           </div>
 
           {/* requested amount */}
