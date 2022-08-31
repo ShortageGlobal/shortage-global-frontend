@@ -8,6 +8,7 @@ import { CategorySelector } from 'components/products/category-selector/category
 import { ProductCard } from 'components/products/product-card/product-card';
 import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
 import type { ProductPreview, Category } from 'app/api/types';
+import classNames from 'classnames';
 
 type ProductsProps = {
   products: ProductPreview[];
@@ -43,14 +44,16 @@ export function Products({
           <Col>
             <div>
               <SectionHeader id={NEEDED_SUPPLIES_CONTAINER_ID}>
-                Needed supplies {isLoading ? 'LOADING' : ''}
+                Needed supplies
               </SectionHeader>
 
-              <CategorySelector
-                categories={categories}
-                currentCategory={currentCategory}
-                onCategoryChange={onCategoryChange}
-              />
+              {categories?.length > 1 ? (
+                <CategorySelector
+                  categories={categories}
+                  currentCategory={currentCategory}
+                  onCategoryChange={onCategoryChange}
+                />
+              ) : null}
             </div>
           </Col>
         </Row>
@@ -59,7 +62,15 @@ export function Products({
       {/* Products List */}
       {products?.length > 0 ? (
         <Container>
-          <Row xl={5} lg={4} md={3} sm={2}>
+          <Row
+            xl={5}
+            lg={4}
+            md={3}
+            sm={2}
+            className={classNames(styles.productsContainer, {
+              [styles.productsContainerLoading]: isLoading,
+            })}
+          >
             {products?.map((product) => {
               // only promoted products have "organization_slug" and "organization_name" property
               const organizationSlug = product.organization.slug || null;

@@ -39,8 +39,14 @@ export const promotedProductsSlice = createSlice({
       })
       .addCase(fetchPromotedProducts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.products = action.payload.results;
         state.count = action.payload.count;
+        if (action.meta.arg?.offset > 0) {
+          // fetched additional page of products ("Show more")
+          state.products.push(...action.payload.results);
+        } else {
+          // fetched the first page of products (swithced categories, changed search query)
+          state.products = action.payload.results;
+        }
       })
       .addCase(fetchPromotedProducts.rejected, (state, action) => {
         state.isLoading = false;
