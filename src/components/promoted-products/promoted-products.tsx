@@ -16,6 +16,7 @@ import {
   selectPromotedProducts,
   setIsLoading,
 } from 'app/store/slices/promoted-products';
+import { PRODUCTS_PAGE_SIZE } from 'app/constants';
 import { Products } from 'components/products/products';
 import type { Category } from 'app/api/types';
 
@@ -25,14 +26,26 @@ export function PromotedProducts() {
     selectPromotedCategories
   );
   const { searchQuery } = useAppSelector(selectSearch);
-  const { products, isLoading } = useAppSelector(selectPromotedProducts);
+  const { products, count, isLoading } = useAppSelector(selectPromotedProducts);
   const getFetchProductsCancelToken = useCancelToken();
 
   const debouncedFetchProducts = useDebouncedCallback(
-    ({ category, search }: { category: Category; search: string }) => {
+    ({
+      category,
+      search,
+      offset = 0,
+      limit = PRODUCTS_PAGE_SIZE,
+    }: {
+      category: Category;
+      search: string;
+      offset?: number;
+      limit?: number;
+    }) => {
       // fetch products
       const cancelToken = getFetchProductsCancelToken();
-      dispatch(fetchPromotedProducts({ category, search, cancelToken }));
+      dispatch(
+        fetchPromotedProducts({ category, search, offset, limit, cancelToken })
+      );
     },
     250
   );
@@ -51,13 +64,20 @@ export function PromotedProducts() {
     dispatch(setCurrentCategory(category));
   }, []);
 
+  // user clicked "Show more"
+  const handleShowMore = useCallback(() => {
+    //
+  }, []);
+
   return (
     <Products
       products={products}
+      count={count}
       isLoading={isLoading}
       categories={categories}
       currentCategory={currentCategory}
       onCategoryChange={handleCategoryChange}
+      onShowMore={handleShowMore}
     />
   );
 }

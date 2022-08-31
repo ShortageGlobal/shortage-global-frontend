@@ -4,6 +4,12 @@
   margin-top: 2rem;
   margin-bottom: 3rem;
 
+  .showMoreContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .noProductsMessage {
     margin: 2rem;
     text-align: center;

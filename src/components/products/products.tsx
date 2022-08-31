@@ -11,18 +11,22 @@ import type { ProductPreview, Category } from 'app/api/types';
 
 type ProductsProps = {
   products: ProductPreview[];
+  count: number;
   isLoading: boolean;
   categories: Category[];
   currentCategory?: Category;
   onCategoryChange: (category: Category) => void;
+  onShowMore: () => void;
 };
 
 export function Products({
   products,
+  count,
   isLoading,
   categories,
   currentCategory,
   onCategoryChange,
+  onShowMore,
 }: ProductsProps) {
   const dispatch = useAppDispatch();
 
@@ -53,25 +57,42 @@ export function Products({
       </Container>
 
       {/* Products List */}
-      <Container>
-        <Row xl={5} lg={4} md={3} sm={2}>
-          {products?.map((product) => {
-            // only promoted products have "organization_slug" and "organization_name" property
-            const organizationSlug = product.organization.slug || null;
-            const organizationName = product.organization.name || null;
-            const key = `${organizationSlug}-${product.slug}`;
-            return (
-              <Col key={key}>
-                <ProductCard
-                  product={product}
-                  organizationSlug={organizationSlug}
-                  organizationName={organizationName}
-                />
+      {products?.length > 0 ? (
+        <Container>
+          <Row xl={5} lg={4} md={3} sm={2}>
+            {products?.map((product) => {
+              // only promoted products have "organization_slug" and "organization_name" property
+              const organizationSlug = product.organization.slug || null;
+              const organizationName = product.organization.name || null;
+              const key = `${organizationSlug}-${product.slug}`;
+              return (
+                <Col key={key}>
+                  <ProductCard
+                    product={product}
+                    organizationSlug={organizationSlug}
+                    organizationName={organizationName}
+                  />
+                </Col>
+              );
+            })}
+          </Row>
+
+          {products.length < count ? (
+            <Row>
+              <Col className={styles.showMoreContainer}>
+                <Button
+                  size="lg"
+                  variant="outline-dark"
+                  disabled={isLoading}
+                  onClick={onShowMore}
+                >
+                  Show more
+                </Button>
               </Col>
-            );
-          })}
-        </Row>
-      </Container>
+            </Row>
+          ) : null}
+        </Container>
+      ) : null}
 
       {/* No products match the given query */}
       {!products?.length ? (

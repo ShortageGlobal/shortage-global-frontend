@@ -81,13 +81,15 @@ const ProductPage: NextPageWithLayout = () => {
         </Row>
         <Row>
           {/* Photo */}
-          <Col md={6} className={styles.photoContainer}>
-            <img
-              src={product.photo}
-              alt={product.name}
-              className={styles.photo}
-            />
-          </Col>
+          {product.photo ? (
+            <Col md={6} className={styles.photoContainer}>
+              <img
+                src={product.photo}
+                alt={product.name}
+                className={styles.photo}
+              />
+            </Col>
+          ) : null}
 
           {/* Details */}
           <Col md={6} className={styles.details}>
@@ -98,10 +100,14 @@ const ProductPage: NextPageWithLayout = () => {
             {product.top_priority ? <HighDemandBadge /> : null}
 
             {/* Price */}
-            <div>
-              <span className={styles.price}>{formatPrice(product.price)}</span>{' '}
-              <span>retail price</span>
-            </div>
+            {product.price !== null ? (
+              <div>
+                <span className={styles.price}>
+                  {formatPrice(product.price)}
+                </span>{' '}
+                <span>retail price</span>
+              </div>
+            ) : null}
 
             {/* Requested amount */}
             <div>
