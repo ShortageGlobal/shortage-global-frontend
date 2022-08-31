@@ -9,9 +9,8 @@ import { fetchPromotedProducts } from 'app/store/slices/promoted-products';
 import { setSearchQuery } from 'app/store/slices/search';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
-import { PRODUCT_CATEGORY_ALL_KEY } from 'app/constants';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
-import { PRODUCTS_PAGE_SIZE } from 'app/constants';
+import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'app/constants';
 import type { Category } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 

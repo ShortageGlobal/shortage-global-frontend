@@ -8,7 +8,7 @@ import { SectionHeader } from 'components/section-header/section-header';
 import { CategorySelector } from 'components/products/category-selector/category-selector';
 import { ProductCard } from 'components/products/product-card/product-card';
 import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
-import type { ProductPreview, Category } from 'app/api/types';
+import type { Slug, ProductPreview, Category } from 'app/api/types';
 
 type ProductsProps = {
   products: ProductPreview[];
@@ -16,6 +16,7 @@ type ProductsProps = {
   isLoading: boolean;
   categories: Category[];
   currentCategory?: Category;
+  getOrganizationSlug: (product: ProductPreview) => Slug;
   onCategoryChange: (category: Category) => void;
   onShowMore: () => void;
 };
@@ -26,6 +27,7 @@ export function Products({
   isLoading,
   categories,
   currentCategory,
+  getOrganizationSlug,
   onCategoryChange,
   onShowMore,
 }: ProductsProps) {
@@ -73,8 +75,8 @@ export function Products({
           >
             {products?.map((product) => {
               // only promoted products have "organization_slug" and "organization_name" property
-              const organizationSlug = product.organization.slug || null;
-              const organizationName = product.organization.name || null;
+              const organizationSlug = getOrganizationSlug(product);
+              const organizationName = product.organization?.name || null;
               const key = `${organizationSlug}-${product.slug}`;
               return (
                 <Col key={key}>

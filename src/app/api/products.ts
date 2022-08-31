@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ROOT } from 'app/constants';
+import { API_ROOT, PRODUCT_CATEGORY_ALL_KEY } from 'app/constants';
 import type {
   OrganizationSlugParams,
   PaginationParams,
@@ -11,21 +11,24 @@ import type {
   OnlineStore,
 } from 'app/api/types';
 
+export type FetchProductsParams = OrganizationSlugParams & {
+  category?: Category;
+  search?: string;
+} & PaginationParams;
 export function fetchProducts({
   organizationSlug,
   category = null,
+  search = null,
   limit = null,
   offset = null,
   cancelToken = null,
-}: {
-  category?: Category;
-} & OrganizationSlugParams &
-  PaginationParams) {
+}: FetchProductsParams) {
   return axios.get<PaginatedResponse<ProductPreview>>(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/products/`),
     {
       params: {
-        category,
+        category: category !== PRODUCT_CATEGORY_ALL_KEY ? category : null,
+        search: search.trim() !== '' ? search : null,
         limit,
         offset,
       },
