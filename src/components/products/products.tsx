@@ -1,6 +1,7 @@
 import styles from './products.module.scss';
 import { useCallback } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import classNames from 'classnames';
 import { useAppDispatch } from 'app/hooks';
 import { setSearchQuery } from 'app/store/slices/search';
 import { SectionHeader } from 'components/section-header/section-header';
@@ -8,7 +9,6 @@ import { CategorySelector } from 'components/products/category-selector/category
 import { ProductCard } from 'components/products/product-card/product-card';
 import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
 import type { ProductPreview, Category } from 'app/api/types';
-import classNames from 'classnames';
 
 type ProductsProps = {
   products: ProductPreview[];

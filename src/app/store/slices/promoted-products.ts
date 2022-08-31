@@ -44,7 +44,7 @@ export const promotedProductsSlice = createSlice({
           // fetched additional page of products ("Show more")
           state.products.push(...action.payload.results);
         } else {
-          // fetched the first page of products (swithced categories, changed search query)
+          // fetched the first page of products (swithed categories, changed search query)
           state.products = action.payload.results;
         }
       })
