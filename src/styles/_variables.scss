@@ -52,7 +52,9 @@ $promo-tax-deductible-color: var(--bs-body-color);
 $promo-tax-deductible-background: #ffce00;
 
 // Donation Steps
-$donation-step-color: $primary;
+$donation-step-primary-background: $primary;
+$donation-step-dark-background: #000000;
+$donation-step-text-color: #ffffff;
 
 // Promoted Organizations
 $promoted-organizations-border-color: var(--bs-dark);
@@ -85,3 +87,9 @@ $modal-footer-border-width: 0;
 // Instructions Modal
 $instructions-modal-blockquote-background-color: var(--bs-gray-100);
 $instructions-modal-blockquote-border-color: $border-color;
+
+// Organization Details
+$organization-details-background-color: #f4f6f8;
+
+// How it works
+$how-it-works-background-color: #ffce00;

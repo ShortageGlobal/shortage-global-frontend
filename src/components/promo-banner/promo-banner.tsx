@@ -42,22 +42,28 @@ export function PromoBanner() {
                       ?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
-                  <div className={donationStepsStyles.stepText}>
-                    Find supplies
+                  <div className={donationStepsStyles.stepBlock}>
+                    <span className={donationStepsStyles.stepText}>
+                      Find supplies
+                    </span>
                   </div>
                 </div>
               </li>
               <li>
                 <div className={donationStepsStyles.stepWrap}>
-                  <div className={donationStepsStyles.stepText}>
-                    Package & send
+                  <div className={donationStepsStyles.stepBlock}>
+                    <span className={donationStepsStyles.stepText}>
+                      Package & send
+                    </span>
                   </div>
                 </div>
               </li>
               <li>
                 <div className={donationStepsStyles.stepWrap}>
-                  <div className={donationStepsStyles.stepText}>
-                    Enter tracking info
+                  <div className={donationStepsStyles.stepBlock}>
+                    <span className={donationStepsStyles.stepText}>
+                      Enter tracking info
+                    </span>
                   </div>
                 </div>
               </li>
