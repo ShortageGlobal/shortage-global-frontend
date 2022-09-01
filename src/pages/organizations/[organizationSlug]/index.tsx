@@ -19,7 +19,9 @@ import {
   getHomeCrumb,
   getOrganizationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { OrganizationProducts } from 'components/organization-products/organization-products';
+import { OrganizationHowItWorks } from 'components/organization/how-it-works/how-it-works';
+import { OrganizationDetails } from 'components/organization/details/details';
+import { OrganizationProducts } from 'components/organization/products/products';
 import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'app/constants';
 import type { Category } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -52,6 +54,8 @@ const OrganizationPage: NextPageWithLayout = () => {
         </Row>
       </Container>
 
+      <OrganizationDetails />
+      <OrganizationHowItWorks />
       <OrganizationProducts />
     </>
   );

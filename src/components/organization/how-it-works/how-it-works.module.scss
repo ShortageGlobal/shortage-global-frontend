@@ -1,0 +1,51 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.howItWorks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  padding: 2rem 3rem;
+  background-color: $how-it-works-background-color;
+
+  .header {
+    margin-bottom: 0;
+  }
+
+  .centerLgCol {
+    display: flex;
+    align-items: center;
+  }
+
+  .detailsControlCol {
+    justify-content: flex-end;
+  }
+
+  .dropdownToggle {
+    font-weight: 500;
+  }
+
+  .donationSteps {
+    margin-top: 2rem;
+  }
+
+  .donationStepDetails {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .centerLgCol {
+      justify-content: center;
+    }
+
+    .detailsControlCol {
+      margin-top: 1rem;
+    }
+
+    .donationStepDetails {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

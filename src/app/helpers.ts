@@ -20,3 +20,8 @@ export function formatPrice(value) {
         minimumFractionDigits: 2,
       });
 }
+
+// remove http:// or https:// from URL address
+export function stripProtocolFromUrl(url: string) {
+  return url.replace(/^https?:\/\//, '');
+}
