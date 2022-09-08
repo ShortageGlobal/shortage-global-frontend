@@ -40,6 +40,20 @@ export const cartSlice = createSlice({
     hideCartSidebar: (state) => {
       state.isCartSidebarShown = false;
     },
+    updateCartItemQuantity: (state, action) => {
+      const itemToUpdate = state.cart.items.find(
+        (item) => item.uuid === action.payload.item.uuid
+      );
+      if (!itemToUpdate) {
+        return;
+      }
+      itemToUpdate.quantity = action.payload.quantity;
+    },
+    deleteCartItem: (state, action) => {
+      state.cart.items = state.cart.items.filter(
+        (item) => item.uuid !== action.payload.item.uuid
+      );
+    },
   },
 
   extraReducers(builder) {
@@ -87,7 +101,12 @@ export const cartSlice = createSlice({
 });
 
 // Actions
-export const { showCartSidebar, hideCartSidebar } = cartSlice.actions;
+export const {
+  showCartSidebar,
+  hideCartSidebar,
+  updateCartItemQuantity,
+  deleteCartItem,
+} = cartSlice.actions;
 
 // Selectors
 export const selectCart = (state: AppState) => state.cart;

@@ -4,4 +4,19 @@
   .title {
     font-size: 2rem;
   }
+
+  .cartGroup {
+    margin-bottom: 3rem;
+  }
+
+  .cartGroupItems {
+    > * + * {
+      margin-top: 1rem;
+    }
+  }
+
+  .registerPackageButton {
+    margin-top: 2rem;
+    width: 100%;
+  }
 }

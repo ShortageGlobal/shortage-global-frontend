@@ -38,8 +38,12 @@ export function Header() {
 
   // collapse navbar on route change
   useEffect(() => {
-    setIsNavbarExpanded(false);
-  }, [router.route]);
+    const handleComplete = () => setIsNavbarExpanded(false);
+    router.events.on('routeChangeComplete', handleComplete);
+    return () => {
+      router.events.off('routeChangeComplete', handleComplete);
+    };
+  }, [router]);
 
   // change isWindowScroll based on the scroll position
   useScrollPosition(({ currPos }) => {

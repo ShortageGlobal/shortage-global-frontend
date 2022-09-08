@@ -1,4 +1,4 @@
-import type { AxiosSerializedError, Slug, Cart, CartItem } from 'app/api/types';
+import type { AxiosSerializedError, Slug, CartItem } from 'app/api/types';
 
 // format axios error so it could be stored in redux state
 export function serizalizeAxiosError(rejection): AxiosSerializedError {
@@ -29,9 +29,17 @@ export function stripProtocolFromUrl(url: string) {
   return url.replace(/^https?:\/\//, '');
 }
 
-// group a flat cart items list by organization
-export function groupCartItemsByOrganization({ cart }: { cart: Cart }) {
-  return [...cart.items]
+// group a cart items list by organization
+type CartGroup = {
+  organizationName: string;
+  organizationSlug: Slug;
+  items: CartItem[];
+};
+export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
+  if (!items?.length) {
+    return new Map<Slug, CartGroup>();
+  }
+  return [...items]
     .sort((a, b) => {
       if (b.created_at > a.created_at) {
         return 1;
@@ -40,11 +48,16 @@ export function groupCartItemsByOrganization({ cart }: { cart: Cart }) {
     })
     .reduce((groups, item) => {
       const organizationSlug = item.product.organization.slug;
+      const organizationName = item.product.organization.name;
       if (!groups.has(organizationSlug)) {
-        groups.set(organizationSlug, [item]);
+        groups.set(organizationSlug, {
+          organizationSlug,
+          organizationName,
+          items: [item],
+        });
       } else {
-        groups.get(organizationSlug).push(item);
+        groups.get(organizationSlug).items.push(item);
       }
       return groups;
-    }, new Map<Slug, CartItem[]>());
+    }, new Map<Slug, CartGroup>());
 }
