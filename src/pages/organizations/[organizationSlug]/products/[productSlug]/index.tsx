@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { formatPrice } from 'app/helpers';
-import { useAppSelector } from 'app/hooks';
+import { useAppSelector, useCart } from 'app/hooks';
 import { wrapper } from 'app/store';
 import { fetchProduct } from 'app/store/slices/product';
 import { fetchInstructions } from 'app/store/slices/instructions';
@@ -28,6 +28,11 @@ const ProductPage: NextPageWithLayout = () => {
   const { instructions } = useAppSelector(selectInstructions);
   const { onlineStores } = useAppSelector(selectOnlineStores);
 
+  const { checkIsProductInCart, addToCart } = useCart();
+
+  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
+  const [showOnlineStoresModal, setShowOnlineStoresModal] = useState(false);
+
   const breadcrumbs = useMemo(() => {
     return [
       getHomeCrumb(),
@@ -44,8 +49,12 @@ const ProductPage: NextPageWithLayout = () => {
     ];
   }, [product]);
 
-  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
-  const [showOnlineStoresModal, setShowOnlineStoresModal] = useState(false);
+  const isProductInCart = useMemo(() => {
+    return checkIsProductInCart({
+      productSlug: product.slug,
+      organizationSlug: product.organization.slug,
+    });
+  }, [checkIsProductInCart, product]);
 
   const handleShowInstructionsModal = useCallback(() => {
     setShowInstructionsModal(true);
@@ -57,7 +66,12 @@ const ProductPage: NextPageWithLayout = () => {
 
   const handleAddProduct = useCallback(() => {
     setShowInstructionsModal(false);
-  }, []);
+    addToCart({
+      product_slug: product.slug,
+      organization_slug: product.organization.slug,
+      quantity: 1,
+    });
+  }, [product, addToCart]);
 
   const handleShowOnlineStoresModal = useCallback(() => {
     setShowOnlineStoresModal(true);
@@ -186,6 +200,7 @@ const ProductPage: NextPageWithLayout = () => {
         <InstructionsModal
           show={showInstructionsModal}
           instructions={instructions}
+          isProductInCart={isProductInCart}
           onHide={handleHideInstructionsModal}
           onConfirm={handleAddProduct}
         />

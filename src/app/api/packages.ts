@@ -2,10 +2,20 @@ import axios from 'axios';
 import { API_ROOT } from 'app/constants';
 import type {
   OrganizationSlugParams,
-  PackageCreationParams,
-  PackageStatusResponse,
+  PackageItem,
+  PackageStatus,
 } from 'app/api/types';
 
+export type CreatePackageParams = OrganizationSlugParams & {
+  fullName?: string;
+  email?: string;
+  phoneNumber?: string;
+  deliveryCompany: string;
+  trackingCode: string;
+  note?: string;
+  photo?: string;
+  items: PackageItem[];
+};
 export function createPackage({
   organizationSlug,
   fullName,
@@ -17,7 +27,7 @@ export function createPackage({
   photo,
   items,
   cancelToken = null,
-}: PackageCreationParams) {
+}: CreatePackageParams) {
   return axios.post(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/packages/`),
     {
@@ -34,12 +44,21 @@ export function createPackage({
   );
 }
 
+export type FetchPackageStatusParams = {
+  packageId: string;
+} & OrganizationSlugParams;
+export type FetchPackageStatusResponse = {
+  delivery_company: string;
+  tracking_code: string;
+  created_at: string;
+  status: PackageStatus;
+};
 export function fetchPackageStatus({
   organizationSlug,
   packageId,
   cancelToken = null,
-}: { packageId: string } & OrganizationSlugParams) {
-  return axios.get<PackageStatusResponse>(
+}: FetchPackageStatusParams) {
+  return axios.get<FetchPackageStatusResponse>(
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/`
     ),

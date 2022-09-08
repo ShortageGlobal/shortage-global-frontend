@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { searchReducer } from 'app/store/slices/search';
+import { cartReducer } from 'app/store/slices/cart';
 import { promotedOrganizationsReducer } from 'app/store/slices/promoted-organizations';
 import { promotedCategoriesReducer } from 'app/store/slices/promoted-categories';
 import { promotedProductsReducer } from 'app/store/slices/promoted-products';
@@ -19,6 +20,7 @@ import { onlineStoresReducer } from 'app/store/slices/online-stores';
 
 const combinedReducer = combineReducers({
   search: searchReducer,
+  cart: cartReducer,
   promotedOrganizations: promotedOrganizationsReducer,
   promotedCategories: promotedCategoriesReducer,
   promotedProducts: promotedProductsReducer,
@@ -38,8 +40,14 @@ const reducer = (
     const nextState = {
       ...state, // use previous state
       ...action.payload, // apply delta from hydration
-    };
-    return nextState as ReturnType<typeof combinedReducer>;
+    } as ReturnType<typeof combinedReducer>;
+
+    // preserve cart on client side navigation
+    if (state.cart.cart) {
+      nextState.cart = state.cart;
+    }
+
+    return nextState;
   } else {
     return combinedReducer(state, action);
   }
