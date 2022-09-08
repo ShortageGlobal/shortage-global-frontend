@@ -128,7 +128,7 @@ const ProductPage: NextPageWithLayout = () => {
               <div className={styles.requestedAmount}>
                 {product.requested_amount} items
               </div>
-              <div>
+              <div className="text-truncate">
                 requested by{' '}
                 <Link
                   href={{

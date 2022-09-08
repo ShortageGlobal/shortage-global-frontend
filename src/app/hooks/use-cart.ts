@@ -1,6 +1,21 @@
 import { useCallback } from 'react';
-import { useAppDispatch, useAppSelector, useCancelToken } from 'app/hooks';
-import { selectCart, createCart, createCartItem } from 'app/store/slices/cart';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useCancelToken,
+  isRequestCancel,
+} from 'app/hooks';
+import {
+  selectCart,
+  createCart,
+  createCartItem,
+  updateCartItemQuantity as updateCartItemQuantityAction,
+  deleteCartItem as deleteCartItemAction,
+} from 'app/store/slices/cart';
+import {
+  deleteCartItem as deleteCartItemAxios,
+  updateCartItemQuantity as updateCartItemQuantityAxios,
+} from 'app/api';
 import type { Slug, CreateCartItem } from 'app/api/types';
 
 export function useCart() {
@@ -9,6 +24,8 @@ export function useCart() {
 
   const getCreateCartCancelToken = useCancelToken();
   const getCreateCartItemCancelToken = useCancelToken();
+  const getUpdateCartItemQuantityCancelToken = useCancelToken();
+  const getDeleteCartItemCancelToken = useCancelToken();
 
   const initCart = useCallback(async (items: CreateCartItem[]) => {
     const cancelToken = getCreateCartCancelToken();
@@ -69,8 +86,51 @@ export function useCart() {
     [cart, isCartLoading, initCart]
   );
 
+  const updateCartItemQuantity = useCallback(
+    async ({ item, quantity }) => {
+      dispatch(updateCartItemQuantityAction({ item, quantity }));
+
+      const cancelToken = getUpdateCartItemQuantityCancelToken(item.uuid);
+      try {
+        await updateCartItemQuantityAxios({
+          cartId: cart.uuid,
+          cartItemId: item.uuid,
+          quantity,
+          cancelToken,
+        });
+      } catch (rejection) {
+        if (!isRequestCancel(rejection)) {
+          throw rejection;
+        }
+      }
+    },
+    [cart]
+  );
+
+  const deleteFromCart = useCallback(
+    async ({ item }) => {
+      dispatch(deleteCartItemAction({ item }));
+
+      const cancelToken = getDeleteCartItemCancelToken(item.uuid);
+      try {
+        await deleteCartItemAxios({
+          cartId: cart.uuid,
+          cartItemId: item.uuid,
+          cancelToken,
+        });
+      } catch (rejection) {
+        if (!isRequestCancel(rejection)) {
+          throw rejection;
+        }
+      }
+    },
+    [cart]
+  );
+
   return {
     checkIsProductInCart,
     addToCart,
+    updateCartItemQuantity,
+    deleteFromCart,
   };
 }

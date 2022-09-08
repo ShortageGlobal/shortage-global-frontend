@@ -16,7 +16,7 @@ export function useCancelToken() {
   );
 
   // Request a new token. Cancels previously requested token with the same key
-  const getNewToken = useCallback((key = defaultTokenKey) => {
+  const getNewToken = useCallback((key: string | symbol = defaultTokenKey) => {
     requestCanceler.current
       .get(key)
       ?.cancel(`New token requested for ${key.toString()}`);

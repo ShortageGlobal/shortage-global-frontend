@@ -1,7 +1,8 @@
 import styles from './cart.module.scss';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { Offcanvas } from 'react-bootstrap';
+import Link from 'next/link';
+import { Offcanvas, Button } from 'react-bootstrap';
 import {
   useAppDispatch,
   useAppSelector,
@@ -9,14 +10,17 @@ import {
   useCart,
 } from 'app/hooks';
 import { selectCart, fetchCart, hideCartSidebar } from 'app/store/slices/cart';
+import { groupCartItemsByOrganization } from 'app/helpers';
 import { CART_ID_KEY } from 'app/constants';
+import { CartItem as CartItemComponent } from 'components/cart/cart-item/cart-item';
+import type { CartItem } from 'app/api/types';
 
 export function Cart() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { cart, isCartSidebarShown } = useAppSelector(selectCart);
 
-  useCart();
+  const { updateCartItemQuantity, deleteFromCart } = useCart();
 
   const getFetchCartCancelToken = useCancelToken();
 
@@ -49,6 +53,24 @@ export function Cart() {
     handleSidebarHide();
   }, [router.route]);
 
+  const groupedCartItems = useMemo(() => {
+    return groupCartItemsByOrganization({ items: cart?.items });
+  }, [cart?.items]);
+
+  const handleItemQuantityChange = useCallback(
+    ({ item, quantity }: { item: CartItem; quantity: number }) => {
+      updateCartItemQuantity({ item, quantity });
+    },
+    [updateCartItemQuantity]
+  );
+
+  const handleItemRemove = useCallback(
+    ({ item }: { item: CartItem }) => {
+      deleteFromCart({ item });
+    },
+    [deleteFromCart]
+  );
+
   return (
     <Offcanvas
       placement="end"
@@ -59,7 +81,46 @@ export function Cart() {
       <Offcanvas.Header closeButton>
         <Offcanvas.Title className={styles.title}>My packages</Offcanvas.Title>
       </Offcanvas.Header>
-      <Offcanvas.Body>TBD</Offcanvas.Body>
+      <Offcanvas.Body>
+        {groupedCartItems.size === 0 ? (
+          <p>You don't have any packages</p>
+        ) : null}
+
+        {Array.from(groupedCartItems.values()).map(
+          ({ organizationName, organizationSlug, items }) => {
+            return (
+              <div key={organizationSlug} className={styles.cartGroup}>
+                <p className="text-truncate">
+                  For{' '}
+                  <Link
+                    href={{
+                      pathname: '/organizations/[organizationSlug]',
+                      query: { organizationSlug },
+                    }}
+                  >
+                    <a>{organizationName}</a>
+                  </Link>
+                </p>
+
+                <div className={styles.cartGroupItems}>
+                  {items.map((item) => (
+                    <CartItemComponent
+                      key={item.uuid}
+                      item={item}
+                      onQuantityChange={handleItemQuantityChange}
+                      onRemove={handleItemRemove}
+                    />
+                  ))}
+                </div>
+
+                <Button className={styles.registerPackageButton}>
+                  Register package
+                </Button>
+              </div>
+            );
+          }
+        )}
+      </Offcanvas.Body>
     </Offcanvas>
   );
 }
