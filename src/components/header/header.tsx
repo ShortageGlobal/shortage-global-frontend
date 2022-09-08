@@ -4,15 +4,27 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Button,
+  Badge,
+} from 'react-bootstrap';
 import { User, Package } from 'react-feather';
-import { useScrollPosition } from 'app/hooks';
+import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
+import { selectCart, showCartSidebar } from 'app/store/slices/cart';
 import { GlobalNotification } from 'components/global-notification/global-notification';
 
 export function Header() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const { cart } = useAppSelector(selectCart);
+
   const [isWindowScrollAtTop, setIsWindowScrollAtTop] = useState(true);
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
 
@@ -46,6 +58,10 @@ export function Header() {
 
   const handleNavbarToggle = useCallback((newIsNavbarExpanded) => {
     setIsNavbarExpanded(newIsNavbarExpanded);
+  }, []);
+
+  const handleCartSidebarShow = useCallback(() => {
+    dispatch(showCartSidebar());
   }, []);
 
   return (
@@ -104,11 +120,21 @@ export function Header() {
                 </Nav.Link>
               </Link>
 
-              <Link href="/" passHref>
-                <Nav.Link>
-                  <Package />
-                </Nav.Link>
-              </Link>
+              <Button
+                variant=""
+                className={classNames(styles.button, styles.packageButton)}
+                onClick={handleCartSidebarShow}
+              >
+                <Package />
+
+                {/* Count of Products in the cart  */}
+                {cart?.items.length > 0 ? (
+                  <Badge pill className={styles.packageButtonBadge}>
+                    {cart.items.length}
+                    <span className="visually-hidden"> products in cart</span>
+                  </Badge>
+                ) : null}
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Container>

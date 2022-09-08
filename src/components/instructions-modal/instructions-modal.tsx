@@ -7,6 +7,7 @@ import { Instruction } from 'app/api/types';
 type InstructionsModalProps = {
   show: boolean;
   instructions: Instruction[];
+  isProductInCart: boolean;
   onHide: () => void;
   onConfirm: () => void;
 };
@@ -14,6 +15,7 @@ type InstructionsModalProps = {
 export function InstructionsModal({
   show,
   instructions,
+  isProductInCart,
   onHide,
   onConfirm,
 }: InstructionsModalProps) {
@@ -46,6 +48,7 @@ export function InstructionsModal({
           variant="primary"
           className={styles.confirmButton}
           onClick={onConfirm}
+          disabled={isProductInCart}
         >
           Add items to my package
         </Button>

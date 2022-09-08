@@ -8,6 +8,7 @@ import type { AppProps } from 'next/app';
 import { wrapper } from 'app/store';
 import { Header } from 'components/header/header';
 import { Footer } from 'components/footer/footer';
+import { Cart } from 'components/cart/cart';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <Header />
         <main className="main-container">{page}</main>
         <Footer />
+        <Cart />
       </>
     ));
 

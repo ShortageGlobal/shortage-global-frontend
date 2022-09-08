@@ -1,3 +1,4 @@
+@import 'bootstrap/scss/mixins';
 @import 'styles/_variables.scss';
 
 .header {
@@ -25,6 +26,38 @@
 
     .navbarCollapse {
       flex-grow: unset;
+    }
+  }
+
+  .button {
+    border: none;
+    text-align: left;
+
+    &:hover,
+    &:focus {
+      color: $navbar-light-hover-color;
+    }
+
+    @include media-breakpoint-down(lg) {
+      padding: 0.5rem 0;
+    }
+  }
+
+  .packageButton {
+    position: relative;
+  }
+
+  .packageButtonBadge {
+    position: absolute;
+    top: 0.15em;
+    right: 0.55em;
+    font-size: 0.6rem;
+    padding: 0.35em 0.55em;
+    border: 1px solid $header-background;
+
+    @include media-breakpoint-down(lg) {
+      right: unset;
+      left: 1.4em;
     }
   }
 }

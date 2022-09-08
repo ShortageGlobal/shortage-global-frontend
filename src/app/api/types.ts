@@ -17,6 +17,7 @@ export type AxiosSerializedError = {
 export type Limit = number;
 export type Offset = number;
 export type Slug = string;
+export type Uuid = string;
 
 type CategoryKey = keyof typeof PRODUCT_CATEGORY_KEY;
 export type Category =
@@ -44,6 +45,10 @@ export type OrganizationSlugParams = CancelTokenParams & {
 
 export type ProductSlugParams = OrganizationSlugParams & {
   productSlug: Slug;
+};
+
+export type CartUuidParams = CancelTokenParams & {
+  cartId: Uuid;
 };
 
 export type PaginatedResponse<Result> = {
@@ -99,20 +104,21 @@ export type PackageItem = {
   quantity: number;
 };
 
-export type PackageCreationParams = OrganizationSlugParams & {
-  fullName?: string;
-  email?: string;
-  phoneNumber?: string;
-  deliveryCompany: string;
-  trackingCode: string;
-  note?: string;
-  photo?: string;
-  items: PackageItem[];
+export type CreateCartItem = {
+  product_slug: string;
+  organization_slug: string;
+  quantity: number;
 };
 
-export type PackageStatusResponse = {
-  delivery_company: string;
-  tracking_code: string;
+export type CartItem = {
+  uuid: Uuid;
+  product: ProductBase;
+  quantity: number;
   created_at: string;
-  status: PackageStatus;
+};
+
+export type Cart = {
+  uuid: Uuid;
+  created_at: string;
+  items: CartItem[];
 };

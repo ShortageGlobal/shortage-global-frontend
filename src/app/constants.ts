@@ -76,3 +76,6 @@ export const PACKAGE_STATUS = Object.freeze({
 export const NEEDED_SUPPLIES_CONTAINER_ID = 'needed-supplies-header';
 
 export const PRODUCTS_PAGE_SIZE = 15;
+
+// local storage keys
+export const CART_ID_KEY = 'cart-id';
