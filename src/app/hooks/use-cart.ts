@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector, useCancelToken } from 'app/hooks';
 import { selectCart, createCart, createCartItem } from 'app/store/slices/cart';
 import type { Slug, CreateCartItem } from 'app/api/types';
