@@ -49,12 +49,9 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
     [item, onQuantityChange]
   );
 
-  const handleQuantityBlur = useCallback(
-    (e) => {
-      setQuantity(item.quantity);
-    },
-    [item, onQuantityChange]
-  );
+  const handleQuantityBlur = useCallback(() => {
+    setQuantity(item.quantity);
+  }, [item, onQuantityChange]);
 
   const handleRemove = useCallback(() => {
     onRemove({ item });
