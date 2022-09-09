@@ -43,6 +43,20 @@
     }
   }
 
+  .control {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .controlText {
+    margin-left: 0.5rem;
+    text-transform: capitalize;
+
+    @include media-breakpoint-up(lg) {
+      @include visually-hidden;
+    }
+  }
+
   .packageButton {
     position: relative;
   }

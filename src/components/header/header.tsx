@@ -119,17 +119,25 @@ export function Header() {
               </ActiveLink>
 
               <Link href="/" passHref>
-                <Nav.Link>
+                <Nav.Link className={styles.control}>
                   <User />
+
+                  <span className={styles.controlText}>Account</span>
                 </Nav.Link>
               </Link>
 
               <Button
                 variant=""
-                className={classNames(styles.button, styles.packageButton)}
+                className={classNames(
+                  styles.button,
+                  styles.packageButton,
+                  styles.control
+                )}
                 onClick={handleCartSidebarShow}
               >
                 <Package />
+
+                <span className={styles.controlText}>My packages</span>
 
                 {/* Count of Products in the cart  */}
                 {cart?.items.length > 0 ? (
