@@ -12,8 +12,8 @@ import {
 import { selectCart, fetchCart, hideCartSidebar } from 'app/store/slices/cart';
 import { groupCartItemsByOrganization } from 'app/helpers';
 import { CART_ID_KEY } from 'app/constants';
-import { CartItem as CartItemComponent } from 'components/cart/cart-item/cart-item';
-import type { CartItem } from 'app/api/types';
+import { CartItem } from 'components/cart/cart-item/cart-item';
+import type { CartItem as CartItemType } from 'app/api/types';
 
 export function Cart() {
   const router = useRouter();
@@ -58,14 +58,14 @@ export function Cart() {
   }, [cart?.items]);
 
   const handleItemQuantityChange = useCallback(
-    ({ item, quantity }: { item: CartItem; quantity: number }) => {
+    ({ item, quantity }: { item: CartItemType; quantity: number }) => {
       updateCartItemQuantity({ item, quantity });
     },
     [updateCartItemQuantity]
   );
 
   const handleItemRemove = useCallback(
-    ({ item }: { item: CartItem }) => {
+    ({ item }: { item: CartItemType }) => {
       deleteFromCart({ item });
     },
     [deleteFromCart]
@@ -104,7 +104,7 @@ export function Cart() {
 
                 <div className={styles.cartGroupItems}>
                   {items.map((item) => (
-                    <CartItemComponent
+                    <CartItem
                       key={item.uuid}
                       item={item}
                       onQuantityChange={handleItemQuantityChange}

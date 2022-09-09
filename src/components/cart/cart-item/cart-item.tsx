@@ -1,5 +1,5 @@
 import styles from './cart-item.module.scss';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Form } from 'react-bootstrap';
@@ -20,6 +20,8 @@ type CartItemProps = {
 };
 
 export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
+  const [quantity, setQuantity] = useState(() => item.quantity);
+
   const productPageHref = useMemo(() => {
     return {
       pathname: '/organizations/[organizationSlug]/products/[productSlug]',
@@ -32,11 +34,24 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
 
   const handleQuantityChange = useCallback(
     (e) => {
-      const quantity = Number(e.target.value);
+      const value = e.target.value;
+
+      // set to local state
+      setQuantity(value);
+
+      // if valid, set in store
+      const quantity = Number(value);
       if (!Number.isInteger(quantity) || quantity < 1) {
         return;
       }
       onQuantityChange({ item, quantity });
+    },
+    [item, onQuantityChange]
+  );
+
+  const handleQuantityBlur = useCallback(
+    (e) => {
+      setQuantity(item.quantity);
     },
     [item, onQuantityChange]
   );
@@ -77,9 +92,10 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
           type="number"
           step={1}
           min={1}
-          placeholder="42"
-          value={item.quantity}
+          placeholder="Quantity"
+          value={quantity}
           onChange={handleQuantityChange}
+          onBlur={handleQuantityBlur}
         />
       </Form.Group>
 
