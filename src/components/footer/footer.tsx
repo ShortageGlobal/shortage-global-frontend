@@ -34,7 +34,9 @@ export function Footer() {
           </Col>
 
           <Col md="6" className={styles.contactMail}>
-            <a href="mailto:info@shortage.global">info@shortage.global</a>
+            <a href="mailto:notifications@shortage.global">
+              notifications@shortage.global
+            </a>
           </Col>
         </Row>
       </Container>
