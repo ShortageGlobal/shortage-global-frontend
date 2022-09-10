@@ -1,4 +1,3 @@
-import styles from 'styles/pages/package-registration.module.scss';
 import { useMemo } from 'react';
 import Head from 'next/head';
 import { Container, Row, Col } from 'react-bootstrap';
