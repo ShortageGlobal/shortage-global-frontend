@@ -46,12 +46,13 @@ const defaultCrumb = Object.freeze({
   isActive: false,
 });
 
-export const getHomeCrumb = (props: BreadcrumbItem = {}) => ({
-  ...defaultCrumb,
-  label: 'Home',
-  href: '/',
-  ...props,
-});
+export const getHomeCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'Home',
+    href: '/',
+    ...props,
+  });
 
 export const getOrganizationCrumb = ({
   organizationSlug,
@@ -60,15 +61,32 @@ export const getOrganizationCrumb = ({
 }: {
   organizationSlug: string;
   organizationName: string;
-} & BreadcrumbItem) => ({
-  ...defaultCrumb,
-  label: organizationName,
-  href: {
-    pathname: '/organizations/[organizationSlug]',
-    query: { organizationSlug },
-  },
-  ...props,
-});
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: organizationName,
+    href: {
+      pathname: '/organizations/[organizationSlug]',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getPackageRegistrationCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: string;
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'Package Registration',
+    href: {
+      pathname: '/organizations/[organizationSlug]/package-registration',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
 
 export const getProductCrumb = ({
   organizationSlug,
@@ -79,12 +97,13 @@ export const getProductCrumb = ({
   organizationSlug: string;
   productSlug: string;
   productName: string;
-} & BreadcrumbItem) => ({
-  ...defaultCrumb,
-  label: productName,
-  href: {
-    pathname: '/organizations/[organizationSlug]/products/[productSlug]',
-    query: { organizationSlug, productSlug },
-  },
-  ...props,
-});
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: productName,
+    href: {
+      pathname: '/organizations/[organizationSlug]/products/[productSlug]',
+      query: { organizationSlug, productSlug },
+    },
+    ...props,
+  });
