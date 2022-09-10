@@ -113,9 +113,18 @@ export function Cart() {
                   ))}
                 </div>
 
-                <Button className={styles.registerPackageButton}>
-                  Register package
-                </Button>
+                <Link
+                  href={{
+                    pathname:
+                      '/organizations/[organizationSlug]/package-registration',
+                    query: { organizationSlug },
+                  }}
+                  passHref
+                >
+                  <Button className={styles.registerPackageButton}>
+                    Register package
+                  </Button>
+                </Link>
               </div>
             );
           }
