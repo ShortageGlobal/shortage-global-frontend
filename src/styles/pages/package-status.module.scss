@@ -1,0 +1,12 @@
+.packageStatus {
+  .sectionHeader {
+    margin: 2rem 0;
+  }
+
+  .packageDetails {
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-column-gap: 2rem;
+    word-break: break-word;
+  }
+}

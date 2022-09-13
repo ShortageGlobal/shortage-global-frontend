@@ -6,13 +6,13 @@ import {
   createCartItem as createCartItemAxios,
 } from 'app/api';
 import { serizalizeAxiosError } from 'app/helpers';
+import { CART_ID_KEY } from 'app/constants';
 import type { AxiosSerializedError, Cart } from 'app/api/types';
 import type {
   CreateCartParams,
   FetchCartParams,
   CreateCartItemParams,
 } from 'app/api';
-import { CART_ID_KEY } from 'app/constants';
 
 export const cartSlice = createSlice({
   name: 'cart',

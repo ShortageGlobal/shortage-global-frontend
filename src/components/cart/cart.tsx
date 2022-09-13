@@ -83,7 +83,9 @@ export function Cart() {
       </Offcanvas.Header>
       <Offcanvas.Body>
         {groupedCartItems.size === 0 ? (
-          <p>You don't have any packages</p>
+          <>
+            <p>You haven't added any products to your packages yet.</p>
+          </>
         ) : null}
 
         {Array.from(groupedCartItems.values()).map(
@@ -115,8 +117,7 @@ export function Cart() {
 
                 <Link
                   href={{
-                    pathname:
-                      '/organizations/[organizationSlug]/package-registration',
+                    pathname: '/organizations/[organizationSlug]/packages',
                     query: { organizationSlug },
                   }}
                   passHref

@@ -1,6 +1,7 @@
 import styles from './breadcrumbs.module.scss';
 import classNames from 'classnames';
 import Link, { LinkProps } from 'next/link';
+import type { Slug, Uuid } from 'app/api/types';
 
 type BreadcrumbItem = {
   label?: string;
@@ -59,7 +60,7 @@ export const getOrganizationCrumb = ({
   organizationName,
   ...props
 }: {
-  organizationSlug: string;
+  organizationSlug: Slug;
   organizationName: string;
 } & BreadcrumbItem) =>
   Object.freeze({
@@ -76,14 +77,32 @@ export const getPackageRegistrationCrumb = ({
   organizationSlug,
   ...props
 }: {
-  organizationSlug: string;
+  organizationSlug: Slug;
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
     label: 'Package Registration',
     href: {
-      pathname: '/organizations/[organizationSlug]/package-registration',
+      pathname: '/organizations/[organizationSlug]/packages',
       query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getPackageStatusCrumb = ({
+  organizationSlug,
+  packageId,
+  ...props
+}: {
+  organizationSlug: Slug;
+  packageId: Uuid;
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'Package Status',
+    href: {
+      pathname: '/organizations/[organizationSlug]/packages/[packageId]',
+      query: { organizationSlug, packageId },
     },
     ...props,
   });
@@ -94,8 +113,8 @@ export const getProductCrumb = ({
   productName,
   ...props
 }: {
-  organizationSlug: string;
-  productSlug: string;
+  organizationSlug: Slug;
+  productSlug: Slug;
   productName: string;
 } & BreadcrumbItem) =>
   Object.freeze({

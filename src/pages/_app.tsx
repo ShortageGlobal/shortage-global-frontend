@@ -1,14 +1,13 @@
 import 'styles/globals.scss';
-
-import type { ReactElement, ReactNode } from 'react';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import Head from 'next/head';
-import type { NextPage } from 'next';
-import type { AppProps } from 'next/app';
 import { wrapper } from 'app/store';
 import { Header } from 'components/header/header';
 import { Footer } from 'components/footer/footer';
 import { Cart } from 'components/cart/cart';
+import type { ReactElement, ReactNode } from 'react';
+import type { NextPage } from 'next';
+import type { AppProps } from 'next/app';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;

@@ -20,8 +20,8 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
-import type { NextPageWithLayout } from 'pages/_app';
 import { OnlineStoresModal } from 'components/online-stores-modal/online-stores-modal';
+import type { NextPageWithLayout } from 'pages/_app';
 
 const ProductPage: NextPageWithLayout = () => {
   const { product } = useAppSelector(selectProduct);

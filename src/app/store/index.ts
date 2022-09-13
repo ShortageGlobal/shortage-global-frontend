@@ -17,6 +17,7 @@ import { productsReducer } from 'app/store/slices/products';
 import { productReducer } from 'app/store/slices/product';
 import { instructionsReducer } from 'app/store/slices/instructions';
 import { onlineStoresReducer } from 'app/store/slices/online-stores';
+import { packageReducer } from 'app/store/slices/package';
 
 const combinedReducer = combineReducers({
   search: searchReducer,
@@ -30,6 +31,7 @@ const combinedReducer = combineReducers({
   product: productReducer,
   instructions: instructionsReducer,
   onlineStores: onlineStoresReducer,
+  package: packageReducer,
 });
 
 const reducer = (

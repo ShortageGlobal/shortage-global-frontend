@@ -72,6 +72,12 @@ export const PACKAGE_STATUS = Object.freeze({
   DELIVERED: 'DELIVERED',
 });
 
+export const PACKAGE_STATUS_LABEL = Object.freeze({
+  [PACKAGE_STATUS.REGISTERED]: 'Registered',
+  [PACKAGE_STATUS.CONFIRMED]: 'Confirmed',
+  [PACKAGE_STATUS.DELIVERED]: 'Delivered',
+});
+
 // used for scrolling
 export const NEEDED_SUPPLIES_CONTAINER_ID = 'needed-supplies-header';
 

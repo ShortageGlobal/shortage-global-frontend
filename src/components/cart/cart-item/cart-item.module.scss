@@ -45,12 +45,16 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     border-color: $cart-item-remove-button-border-color;
 
     &:hover,
     &:active {
       border-color: $cart-item-remove-button-hover-border-color;
+    }
+
+    > * + * {
+      margin-left: 0.5rem;
     }
   }
 }
