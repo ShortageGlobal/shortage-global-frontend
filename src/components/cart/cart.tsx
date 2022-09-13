@@ -59,14 +59,14 @@ export function Cart() {
 
   const handleItemQuantityChange = useCallback(
     ({ item, quantity }: { item: CartItemType; quantity: number }) => {
-      updateCartItemQuantity({ item, quantity });
+      updateCartItemQuantity({ cartItemId: item.uuid, quantity });
     },
     [updateCartItemQuantity]
   );
 
   const handleItemRemove = useCallback(
     ({ item }: { item: CartItemType }) => {
-      deleteFromCart({ item });
+      deleteFromCart({ cartItemId: item.uuid });
     },
     [deleteFromCart]
   );
