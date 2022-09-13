@@ -1,24 +1,16 @@
 import styles from './package-registration-form.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import { Trash2 } from 'react-feather';
 import { useRouter } from 'next/router';
 import { createPackage } from 'app/api';
 import { useCart, useCancelToken, isRequestCancel } from 'app/hooks';
+import { CartItem } from 'components/cart/cart-item/cart-item';
 import type { FormEvent } from 'react';
-import type { Organization, Product, CartItem } from 'app/api/types';
+import type { Organization, CartItem as CartItemType } from 'app/api/types';
 
 type PackageRegistrationFormProps = {
   organization: Organization;
-  initialCartItems: CartItem[];
-};
-type PackageItem = {
-  uuid: CartItem['uuid'];
-  name: Product['name'];
-  productSlug: Product['slug'];
-  organizationSlug: Organization['slug'];
-  quantity: CartItem['quantity'];
-  displayQuantity: CartItem['quantity'] | string;
+  initialCartItems: CartItemType[];
 };
 
 export function PackageRegistrationForm({
@@ -34,17 +26,12 @@ export function PackageRegistrationForm({
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [items, setItems] = useState<PackageItem[]>(() =>
-    initialCartItems.map((item) => {
-      return {
-        uuid: item.uuid,
-        name: item.product.name,
-        productSlug: item.product.slug,
-        organizationSlug: item.product.organization.slug,
-        quantity: item.quantity,
-        displayQuantity: item.quantity,
-      };
-    })
+  const [items, setItems] = useState(() =>
+    Object.freeze(
+      initialCartItems.map((item) => {
+        return Object.freeze({ ...item });
+      })
+    )
   );
   const [deliveryCompany, setDeliveryCompany] = useState('');
   const [trackingCode, setTrackingNumber] = useState('');
@@ -54,29 +41,21 @@ export function PackageRegistrationForm({
   const getCreatePackageCancelToken = useCancelToken();
 
   const handleItemQuantityChange = useCallback(
-    ({ item, value }: { item: PackageItem; value: string }) => {
-      item.displayQuantity = value;
-      const quantity = Number(value);
-      if (Number.isInteger(quantity) && quantity >= 1) {
-        item.quantity = quantity;
-      }
-
-      setItems([...items]);
-    },
-    [items]
-  );
-
-  const handleItemQuantityBlur = useCallback(
-    ({ item }: { item: PackageItem }) => {
-      item.displayQuantity = item.quantity;
-      setItems([...items]);
+    ({ item, quantity }: { item: CartItemType; quantity: number }) => {
+      const newItems = items.map((d) => {
+        if (d.uuid === item.uuid) {
+          return { ...d, quantity };
+        }
+        return d;
+      });
+      setItems(Object.freeze(newItems));
     },
     [items]
   );
 
   const handleItemRemove = useCallback(
-    ({ item }: { item: PackageItem }) => {
-      setItems(items.filter((d) => d.uuid !== item.uuid));
+    ({ item }: { item: CartItemType }) => {
+      setItems(Object.freeze(items.filter((d) => d.uuid !== item.uuid)));
     },
     [items]
   );
@@ -87,7 +66,7 @@ export function PackageRegistrationForm({
 
       const packageItems = items.map((item) => {
         return {
-          product: item.productSlug,
+          product: item.product.slug,
           quantity: item.quantity,
         };
       });
@@ -216,58 +195,19 @@ export function PackageRegistrationForm({
         <h5>Package Content</h5>
       </header>
 
-      {items.map((item, index) => {
-        return (
-          <Row key={item.uuid}>
-            <Col md={8}>
-              <Form.Group
-                controlId={`name-${item.uuid}`}
-                className={styles.formGroup}
-              >
-                <Form.Label>Item {index + 1}</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="What's in the package?"
-                  value={item.name}
-                  readOnly
-                />
-              </Form.Group>
-            </Col>
-
-            <Col xs={6} md={2}>
-              <Form.Group
-                controlId={`quantity-${item.uuid}`}
-                className={styles.formGroup}
-              >
-                <Form.Label>Quantity *</Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="Quantity"
-                  required
-                  min={1}
-                  value={item.displayQuantity}
-                  onChange={(e) =>
-                    handleItemQuantityChange({ item, value: e.target.value })
-                  }
-                  onBlur={() => handleItemQuantityBlur({ item })}
-                />
-              </Form.Group>
-            </Col>
-
-            <Col xs={6} md={2} className={styles.removeItemContainer}>
-              <Button
-                variant="outline-dark"
-                className={styles.removeItemButton}
-                onClick={() => handleItemRemove({ item })}
-                disabled={items.length === 1}
-              >
-                <Trash2 size="1rem" />
-                <span className={styles.removeItemButtonLabel}>Remove</span>
-              </Button>
-            </Col>
-          </Row>
-        );
-      })}
+      <div className={styles.packageContentItems}>
+        {items.map((item) => {
+          return (
+            <CartItem
+              key={item.uuid}
+              item={item}
+              onQuantityChange={handleItemQuantityChange}
+              onRemove={handleItemRemove}
+              isRemoveDisabled={items.length === 1}
+            />
+          );
+        })}
+      </div>
 
       <header className={styles.sectionHeader}>
         <h5>Tracking Information</h5>

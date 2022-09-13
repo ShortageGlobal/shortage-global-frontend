@@ -46,9 +46,14 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       return;
     }
 
-    const cartItemsForOrganization = cart.items.filter(
-      (item) => item.product.organization.slug === organization.slug
-    );
+    const cartItemsForOrganization = cart.items
+      .filter((item) => item.product.organization.slug === organization.slug)
+      .sort((a, b) => {
+        if (b.created_at > a.created_at) {
+          return 1;
+        }
+        return -1;
+      });
 
     setInitialCartItems(cartItemsForOrganization);
   }, [initialCartItems, cart, organization]);

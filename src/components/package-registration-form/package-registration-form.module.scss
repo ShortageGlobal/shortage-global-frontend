@@ -12,30 +12,9 @@
     margin-bottom: $form-group-margin-bottom;
   }
 
-  .removeItemContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-
-  .removeItemButton {
-    width: 100%;
-    margin-bottom: $form-group-margin-bottom;
-    border-color: $package-item-remove-button-border-color;
-
-    &:hover,
-    &:active {
-      border-color: $package-item-remove-button-hover-border-color;
-    }
-
+  .packageContentItems {
     > * + * {
-      margin-left: 0.5rem;
-    }
-  }
-
-  .removeItemButtonLabel {
-    @include media-breakpoint-up(md) {
-      @include visually-hidden;
+      margin-top: 2rem;
     }
   }
 

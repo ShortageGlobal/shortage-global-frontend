@@ -1,3 +1,4 @@
+@import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
 .cartItem {
@@ -43,6 +44,7 @@
 
   .removeButton {
     width: 100%;
+    min-height: 38px; // matches input height
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,6 +57,12 @@
 
     > * + * {
       margin-left: 0.5rem;
+    }
+  }
+
+  .removeButtonLabel {
+    @include media-breakpoint-down(sm) {
+      @include visually-hidden;
     }
   }
 }
