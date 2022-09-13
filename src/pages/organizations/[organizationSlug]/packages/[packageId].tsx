@@ -43,16 +43,18 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
         <title>Package is registered | ShortageGlobal</title>
       </Head>
 
-      <Container className={styles.packageStatus}>
+      <Container>
         <Row>
           <Col>
             <Breadcrumbs items={breadcrumbs} />
           </Col>
         </Row>
+      </Container>
 
+      <Container className={styles.packageStatus}>
         <Row>
-          <Col className={styles.packageStatus}>
-            <h2 className="text-break">Package is registered</h2>
+          <Col>
+            <h2>Package is registered</h2>
           </Col>
         </Row>
 

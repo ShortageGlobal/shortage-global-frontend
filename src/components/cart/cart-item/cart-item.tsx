@@ -1,11 +1,12 @@
 import styles from './cart-item.module.scss';
 import { useMemo, useCallback, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import classNames from 'classnames';
 import { Button, Form } from 'react-bootstrap';
 import { Trash2 } from 'react-feather';
+import Link from 'next/link';
+import Image from 'next/image';
+import type { ChangeEvent } from 'react';
 import type { CartItem } from 'app/api/types';
-import classNames from 'classnames';
 
 type CartItemProps = {
   item: CartItem;
@@ -17,10 +18,18 @@ type CartItemProps = {
     quantity: number;
   }) => void;
   onRemove: ({ item }: { item: CartItem }) => void;
+  isRemoveDisabled?: boolean;
 };
 
-export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
-  const [quantity, setQuantity] = useState(() => item.quantity);
+export function CartItem({
+  item,
+  onQuantityChange,
+  onRemove,
+  isRemoveDisabled = false,
+}: CartItemProps) {
+  const [quantity, setQuantity] = useState<number | string>(
+    () => item.quantity
+  );
 
   const productPageHref = useMemo(() => {
     return {
@@ -33,7 +42,7 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
   }, [item]);
 
   const handleQuantityChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
 
       // set to local state
@@ -93,6 +102,7 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
           value={quantity}
           onChange={handleQuantityChange}
           onBlur={handleQuantityBlur}
+          required
         />
       </Form.Group>
 
@@ -101,9 +111,10 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
           variant="outline-dark"
           className={styles.removeButton}
           onClick={handleRemove}
+          disabled={isRemoveDisabled}
         >
           <Trash2 size="1rem" />
-          <span>Remove</span>
+          <span className={styles.removeButtonLabel}>Remove</span>
         </Button>
       </div>
     </div>
