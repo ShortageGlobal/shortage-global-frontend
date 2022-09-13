@@ -4,21 +4,21 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Trash2 } from 'react-feather';
 import { useRouter } from 'next/router';
 import { createPackage } from 'app/api';
-import { useAppDispatch, useCancelToken, isRequestCancel } from 'app/hooks';
+import { useCart, useCancelToken, isRequestCancel } from 'app/hooks';
 import type { FormEvent } from 'react';
-import type { Organization, CartItem, Slug, Uuid } from 'app/api/types';
+import type { Organization, Product, CartItem } from 'app/api/types';
 
 type PackageRegistrationFormProps = {
   organization: Organization;
   initialCartItems: CartItem[];
 };
 type PackageItem = {
-  key: Uuid;
-  name: string;
-  productSlug: Slug;
-  organizationSlug: Slug;
-  quantity: number;
-  displayQuantity: number | string;
+  uuid: CartItem['uuid'];
+  name: Product['name'];
+  productSlug: Product['slug'];
+  organizationSlug: Organization['slug'];
+  quantity: CartItem['quantity'];
+  displayQuantity: CartItem['quantity'] | string;
 };
 
 export function PackageRegistrationForm({
@@ -26,7 +26,8 @@ export function PackageRegistrationForm({
   initialCartItems,
 }: PackageRegistrationFormProps) {
   const router = useRouter();
-  const dispatch = useAppDispatch();
+
+  const { deleteFromCart } = useCart();
 
   const [isCreating, setIsCreating] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -36,7 +37,7 @@ export function PackageRegistrationForm({
   const [items, setItems] = useState<PackageItem[]>(() =>
     initialCartItems.map((item) => {
       return {
-        key: item.uuid,
+        uuid: item.uuid,
         name: item.product.name,
         productSlug: item.product.slug,
         organizationSlug: item.product.organization.slug,
@@ -75,7 +76,7 @@ export function PackageRegistrationForm({
 
   const handleItemRemove = useCallback(
     ({ item }: { item: PackageItem }) => {
-      setItems(items.filter((d) => d.key !== item.key));
+      setItems(items.filter((d) => d.uuid !== item.uuid));
     },
     [items]
   );
@@ -116,6 +117,12 @@ export function PackageRegistrationForm({
           },
         });
 
+        // Remove registered products from the cart
+        // TODO: do batch deletion. Or delete on the backend side and refetch the cart
+        items.forEach((item) => {
+          deleteFromCart({ cartItemId: item.uuid });
+        });
+
         setIsCreating(false);
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
@@ -126,6 +133,7 @@ export function PackageRegistrationForm({
     },
     [
       organization,
+      deleteFromCart,
       firstName,
       lastName,
       email,
@@ -210,10 +218,10 @@ export function PackageRegistrationForm({
 
       {items.map((item, index) => {
         return (
-          <Row key={item.key}>
+          <Row key={item.uuid}>
             <Col md={8}>
               <Form.Group
-                controlId={`name-${item.key}`}
+                controlId={`name-${item.uuid}`}
                 className={styles.formGroup}
               >
                 <Form.Label>Item {index + 1}</Form.Label>
@@ -228,7 +236,7 @@ export function PackageRegistrationForm({
 
             <Col xs={6} md={2}>
               <Form.Group
-                controlId={`quantity-${item.key}`}
+                controlId={`quantity-${item.uuid}`}
                 className={styles.formGroup}
               >
                 <Form.Label>Quantity *</Form.Label>

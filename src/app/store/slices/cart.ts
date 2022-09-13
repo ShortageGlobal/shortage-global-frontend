@@ -42,7 +42,7 @@ export const cartSlice = createSlice({
     },
     updateCartItemQuantity: (state, action) => {
       const itemToUpdate = state.cart.items.find(
-        (item) => item.uuid === action.payload.item.uuid
+        (item) => item.uuid === action.payload.cartItemId
       );
       if (!itemToUpdate) {
         return;
@@ -51,7 +51,7 @@ export const cartSlice = createSlice({
     },
     deleteCartItem: (state, action) => {
       state.cart.items = state.cart.items.filter(
-        (item) => item.uuid !== action.payload.item.uuid
+        (item) => item.uuid !== action.payload.cartItemId
       );
     },
   },
