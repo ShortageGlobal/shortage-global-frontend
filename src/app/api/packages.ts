@@ -2,8 +2,8 @@ import axios from 'axios';
 import { API_ROOT } from 'app/constants';
 import type {
   OrganizationSlugParams,
+  Package,
   PackageItem,
-  PackageStatus,
 } from 'app/api/types';
 
 export type CreatePackageParams = OrganizationSlugParams & {
@@ -13,7 +13,7 @@ export type CreatePackageParams = OrganizationSlugParams & {
   deliveryCompany: string;
   trackingCode: string;
   note?: string;
-  photo?: string;
+  photo?: File;
   items: PackageItem[];
 };
 export function createPackage({
@@ -28,7 +28,10 @@ export function createPackage({
   items,
   cancelToken = null,
 }: CreatePackageParams) {
-  return axios.post(
+  // TODO: use multipart/form-data to upload photo
+  // See: https://stackoverflow.com/a/56194505/1065780
+
+  return axios.post<Package>(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/packages/`),
     {
       full_name: fullName,
@@ -47,18 +50,12 @@ export function createPackage({
 export type FetchPackageStatusParams = {
   packageId: string;
 } & OrganizationSlugParams;
-export type FetchPackageStatusResponse = {
-  delivery_company: string;
-  tracking_code: string;
-  created_at: string;
-  status: PackageStatus;
-};
 export function fetchPackageStatus({
   organizationSlug,
   packageId,
   cancelToken = null,
 }: FetchPackageStatusParams) {
-  return axios.get<FetchPackageStatusResponse>(
+  return axios.get<Package>(
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/`
     ),

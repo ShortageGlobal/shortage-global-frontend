@@ -16,7 +16,12 @@ import {
   deleteCartItem as deleteCartItemAxios,
   updateCartItemQuantity as updateCartItemQuantityAxios,
 } from 'app/api';
-import type { Slug, CreateCartItem } from 'app/api/types';
+import type {
+  Product,
+  Organization,
+  CreateCartItem,
+  CartItem,
+} from 'app/api/types';
 
 export function useCart() {
   const dispatch = useAppDispatch();
@@ -27,20 +32,15 @@ export function useCart() {
   const getUpdateCartItemQuantityCancelToken = useCancelToken();
   const getDeleteCartItemCancelToken = useCancelToken();
 
-  const initCart = useCallback(async (items: CreateCartItem[]) => {
-    const cancelToken = getCreateCartCancelToken();
-    return dispatch(createCart({ items, cancelToken }));
-  }, []);
-
   const checkIsProductInCart = useCallback(
     ({
       productSlug,
       organizationSlug,
     }: {
-      productSlug: Slug;
-      organizationSlug: Slug;
+      productSlug: Product['slug'];
+      organizationSlug: Organization['slug'];
     }) => {
-      return cart?.items.some((item) => {
+      return !!cart?.items.some((item) => {
         return (
           item.product.slug === productSlug &&
           item.product.organization.slug === organizationSlug
@@ -49,6 +49,11 @@ export function useCart() {
     },
     [cart]
   );
+
+  const initCart = useCallback(async (items: CreateCartItem[]) => {
+    const cancelToken = getCreateCartCancelToken();
+    return dispatch(createCart({ items, cancelToken }));
+  }, []);
 
   const addToCart = useCallback(
     ({ product_slug, organization_slug, quantity }: CreateCartItem) => {
@@ -87,14 +92,24 @@ export function useCart() {
   );
 
   const updateCartItemQuantity = useCallback(
-    async ({ item, quantity }) => {
-      dispatch(updateCartItemQuantityAction({ item, quantity }));
+    async ({
+      cartItemId,
+      quantity,
+    }: {
+      cartItemId: CartItem['uuid'];
+      quantity: number;
+    }) => {
+      if (!cart?.uuid) {
+        return;
+      }
 
-      const cancelToken = getUpdateCartItemQuantityCancelToken(item.uuid);
+      dispatch(updateCartItemQuantityAction({ cartItemId, quantity }));
+
+      const cancelToken = getUpdateCartItemQuantityCancelToken(cartItemId);
       try {
         await updateCartItemQuantityAxios({
           cartId: cart.uuid,
-          cartItemId: item.uuid,
+          cartItemId,
           quantity,
           cancelToken,
         });
@@ -108,14 +123,18 @@ export function useCart() {
   );
 
   const deleteFromCart = useCallback(
-    async ({ item }) => {
-      dispatch(deleteCartItemAction({ item }));
+    async ({ cartItemId }: { cartItemId: CartItem['uuid'] }) => {
+      if (!cart?.uuid) {
+        return;
+      }
 
-      const cancelToken = getDeleteCartItemCancelToken(item.uuid);
+      dispatch(deleteCartItemAction({ cartItemId }));
+
+      const cancelToken = getDeleteCartItemCancelToken(cartItemId);
       try {
         await deleteCartItemAxios({
           cartId: cart.uuid,
-          cartItemId: item.uuid,
+          cartItemId,
           cancelToken,
         });
       } catch (rejection) {

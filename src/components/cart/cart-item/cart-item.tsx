@@ -102,8 +102,8 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
           className={styles.removeButton}
           onClick={handleRemove}
         >
-          <span>Remove</span>
           <Trash2 size="1rem" />
+          <span>Remove</span>
         </Button>
       </div>
     </div>

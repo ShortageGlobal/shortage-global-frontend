@@ -59,14 +59,14 @@ export function Cart() {
 
   const handleItemQuantityChange = useCallback(
     ({ item, quantity }: { item: CartItemType; quantity: number }) => {
-      updateCartItemQuantity({ item, quantity });
+      updateCartItemQuantity({ cartItemId: item.uuid, quantity });
     },
     [updateCartItemQuantity]
   );
 
   const handleItemRemove = useCallback(
     ({ item }: { item: CartItemType }) => {
-      deleteFromCart({ item });
+      deleteFromCart({ cartItemId: item.uuid });
     },
     [deleteFromCart]
   );
@@ -83,7 +83,9 @@ export function Cart() {
       </Offcanvas.Header>
       <Offcanvas.Body>
         {groupedCartItems.size === 0 ? (
-          <p>You don't have any packages</p>
+          <>
+            <p>You haven't added any products to your packages yet.</p>
+          </>
         ) : null}
 
         {Array.from(groupedCartItems.values()).map(
@@ -115,8 +117,7 @@ export function Cart() {
 
                 <Link
                   href={{
-                    pathname:
-                      '/organizations/[organizationSlug]/package-registration',
+                    pathname: '/organizations/[organizationSlug]/packages',
                     query: { organizationSlug },
                   }}
                   passHref

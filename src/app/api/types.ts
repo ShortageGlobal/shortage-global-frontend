@@ -104,6 +104,18 @@ export type PackageItem = {
   quantity: number;
 };
 
+export type Package = {
+  uuid: Uuid;
+  full_name?: string;
+  email?: string;
+  phone_number?: string;
+  delivery_company: string;
+  tracking_code: string;
+  note?: string;
+  photo?: string;
+  status: PackageStatus;
+};
+
 export type CreateCartItem = {
   product_slug: string;
   organization_slug: string;

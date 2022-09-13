@@ -1,0 +1,46 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.packageRegistrationForm {
+  $form-group-margin-bottom: 1rem;
+
+  .sectionHeader {
+    margin: 2rem 0;
+  }
+
+  .formGroup {
+    margin-bottom: $form-group-margin-bottom;
+  }
+
+  .removeItemContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .removeItemButton {
+    width: 100%;
+    margin-bottom: $form-group-margin-bottom;
+    border-color: $package-item-remove-button-border-color;
+
+    &:hover,
+    &:active {
+      border-color: $package-item-remove-button-hover-border-color;
+    }
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .removeItemButtonLabel {
+    @include media-breakpoint-up(md) {
+      @include visually-hidden;
+    }
+  }
+
+  .confirmPackageDetailsBtn {
+    margin: 2rem 0rem 0rem;
+    width: 100%;
+  }
+}

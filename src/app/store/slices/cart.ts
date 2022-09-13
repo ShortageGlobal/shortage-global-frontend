@@ -6,13 +6,13 @@ import {
   createCartItem as createCartItemAxios,
 } from 'app/api';
 import { serizalizeAxiosError } from 'app/helpers';
+import { CART_ID_KEY } from 'app/constants';
 import type { AxiosSerializedError, Cart } from 'app/api/types';
 import type {
   CreateCartParams,
   FetchCartParams,
   CreateCartItemParams,
 } from 'app/api';
-import { CART_ID_KEY } from 'app/constants';
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -42,7 +42,7 @@ export const cartSlice = createSlice({
     },
     updateCartItemQuantity: (state, action) => {
       const itemToUpdate = state.cart.items.find(
-        (item) => item.uuid === action.payload.item.uuid
+        (item) => item.uuid === action.payload.cartItemId
       );
       if (!itemToUpdate) {
         return;
@@ -51,7 +51,7 @@ export const cartSlice = createSlice({
     },
     deleteCartItem: (state, action) => {
       state.cart.items = state.cart.items.filter(
-        (item) => item.uuid !== action.payload.item.uuid
+        (item) => item.uuid !== action.payload.cartItemId
       );
     },
   },
