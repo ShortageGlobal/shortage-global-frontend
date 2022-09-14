@@ -90,8 +90,8 @@ $instructions-modal-blockquote-border-color: $border-color;
 // Organization Details
 $organization-details-background-color: #f4f6f8;
 
-// How it works
-$how-it-works-background-color: #ffce00;
+// Organization. How it works
+$org-how-it-works-background-color: #ffce00;
 
 // Offcanvas
 $offcanvas-padding-x: 3rem;
@@ -107,3 +107,12 @@ $package-registration-form-max-width: 650px;
 $package-item-photo-border-color: var(--bs-dark);
 $package-item-remove-button-border-color: $input-border-color;
 $package-item-remove-button-hover-border-color: var(--bs-gray-900);
+
+// How it works
+$how-it-works-banner-bg-color: $secondary-background;
+$how-it-works-header-color: $primary;
+$how-it-works-counter-bg-color: $primary;
+$how-it-works-counter-color: $white;
+
+// Team card
+$team-card-bg-color: $card-bg;

@@ -11,6 +11,24 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import type { NextPageWithLayout } from 'pages/_app';
 
+const team = [
+  {
+    name: 'Kseniia Khrystova, CEO',
+    url: 'https://www.linkedin.com/in/kseniia-khrystova-774840b0/',
+    image: '/images/team/Kseniia_Khrystova.jpg',
+  },
+  {
+    name: 'Serhii Holinei, CTO',
+    url: 'https://www.linkedin.com/in/serhii-holinei/',
+    image: '/images/team/Serhii_Holinei.jpg',
+  },
+  {
+    name: 'Alina Fedorenko, COO',
+    url: 'https://www.linkedin.com/in/alina-volokh/',
+    image: '/images/team/Alina_Fedorenko.jpg',
+  },
+];
+
 const HowItWorks: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getHowItWorksCrumb({ isActive: true })];
@@ -108,9 +126,11 @@ const HowItWorks: NextPageWithLayout = () => {
             </div>
           </Col>
         </Row>
+      </Container>
 
+      <Container className={styles.aboutPlatform}>
         <Row>
-          <Col className={styles.aboutPlatform}>
+          <Col>
             <p>
               Our platform provides an alternative way to give. Here you can
               easily donate tangible goods instead of money to nonprofits you
@@ -125,6 +145,42 @@ const HowItWorks: NextPageWithLayout = () => {
               new giving trend. Join us!
             </p>
           </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <h2 className={styles.header}>We are here for you to help</h2>
+          </Col>
+        </Row>
+
+        <Row md={3} sm={2} xs={1}>
+          {team.map((member) => {
+            return (
+              <Col key={member.name}>
+                <a
+                  className={styles.teamCard}
+                  href={member.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    className={styles.memberImg}
+                    src={member.image}
+                    alt={member.name}
+                  />
+                  <div className={styles.memberBody}>
+                    <div className={styles.memberName}>{member.name}</div>
+                    <Image
+                      src="/images/team/LinkedIn_Logo.svg"
+                      width={24}
+                      height={24}
+                      alt="LinkedIn logo"
+                    />
+                  </div>
+                </a>
+              </Col>
+            );
+          })}
         </Row>
       </Container>
     </>
