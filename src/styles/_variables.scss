@@ -12,6 +12,7 @@ $font-family-base: Jost, $font-family-sans-serif;
 $link-decoration: none;
 $link-hover-decoration: underline;
 $primary-button-color: $white;
+$secondary-background: #f4f6f8;
 
 // Global Notification
 $global-notification-height: 1.5rem;
@@ -33,9 +34,6 @@ $header-height: calc(
 ); // used for padding-top of main container, because header has fixed-top
 $header-background: var(--bs-body-bg);
 $header-border-bottom-color: $border-color;
-
-// Footer
-$footer-background: #f4f6f8;
 
 // Breadcrumb
 $breadcrumb-item-padding-x: 1rem;
@@ -65,7 +63,7 @@ $category-selector-color: var(--bs-body-color);
 $category-selector-color-active: $primary;
 
 // Card
-$card-bg: $footer-background;
+$card-bg: $secondary-background;
 $card-border-width: 0px;
 
 // Product Card

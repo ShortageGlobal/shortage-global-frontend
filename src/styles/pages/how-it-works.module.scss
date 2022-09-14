@@ -1,0 +1,181 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.howItWorks {
+  .banner {
+    position: relative;
+    padding: 3.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: $secondary-background;
+    overflow: hidden;
+
+    @include media-breakpoint-down(md) {
+      padding: 4rem 1rem;
+    }
+
+    .header {
+      color: $primary;
+      font-size: 4rem;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 2rem;
+      }
+    }
+
+    .motto {
+      font-weight: 500;
+      font-size: 2rem;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .description {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: left;
+
+      @include media-breakpoint-down(lg) {
+        grid-template-columns: 1fr;
+      }
+
+      > * {
+        max-width: 450px;
+      }
+
+      .descriptionHeader {
+        margin: 2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .number {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 1.5rem;
+          font-size: 2rem;
+          width: 3.5rem;
+          height: 3.5rem;
+          border-radius: 100%;
+          background-color: $primary;
+          color: $white;
+
+          @include media-breakpoint-down(sm) {
+            margin-right: 1rem;
+          }
+        }
+      }
+
+      .descriptionList {
+        list-style: square;
+      }
+    }
+
+    .image {
+      position: absolute;
+    }
+
+    .imageBoyLooksRight {
+      width: 58px;
+      height: 132px;
+      top: 3rem;
+      right: calc(50% + 440px);
+
+      @include media-breakpoint-down(xl) {
+        right: calc(50% + 350px);
+      }
+
+      @include media-breakpoint-down(lg) {
+        top: 25rem;
+        right: calc(50% + 230px);
+      }
+
+      @include media-breakpoint-down(md) {
+        @include visually-hidden;
+      }
+    }
+
+    .imageGirlRunsRight {
+      width: 117px;
+      height: 145px;
+      top: 8rem;
+      right: calc(50% + 280px);
+
+      @include media-breakpoint-down(xl) {
+        right: calc(50% + 260px);
+      }
+
+      @include media-breakpoint-down(lg) {
+        top: 7.5rem;
+        right: calc(50% + 190px);
+      }
+
+      @include media-breakpoint-down(md) {
+        @include visually-hidden;
+      }
+    }
+
+    .imageGirlLooksLeft {
+      width: 74px;
+      height: 137px;
+      top: 5rem;
+      left: calc(50% + 440px);
+
+      @include media-breakpoint-down(xl) {
+        left: calc(50% + 350px);
+      }
+
+      @include media-breakpoint-down(lg) {
+        top: 4rem;
+        left: calc(50% + 230px);
+      }
+
+      @include media-breakpoint-down(md) {
+        @include visually-hidden;
+      }
+    }
+
+    .imageBoyRunsLeft {
+      width: 116px;
+      height: 138px;
+      top: 8rem;
+      left: calc(50% + 280px);
+
+      @include media-breakpoint-down(xl) {
+        left: calc(50% + 245px);
+      }
+
+      @include media-breakpoint-down(lg) {
+        top: 20rem;
+        left: calc(50% + 160px);
+      }
+
+      @include media-breakpoint-down(md) {
+        @include visually-hidden;
+      }
+    }
+  }
+
+  .aboutPlatform {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    font-size: 1.5rem;
+
+    @include media-breakpoint-down(lg) {
+      font-size: 1.1rem;
+    }
+
+    @include media-breakpoint-between(sm, xl) {
+      padding: 0 4rem;
+    }
+  }
+}

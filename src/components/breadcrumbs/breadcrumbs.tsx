@@ -55,6 +55,16 @@ export const getHomeCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getHowItWorksCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'How It Works',
+    href: {
+      pathname: '/how-it-works',
+    },
+    ...props,
+  });
+
 export const getOrganizationCrumb = ({
   organizationSlug,
   organizationName,

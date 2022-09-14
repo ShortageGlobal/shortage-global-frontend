@@ -114,9 +114,9 @@ export function Header() {
                 </ActiveLink>
               </NavDropdown>
 
-              <ActiveLink href="/impact-stories" passHref>
+              {/* <ActiveLink href="/impact-stories" passHref>
                 <Nav.Link>Impact Stories</Nav.Link>
-              </ActiveLink>
+              </ActiveLink> */}
 
               <Link href="/" passHref>
                 <Nav.Link className={styles.control}>
