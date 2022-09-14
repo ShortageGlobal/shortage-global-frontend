@@ -32,6 +32,7 @@ $navbar-toggler-focus-width: 0;
 $header-height: calc(
   82px + $global-notification-height
 ); // used for padding-top of main container, because header has fixed-top
+$header-height-sm: calc(60px + $global-notification-height);
 $header-background: var(--bs-body-bg);
 $header-border-bottom-color: $border-color;
 

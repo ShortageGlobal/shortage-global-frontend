@@ -16,12 +16,29 @@
     .container {
       padding-top: 1.2rem;
       padding-bottom: 1.2rem;
+
+      @include media-breakpoint-down(sm) {
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+      }
     }
 
     .navbarBrand {
       position: relative;
       width: 200px;
       height: 28px;
+
+      @include media-breakpoint-down(sm) {
+        width: calc(200px * 4 / 5);
+        height: calc(28px * 4 / 5);
+      }
+    }
+
+    .navbarToggle > * {
+      @include media-breakpoint-down(sm) {
+        width: 1.1em;
+        height: 1.1em;
+      }
     }
 
     .navbarCollapse {

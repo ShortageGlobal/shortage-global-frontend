@@ -92,7 +92,10 @@ export function Header() {
             </Navbar.Brand>
           </Link>
 
-          <Navbar.Toggle aria-controls="header-navbar-nav" />
+          <Navbar.Toggle
+            aria-controls="header-navbar-nav"
+            className={styles.navbarToggle}
+          />
 
           <Navbar.Collapse
             className={styles.navbarCollapse}

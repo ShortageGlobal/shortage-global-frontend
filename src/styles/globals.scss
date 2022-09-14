@@ -18,6 +18,10 @@ body {
     flex-direction: column;
     padding-top: $header-height;
     flex-shrink: 0;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: $header-height-sm;
+    }
   }
 }
 
