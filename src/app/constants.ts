@@ -1,5 +1,7 @@
 export const API_ROOT = process.env.NEXT_PUBLIC_API_ROOT;
 
+export const LIVE_CHAT_LICENCE_ID = '13843851';
+
 // IMPORTANT: the list of category keys must be synchronized with backend
 export const PRODUCT_CATEGORY_KEY = Object.freeze({
   VITAL_GOODS: 'VITAL_GOODS',
