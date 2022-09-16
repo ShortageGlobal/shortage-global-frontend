@@ -1,0 +1,60 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables.scss';
+
+.searchForm {
+  $initial-width: 47px;
+
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.7rem;
+  cursor: text;
+  transition: $btn-transition;
+
+  @include media-breakpoint-down(lg) {
+    padding: 0.5rem 0;
+  }
+
+  &:hover:not(.active) {
+    color: $search-products-placeholder-hover-color;
+  }
+
+  &.focused {
+    box-shadow: $btn-focus-box-shadow;
+  }
+
+  .glyph {
+    margin-right: 0.5rem;
+  }
+
+  .placeholder {
+    width: $initial-width;
+  }
+
+  .input {
+    transition: width 0.15s ease-in-out;
+  }
+
+  &:not(.active) {
+    .input {
+      @include visually-hidden;
+      width: $initial-width !important;
+    }
+  }
+
+  &.active {
+    .input {
+      width: 150px;
+      height: 24px; // match nav items
+      margin-left: 0.5rem;
+      outline: none;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid $search-products-input-border-color;
+    }
+
+    .placeholder {
+      @include visually-hidden;
+    }
+  }
+}

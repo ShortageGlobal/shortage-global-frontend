@@ -1,6 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import styles from './search.module.scss';
+import { useRef, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { Form } from 'react-bootstrap';
+import { Search } from 'react-feather';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectSearch, setSearchQuery } from 'app/store/slices/search';
 
@@ -9,8 +11,23 @@ export function SearchProducts() {
   const dispatch = useAppDispatch();
   const { searchQuery } = useAppSelector(selectSearch);
 
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const inputElement = useRef(null);
+
   const handleFormSubmit = useCallback((e) => {
     e.preventDefault();
+  }, []);
+
+  const handleFormClick = useCallback(() => {
+    inputElement.current.focus();
+  }, []);
+
+  const handleInputFocus = useCallback(() => {
+    setIsInputFocused(true);
+  }, []);
+
+  const handleInputBlur = useCallback(() => {
+    setIsInputFocused(false);
   }, []);
 
   const handleSearchQueryChange = useCallback((e) => {
@@ -43,13 +60,27 @@ export function SearchProducts() {
   }, [router, searchQuery]);
 
   return (
-    <Form onSubmit={handleFormSubmit}>
-      <Form.Control
-        type="search"
+    <form
+      onSubmit={handleFormSubmit}
+      onClick={handleFormClick}
+      className={classNames(styles.searchForm, {
+        [styles.active]: isInputFocused || searchQuery?.length > 0,
+        [styles.focused]: isInputFocused,
+      })}
+    >
+      <Search className={styles.glyph} />
+      <input
+        ref={inputElement}
+        type="text"
         placeholder="Search"
+        className={styles.input}
         value={searchQuery}
         onChange={handleSearchQueryChange}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       />
-    </Form>
+
+      <span className={styles.placeholder}>Search</span>
+    </form>
   );
 }
