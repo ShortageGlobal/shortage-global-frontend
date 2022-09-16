@@ -4,15 +4,8 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  Container,
-  Navbar,
-  Nav,
-  NavDropdown,
-  Button,
-  Badge,
-} from 'react-bootstrap';
-import { User, Package } from 'react-feather';
+import { Container, Navbar, Nav, Button, Badge } from 'react-bootstrap';
+import { Menu, Package } from 'react-feather';
 import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
@@ -38,12 +31,8 @@ export function Header() {
 
   // collapse navbar on route change
   useEffect(() => {
-    const handleComplete = () => setIsNavbarExpanded(false);
-    router.events.on('routeChangeComplete', handleComplete);
-    return () => {
-      router.events.off('routeChangeComplete', handleComplete);
-    };
-  }, [router]);
+    setIsNavbarExpanded(false);
+  }, [router.route]);
 
   // change isWindowScroll based on the scroll position
   useScrollPosition(({ currPos }) => {
@@ -95,12 +84,16 @@ export function Header() {
           <Navbar.Toggle
             aria-controls="header-navbar-nav"
             className={styles.navbarToggle}
-          />
+          >
+            <Menu className={styles.navbarToggleIcon} />
+          </Navbar.Toggle>
 
           <Navbar.Collapse
             className={styles.navbarCollapse}
             id="header-navbar-nav"
           >
+            <div className={styles.navbarCollapsedTopPlaceholder} />
+
             {shouldShowSearchField ? <SearchProducts /> : null}
 
             <Nav>
@@ -108,26 +101,25 @@ export function Header() {
                 <Nav.Link>How it works</Nav.Link>
               </ActiveLink>
 
-              <NavDropdown title="For partners" id="basic-nav-dropdown">
-                <ActiveLink href="/for-partners/non-profit" passHref>
-                  <NavDropdown.Item>Non-profit</NavDropdown.Item>
-                </ActiveLink>
-                <ActiveLink href="/for-partners/corporate" passHref>
-                  <NavDropdown.Item>Corporate</NavDropdown.Item>
-                </ActiveLink>
-              </NavDropdown>
+              <ActiveLink href="/for-partners/non-profit" passHref>
+                <Nav.Link>For Nonprofit</Nav.Link>
+              </ActiveLink>
+
+              <ActiveLink href="/for-partners/corporate" passHref>
+                <Nav.Link>For Corporate</Nav.Link>
+              </ActiveLink>
 
               {/* <ActiveLink href="/impact-stories" passHref>
                 <Nav.Link>Impact Stories</Nav.Link>
               </ActiveLink> */}
 
-              <Link href="/" passHref>
+              {/* <Link href="/" passHref>
                 <Nav.Link className={styles.control}>
                   <User />
 
                   <span className={styles.controlText}>Account</span>
                 </Nav.Link>
-              </Link>
+              </Link> */}
 
               <Button
                 variant=""

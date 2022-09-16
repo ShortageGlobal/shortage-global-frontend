@@ -34,7 +34,7 @@
       }
     }
 
-    .navbarToggle > * {
+    .navbarToggleIcon {
       @include media-breakpoint-down(sm) {
         width: 1.1em;
         height: 1.1em;
@@ -43,6 +43,16 @@
 
     .navbarCollapse {
       flex-grow: unset;
+    }
+
+    .navbarCollapsedTopPlaceholder {
+      // reserve space, so navbar is correctly animated on toggle
+      height: 0.5rem;
+      width: 100%;
+
+      @include media-breakpoint-up(lg) {
+        display: none;
+      }
     }
   }
 

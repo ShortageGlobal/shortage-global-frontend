@@ -36,6 +36,10 @@ $header-height-sm: calc(60px + $global-notification-height);
 $header-background: var(--bs-body-bg);
 $header-border-bottom-color: $border-color;
 
+// Search Products Input
+$search-products-placeholder-hover-color: $primary;
+$search-products-input-border-color: var(--bs-dark);
+
 // Breadcrumb
 $breadcrumb-item-padding-x: 1rem;
 $breadcrumbs-link-color: $breadcrumb-active-color;
