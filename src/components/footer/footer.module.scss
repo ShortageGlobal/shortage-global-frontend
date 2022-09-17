@@ -11,11 +11,6 @@
     display: block;
     width: 200px;
     height: 28px;
-
-    @include media-breakpoint-down(sm) {
-      width: calc(200px * 4 / 5);
-      height: calc(28px * 4 / 5);
-    }
   }
 
   .copyrightBlock {
