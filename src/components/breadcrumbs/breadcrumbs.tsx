@@ -65,6 +65,26 @@ export const getHowItWorksCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getForCorporateCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'For Corporate',
+    href: {
+      pathname: '/for-corporate',
+    },
+    ...props,
+  });
+
+export const getForNonprofitCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'For Nonprofit',
+    href: {
+      pathname: '/for-nonprofit',
+    },
+    ...props,
+  });
+
 export const getOrganizationCrumb = ({
   organizationSlug,
   organizationName,

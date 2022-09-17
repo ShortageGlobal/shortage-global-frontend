@@ -37,7 +37,7 @@ const HowItWorks: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>How it works | ShortageGlobal</title>
+        <title>How it works | Shortage</title>
       </Head>
 
       <Container>

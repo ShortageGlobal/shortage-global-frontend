@@ -74,7 +74,7 @@ export function Header() {
             <Navbar.Brand className={styles.navbarBrand}>
               <Image
                 src="/images/logo/ShortageGlobal-black.png"
-                alt="ShortageGlobal"
+                alt="Shortage"
                 layout="fill"
                 priority
               />
@@ -101,11 +101,11 @@ export function Header() {
                 <Nav.Link>How it works</Nav.Link>
               </ActiveLink>
 
-              <ActiveLink href="/for-partners/non-profit" passHref>
+              <ActiveLink href="/for-nonprofit" passHref>
                 <Nav.Link>For Nonprofit</Nav.Link>
               </ActiveLink>
 
-              <ActiveLink href="/for-partners/corporate" passHref>
+              <ActiveLink href="/for-corporate" passHref>
                 <Nav.Link>For Corporate</Nav.Link>
               </ActiveLink>
 

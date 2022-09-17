@@ -84,7 +84,7 @@ const ProductPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{product.name} | ShortageGlobal</title>
+        <title>{product.name} | Shortage</title>
       </Head>
 
       <Container className={styles.product}>

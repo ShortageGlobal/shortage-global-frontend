@@ -43,7 +43,7 @@ const OrganizationPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{organization.name} | ShortageGlobal</title>
+        <title>{organization.name} | Shortage</title>
       </Head>
 
       <Container className={styles.organization}>

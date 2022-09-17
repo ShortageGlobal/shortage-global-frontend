@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>ShortageGlobal | Donate tangible goods</title>
+        <title>Shortage | Donate tangible goods</title>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>

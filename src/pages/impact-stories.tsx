@@ -6,7 +6,7 @@ const ImpactStories: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Impact stories | ShortageGlobal</title>
+        <title>Impact stories | Shortage</title>
       </Head>
       <div>Impact stories</div>
     </>

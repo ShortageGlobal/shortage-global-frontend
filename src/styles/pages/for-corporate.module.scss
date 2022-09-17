@@ -1,0 +1,160 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.forCorporate {
+  .banner {
+    position: relative;
+    padding: 3.5rem 1rem 0;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    @include media-breakpoint-down(lg) {
+      padding: 1.5rem 1rem 0;
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 0rem 1rem 0;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 1rem 1rem 0;
+    }
+
+    .header {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      line-height: 1.1;
+
+      .highlightedHeader {
+        text-decoration: underline;
+        text-decoration-color: $for-corporate-highlighted-header-underline-color;
+        text-decoration-thickness: from-font;
+      }
+
+      @include media-breakpoint-down(xl) {
+        font-size: 3rem;
+      }
+
+      @include media-breakpoint-down(lg) {
+        font-size: 2.2rem;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 2.5rem;
+      }
+
+      @include media-breakpoint-down(sm) {
+        padding: 0rem 4rem 0;
+        font-size: 1.8rem;
+      }
+    }
+
+    .bannerText {
+      max-width: 635px;
+      margin-bottom: 0;
+
+      @include media-breakpoint-down(xl) {
+        max-width: 470px;
+      }
+
+      @include media-breakpoint-down(lg) {
+        max-width: 420px;
+      }
+
+      @include media-breakpoint-down(md) {
+        max-width: 315px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        max-width: 100%;
+      }
+    }
+
+    .image {
+      position: absolute;
+    }
+
+    .girlJumpsRight {
+      $width: 240px;
+      $height: 301px;
+
+      width: $width;
+      height: $height;
+      top: 0;
+      left: 5%;
+
+      @include media-breakpoint-down(xxl) {
+        left: 0;
+      }
+
+      @include media-breakpoint-down(xl) {
+      }
+
+      @include media-breakpoint-down(lg) {
+        width: $width * 0.7;
+        height: $height * 0.7;
+      }
+
+      @include media-breakpoint-down(md) {
+        top: 5.5rem;
+        left: -10px;
+        width: $width * 0.5;
+        height: $height * 0.5;
+      }
+
+      @include media-breakpoint-down(sm) {
+        top: 0;
+        left: 0;
+        width: $width * 0.35;
+        height: $height * 0.35;
+      }
+    }
+
+    .boyJumpsLeft {
+      $width: 268px;
+      $height: 300px;
+
+      width: $width;
+      height: $height;
+      top: 0px;
+      right: 5%;
+
+      @include media-breakpoint-down(xxl) {
+        right: 0;
+      }
+
+      @include media-breakpoint-down(lg) {
+        width: $width * 0.7;
+        height: $height * 0.7;
+      }
+
+      @include media-breakpoint-down(md) {
+        top: 5.5rem;
+        width: $width * 0.5;
+        height: $height * 0.5;
+      }
+
+      @include media-breakpoint-down(sm) {
+        top: 0;
+        right: 0;
+        width: $width * 0.35;
+        height: $height * 0.35;
+      }
+    }
+  }
+}
+
+.donorRegistration {
+  max-width: $package-registration-form-max-width;
+  width: 100%;
+  margin: 1rem auto 4rem;
+  text-align: center;
+
+  > * + * {
+    margin-top: 1rem;
+  }
+}
