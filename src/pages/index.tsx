@@ -18,7 +18,7 @@ const IndexPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>ShortageGlobal | Donate tangible goods</title>
+        <title>Shortage | Donate tangible goods</title>
       </Head>
       <PromoBanner />
       <PromotedOrganizations />

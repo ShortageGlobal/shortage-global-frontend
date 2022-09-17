@@ -2,13 +2,13 @@ import Head from 'next/head';
 import { wrapper } from 'app/store';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ForCorporate: NextPageWithLayout = () => {
+const ForNonProfit: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>For corporate | ShortageGlobal</title>
+        <title>For non-profit | Shortage</title>
       </Head>
-      <div>For corporate</div>
+      <div>For non-profit</div>
     </>
   );
 };
@@ -19,4 +19,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default ForCorporate;
+export default ForNonProfit;

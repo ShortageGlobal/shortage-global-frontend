@@ -40,7 +40,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Package is registered | ShortageGlobal</title>
+        <title>Package is registered | Shortage</title>
       </Head>
 
       <Container>

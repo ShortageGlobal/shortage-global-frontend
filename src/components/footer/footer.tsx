@@ -6,9 +6,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 export function Footer() {
   const copyrightText = (
-    <span>
-      &copy; {new Date().getFullYear()} All rights reserved. ShortageGlobal
-    </span>
+    <span>&copy; {new Date().getFullYear()} All rights reserved. Shortage</span>
   );
   return (
     <Container
@@ -23,7 +21,7 @@ export function Footer() {
               <a className={styles.logo}>
                 <Image
                   src="/images/logo/ShortageGlobal-black.png"
-                  alt="ShortageGlobal"
+                  alt="Shortage"
                   layout="fill"
                   priority
                 />
