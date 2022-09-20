@@ -9,8 +9,6 @@ import { stripProtocolFromUrl } from 'app/helpers';
 export function OrganizationDetails() {
   const { organization } = useAppSelector(selectOrganization);
 
-  console.log(organization);
-
   return (
     <Container>
       <Row>
