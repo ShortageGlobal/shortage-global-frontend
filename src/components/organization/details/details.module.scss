@@ -31,3 +31,22 @@
     }
   }
 }
+
+.taxDeductionFormLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 2rem;
+  color: $tax-deduction-form-link-color;
+  text-align: center;
+  background-color: $tax-deduction-form-link-background;
+
+  > * + * {
+    margin-left: 0.5rem;
+  }
+
+  &:hover {
+    color: $tax-deduction-form-link-hover-color;
+    text-decoration: underline;
+  }
+}

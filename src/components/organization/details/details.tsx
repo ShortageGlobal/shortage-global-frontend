@@ -1,5 +1,6 @@
 import styles from './details.module.scss';
 import Image from 'next/image';
+import { ArrowRightCircle } from 'react-feather';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useAppSelector } from 'app/hooks';
 import { selectOrganization } from 'app/store/slices/organization';
@@ -7,6 +8,8 @@ import { stripProtocolFromUrl } from 'app/helpers';
 
 export function OrganizationDetails() {
   const { organization } = useAppSelector(selectOrganization);
+
+  console.log(organization);
 
   return (
     <Container>
@@ -62,6 +65,17 @@ export function OrganizationDetails() {
               ></div>
             ) : null}
           </div>
+          {organization.tax_form_url ? (
+            <a
+              href={organization.tax_form_url}
+              className={styles.taxDeductionFormLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>To receive tax deduction receipt please fill the form</span>
+              <ArrowRightCircle />
+            </a>
+          ) : null}
         </Col>
       </Row>
     </Container>
