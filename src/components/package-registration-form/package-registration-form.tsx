@@ -144,6 +144,7 @@ export function PackageRegistrationForm({
           <Form.Group controlId="first-name" className={styles.formGroup}>
             <Form.Label>First Name</Form.Label>
             <Form.Control
+              size="lg"
               type="text"
               placeholder="First Name"
               autoFocus
@@ -156,6 +157,7 @@ export function PackageRegistrationForm({
           <Form.Group controlId="last-name" className={styles.formGroup}>
             <Form.Label>Last Name</Form.Label>
             <Form.Control
+              size="lg"
               type="text"
               placeholder="Last Name"
               value={lastName}
@@ -168,6 +170,7 @@ export function PackageRegistrationForm({
           <Form.Group controlId="email" className={styles.formGroup}>
             <Form.Label>Email *</Form.Label>
             <Form.Control
+              size="lg"
               type="email"
               placeholder="Email"
               required
@@ -181,6 +184,7 @@ export function PackageRegistrationForm({
           <Form.Group controlId="phone" className={styles.formGroup}>
             <Form.Label>Phone Number *</Form.Label>
             <Form.Control
+              size="lg"
               type="text"
               placeholder="Phone Number"
               value={phoneNumber}
@@ -218,6 +222,7 @@ export function PackageRegistrationForm({
           <Form.Group controlId="delivery-company" className={styles.formGroup}>
             <Form.Label>Shipping Carrier *</Form.Label>
             <Form.Control
+              size="lg"
               type="text"
               placeholder="UPS, FedEx, DHL, etc."
               required
@@ -231,6 +236,7 @@ export function PackageRegistrationForm({
           <Form.Group controlId="tracking-number" className={styles.formGroup}>
             <Form.Label>Tracking Number *</Form.Label>
             <Form.Control
+              size="lg"
               type="text"
               placeholder="Tracking Number"
               required
@@ -257,6 +263,7 @@ export function PackageRegistrationForm({
           <Form.Group controlId="note" className={styles.formGroup}>
             <Form.Label>Notes</Form.Label>
             <Form.Control
+              size="lg"
               as="textarea"
               placeholder="Type something here"
               value={note}

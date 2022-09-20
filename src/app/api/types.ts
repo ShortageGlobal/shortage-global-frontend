@@ -27,6 +27,8 @@ export type Category =
 export type PackageStatusKey = keyof typeof PACKAGE_STATUS;
 export type PackageStatus = typeof PACKAGE_STATUS[PackageStatusKey];
 
+export type CountryChoice = { display_name: string; value: string };
+
 export type PaginationParams = {
   limit?: Limit;
   offset?: Offset;
