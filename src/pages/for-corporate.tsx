@@ -89,15 +89,13 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    // fetch organizations and categories
-    const response = await fetchCorporateDonationOptions();
-    const countries = response.data.actions.POST.country.choices;
-    return {
-      props: { countries },
-    };
-  }
-);
+export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
+  // fetch organizations and categories
+  const response = await fetchCorporateDonationOptions();
+  const countries = response.data.actions.POST.country.choices;
+  return {
+    props: { countries },
+  };
+});
 
 export default ForCorporate;
