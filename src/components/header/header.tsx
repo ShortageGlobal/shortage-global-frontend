@@ -68,7 +68,7 @@ export function Header() {
           [styles.navbarWithBorder]: showNavbarBorder,
         })}
       >
-        <GlobalNotification />
+        {/* <GlobalNotification /> */}
         <Container className={styles.container}>
           <Link href="/" passHref>
             <Navbar.Brand className={styles.navbarBrand}>
@@ -101,9 +101,9 @@ export function Header() {
                 <Nav.Link>How it works</Nav.Link>
               </ActiveLink>
 
-              <ActiveLink href="/for-nonprofit" passHref>
+              {/* <ActiveLink href="/for-nonprofit" passHref>
                 <Nav.Link>For Nonprofit</Nav.Link>
-              </ActiveLink>
+              </ActiveLink> */}
 
               <ActiveLink href="/for-corporate" passHref>
                 <Nav.Link>For Corporate</Nav.Link>
