@@ -1,12 +1,11 @@
 import 'styles/globals.scss';
 import SSRProvider from 'react-bootstrap/SSRProvider';
-import { LiveChatWidget } from '@livechat/widget-react';
 import Head from 'next/head';
 import { wrapper } from 'app/store';
 import { Header } from 'components/header/header';
 import { Footer } from 'components/footer/footer';
 import { Cart } from 'components/cart/cart';
-import { LIVE_CHAT_LICENCE_ID } from 'app/constants';
+import { LiveChat } from 'components/live-chat/live-chat';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
@@ -29,7 +28,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <main className="main-container">{page}</main>
         <Footer />
         <Cart />
-        <LiveChatWidget license={LIVE_CHAT_LICENCE_ID} visibility="minimized" />
+        <LiveChat />
       </>
     ));
 

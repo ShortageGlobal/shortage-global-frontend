@@ -6,6 +6,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { liveChatReducer } from 'app/store/slices/live-chat';
 import { searchReducer } from 'app/store/slices/search';
 import { cartReducer } from 'app/store/slices/cart';
 import { promotedOrganizationsReducer } from 'app/store/slices/promoted-organizations';
@@ -21,6 +22,7 @@ import { packageReducer } from 'app/store/slices/package';
 
 const combinedReducer = combineReducers({
   search: searchReducer,
+  liveChat: liveChatReducer,
   cart: cartReducer,
   promotedOrganizations: promotedOrganizationsReducer,
   promotedCategories: promotedCategoriesReducer,

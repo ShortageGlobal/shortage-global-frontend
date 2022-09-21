@@ -1,7 +1,27 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
 .weAreHereForYou {
   margin-top: 4rem;
   margin-bottom: 4rem;
 
   .content {
+    margin-bottom: 2rem;
+
+    @include media-breakpoint-up(lg) {
+      max-width: $we-are-here-for-you-text-max-width;
+      margin-right: 4rem;
+    }
+  }
+
+  .supportTeamBtn {
+    color: $we-are-here-for-you-support-team-btn-color;
+    font-weight: 500;
+  }
+
+  .imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
