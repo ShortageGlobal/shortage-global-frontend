@@ -12,6 +12,7 @@ import {
   getForCorporateCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { CorporateDonationRegistrationForm } from 'components/corporate-donation-registration-form/corporate-donation-registration-form';
+import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { CountryChoice } from 'app/api/types';
 
@@ -85,6 +86,8 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
           </Col>
         </Row>
       </Container>
+
+      <WeAreHereForYou />
     </>
   );
 };

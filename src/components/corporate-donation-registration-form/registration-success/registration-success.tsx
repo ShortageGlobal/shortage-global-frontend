@@ -1,4 +1,5 @@
 import styles from './registration-success.module.scss';
+import { useEffect, useRef } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 type CorporateDonationRegistrationSuccessProps = {
@@ -8,11 +9,19 @@ type CorporateDonationRegistrationSuccessProps = {
 export function CorporateDonationRegistrationSuccess({
   onDismiss,
 }: CorporateDonationRegistrationSuccessProps) {
+  const topHeader = useRef<HTMLHeadingElement>();
+
+  useEffect(() => {
+    topHeader.current?.scrollIntoView({ block: 'center' });
+  }, []);
+
   return (
     <Container className={styles.registrationSuccess}>
       <Row>
         <Col>
-          <h2 className={styles.header}>Done!</h2>
+          <h2 className={styles.header} ref={topHeader}>
+            Done!
+          </h2>
         </Col>
       </Row>
 
