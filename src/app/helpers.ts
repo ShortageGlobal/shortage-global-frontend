@@ -21,7 +21,7 @@ export function formatPrice(value) {
     'en',
     { minimumFractionDigits: 2 }
   );
-  return `${formattedPrice}`;
+  return `$${formattedPrice}`;
 }
 
 // remove http:// or https:// from URL address
