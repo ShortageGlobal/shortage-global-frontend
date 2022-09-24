@@ -95,6 +95,7 @@ const HowItWorks: NextPageWithLayout = () => {
                 className={classNames(styles.image, styles.imageBoyLooksRight)}
               >
                 <Image
+                  alt=""
                   src="/images/characters/boy-looks-right.svg"
                   layout="fill"
                 />
@@ -103,6 +104,7 @@ const HowItWorks: NextPageWithLayout = () => {
                 className={classNames(styles.image, styles.imageGirlRunsRight)}
               >
                 <Image
+                  alt=""
                   src="/images/characters/girl-runs-right.svg"
                   layout="fill"
                 />
@@ -111,6 +113,7 @@ const HowItWorks: NextPageWithLayout = () => {
                 className={classNames(styles.image, styles.imageGirlLooksLeft)}
               >
                 <Image
+                  alt=""
                   src="/images/characters/girl-looks-left.svg"
                   layout="fill"
                 />
@@ -119,6 +122,7 @@ const HowItWorks: NextPageWithLayout = () => {
                 className={classNames(styles.image, styles.imageBoyRunsLeft)}
               >
                 <Image
+                  alt=""
                   src="/images/characters/boy-runs-left.svg"
                   layout="fill"
                 />
@@ -163,11 +167,7 @@ const HowItWorks: NextPageWithLayout = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img
-                    className={styles.memberImg}
-                    src={member.image}
-                    alt={member.name}
-                  />
+                  <img alt="" className={styles.memberImg} src={member.image} />
                   <div className={styles.memberBody}>
                     <div className={styles.memberName}>{member.name}</div>
                     <Image

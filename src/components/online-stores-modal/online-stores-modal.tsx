@@ -33,7 +33,11 @@ export function OnlineStoresModal({
         <div className={styles.orderSteps}>
           <div>
             <div className={styles.stepImageWrap}>
-              <Image src="/images/online-stores/order_cart.svg" layout="fill" />
+              <Image
+                alt=""
+                src="/images/online-stores/order_cart.svg"
+                layout="fill"
+              />
             </div>
             <span>1. Order on the online store</span>
           </div>
@@ -41,6 +45,7 @@ export function OnlineStoresModal({
           <div>
             <div className={styles.stepImageWrap}>
               <Image
+                alt=""
                 src="/images/online-stores/order_package.svg"
                 layout="fill"
               />
@@ -51,6 +56,7 @@ export function OnlineStoresModal({
           <div>
             <div className={styles.stepImageWrap}>
               <Image
+                alt=""
                 src="/images/online-stores/order_update.svg"
                 layout="fill"
               />

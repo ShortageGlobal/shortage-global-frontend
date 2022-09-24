@@ -89,11 +89,13 @@ export function CategorySelector({
                 >
                   <span className={styles.categoryLinkImage}>
                     <Image
+                      alt=""
                       className={classNames({ [styles.hidden]: isActive })}
                       src={categoryDetails.img}
                       layout="fill"
                     />
                     <Image
+                      alt=""
                       className={classNames({ [styles.hidden]: !isActive })}
                       src={categoryDetails.imgActive}
                       layout="fill"

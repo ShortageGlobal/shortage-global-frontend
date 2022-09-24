@@ -1,17 +1,15 @@
 import styles from 'styles/pages/product.module.scss';
-import { useMemo, useState, useCallback } from 'react';
+import animationStyles from 'styles/animations.module.scss';
+import { useState, useMemo, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { ShoppingCart, Loader, ArrowRightCircle } from 'react-feather';
+import { Container, Row, Col, Button, Placeholder } from 'react-bootstrap';
 import { formatPrice } from 'app/helpers';
-import { useAppSelector, useCart } from 'app/hooks';
+import { isRequestCancel, useAppSelector, useCart } from 'app/hooks';
 import { wrapper } from 'app/store';
 import { fetchProduct } from 'app/store/slices/product';
-import { fetchInstructions } from 'app/store/slices/instructions';
-import { fetchOnlineStores } from 'app/store/slices/online-stores';
 import { selectProduct } from 'app/store/slices/product';
-import { selectInstructions } from 'app/store/slices/instructions';
-import { selectOnlineStores } from 'app/store/slices/online-stores';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -19,19 +17,22 @@ import {
   getProductCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
-import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
-import { OnlineStoresModal } from 'components/online-stores-modal/online-stores-modal';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ProductPage: NextPageWithLayout = () => {
   const { product } = useAppSelector(selectProduct);
-  const { instructions } = useAppSelector(selectInstructions);
-  const { onlineStores } = useAppSelector(selectOnlineStores);
 
-  const { checkIsProductInCart, addToCart } = useCart();
+  const {
+    isCartLoading,
+    isCartReady,
+    showCartSidebar,
+    getCartItem,
+    addToCart,
+    deleteFromCart,
+  } = useCart();
 
-  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
-  const [showOnlineStoresModal, setShowOnlineStoresModal] = useState(false);
+  const [isProductBeingAddedToCart, setIsProductBeingAddedToCart] =
+    useState(false);
 
   const breadcrumbs = useMemo(() => {
     return [
@@ -49,37 +50,43 @@ const ProductPage: NextPageWithLayout = () => {
     ];
   }, [product]);
 
-  const isProductInCart = useMemo(() => {
-    return checkIsProductInCart({
+  const cartItem = useMemo(() => {
+    return getCartItem({
       productSlug: product.slug,
       organizationSlug: product.organization.slug,
     });
-  }, [checkIsProductInCart, product]);
+  }, [getCartItem, product]);
 
-  const handleShowInstructionsModal = useCallback(() => {
-    setShowInstructionsModal(true);
+  const isProductInCart = useMemo(() => {
+    return !!cartItem;
+  }, [cartItem]);
+
+  const handleShowCartSidebar = useCallback(() => {
+    showCartSidebar();
   }, []);
 
-  const handleHideInstructionsModal = useCallback(() => {
-    setShowInstructionsModal(false);
-  }, []);
-
-  const handleAddProduct = useCallback(() => {
-    setShowInstructionsModal(false);
-    addToCart({
-      product_slug: product.slug,
-      organization_slug: product.organization.slug,
-      quantity: 1,
-    });
+  const handleAddProduct = useCallback(async () => {
+    setIsProductBeingAddedToCart(true);
+    try {
+      await addToCart({
+        product_slug: product.slug,
+        organization_slug: product.organization.slug,
+        quantity: 1,
+      });
+      setIsProductBeingAddedToCart(false);
+    } catch (rejection) {
+      if (isRequestCancel(rejection)) {
+        return;
+      }
+      setIsProductBeingAddedToCart(false);
+    }
   }, [product, addToCart]);
 
-  const handleShowOnlineStoresModal = useCallback(() => {
-    setShowOnlineStoresModal(true);
-  }, []);
-
-  const handleHideOnlineStoresModal = useCallback(() => {
-    setShowOnlineStoresModal(false);
-  }, []);
+  const handleRemoveProduct = useCallback(() => {
+    deleteFromCart({
+      cartItemId: cartItem.uuid,
+    });
+  }, [cartItem, deleteFromCart]);
 
   return (
     <>
@@ -98,8 +105,8 @@ const ProductPage: NextPageWithLayout = () => {
           {product.photo ? (
             <Col md={6} className={styles.photoContainer}>
               <img
+                alt="Product image"
                 src={product.photo}
-                alt={product.name}
                 className={styles.photo}
               />
             </Col>
@@ -141,36 +148,81 @@ const ProductPage: NextPageWithLayout = () => {
               </div>
             </div>
 
-            {onlineStores.length > 0 ? (
-              /* Has online stores */
-              <div className={styles.orderSection}>
-                <h5>Order and deliver in a few clicks</h5>
+            <div className={styles.orderSection}>
+              <h5>Order and deliver in a few clicks</h5>
 
-                <div className={styles.buttonsGroup}>
-                  <Button size="lg" onClick={handleShowOnlineStoresModal}>
-                    I want to order
-                  </Button>
-                  <Button
+              {/* Placeholder */}
+              {isCartLoading ? (
+                <Placeholder as="div" animation="wave">
+                  <Placeholder.Button
                     size="lg"
-                    variant="outline-dark"
-                    onClick={handleShowInstructionsModal}
-                  >
-                    I want to send
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              /* No online stores  */
-              <div className={styles.orderSection}>
-                <h5>Found items in your area?</h5>
+                    aria-hidden="true"
+                    className={styles.primaryActionBtnPlaceholder}
+                  />
+                </Placeholder>
+              ) : null}
 
-                <div className={styles.buttonsGroup}>
-                  <Button size="lg" onClick={handleShowInstructionsModal}>
-                    Check delivery instructions
-                  </Button>
-                </div>
-              </div>
-            )}
+              {/* Add to cart button */}
+              {!isProductInCart && isCartReady && !isCartLoading ? (
+                <Button
+                  size="lg"
+                  disabled={isProductBeingAddedToCart}
+                  className={styles.primaryActionBtn}
+                  onClick={handleAddProduct}
+                >
+                  {isProductBeingAddedToCart ? (
+                    <Loader
+                      role="status"
+                      aria-hidden="true"
+                      className={animationStyles.rotate}
+                    />
+                  ) : (
+                    <ShoppingCart />
+                  )}
+                  <span>Add to cart</span>
+                </Button>
+              ) : null}
+
+              {/* Proceed to donation button */}
+              {isProductInCart && isCartReady && !isCartLoading ? (
+                <>
+                  <div>
+                    Already in{' '}
+                    <span
+                      role="button"
+                      onClick={handleShowCartSidebar}
+                      className={styles.inlineTextButton}
+                    >
+                      cart
+                    </span>
+                  </div>
+
+                  <Link
+                    href={{
+                      pathname: '/organizations/[organizationSlug]/packages',
+                      query: { organizationSlug: product.organization.slug },
+                    }}
+                    passHref
+                  >
+                    <Button size="lg" className={styles.primaryActionBtn}>
+                      <span>Proceed to donation</span>
+                      <ArrowRightCircle />
+                    </Button>
+                  </Link>
+
+                  <p>
+                    or{' '}
+                    <span
+                      role="button"
+                      onClick={handleRemoveProduct}
+                      className={styles.inlineTextButton}
+                    >
+                      remove
+                    </span>
+                  </p>
+                </>
+              ) : null}
+            </div>
           </Col>
         </Row>
 
@@ -195,24 +247,6 @@ const ProductPage: NextPageWithLayout = () => {
           </Col>
         </Row>
       </Container>
-
-      {instructions?.length > 0 ? (
-        <InstructionsModal
-          show={showInstructionsModal}
-          instructions={instructions}
-          isProductInCart={isProductInCart}
-          onHide={handleHideInstructionsModal}
-          onConfirm={handleAddProduct}
-        />
-      ) : null}
-
-      {onlineStores?.length > 0 ? (
-        <OnlineStoresModal
-          show={showOnlineStoresModal}
-          onlineStores={onlineStores}
-          onHide={handleHideOnlineStoresModal}
-        />
-      ) : null}
     </>
   );
 };
@@ -222,11 +256,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const organizationSlug = context.params.organizationSlug as string;
     const productSlug = context.params.productSlug as string;
 
-    await Promise.all([
-      store.dispatch(fetchProduct({ organizationSlug, productSlug })),
-      store.dispatch(fetchOnlineStores({ organizationSlug, productSlug })),
-      store.dispatch(fetchInstructions({ organizationSlug })),
-    ]);
+    await store.dispatch(fetchProduct({ organizationSlug, productSlug }));
 
     const { product } = store.getState();
 

@@ -97,7 +97,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
             {shouldShowNoItemsMessage ? (
               <p className={styles.noItemsMessage}>
-                You haven't added any products to your package for this
+                You haven&apos;t added any products to your package for this
                 organization. Check the requested goods on{' '}
                 <Link
                   href={{
@@ -105,7 +105,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
                     query: { organizationSlug: organization.slug },
                   }}
                 >
-                  <a>the organization's page</a>
+                  <a>the organization&apos;s page</a>
                 </Link>
                 .
               </p>

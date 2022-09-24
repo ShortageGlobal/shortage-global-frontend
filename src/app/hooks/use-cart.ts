@@ -1,18 +1,15 @@
 import { useCallback } from 'react';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useCancelToken,
-  isRequestCancel,
-} from 'app/hooks';
+import { useAppDispatch, useAppSelector, useCancelToken } from 'app/hooks';
 import {
   selectCart,
-  createCart,
-  createCartItem,
+  showCartSidebar as showCartSidebarAction,
+  setCart as setCartAction,
   updateCartItemQuantity as updateCartItemQuantityAction,
   deleteCartItem as deleteCartItemAction,
 } from 'app/store/slices/cart';
 import {
+  createAndFetchCart as createAndFetchCartAxios,
+  createCartItemAndRefetchCart as createCartItemAndRefetchCartAxios,
   deleteCartItem as deleteCartItemAxios,
   updateCartItemQuantity as updateCartItemQuantityAxios,
 } from 'app/api';
@@ -25,14 +22,18 @@ import type {
 
 export function useCart() {
   const dispatch = useAppDispatch();
-  const { cart, isCartLoading } = useAppSelector(selectCart);
+  const { cart, isCartReady, isCartLoading } = useAppSelector(selectCart);
 
   const getCreateCartCancelToken = useCancelToken();
   const getCreateCartItemCancelToken = useCancelToken();
   const getUpdateCartItemQuantityCancelToken = useCancelToken();
   const getDeleteCartItemCancelToken = useCancelToken();
 
-  const checkIsProductInCart = useCallback(
+  const showCartSidebar = useCallback(() => {
+    dispatch(showCartSidebarAction());
+  }, []);
+
+  const getCartItem = useCallback(
     ({
       productSlug,
       organizationSlug,
@@ -40,7 +41,7 @@ export function useCart() {
       productSlug: Product['slug'];
       organizationSlug: Organization['slug'];
     }) => {
-      return !!cart?.items.some((item) => {
+      return cart?.items.find((item) => {
         return (
           item.product.slug === productSlug &&
           item.product.organization.slug === organizationSlug
@@ -50,13 +51,30 @@ export function useCart() {
     [cart]
   );
 
+  const checkIsProductInCart = useCallback(
+    ({
+      productSlug,
+      organizationSlug,
+    }: {
+      productSlug: Product['slug'];
+      organizationSlug: Organization['slug'];
+    }) => {
+      return !!getCartItem({ productSlug, organizationSlug });
+    },
+    [getCartItem]
+  );
+
   const initCart = useCallback(async (items: CreateCartItem[]) => {
     const cancelToken = getCreateCartCancelToken();
-    return dispatch(createCart({ items, cancelToken }));
+    const cartResponse = await createAndFetchCartAxios({
+      items,
+      cancelToken,
+    });
+    dispatch(setCartAction(cartResponse.data));
   }, []);
 
   const addToCart = useCallback(
-    ({ product_slug, organization_slug, quantity }: CreateCartItem) => {
+    async ({ product_slug, organization_slug, quantity }: CreateCartItem) => {
       if (isCartLoading) {
         // the action should have been disabled, so do nothing
         return;
@@ -78,15 +96,14 @@ export function useCart() {
 
       // add a new cart item to the existing cart
       const cancelToken = getCreateCartItemCancelToken();
-      return dispatch(
-        createCartItem({
-          cartId: cart.uuid,
-          product_slug,
-          organization_slug,
-          quantity,
-          cancelToken,
-        })
-      );
+      const cartResponse = await createCartItemAndRefetchCartAxios({
+        cartId: cart.uuid,
+        product_slug,
+        organization_slug,
+        quantity,
+        cancelToken,
+      });
+      dispatch(setCartAction(cartResponse.data));
     },
     [cart, isCartLoading, initCart]
   );
@@ -106,18 +123,12 @@ export function useCart() {
       dispatch(updateCartItemQuantityAction({ cartItemId, quantity }));
 
       const cancelToken = getUpdateCartItemQuantityCancelToken(cartItemId);
-      try {
-        await updateCartItemQuantityAxios({
-          cartId: cart.uuid,
-          cartItemId,
-          quantity,
-          cancelToken,
-        });
-      } catch (rejection) {
-        if (!isRequestCancel(rejection)) {
-          throw rejection;
-        }
-      }
+      return updateCartItemQuantityAxios({
+        cartId: cart.uuid,
+        cartItemId,
+        quantity,
+        cancelToken,
+      });
     },
     [cart]
   );
@@ -131,22 +142,20 @@ export function useCart() {
       dispatch(deleteCartItemAction({ cartItemId }));
 
       const cancelToken = getDeleteCartItemCancelToken(cartItemId);
-      try {
-        await deleteCartItemAxios({
-          cartId: cart.uuid,
-          cartItemId,
-          cancelToken,
-        });
-      } catch (rejection) {
-        if (!isRequestCancel(rejection)) {
-          throw rejection;
-        }
-      }
+      return deleteCartItemAxios({
+        cartId: cart.uuid,
+        cartItemId,
+        cancelToken,
+      });
     },
     [cart]
   );
 
   return {
+    isCartReady,
+    isCartLoading,
+    showCartSidebar,
+    getCartItem,
     checkIsProductInCart,
     addToCart,
     updateCartItemQuantity,
