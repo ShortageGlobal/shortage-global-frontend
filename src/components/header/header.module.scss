@@ -76,7 +76,7 @@
   }
 
   .controlText {
-    margin-left: 0.5rem;
+    margin-left: 0.75rem;
     text-transform: capitalize;
 
     @include media-breakpoint-up(lg) {
@@ -84,14 +84,14 @@
     }
   }
 
-  .packageButton {
+  .cartButton {
     position: relative;
   }
 
-  .packageButtonBadge {
+  .cartButtonBadge {
     position: absolute;
     top: 0.15em;
-    right: 0.55em;
+    right: 0.35em;
     font-size: 0.6rem;
     padding: 0.35em 0.55em;
     border: 1px solid $header-background;

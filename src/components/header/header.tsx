@@ -1,11 +1,12 @@
 import styles from './header.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Navbar, Nav, Button, Badge } from 'react-bootstrap';
-import { Menu, Package } from 'react-feather';
+import { Menu, ShoppingCart } from 'react-feather';
 import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
@@ -123,18 +124,24 @@ export function Header() {
                 variant=""
                 className={classNames(
                   styles.button,
-                  styles.packageButton,
+                  styles.cartButton,
                   styles.control
                 )}
                 onClick={handleCartSidebarShow}
               >
-                <Package />
+                <ShoppingCart size={20} />
 
-                <span className={styles.controlText}>My packages</span>
+                <span className={styles.controlText}>Donation cart</span>
 
                 {/* Count of Products in the cart  */}
                 {cart?.items.length > 0 ? (
-                  <Badge pill className={styles.packageButtonBadge}>
+                  <Badge
+                    pill
+                    className={classNames(
+                      styles.cartButtonBadge,
+                      animationStyles.scale
+                    )}
+                  >
                     {cart.items.length}
                     <span className="visually-hidden"> products in cart</span>
                   </Badge>

@@ -1,0 +1,28 @@
+.rotate {
+  animation: rotation 2.5s infinite linear;
+}
+
+.scale {
+  animation: scaling 0.2s ease-in-out;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes scaling {
+  from {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1);
+  }
+}

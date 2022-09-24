@@ -39,14 +39,27 @@
       margin-top: 2rem;
     }
 
-    .buttonsGroup {
-      max-width: 280px;
-      display: flex;
-      flex-direction: column;
+    .inlineTextButton {
+      text-decoration: underline;
+    }
 
-      > * {
-        margin-top: 1rem;
+    .primaryActionBtn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      margin: 1rem 0;
+
+      > * + * {
+        margin-left: 0.5rem;
       }
+    }
+
+    .primaryActionBtnPlaceholder {
+      margin: 1rem 0;
+      width: 192px;
+      height: 48px;
     }
   }
 
