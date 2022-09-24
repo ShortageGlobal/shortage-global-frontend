@@ -105,8 +105,8 @@ const ProductPage: NextPageWithLayout = () => {
           {product.photo ? (
             <Col md={6} className={styles.photoContainer}>
               <img
+                alt="Product image"
                 src={product.photo}
-                alt={product.name}
                 className={styles.photo}
               />
             </Col>

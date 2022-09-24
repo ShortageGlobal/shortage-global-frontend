@@ -47,9 +47,7 @@ const reducer = (
     } as ReturnType<typeof combinedReducer>;
 
     // preserve cart on client side navigation
-    if (state.cart.cart) {
-      nextState.cart = state.cart;
-    }
+    nextState.cart = state.cart;
 
     return nextState;
   } else {
