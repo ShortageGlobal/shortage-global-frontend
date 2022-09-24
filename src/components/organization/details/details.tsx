@@ -23,6 +23,7 @@ export function OrganizationDetails() {
                 rel="noopener noreferrer"
               >
                 <Image
+                  alt=""
                   src={organization.photo}
                   layout="fill"
                   objectFit="contain"
@@ -34,6 +35,7 @@ export function OrganizationDetails() {
             {organization.photo && !organization.url ? (
               <div className={styles.photo}>
                 <Image
+                  alt=""
                   src={organization.photo}
                   layout="fill"
                   objectFit="contain"

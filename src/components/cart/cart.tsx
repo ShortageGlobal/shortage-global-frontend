@@ -100,7 +100,7 @@ export function Cart() {
       <Offcanvas.Body>
         {groupedCartItems.size === 0 ? (
           <>
-            <p>You don't have any products in your cart.</p>
+            <p>You don&apos;t have any products in your cart.</p>
           </>
         ) : null}
 

@@ -53,9 +53,9 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
 
               <p className={styles.bannerText}>
                 Ready to donate? Please complete as much of the form below as
-                you can and we'll get back to you right away. Eventually, all of
-                the information will be needed for the smooth delivery of your
-                donation, but{' '}
+                you can and we&apos;ll get back to you right away. Eventually,
+                all of the information will be needed for the smooth delivery of
+                your donation, but{' '}
                 <span className={styles.textHighlighted}>
                   submit as much as you can
                 </span>{' '}
@@ -64,12 +64,14 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
 
               <div className={classNames(styles.image, styles.girlJumpsRight)}>
                 <Image
+                  alt=""
                   src="/images/characters/girl-jumps-right.svg"
                   layout="fill"
                 />
               </div>
               <div className={classNames(styles.image, styles.boyJumpsLeft)}>
                 <Image
+                  alt=""
                   src="/images/characters/boy-jumps-left.svg"
                   layout="fill"
                 />

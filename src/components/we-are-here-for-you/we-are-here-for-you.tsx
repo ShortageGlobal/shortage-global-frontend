@@ -31,6 +31,7 @@ export function WeAreHereForYou() {
         </Col>
         <Col md="auto" className={styles.imageContainer}>
           <Image
+            alt=""
             src="/images/characters/woman-sits-looks-left.svg"
             width="326"
             height="243"
