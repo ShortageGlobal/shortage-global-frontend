@@ -2,7 +2,7 @@ import styles from './cart.module.scss';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Offcanvas, Button } from 'react-bootstrap';
+import { Offcanvas } from 'react-bootstrap';
 import {
   useAppDispatch,
   useAppSelector,
@@ -20,6 +20,7 @@ import { fetchCart, createAndFetchCart } from 'app/api';
 import { groupCartItemsByOrganization } from 'app/helpers';
 import { CART_ID_KEY } from 'app/constants';
 import { CartItem } from 'components/cart/cart-item/cart-item';
+import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
 import type { CartItem as CartItemType } from 'app/api/types';
 
 export function Cart() {
@@ -115,7 +116,7 @@ export function Cart() {
   return (
     <Offcanvas
       placement="end"
-      className={styles.cart}
+      className={styles.cartSidebar}
       show={isCartSidebarShown}
       onHide={handleSidebarHide}
     >
@@ -124,13 +125,16 @@ export function Cart() {
           Donation cart
         </Offcanvas.Title>
       </Offcanvas.Header>
-      <Offcanvas.Body>
+
+      <Offcanvas.Body className={styles.body}>
+        {/* Empty cart message */}
         {groupedCartItems.size === 0 ? (
           <>
             <p>You don&apos;t have any products in your cart.</p>
           </>
         ) : null}
 
+        {/* Items grouped by organizations */}
         {Array.from(groupedCartItems.values()).map(
           ({ organizationName, organizationSlug, items }) => {
             return (
@@ -157,22 +161,20 @@ export function Cart() {
                     />
                   ))}
                 </div>
-
-                <Link
-                  href={{
-                    pathname: '/organizations/[organizationSlug]/packages',
-                    query: { organizationSlug },
-                  }}
-                  passHref
-                >
-                  <Button className={styles.registerPackageButton}>
-                    Register package
-                  </Button>
-                </Link>
               </div>
             );
           }
         )}
+
+        {/* Proceed Button */}
+        {groupedCartItems.size > 0 ? (
+          <div className={styles.cartFooter}>
+            <ProceedToDonationButton
+              organizationSlug={'kek'}
+              className={styles.proceedButton}
+            />
+          </div>
+        ) : null}
       </Offcanvas.Body>
     </Offcanvas>
   );

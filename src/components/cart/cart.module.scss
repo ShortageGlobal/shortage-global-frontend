@@ -1,12 +1,19 @@
-.cart {
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.cartSidebar {
   width: 500px;
 
   .title {
     font-size: 2rem;
   }
 
+  .body {
+    padding-bottom: 0;
+  }
+
   .cartGroup {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   .cartGroupItems {
@@ -15,8 +22,14 @@
     }
   }
 
-  .registerPackageButton {
-    margin-top: 2rem;
-    width: 100%;
+  .cartFooter {
+    padding: 1rem 0;
+    position: sticky;
+    bottom: 0;
+    background-color: $cart-sidebar-bg-color;
+
+    .proceedButton {
+      width: 100%;
+    }
   }
 }

@@ -3,7 +3,7 @@ import animationStyles from 'styles/animations.module.scss';
 import { useState, useMemo, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ShoppingCart, Loader, ArrowRightCircle } from 'react-feather';
+import { ShoppingCart, Loader } from 'react-feather';
 import { Container, Row, Col, Button, Placeholder } from 'react-bootstrap';
 import { formatPrice } from 'app/helpers';
 import { isRequestCancel, useAppSelector, useCart } from 'app/hooks';
@@ -17,6 +17,7 @@ import {
   getProductCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
+import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ProductPage: NextPageWithLayout = () => {
@@ -196,18 +197,10 @@ const ProductPage: NextPageWithLayout = () => {
                     </span>
                   </div>
 
-                  <Link
-                    href={{
-                      pathname: '/organizations/[organizationSlug]/packages',
-                      query: { organizationSlug: product.organization.slug },
-                    }}
-                    passHref
-                  >
-                    <Button size="lg" className={styles.primaryActionBtn}>
-                      <span>Proceed to donation</span>
-                      <ArrowRightCircle />
-                    </Button>
-                  </Link>
+                  <ProceedToDonationButton
+                    organizationSlug={product.organization.slug}
+                    className={styles.primaryActionBtn}
+                  />
 
                   <p>
                     or{' '}
