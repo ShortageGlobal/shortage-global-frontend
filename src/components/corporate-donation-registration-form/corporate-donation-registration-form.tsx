@@ -274,7 +274,7 @@ export function CorporateDonationRegistrationForm({
             <Form.Control
               size="lg"
               type="text"
-              placeholder=""
+              placeholder="+12125552368"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               isValid={getIsValid('phone_number')}

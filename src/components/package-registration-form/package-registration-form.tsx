@@ -186,7 +186,7 @@ export function PackageRegistrationForm({
             <Form.Control
               size="lg"
               type="text"
-              placeholder="Phone Number"
+              placeholder="Phone Number, e.g. +12125552368"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               required
