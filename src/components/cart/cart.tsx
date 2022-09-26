@@ -168,7 +168,7 @@ export function Cart() {
 
         {/* Proceed Button */}
         {groupedCartItems.size > 0 ? (
-          <div className={styles.cartFooter}>
+          <div className={styles.footer}>
             <ProceedToDonationButton
               organizationSlug={'kek'}
               className={styles.proceedButton}
