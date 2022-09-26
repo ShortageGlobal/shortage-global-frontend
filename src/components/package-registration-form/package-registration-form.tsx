@@ -182,14 +182,13 @@ export function PackageRegistrationForm({
 
         <Col md={6}>
           <Form.Group controlId="phone" className={styles.formGroup}>
-            <Form.Label>Phone Number *</Form.Label>
+            <Form.Label>Phone Number</Form.Label>
             <Form.Control
               size="lg"
               type="text"
-              placeholder="Phone Number"
+              placeholder="+12125552368"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              required
             />
           </Form.Group>
         </Col>
