@@ -109,7 +109,8 @@ export type PackageItem = {
 
 export type Package = {
   uuid: Uuid;
-  full_name?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   phone_number?: string;
   delivery_company: string;
