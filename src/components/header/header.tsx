@@ -1,16 +1,17 @@
 import styles from './header.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState, useMemo, useEffect } from 'react';
+import { Container, Navbar, Nav, Button, Badge } from 'react-bootstrap';
+import { Menu, ShoppingCart } from 'react-feather';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Container, Navbar, Nav, Button, Badge } from 'react-bootstrap';
-import { Menu, ShoppingCart } from 'react-feather';
 import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
+import { selectCart, setIsCartSidebarShown } from 'app/store/slices/cart';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
-import { selectCart, showCartSidebar } from 'app/store/slices/cart';
+import { GlobalNotification } from 'components/global-notification/global-notification';
 
 export function Header() {
   const router = useRouter();
@@ -54,7 +55,7 @@ export function Header() {
   }, []);
 
   const handleCartSidebarShow = useCallback(() => {
-    dispatch(showCartSidebar());
+    dispatch(setIsCartSidebarShown(true));
   }, []);
 
   return (
@@ -68,6 +69,7 @@ export function Header() {
           [styles.navbarWithBorder]: showNavbarBorder,
         })}
       >
+        <GlobalNotification />
         <Container className={styles.container}>
           <Link href="/" passHref>
             <Navbar.Brand className={styles.navbarBrand}>
@@ -134,7 +136,7 @@ export function Header() {
                 <span className={styles.controlText}>Donation cart</span>
 
                 {/* Count of Products in the cart  */}
-                {cart?.items.length > 0 ? (
+                {cart?.items?.length > 0 ? (
                   <Badge
                     pill
                     className={classNames(

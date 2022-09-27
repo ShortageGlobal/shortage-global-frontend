@@ -179,38 +179,44 @@ export function CorporateDonationRegistrationForm({
       </Row>
 
       <Row>
-        <Col md={6}>
-          <Form.Group controlId="companyName" className={styles.formGroup}>
-            <Form.Label>Company Name *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              required
-              autoFocus
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-              isValid={getIsValid('company_name')}
-              isInvalid={getIsInvalid('company_name')}
-            />
-            {getErrorsFeedback('company_name')}
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group controlId="department" className={styles.formGroup}>
-            <Form.Label>Department</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={department}
-              onChange={(e) => setDepartment(e.target.value)}
-              isValid={getIsValid('department')}
-              isInvalid={getIsInvalid('department')}
-            />
-            {getErrorsFeedback('department')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="companyName"
+          className={styles.formGroup}
+        >
+          <Form.Label>Company Name *</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            required
+            autoFocus
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            isValid={getIsValid('company_name')}
+            isInvalid={getIsInvalid('company_name')}
+          />
+          {getErrorsFeedback('company_name')}
+        </Form.Group>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="department"
+          className={styles.formGroup}
+        >
+          <Form.Label>Department</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            isValid={getIsValid('department')}
+            isInvalid={getIsInvalid('department')}
+          />
+          {getErrorsFeedback('department')}
+        </Form.Group>
       </Row>
 
       <header className={styles.sectionHeader}>
@@ -218,71 +224,83 @@ export function CorporateDonationRegistrationForm({
       </header>
 
       <Row>
-        <Col md={6}>
-          <Form.Group controlId="firstName" className={styles.formGroup}>
-            <Form.Label>First Name *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              required
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              isValid={getIsValid('first_name')}
-              isInvalid={getIsInvalid('first_name')}
-            />
-            {getErrorsFeedback('first_name')}
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group controlId="lastName" className={styles.formGroup}>
-            <Form.Label>Last Name *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              required
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              isValid={getIsValid('last_name')}
-              isInvalid={getIsInvalid('last_name')}
-            />
-            {getErrorsFeedback('last_name')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="firstName"
+          className={styles.formGroup}
+        >
+          <Form.Label>First Name *</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            required
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            isValid={getIsValid('first_name')}
+            isInvalid={getIsInvalid('first_name')}
+          />
+          {getErrorsFeedback('first_name')}
+        </Form.Group>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="lastName"
+          className={styles.formGroup}
+        >
+          <Form.Label>Last Name *</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            required
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            isValid={getIsValid('last_name')}
+            isInvalid={getIsInvalid('last_name')}
+          />
+          {getErrorsFeedback('last_name')}
+        </Form.Group>
 
-        <Col md={6}>
-          <Form.Group controlId="email" className={styles.formGroup}>
-            <Form.Label>Email *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="email"
-              placeholder=""
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              isValid={getIsValid('email')}
-              isInvalid={getIsInvalid('email')}
-            />
-            {getErrorsFeedback('email')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="email"
+          className={styles.formGroup}
+        >
+          <Form.Label>Email *</Form.Label>
+          <Form.Control
+            size="lg"
+            type="email"
+            placeholder=""
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            isValid={getIsValid('email')}
+            isInvalid={getIsInvalid('email')}
+          />
+          {getErrorsFeedback('email')}
+        </Form.Group>
 
-        <Col md={6}>
-          <Form.Group controlId="phoneNumber" className={styles.formGroup}>
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder="+12125552368"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              isValid={getIsValid('phone_number')}
-              isInvalid={getIsInvalid('phone_number')}
-            />
-            {getErrorsFeedback('phone_number')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="phoneNumber"
+          className={styles.formGroup}
+        >
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder="+12125552368"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            isValid={getIsValid('phone_number')}
+            isInvalid={getIsInvalid('phone_number')}
+          />
+          {getErrorsFeedback('phone_number')}
+        </Form.Group>
       </Row>
 
       <header className={styles.sectionHeader}>
@@ -290,108 +308,123 @@ export function CorporateDonationRegistrationForm({
       </header>
 
       <Row>
-        <Col md={6}>
-          <Form.Group controlId="addressLine1" className={styles.formGroup}>
-            <Form.Label>Address Line 1</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={addressLine1}
-              onChange={(e) => setAddressLine1(e.target.value)}
-              isValid={getIsValid('address_line1')}
-              isInvalid={getIsInvalid('address_line1')}
-            />
-            {getErrorsFeedback('address_line1')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="addressLine1"
+          className={styles.formGroup}
+        >
+          <Form.Label>Address Line 1</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={addressLine1}
+            onChange={(e) => setAddressLine1(e.target.value)}
+            isValid={getIsValid('address_line1')}
+            isInvalid={getIsInvalid('address_line1')}
+          />
+          {getErrorsFeedback('address_line1')}
+        </Form.Group>
 
-        <Col md={6}>
-          <Form.Group controlId="addressLine2" className={styles.formGroup}>
-            <Form.Label>Address Line 2</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={addressLine2}
-              onChange={(e) => setAddressLine2(e.target.value)}
-              isValid={getIsValid('address_line2')}
-              isInvalid={getIsInvalid('address_line2')}
-            />
-            {getErrorsFeedback('address_line2')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="addressLine2"
+          className={styles.formGroup}
+        >
+          <Form.Label>Address Line 2</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={addressLine2}
+            onChange={(e) => setAddressLine2(e.target.value)}
+            isValid={getIsValid('address_line2')}
+            isInvalid={getIsInvalid('address_line2')}
+          />
+          {getErrorsFeedback('address_line2')}
+        </Form.Group>
 
-        <Col md={6}>
-          <Form.Group controlId="city" className={styles.formGroup}>
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              isValid={getIsValid('city')}
-              isInvalid={getIsInvalid('city')}
-            />
-            {getErrorsFeedback('city')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="city"
+          className={styles.formGroup}
+        >
+          <Form.Label>City</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            isValid={getIsValid('city')}
+            isInvalid={getIsInvalid('city')}
+          />
+          {getErrorsFeedback('city')}
+        </Form.Group>
 
-        <Col md={6}>
-          <Form.Group
-            controlId="stateProvinceRegion"
-            className={styles.formGroup}
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="stateProvinceRegion"
+          className={styles.formGroup}
+        >
+          <Form.Label>State / Province / Region</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={stateProvinceRegion}
+            onChange={(e) => setStateProvinceRegion(e.target.value)}
+            isValid={getIsValid('state_province_region')}
+            isInvalid={getIsInvalid('state_province_region')}
+          />
+          {getErrorsFeedback('state_province_region')}
+        </Form.Group>
+
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="zip"
+          className={styles.formGroup}
+        >
+          <Form.Label>Zip</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={zip}
+            onChange={(e) => setZip(e.target.value)}
+            isValid={getIsValid('zip')}
+            isInvalid={getIsInvalid('zip')}
+          />
+          {getErrorsFeedback('zip')}
+        </Form.Group>
+
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="country"
+          className={styles.formGroup}
+        >
+          <Form.Label>Country</Form.Label>
+          <Form.Select
+            size="lg"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            isValid={getIsValid('country')}
+            isInvalid={getIsInvalid('country')}
           >
-            <Form.Label>State / Province / Region</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={stateProvinceRegion}
-              onChange={(e) => setStateProvinceRegion(e.target.value)}
-              isValid={getIsValid('state_province_region')}
-              isInvalid={getIsInvalid('state_province_region')}
-            />
-            {getErrorsFeedback('state_province_region')}
-          </Form.Group>
-        </Col>
-
-        <Col md={6}>
-          <Form.Group controlId="zip" className={styles.formGroup}>
-            <Form.Label>Zip</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={zip}
-              onChange={(e) => setZip(e.target.value)}
-              isValid={getIsValid('zip')}
-              isInvalid={getIsInvalid('zip')}
-            />
-            {getErrorsFeedback('zip')}
-          </Form.Group>
-        </Col>
-
-        <Col md={6}>
-          <Form.Group controlId="country" className={styles.formGroup}>
-            <Form.Label>Country</Form.Label>
-            <Form.Select
-              size="lg"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              isValid={getIsValid('country')}
-              isInvalid={getIsInvalid('country')}
-            >
-              {countries?.map(({ value, display_name }) => (
-                <option key={value} value={value}>
-                  {display_name}
-                </option>
-              ))}
-            </Form.Select>
-            {getErrorsFeedback('country')}
-          </Form.Group>
-        </Col>
+            {countries?.map(({ value, display_name }) => (
+              <option key={value} value={value}>
+                {display_name}
+              </option>
+            ))}
+          </Form.Select>
+          {getErrorsFeedback('country')}
+        </Form.Group>
       </Row>
 
       <header className={styles.sectionHeader}>
@@ -399,96 +432,101 @@ export function CorporateDonationRegistrationForm({
       </header>
 
       <Row>
-        <Col>
-          <Form.Group controlId="description" className={styles.formGroup}>
-            <Form.Label>Donation Description *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              isValid={getIsValid('description')}
-              isInvalid={getIsInvalid('description')}
-            />
-            {getErrorsFeedback('description')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          controlId="description"
+          className={styles.formGroup}
+        >
+          <Form.Label>Donation Description *</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            required
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            isValid={getIsValid('description')}
+            isInvalid={getIsInvalid('description')}
+          />
+          {getErrorsFeedback('description')}
+        </Form.Group>
       </Row>
 
       <Row>
-        <Col>
-          <Form.Group
-            controlId="quantityDescription"
-            className={styles.formGroup}
-          >
-            <Form.Label>How many individual units are you donating?</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={quantityDescription}
-              onChange={(e) => setQuantityDescription(e.target.value)}
-              isValid={getIsValid('quantity_description')}
-              isInvalid={getIsInvalid('quantity_description')}
-            />
-            {getErrorsFeedback('quantity_description')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          controlId="quantityDescription"
+          className={styles.formGroup}
+        >
+          <Form.Label>How many individual units are you donating?</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={quantityDescription}
+            onChange={(e) => setQuantityDescription(e.target.value)}
+            isValid={getIsValid('quantity_description')}
+            isInvalid={getIsInvalid('quantity_description')}
+          />
+          {getErrorsFeedback('quantity_description')}
+        </Form.Group>
       </Row>
 
       <Row>
-        <Col md={6}>
-          <Form.Group controlId="numberOfPallets" className={styles.formGroup}>
-            <Form.Label>Number of Cartons and/or Pallets</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              value={numberOfPallets}
-              onChange={(e) => setNumberOfPallets(e.target.value)}
-              isValid={getIsValid('number_of_pallets')}
-              isInvalid={getIsInvalid('number_of_pallets')}
-            />
-            {getErrorsFeedback('number_of_pallets')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="numberOfPallets"
+          className={styles.formGroup}
+        >
+          <Form.Label>Number of Cartons and/or Pallets</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            value={numberOfPallets}
+            onChange={(e) => setNumberOfPallets(e.target.value)}
+            isValid={getIsValid('number_of_pallets')}
+            isInvalid={getIsInvalid('number_of_pallets')}
+          />
+          {getErrorsFeedback('number_of_pallets')}
+        </Form.Group>
 
-        <Col md={6}>
-          <Form.Group controlId="estimatedValue" className={styles.formGroup}>
-            <Form.Label>Estimated value *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder=""
-              required
-              value={estimatedValue}
-              onChange={(e) => setEstimatedValue(e.target.value)}
-              isValid={getIsValid('estimated_value')}
-              isInvalid={getIsInvalid('estimated_value')}
-            />
-            {getErrorsFeedback('estimated_value')}
-          </Form.Group>
-        </Col>
+        <Form.Group
+          as={Col}
+          md={6}
+          controlId="estimatedValue"
+          className={styles.formGroup}
+        >
+          <Form.Label>Estimated value *</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder=""
+            required
+            value={estimatedValue}
+            onChange={(e) => setEstimatedValue(e.target.value)}
+            isValid={getIsValid('estimated_value')}
+            isInvalid={getIsInvalid('estimated_value')}
+          />
+          {getErrorsFeedback('estimated_value')}
+        </Form.Group>
       </Row>
 
       <Row>
-        <Col>
-          <Form.Group controlId="url" className={styles.formGroup}>
-            <Form.Label>Link to the product info (if available)</Form.Label>
-            <Form.Control
-              size="lg"
-              type="url"
-              placeholder=""
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              isValid={getIsValid('url')}
-              isInvalid={getIsInvalid('url')}
-            />
-            {getErrorsFeedback('url')}
-          </Form.Group>
-        </Col>
+        <Form.Group as={Col} controlId="url" className={styles.formGroup}>
+          <Form.Label>Link to the product info (if available)</Form.Label>
+          <Form.Control
+            size="lg"
+            type="url"
+            placeholder=""
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            isValid={getIsValid('url')}
+            isInvalid={getIsInvalid('url')}
+          />
+          {getErrorsFeedback('url')}
+        </Form.Group>
       </Row>
 
       {/* Optional photo of donation */}

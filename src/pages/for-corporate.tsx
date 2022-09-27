@@ -95,7 +95,7 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
-  // fetch organizations and categories
+  // fetch countries choices
   const response = await fetchCorporateDonationOptions();
   const countries = response.data.actions.POST.country.choices;
   return {

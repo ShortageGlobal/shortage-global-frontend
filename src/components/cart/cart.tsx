@@ -12,10 +12,11 @@ import {
 } from 'app/hooks';
 import {
   selectCart,
-  setCartReady,
-  fetchCart,
-  hideCartSidebar,
+  setIsCartSidebarShown,
+  setIsCartLoading,
+  setCart,
 } from 'app/store/slices/cart';
+import { fetchCart, createAndFetchCart } from 'app/api';
 import { groupCartItemsByOrganization } from 'app/helpers';
 import { CART_ID_KEY } from 'app/constants';
 import { CartItem } from 'components/cart/cart-item/cart-item';
@@ -28,32 +29,58 @@ export function Cart() {
 
   const { updateCartItemQuantity, deleteFromCart } = useCart();
 
-  const getFetchCartCancelToken = useCancelToken();
+  const getFetchOrCreateCartCancelToken = useCancelToken();
 
   // fetch cart if there is cartId in the local storage and the cart hasn't been fetched already
   useEffect(() => {
-    const cartId = localStorage.getItem(CART_ID_KEY);
-    if (!!cart || !cartId) {
-      dispatch(setCartReady());
-      return;
-    }
+    const cancelToken = getFetchOrCreateCartCancelToken();
 
-    initialFetch();
-    dispatch(setCartReady()); // don't await initialFetch
+    dispatch(setIsCartLoading(true));
+    fetchOrCreateCart();
 
-    async function initialFetch() {
-      const cancelToken = getFetchCartCancelToken();
-      const response = await dispatch(fetchCart({ cartId, cancelToken }));
+    async function fetchOrCreateCart() {
+      const cartId = localStorage.getItem(CART_ID_KEY);
+      let cartResponse;
 
-      // clear cartId from local storage if the cart doesn't
-      if ((response.payload as { status?: number })?.status === 404) {
-        localStorage.removeItem(CART_ID_KEY);
+      // try to fetch the cart with ID from local storage
+      if (cartId) {
+        try {
+          cartResponse = await fetchCart({ cartId, cancelToken });
+        } catch (rejection) {
+          if (isRequestCancel(rejection)) {
+            return;
+          }
+          if (rejection.response.status !== 404) {
+            dispatch(setIsCartLoading(false));
+            // TODO: handle error gracefully
+            throw rejection;
+          }
+        }
       }
+
+      // if there is no cart, create one
+      if (!cartResponse) {
+        try {
+          cartResponse = await createAndFetchCart({ cancelToken });
+        } catch (rejection) {
+          if (isRequestCancel(rejection)) {
+            return;
+          }
+          dispatch(setIsCartLoading(false));
+          // TODO: handle error gracefully
+          throw rejection;
+        }
+      }
+
+      dispatch(setCart(cartResponse.data));
+
+      // store cartId in localStorage so the cart could be restored on refresh
+      localStorage.setItem(CART_ID_KEY, cartResponse.data.uuid);
     }
   }, []);
 
   const handleSidebarHide = useCallback(() => {
-    dispatch(hideCartSidebar());
+    dispatch(setIsCartSidebarShown(false));
   }, []);
 
   // hide cart sidebar on route change

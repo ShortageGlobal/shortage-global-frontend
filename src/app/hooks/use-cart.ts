@@ -1,14 +1,13 @@
-import { useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useAppDispatch, useAppSelector, useCancelToken } from 'app/hooks';
 import {
   selectCart,
-  showCartSidebar as showCartSidebarAction,
+  setIsCartSidebarShown,
   setCart as setCartAction,
   updateCartItemQuantity as updateCartItemQuantityAction,
   deleteCartItem as deleteCartItemAction,
 } from 'app/store/slices/cart';
 import {
-  createAndFetchCart as createAndFetchCartAxios,
   createCartItemAndRefetchCart as createCartItemAndRefetchCartAxios,
   deleteCartItem as deleteCartItemAxios,
   updateCartItemQuantity as updateCartItemQuantityAxios,
@@ -22,15 +21,16 @@ import type {
 
 export function useCart() {
   const dispatch = useAppDispatch();
-  const { cart, isCartReady, isCartLoading } = useAppSelector(selectCart);
+  const { cart, isCartLoading } = useAppSelector(selectCart);
 
-  const getCreateCartCancelToken = useCancelToken();
   const getCreateCartItemCancelToken = useCancelToken();
   const getUpdateCartItemQuantityCancelToken = useCancelToken();
   const getDeleteCartItemCancelToken = useCancelToken();
 
+  const isCartReady = useMemo(() => !!cart?.uuid, [cart]);
+
   const showCartSidebar = useCallback(() => {
-    dispatch(showCartSidebarAction());
+    dispatch(setIsCartSidebarShown(true));
   }, []);
 
   const getCartItem = useCallback(
@@ -64,25 +64,11 @@ export function useCart() {
     [getCartItem]
   );
 
-  const initCart = useCallback(async (items: CreateCartItem[]) => {
-    const cancelToken = getCreateCartCancelToken();
-    const cartResponse = await createAndFetchCartAxios({
-      items,
-      cancelToken,
-    });
-    dispatch(setCartAction(cartResponse.data));
-  }, []);
-
   const addToCart = useCallback(
     async ({ product_slug, organization_slug, quantity }: CreateCartItem) => {
-      if (isCartLoading) {
+      if (!isCartReady) {
         // the action should have been disabled, so do nothing
         return;
-      }
-
-      // if there is no cart, create one
-      if (!cart) {
-        return initCart([{ product_slug, organization_slug, quantity }]);
       }
 
       const isProductInCart = checkIsProductInCart({
@@ -105,7 +91,7 @@ export function useCart() {
       });
       dispatch(setCartAction(cartResponse.data));
     },
-    [cart, isCartLoading, initCart]
+    [isCartReady, checkIsProductInCart, cart]
   );
 
   const updateCartItemQuantity = useCallback(
@@ -152,6 +138,7 @@ export function useCart() {
   );
 
   return {
+    cart,
     isCartReady,
     isCartLoading,
     showCartSidebar,

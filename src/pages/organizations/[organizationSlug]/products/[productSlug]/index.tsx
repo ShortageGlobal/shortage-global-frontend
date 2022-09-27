@@ -23,7 +23,6 @@ const ProductPage: NextPageWithLayout = () => {
   const { product } = useAppSelector(selectProduct);
 
   const {
-    isCartLoading,
     isCartReady,
     showCartSidebar,
     getCartItem,
@@ -152,7 +151,7 @@ const ProductPage: NextPageWithLayout = () => {
               <h5>Order and deliver in a few clicks</h5>
 
               {/* Placeholder */}
-              {isCartLoading ? (
+              {!isCartReady ? (
                 <Placeholder as="div" animation="wave">
                   <Placeholder.Button
                     size="lg"
@@ -163,7 +162,7 @@ const ProductPage: NextPageWithLayout = () => {
               ) : null}
 
               {/* Add to cart button */}
-              {!isProductInCart && isCartReady && !isCartLoading ? (
+              {!isProductInCart && isCartReady ? (
                 <Button
                   size="lg"
                   disabled={isProductBeingAddedToCart}
@@ -184,7 +183,7 @@ const ProductPage: NextPageWithLayout = () => {
               ) : null}
 
               {/* Proceed to donation button */}
-              {isProductInCart && isCartReady && !isCartLoading ? (
+              {isProductInCart && isCartReady ? (
                 <>
                   <div>
                     Already in{' '}
