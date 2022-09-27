@@ -85,6 +85,26 @@ export const getForNonprofitCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getDonationDetailsCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'Donation Details',
+    href: {
+      pathname: '/donation/details',
+    },
+    ...props,
+  });
+
+export const getDonationCartCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'Cart',
+    href: {
+      pathname: '/donation/details/cart',
+    },
+    ...props,
+  });
+
 export const getOrganizationCrumb = ({
   organizationSlug,
   organizationName,

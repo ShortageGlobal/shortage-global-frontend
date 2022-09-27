@@ -198,7 +198,6 @@ const ProductPage: NextPageWithLayout = () => {
                   </div>
 
                   <ProceedToDonationButton
-                    organizationSlug={product.organization.slug}
                     className={styles.primaryActionBtn}
                   />
 

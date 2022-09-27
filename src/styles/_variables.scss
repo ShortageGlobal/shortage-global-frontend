@@ -29,7 +29,12 @@ $navbar-light-active-color: $navbar-light-hover-color;
 $navbar-toggler-focus-width: 0;
 
 // Form Control
+$input-border-radius: 0;
+$input-border-radius-sm: 0;
 $input-border-radius-lg: 0;
+$form-select-border-radius: 0;
+$form-select-border-radius-sm: 0;
+$form-select-border-radius-lg: 0;
 
 // Header
 $header-height: calc(
@@ -137,3 +142,6 @@ $for-corporate-donor-registration-form-max-width: $package-registration-form-max
 // We are here for you
 $we-are-here-for-you-text-max-width: 430px;
 $we-are-here-for-you-support-team-btn-color: $primary;
+
+// Donation Details
+$donation-details-form-max-width: $package-registration-form-max-width;

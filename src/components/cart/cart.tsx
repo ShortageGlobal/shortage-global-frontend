@@ -169,10 +169,7 @@ export function Cart() {
         {/* Proceed Button */}
         {groupedCartItems.size > 0 ? (
           <div className={styles.footer}>
-            <ProceedToDonationButton
-              organizationSlug={'kek'}
-              className={styles.proceedButton}
-            />
+            <ProceedToDonationButton className={styles.proceedButton} />
           </div>
         ) : null}
       </Offcanvas.Body>

@@ -3,22 +3,18 @@ import { ArrowRightCircle } from 'react-feather';
 import classNames from 'classnames';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
-import { Organization } from 'app/api/types';
 
 type ProceedToDonationButtonProps = {
-  organizationSlug: Organization['slug'];
   className?: string;
 };
 
 export function ProceedToDonationButton({
-  organizationSlug,
   className = '',
 }: ProceedToDonationButtonProps) {
   return (
     <Link
       href={{
-        pathname: '/organizations/[organizationSlug]/packages',
-        query: { organizationSlug },
+        pathname: '/donation/details',
       }}
       passHref
     >

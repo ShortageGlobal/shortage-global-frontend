@@ -1,0 +1,21 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.donationDetailsForm {
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .sectionHeader {
+    margin: 2rem 0;
+  }
+
+  .formGroup {
+    margin-bottom: 1.5rem;
+  }
+
+  .confirmDetailsBtn {
+    margin: 2rem 0rem 0rem;
+    width: 100%;
+  }
+}
