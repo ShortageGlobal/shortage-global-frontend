@@ -77,7 +77,8 @@ export function PackageRegistrationForm({
       try {
         const response = await createPackage({
           organizationSlug: organization.slug,
-          fullName: `${firstName} ${lastName}`.trim(),
+          firstName,
+          lastName,
           email,
           phoneNumber,
           items: packageItems,
