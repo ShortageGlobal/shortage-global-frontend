@@ -138,6 +138,7 @@ export function useCart() {
   );
 
   return {
+    cart,
     isCartReady,
     isCartLoading,
     showCartSidebar,

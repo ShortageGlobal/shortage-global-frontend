@@ -4,12 +4,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { wrapper } from 'app/store';
-import { useAppSelector } from 'app/hooks';
+import { useAppSelector, useCart } from 'app/hooks';
 import {
   fetchOrganization,
   selectOrganization,
 } from 'app/store/slices/organization';
-import { selectCart } from 'app/store/slices/cart';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -21,7 +20,7 @@ import type { NextPageWithLayout } from 'pages/_app';
 
 const PackageRegistrationPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
-  const { cart, isCartLoading } = useAppSelector(selectCart);
+  const { cart, isCartReady } = useCart();
 
   const [initialCartItems, setInitialCartItems] = useState(null);
 
@@ -42,7 +41,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   // Select cart items for the organization and persist them,
   // so the registration form stays on screen after showing up
   useEffect(() => {
-    if (initialCartItems !== null || !cart?.uuid) {
+    if (initialCartItems !== null || !isCartReady) {
       return;
     }
 
@@ -56,15 +55,15 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       });
 
     setInitialCartItems(cartItemsForOrganization);
-  }, [initialCartItems, cart, organization]);
+  }, [initialCartItems, isCartReady, cart, organization]);
 
   const shouldShowForm = useMemo(() => {
     return initialCartItems?.length > 0;
   }, [initialCartItems]);
 
   const shouldShowNoItemsMessage = useMemo(() => {
-    return !shouldShowForm && (!isCartLoading || cart?.uuid);
-  }, [shouldShowForm, isCartLoading, cart]);
+    return !shouldShowForm && isCartReady;
+  }, [shouldShowForm, isCartReady]);
 
   const shouldShowLoadingMessage = useMemo(() => {
     return !shouldShowForm && !shouldShowNoItemsMessage;
