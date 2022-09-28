@@ -44,8 +44,6 @@ const DonationCart: NextPageWithLayout = () => {
 
       {/* TODO: placeholder for "isCartReady" */}
 
-      {/* Donation Details Form */}
-
       <Container>
         <Row>
           <Col className={styles.donationCart}>

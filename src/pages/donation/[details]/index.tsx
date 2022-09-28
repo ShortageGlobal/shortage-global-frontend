@@ -45,7 +45,6 @@ const DonationDetails: NextPageWithLayout = ({
       {/* TODO: placeholder for "isCartReady" */}
 
       {/* Donation Details Form */}
-
       <Container>
         <Row>
           <Col className={styles.donationDetails}>
