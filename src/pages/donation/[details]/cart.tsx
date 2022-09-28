@@ -1,23 +1,38 @@
 import styles from 'styles/pages/donation-cart.module.scss';
-import { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback, useEffect, useState } from 'react';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCart } from 'app/hooks';
 import { wrapper } from 'app/store';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useCart,
+  useCancelToken,
+} from 'app/hooks';
+import { fetchInstructions } from 'app/store/slices/instructions';
+import { selectInstructions } from 'app/store/slices/instructions';
+import { groupCartItemsByOrganization } from 'app/helpers';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getDonationDetailsCrumb,
   getDonationCartCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const DonationCart: NextPageWithLayout = () => {
   const router = useRouter();
-  const { isCartReady, isDonationDetailsFilled } = useCart();
+  const dispatch = useAppDispatch();
+
+  const { cart, isCartReady, isDonationDetailsFilled } = useCart();
+  const { instructions, isInstructionsLoading } =
+    useAppSelector(selectInstructions);
+
+  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
 
   const breadcrumbs = useMemo(() => {
     return [
@@ -26,6 +41,24 @@ const DonationCart: NextPageWithLayout = () => {
       getDonationCartCrumb({ isActive: true }),
     ];
   }, []);
+
+  const isDataReady = useMemo(() => {
+    return isCartReady && isDonationDetailsFilled && instructions !== null;
+  }, [isCartReady, isDonationDetailsFilled, instructions]);
+
+  const getFetchInstructionsCancelToken = useCancelToken();
+
+  const groupedCartItems = useMemo(() => {
+    return groupCartItemsByOrganization({ items: cart?.items });
+  }, [cart?.items]);
+
+  // TODO: HARDCODE! Add support for multiple organizations in cart
+  const firstOrganization = useMemo(() => {
+    return Array.from(groupedCartItems.values())[0];
+  }, [groupedCartItems]);
+  const organizationInstructions = useMemo(() => {
+    return instructions?.[firstOrganization?.organizationSlug];
+  }, [instructions, firstOrganization]);
 
   // redirect to Donation Details if they aren't filled yet
   useEffect(() => {
@@ -39,12 +72,35 @@ const DonationCart: NextPageWithLayout = () => {
     }
   }, [isCartReady, isDonationDetailsFilled]);
 
+  // fetch instructions
+  useEffect(() => {
+    if (
+      !isCartReady ||
+      !isDonationDetailsFilled ||
+      isInstructionsLoading ||
+      instructions !== null
+    ) {
+      return;
+    }
+    const organizationSlugs = Array.from(groupedCartItems.keys());
+    const cancelToken = getFetchInstructionsCancelToken();
+    dispatch(fetchInstructions({ organizationSlugs, cancelToken }));
+  }, [isCartReady, isDonationDetailsFilled, groupedCartItems, instructions]);
+
   const handleFundDonation = useCallback(() => {
     //
   }, []);
 
+  const handleShowInstructionsModal = useCallback(() => {
+    setShowInstructionsModal(true);
+  }, []);
+
+  const handleHideInstructionsModal = useCallback(() => {
+    setShowInstructionsModal(false);
+  }, []);
+
   const handleTangibleDonation = useCallback(() => {
-    //
+    handleShowInstructionsModal();
   }, []);
 
   return (
@@ -66,15 +122,6 @@ const DonationCart: NextPageWithLayout = () => {
       <Container>
         <Row>
           <Col className={styles.donationCart}>
-            {isCartReady && isDonationDetailsFilled ? (
-              <div>
-                <button onClick={handleFundDonation}>Fund Donation</button>
-                <button onClick={handleTangibleDonation}>
-                  Donate what I have
-                </button>
-              </div>
-            ) : null}
-
             {isCartReady && !isDonationDetailsFilled ? (
               <div className={styles.loadingMessage}>
                 <Spinner animation="border" role="status"></Spinner>
@@ -87,10 +134,19 @@ const DonationCart: NextPageWithLayout = () => {
               </div>
             ) : null}
 
-            {!isCartReady ? (
+            {!isDataReady ? (
               <div className={styles.loadingMessage}>
                 <Spinner animation="border" role="status"></Spinner>
-                <span>Loading cart...</span>
+                <span>Loading data...</span>
+              </div>
+            ) : null}
+
+            {isDataReady ? (
+              <div>
+                <button onClick={handleFundDonation}>Fund Donation</button>
+                <button onClick={handleTangibleDonation}>
+                  Donate what I have
+                </button>
               </div>
             ) : null}
           </Col>
@@ -98,6 +154,16 @@ const DonationCart: NextPageWithLayout = () => {
       </Container>
 
       <WeAreHereForYou />
+
+      {organizationInstructions?.length > 0 ? (
+        <InstructionsModal
+          show={showInstructionsModal}
+          organizationSlug={firstOrganization?.organizationSlug}
+          organizationName={firstOrganization?.organizationName}
+          instructions={organizationInstructions}
+          onHide={handleHideInstructionsModal}
+        />
+      ) : null}
     </>
   );
 };
