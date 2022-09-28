@@ -27,17 +27,15 @@ const DonationCart: NextPageWithLayout = () => {
     ];
   }, []);
 
+  // redirect to Donation Details if they aren't filled yet
   useEffect(() => {
-    if (isCartReady) {
-      if (!isDonationDetailsFilled) {
-        router.push({
-          pathname: '/donation/details',
-          query: {
-            showDonationDetailsAlert: true,
-          },
-        });
-      } else {
-      }
+    if (isCartReady && !isDonationDetailsFilled) {
+      router.push({
+        pathname: '/donation/details',
+        query: {
+          showDonationDetailsAlert: true,
+        },
+      });
     }
   }, [isCartReady, isDonationDetailsFilled]);
 
@@ -71,6 +69,9 @@ const DonationCart: NextPageWithLayout = () => {
             {isCartReady && isDonationDetailsFilled ? (
               <div>
                 <button onClick={handleFundDonation}>Fund Donation</button>
+                <button onClick={handleTangibleDonation}>
+                  Donate what I have
+                </button>
               </div>
             ) : null}
 
