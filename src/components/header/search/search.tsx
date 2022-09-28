@@ -53,7 +53,7 @@ export function SearchProducts() {
     }
 
     router.replace(
-      { pathname: router.pathname, query: queryParams },
+      { query: queryParams },
       undefined,
       { shallow: true } // do not run getServerSideProps
     );

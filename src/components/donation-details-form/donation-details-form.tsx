@@ -4,8 +4,7 @@ import { useCallback, useState } from 'react';
 import { Row, Col, Form, Accordion, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
-import { updateCart } from 'app/api';
-import { useCancelToken, isRequestCancel } from 'app/hooks';
+import { useCart, isRequestCancel } from 'app/hooks';
 import type { FormEvent } from 'react';
 import type { Cart, CountryChoice } from 'app/api/types';
 
@@ -35,6 +34,8 @@ export function DonationDetailsForm({
 }: DonationDetailsFormProps) {
   const router = useRouter();
 
+  const { updateCart } = useCart();
+
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
@@ -58,18 +59,13 @@ export function DonationDetailsForm({
   const [zip, setZip] = useState(() => cart.zip || '');
   const [country, setCountry] = useState(() => cart.country || 'US');
 
-  const getRegistrationCancelToken = useCancelToken();
-
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      const cancelToken = getRegistrationCancelToken();
-
       setIsPending(true);
       try {
         await updateCart({
-          cartId: cart.uuid,
           firstName,
           lastName,
           email,
@@ -81,7 +77,6 @@ export function DonationDetailsForm({
           stateProvinceRegion,
           zip,
           country,
-          cancelToken,
         });
 
         setErrors(null);
@@ -97,7 +92,7 @@ export function DonationDetailsForm({
       }
     },
     [
-      cart,
+      updateCart,
       firstName,
       lastName,
       email,

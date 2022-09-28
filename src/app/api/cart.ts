@@ -32,7 +32,7 @@ export async function fetchCart({
   });
 }
 
-export type UpdateCartParams = CartUuidParams & {
+export type UpdateCartData = {
   firstName?: string;
   lastName?: string;
   email: string;
@@ -45,6 +45,7 @@ export type UpdateCartParams = CartUuidParams & {
   zip?: string;
   country: string;
 };
+export type UpdateCartParams = CartUuidParams & UpdateCartData;
 export async function updateCart({
   cartId,
   firstName,

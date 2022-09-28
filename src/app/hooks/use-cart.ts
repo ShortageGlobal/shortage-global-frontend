@@ -8,10 +8,13 @@ import {
   deleteCartItem as deleteCartItemAction,
 } from 'app/store/slices/cart';
 import {
+  fetchCart as fetchCartAxios,
+  updateCart as updateCartAxios,
   createCartItemAndRefetchCart as createCartItemAndRefetchCartAxios,
   deleteCartItem as deleteCartItemAxios,
   updateCartItemQuantity as updateCartItemQuantityAxios,
 } from 'app/api';
+import type { UpdateCartData } from 'app/api';
 import type {
   Product,
   Organization,
@@ -23,11 +26,16 @@ export function useCart() {
   const dispatch = useAppDispatch();
   const { cart, isCartLoading } = useAppSelector(selectCart);
 
+  const getUpdateCartCancelToken = useCancelToken();
   const getCreateCartItemCancelToken = useCancelToken();
   const getUpdateCartItemQuantityCancelToken = useCancelToken();
   const getDeleteCartItemCancelToken = useCancelToken();
 
   const isCartReady = useMemo(() => !!cart?.uuid, [cart]);
+
+  const isDonationDetailsFilled = useMemo(() => {
+    return !!cart?.email;
+  }, [cart]);
 
   const showCartSidebar = useCallback(() => {
     dispatch(setIsCartSidebarShown(true));
@@ -62,6 +70,56 @@ export function useCart() {
       return !!getCartItem({ productSlug, organizationSlug });
     },
     [getCartItem]
+  );
+
+  const updateCart = useCallback(
+    async ({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      needTaxDeduction,
+      addressLine1,
+      addressLine2,
+      city,
+      stateProvinceRegion,
+      zip,
+      country,
+    }: UpdateCartData) => {
+      if (!isCartReady) {
+        // the action should have been disabled, so do nothing
+        return;
+      }
+
+      // add a new cart item to the existing cart
+      const cancelToken = getUpdateCartCancelToken();
+
+      // PUT - update cart item
+      await updateCartAxios({
+        cartId: cart.uuid,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        needTaxDeduction,
+        addressLine1,
+        addressLine2,
+        city,
+        stateProvinceRegion,
+        zip,
+        country,
+        cancelToken,
+      });
+
+      // GET - fetch updated cart item
+      const cartResponse = await fetchCartAxios({
+        cartId: cart.uuid,
+        cancelToken,
+      });
+
+      dispatch(setCartAction(cartResponse.data));
+    },
+    [isCartReady, cart]
   );
 
   const addToCart = useCallback(
@@ -139,11 +197,13 @@ export function useCart() {
 
   return {
     cart,
-    isCartReady,
     isCartLoading,
+    isCartReady,
+    isDonationDetailsFilled,
     showCartSidebar,
     getCartItem,
     checkIsProductInCart,
+    updateCart,
     addToCart,
     updateCartItemQuantity,
     deleteFromCart,
