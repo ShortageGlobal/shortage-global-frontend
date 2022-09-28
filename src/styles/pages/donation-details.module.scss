@@ -1,0 +1,22 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.donationDetails {
+  max-width: $donation-details-form-max-width;
+  width: 100%;
+  margin: 1rem auto;
+
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  .loadingMessage {
+    display: flex;
+    align-items: center;
+    margin: 3rem 0;
+
+    > * + * {
+      margin-left: 1rem;
+    }
+  }
+}
