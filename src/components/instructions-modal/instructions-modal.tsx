@@ -1,6 +1,6 @@
 import styles from './instructions-modal.module.scss';
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Modal, Button } from 'react-bootstrap';
 import { Organization, Instruction } from 'app/api/types';
@@ -21,10 +21,6 @@ export function InstructionsModal({
   onHide,
 }: InstructionsModalProps) {
   const [selectedInstruction] = useState(instructions?.[0]);
-
-  const handleRegisterPackage = useCallback(() => {
-    //
-  }, []);
 
   return (
     <Modal
@@ -55,12 +51,7 @@ export function InstructionsModal({
           }}
           passHref
         >
-          <Button
-            size="lg"
-            variant="primary"
-            className={styles.confirmButton}
-            onClick={handleRegisterPackage}
-          >
+          <Button size="lg" variant="primary" className={styles.confirmButton}>
             Register package for {organizationName}
           </Button>
         </Link>
