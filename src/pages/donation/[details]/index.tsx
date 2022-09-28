@@ -76,12 +76,8 @@ const DonationDetails: NextPageWithLayout = ({
                 dismissible
               >
                 <Alert.Heading>Details required</Alert.Heading>
-                <div>Fill in the form below before going to checkout</div>
+                <div>Fill in the form below before proceeding</div>
               </Alert>
-            ) : null}
-
-            {isCartReady ? (
-              <DonationDetailsForm cart={cart} countries={countries} />
             ) : null}
 
             {!isCartReady ? (
@@ -89,6 +85,10 @@ const DonationDetails: NextPageWithLayout = ({
                 <Spinner animation="border" role="status"></Spinner>
                 <span>Loading cart...</span>
               </div>
+            ) : null}
+
+            {isCartReady ? (
+              <DonationDetailsForm cart={cart} countries={countries} />
             ) : null}
           </Col>
         </Row>

@@ -2,6 +2,7 @@ import styles from 'styles/pages/package-registration.module.scss';
 import { useMemo, useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { wrapper } from 'app/store';
 import { useAppSelector, useCart } from 'app/hooks';
@@ -16,11 +17,13 @@ import {
   getPackageRegistrationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { PackageRegistrationForm } from 'components/package-registration-form/package-registration-form';
+import { PAGE_KEY } from 'app/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const PackageRegistrationPage: NextPageWithLayout = () => {
+  const router = useRouter();
   const { organization } = useAppSelector(selectOrganization);
-  const { cart, isCartReady } = useCart();
+  const { cart, isCartReady, isDonationDetailsFilled } = useCart();
 
   const [initialCartItems, setInitialCartItems] = useState(null);
 
@@ -37,6 +40,20 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       }),
     ];
   }, [organization]);
+
+  // redirect to Donation Details if they aren't filled yet
+  useEffect(() => {
+    if (isCartReady && !isDonationDetailsFilled) {
+      router.push({
+        pathname: '/donation/details',
+        query: {
+          showDonationDetailsAlert: true,
+          next: PAGE_KEY.PACKAGE_REGISTRATION,
+          nextOrganizationSlug: organization.slug,
+        },
+      });
+    }
+  }, [isCartReady, isDonationDetailsFilled]);
 
   // Select cart items for the organization and persist them,
   // so the registration form stays on screen after showing up
@@ -57,17 +74,21 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
     setInitialCartItems(cartItemsForOrganization);
   }, [initialCartItems, isCartReady, cart, organization]);
 
+  const shouldRedirect = useMemo(() => {
+    return isCartReady && !isDonationDetailsFilled;
+  }, [isCartReady, isDonationDetailsFilled]);
+
   const shouldShowForm = useMemo(() => {
-    return initialCartItems?.length > 0;
-  }, [initialCartItems]);
+    return initialCartItems?.length > 0 && !shouldRedirect;
+  }, [initialCartItems, shouldRedirect]);
 
   const shouldShowNoItemsMessage = useMemo(() => {
-    return !shouldShowForm && isCartReady;
-  }, [shouldShowForm, isCartReady]);
+    return !shouldShowForm && !shouldRedirect && isCartReady;
+  }, [shouldShowForm, shouldRedirect, isCartReady]);
 
   const shouldShowLoadingMessage = useMemo(() => {
-    return !shouldShowForm && !shouldShowNoItemsMessage;
-  }, [shouldShowForm, shouldShowNoItemsMessage]);
+    return !shouldShowForm && !shouldShowNoItemsMessage && !shouldRedirect;
+  }, [shouldShowForm, shouldShowNoItemsMessage, shouldRedirect]);
 
   return (
     <>
@@ -87,11 +108,32 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
               Register package for {organization.name}
             </h2>
 
-            {shouldShowForm ? (
-              <PackageRegistrationForm
-                organization={organization}
-                initialCartItems={initialCartItems}
-              />
+            {isCartReady && !isDonationDetailsFilled ? (
+              <div className={styles.loadingMessage}>
+                <Spinner animation="border" role="status"></Spinner>
+                <span>
+                  Redirecting to{' '}
+                  <Link
+                    href={{
+                      pathname: '/donation/details',
+                      query: {
+                        showDonationDetailsAlert: true,
+                        next: PAGE_KEY.PACKAGE_REGISTRATION,
+                        nextOrganizationSlug: organization.slug,
+                      },
+                    }}
+                  >
+                    <a>Donation Details</a>
+                  </Link>
+                </span>
+              </div>
+            ) : null}
+
+            {shouldShowLoadingMessage ? (
+              <div className={styles.loadingMessage}>
+                <Spinner animation="border" role="status"></Spinner>
+                <span>Loading packages...</span>
+              </div>
             ) : null}
 
             {shouldShowNoItemsMessage ? (
@@ -110,11 +152,11 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
               </p>
             ) : null}
 
-            {shouldShowLoadingMessage ? (
-              <div className={styles.loadingMessage}>
-                <Spinner animation="border" role="status"></Spinner>
-                <span>Loading packages...</span>
-              </div>
+            {shouldShowForm ? (
+              <PackageRegistrationForm
+                organization={organization}
+                initialCartItems={initialCartItems}
+              />
             ) : null}
           </Col>
         </Row>

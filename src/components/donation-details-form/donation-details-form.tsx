@@ -5,6 +5,7 @@ import { Row, Col, Form, Accordion, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useCart, isRequestCancel } from 'app/hooks';
+import { PAGE_KEY } from 'app/constants';
 import type { FormEvent } from 'react';
 import type { Cart, CountryChoice } from 'app/api/types';
 
@@ -81,8 +82,21 @@ export function DonationDetailsForm({
 
         setErrors(null);
 
-        // Redirect to cart page
-        router.push({ pathname: '/donation/details/cart' });
+        // Redirect to cart page or back to the page we were redirected from
+        switch (router.query.next) {
+          case PAGE_KEY.PACKAGE_REGISTRATION: {
+            router.push({
+              pathname: '/organizations/[organizationSlug]/packages',
+              query: { organizationSlug: router.query.nextOrganizationSlug },
+            });
+            break;
+          }
+          case PAGE_KEY.DONATION_CART:
+          default: {
+            router.push({ pathname: '/donation/details/cart' });
+            break;
+          }
+        }
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
           return;
@@ -104,6 +118,7 @@ export function DonationDetailsForm({
       stateProvinceRegion,
       zip,
       country,
+      router,
     ]
   );
 
