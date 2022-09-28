@@ -1,53 +1,62 @@
 import styles from './donation-details-form.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Accordion, Button } from 'react-bootstrap';
+import { Loader } from 'react-feather';
+import { useRouter } from 'next/router';
 import { updateCart } from 'app/api';
 import { useCancelToken, isRequestCancel } from 'app/hooks';
 import type { FormEvent } from 'react';
-import type { CountryChoice } from 'app/api/types';
+import type { Cart, CountryChoice } from 'app/api/types';
 
 const ERROR_KEYS = Object.freeze({
-  COMPANY_NAME: 'company_name',
-  DEPARTMENT: 'department',
   FIRST_NAME: 'first_name',
   LAST_NAME: 'last_name',
-  PHONE_NUMBER: 'phone_number',
   EMAIL: 'email',
+  PHONE_NUMBER: 'phone_number',
+  NEED_TAX_DEDUCTION: 'need_tax_deduction',
   ADDRESS_LINE1: 'address_line1',
   ADDRESS_LINE2: 'address_line2',
   CITY: 'city',
   STATE_PROVINCE_REGION: 'state_province_region',
   ZIP: 'zip',
   COUNTRY: 'country',
-  DESCRIPTION: 'description',
-  QUANTITY_DESCRIPTION: 'quantity_description',
-  NUMBER_OF_PALLETS: 'number_of_pallets',
-  ESTIMATED_VALUE: 'estimated_value',
-  URL: 'url',
-  PHOTO: 'photo',
 });
 type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
 
 type DonationDetailsFormProps = {
+  cart: Cart;
   countries: CountryChoice[];
 };
 
-export function DonationDetailsForm({ countries }: DonationDetailsFormProps) {
+export function DonationDetailsForm({
+  cart,
+  countries,
+}: DonationDetailsFormProps) {
+  const router = useRouter();
+
   const [isPending, setIsPending] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [needTaxDeduction, setNeedTaxDeduction] = useState(true);
-  const [addressLine1, setAddressLine1] = useState('');
-  const [addressLine2, setAddressLine2] = useState('');
-  const [city, setCity] = useState('');
-  const [stateProvinceRegion, setStateProvinceRegion] = useState('');
-  const [zip, setZip] = useState('');
-  const [country, setCountry] = useState('US');
+  const [firstName, setFirstName] = useState(() => cart.first_name || '');
+  const [lastName, setLastName] = useState(() => cart.last_name || '');
+  const [email, setEmail] = useState(() => cart.email || '');
+  const [phoneNumber, setPhoneNumber] = useState(() => cart.phone_number || '');
+  const [needTaxDeduction, setNeedTaxDeduction] = useState(
+    () => cart.need_tax_deduction
+  );
+  const [addressLine1, setAddressLine1] = useState(
+    () => cart.address_line1 || ''
+  );
+  const [addressLine2, setAddressLine2] = useState(
+    () => cart.address_line2 || ''
+  );
+  const [city, setCity] = useState(() => cart.city || '');
+  const [stateProvinceRegion, setStateProvinceRegion] = useState(
+    () => cart.state_province_region || ''
+  );
+  const [zip, setZip] = useState(() => cart.zip || '');
+  const [country, setCountry] = useState(() => cart.country || 'US');
 
   const getRegistrationCancelToken = useCancelToken();
 
@@ -60,6 +69,7 @@ export function DonationDetailsForm({ countries }: DonationDetailsFormProps) {
       setIsPending(true);
       try {
         await updateCart({
+          cartId: cart.uuid,
           firstName,
           lastName,
           email,
@@ -74,19 +84,20 @@ export function DonationDetailsForm({ countries }: DonationDetailsFormProps) {
           cancelToken,
         });
 
-        setIsPending(false);
-        setIsRegistered(true);
         setErrors(null);
+
+        // Redirect to cart page
+        router.push({ pathname: '/donation/details/cart' });
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
           return;
         }
         setIsPending(false);
-        setIsRegistered(false);
         setErrors(rejection?.response?.data);
       }
     },
     [
+      cart,
       firstName,
       lastName,
       email,
@@ -101,24 +112,6 @@ export function DonationDetailsForm({ countries }: DonationDetailsFormProps) {
     ]
   );
 
-  const handleFormReset = useCallback(() => {
-    setIsPending(false);
-    setIsRegistered(false);
-    setErrors(null);
-
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPhoneNumber('');
-    setNeedTaxDeduction(false);
-    setAddressLine1('');
-    setAddressLine2('');
-    setCity('');
-    setStateProvinceRegion('');
-    setZip('');
-    setCountry('US');
-  }, []);
-
   const getIsValid = (key: ErrorKey) =>
     !(errors?.[key]?.length > 0) && errors !== null;
   const getIsInvalid = (key: ErrorKey) => errors?.[key]?.length > 0;
@@ -131,10 +124,6 @@ export function DonationDetailsForm({ countries }: DonationDetailsFormProps) {
         </Form.Control.Feedback>
       );
     });
-
-  if (isRegistered) {
-    return <CorporateDonationRegistrationSuccess onDismiss={handleFormReset} />;
-  }
 
   return (
     <Form onSubmit={handleFormSubmit} className={styles.donationDetailsForm}>
@@ -248,7 +237,10 @@ export function DonationDetailsForm({ countries }: DonationDetailsFormProps) {
               id="needTaxDeduction"
               label={'Request tax deduction'}
               checked={needTaxDeduction}
-              onChange={(e) => setNeedTaxDeduction(e.target.checked)}
+              onChange={(e) => {
+                setErrors(null);
+                setNeedTaxDeduction(e.target.checked);
+              }}
             />
           </Form.Group>
         </Row>
@@ -398,7 +390,14 @@ export function DonationDetailsForm({ countries }: DonationDetailsFormProps) {
             disabled={isPending}
             className={styles.confirmDetailsBtn}
           >
-            Proceed
+            {isPending ? (
+              <Loader
+                role="status"
+                aria-hidden="true"
+                className={animationStyles.rotate}
+              />
+            ) : null}
+            <span>Proceed</span>
           </Button>
         </Col>
       </Row>

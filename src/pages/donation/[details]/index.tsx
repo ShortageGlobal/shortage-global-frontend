@@ -1,6 +1,6 @@
 import styles from 'styles/pages/donation-details.module.scss';
 import { useMemo } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import Head from 'next/head';
 import { useCart } from 'app/hooks';
 import { wrapper } from 'app/store';
@@ -26,7 +26,7 @@ const DonationDetails: NextPageWithLayout = ({
     return [getHomeCrumb(), getDonationDetailsCrumb({ isActive: true })];
   }, []);
 
-  const { isCartReady } = useCart();
+  const { cart, isCartReady } = useCart();
 
   return (
     <>
@@ -45,15 +45,23 @@ const DonationDetails: NextPageWithLayout = ({
       {/* TODO: placeholder for "isCartReady" */}
 
       {/* Donation Details Form */}
-      {isCartReady ? (
-        <Container>
-          <Row>
-            <Col className={styles.donationDetails}>
-              <DonationDetailsForm countries={countries} />
-            </Col>
-          </Row>
-        </Container>
-      ) : null}
+
+      <Container>
+        <Row>
+          <Col className={styles.donationDetails}>
+            {isCartReady ? (
+              <DonationDetailsForm cart={cart} countries={countries} />
+            ) : null}
+
+            {!isCartReady ? (
+              <div className={styles.loadingMessage}>
+                <Spinner animation="border" role="status"></Spinner>
+                <span>Loading cart...</span>
+              </div>
+            ) : null}
+          </Col>
+        </Row>
+      </Container>
 
       <WeAreHereForYou />
     </>

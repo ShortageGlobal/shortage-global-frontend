@@ -2,6 +2,8 @@
 @import 'styles/_variables';
 
 .donationDetailsForm {
+  margin-bottom: 3rem;
+
   .header {
     margin-bottom: 2rem;
   }
@@ -17,5 +19,12 @@
   .confirmDetailsBtn {
     margin: 2rem 0rem 0rem;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
   }
 }
