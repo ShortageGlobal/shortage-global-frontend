@@ -22,6 +22,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
+import { PAGE_KEY } from 'app/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const DonationCart: NextPageWithLayout = () => {
@@ -67,6 +68,7 @@ const DonationCart: NextPageWithLayout = () => {
         pathname: '/donation/details',
         query: {
           showDonationDetailsAlert: true,
+          next: PAGE_KEY.DONATION_CART,
         },
       });
     }
@@ -127,7 +129,15 @@ const DonationCart: NextPageWithLayout = () => {
                 <Spinner animation="border" role="status"></Spinner>
                 <span>
                   Redirecting to{' '}
-                  <Link href={{ pathname: '/donation/details' }}>
+                  <Link
+                    href={{
+                      pathname: '/donation/details',
+                      query: {
+                        showDonationDetailsAlert: true,
+                        next: PAGE_KEY.DONATION_CART,
+                      },
+                    }}
+                  >
                     <a>Donation Details</a>
                   </Link>
                 </span>
