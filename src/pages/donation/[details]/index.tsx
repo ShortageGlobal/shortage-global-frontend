@@ -1,7 +1,8 @@
 import styles from 'styles/pages/donation-details.module.scss';
-import { useMemo } from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { useMemo, useState, useCallback } from 'react';
+import { Container, Row, Col, Alert, Spinner } from 'react-bootstrap';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useCart } from 'app/hooks';
 import { wrapper } from 'app/store';
 import { fetchCorporateDonationOptions } from 'app/api';
@@ -26,7 +27,26 @@ const DonationDetails: NextPageWithLayout = ({
     return [getHomeCrumb(), getDonationDetailsCrumb({ isActive: true })];
   }, []);
 
+  const router = useRouter();
   const { cart, isCartReady } = useCart();
+
+  const [showDonationDetailsAlert, setShowDonationDetailsAlert] = useState(
+    () => !!router.query.showDonationDetailsAlert
+  );
+
+  const handleDismissDonationDetailsAlert = useCallback(() => {
+    setShowDonationDetailsAlert(false);
+
+    // remove "showDonationDetailsAlert" from query params
+    const queryParams = { ...router.query };
+    delete queryParams.showDonationDetailsAlert;
+
+    router.replace(
+      { query: queryParams },
+      undefined,
+      { shallow: true } // do not run getServerSideProps
+    );
+  }, [router]);
 
   return (
     <>
@@ -48,6 +68,18 @@ const DonationDetails: NextPageWithLayout = ({
       <Container>
         <Row>
           <Col className={styles.donationDetails}>
+            {showDonationDetailsAlert ? (
+              <Alert
+                variant="info"
+                className={styles.requireDetailsAlert}
+                onClose={handleDismissDonationDetailsAlert}
+                dismissible
+              >
+                <Alert.Heading>Details required</Alert.Heading>
+                <div>Fill in the form below before going to checkout</div>
+              </Alert>
+            ) : null}
+
             {isCartReady ? (
               <DonationDetailsForm cart={cart} countries={countries} />
             ) : null}
