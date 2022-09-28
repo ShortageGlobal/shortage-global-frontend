@@ -5,18 +5,22 @@ import {
   FetchInstructionsParams,
 } from 'app/api';
 import { serizalizeAxiosError } from 'app/helpers';
-import type { AxiosSerializedError, Instruction } from 'app/api/types';
+import type {
+  Organization,
+  Instruction,
+  AxiosSerializedError,
+} from 'app/api/types';
 
 export const instructionsSlice = createSlice({
   name: 'instructions',
 
   initialState: {
     instructions: null,
-    isLoading: false,
+    isInstructionsLoading: false,
     error: null,
   } as {
-    instructions?: Instruction[];
-    isLoading: boolean;
+    instructions?: Record<Organization['slug'], Instruction[]>;
+    isInstructionsLoading: boolean;
     error?: AxiosSerializedError;
   },
 
@@ -25,15 +29,15 @@ export const instructionsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchInstructions.pending, (state) => {
-        state.isLoading = true;
+        state.isInstructionsLoading = true;
         state.error = null;
       })
       .addCase(fetchInstructions.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isInstructionsLoading = false;
         state.instructions = action.payload;
       })
       .addCase(fetchInstructions.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isInstructionsLoading = false;
         state.error = action.payload as AxiosSerializedError;
       });
   },
@@ -48,7 +52,7 @@ export const fetchInstructions = createAsyncThunk(
   async (params: FetchInstructionsParams, { rejectWithValue }) => {
     try {
       const response = await fetchInstructionsAxios(params);
-      return response.data;
+      return response;
     } catch (rejection) {
       return rejectWithValue(serizalizeAxiosError(rejection));
     }

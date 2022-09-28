@@ -1,23 +1,24 @@
 import styles from './instructions-modal.module.scss';
 import classNames from 'classnames';
 import { useState } from 'react';
+import Link from 'next/link';
 import { Modal, Button } from 'react-bootstrap';
-import { Instruction } from 'app/api/types';
+import { Organization, Instruction } from 'app/api/types';
 
 type InstructionsModalProps = {
   show: boolean;
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
   instructions: Instruction[];
-  isProductInCart: boolean;
   onHide: () => void;
-  onConfirm: () => void;
 };
 
 export function InstructionsModal({
   show,
+  organizationSlug,
+  organizationName,
   instructions,
-  isProductInCart,
   onHide,
-  onConfirm,
 }: InstructionsModalProps) {
   const [selectedInstruction] = useState(instructions?.[0]);
 
@@ -43,15 +44,17 @@ export function InstructionsModal({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button
-          size="lg"
-          variant="primary"
-          className={styles.confirmButton}
-          onClick={onConfirm}
-          disabled={isProductInCart}
+        <Link
+          href={{
+            pathname: '/organizations/[organizationSlug]/packages',
+            query: { organizationSlug },
+          }}
+          passHref
         >
-          Add items to my package
-        </Button>
+          <Button size="lg" variant="primary" className={styles.confirmButton}>
+            Register package for {organizationName}
+          </Button>
+        </Link>
       </Modal.Footer>
     </Modal>
   );

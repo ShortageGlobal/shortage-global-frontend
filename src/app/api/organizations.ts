@@ -2,13 +2,14 @@ import axios from 'axios';
 import { API_ROOT } from 'app/constants';
 import type {
   OrganizationSlugParams,
+  CancelTokenParams,
   Organization,
   Category,
   Instruction,
 } from 'app/api/types';
 
 export type FetchOrganizationParams = OrganizationSlugParams;
-export function fetchOrganization({
+export async function fetchOrganization({
   organizationSlug,
   cancelToken = null,
 }: FetchOrganizationParams) {
@@ -19,7 +20,7 @@ export function fetchOrganization({
 }
 
 export type FetchCategoriesParams = OrganizationSlugParams;
-export function fetchCategories({
+export async function fetchCategories({
   organizationSlug,
   cancelToken = null,
 }: OrganizationSlugParams) {
@@ -29,8 +30,8 @@ export function fetchCategories({
   );
 }
 
-export type FetchInstructionsParams = OrganizationSlugParams;
-export function fetchInstructions({
+export type FetchInstructionsForOrganizationParams = OrganizationSlugParams;
+export async function fetchInstructionsForOrganization({
   organizationSlug,
   cancelToken = null,
 }: OrganizationSlugParams) {
@@ -40,4 +41,24 @@ export function fetchInstructions({
     ),
     { cancelToken: cancelToken?.token }
   );
+}
+
+export type FetchInstructionsParams = CancelTokenParams & {
+  organizationSlugs: Organization['slug'][];
+};
+export async function fetchInstructions({
+  organizationSlugs,
+  cancelToken = null,
+}: FetchInstructionsParams) {
+  const result: Record<Organization['slug'], Instruction[]> = {};
+  await Promise.all(
+    organizationSlugs.map((organizationSlug) =>
+      fetchInstructionsForOrganization({ organizationSlug, cancelToken }).then(
+        (response) => {
+          result[organizationSlug] = response.data;
+        }
+      )
+    )
+  );
+  return result;
 }
