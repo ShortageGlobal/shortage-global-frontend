@@ -43,15 +43,32 @@ const DonationCart: NextPageWithLayout = () => {
     ];
   }, []);
 
-  const isDataReady = useMemo(() => {
-    return isCartReady && isDonationDetailsFilled && instructions !== null;
-  }, [isCartReady, isDonationDetailsFilled, instructions]);
-
-  const getFetchInstructionsCancelToken = useCancelToken();
-
   const groupedCartItems = useMemo(() => {
     return groupCartItemsByOrganization({ items: cart?.items });
   }, [cart?.items]);
+
+  const shouldRedirect = useMemo(() => {
+    return isCartReady && !isDonationDetailsFilled;
+  }, [isCartReady, isDonationDetailsFilled]);
+
+  const shouldShowContent = useMemo(() => {
+    return (
+      !shouldRedirect && instructions !== null && groupedCartItems.size > 0
+    );
+  }, [shouldRedirect, instructions, groupedCartItems]);
+
+  const shouldShowNoItemsMessage = useMemo(() => {
+    return (
+      !shouldRedirect &&
+      !shouldShowContent &&
+      isCartReady &&
+      groupedCartItems.size === 0
+    );
+  }, [shouldRedirect, shouldShowContent, isCartReady, groupedCartItems]);
+
+  const shouldShowLoadingMessage = useMemo(() => {
+    return !shouldRedirect && !shouldShowContent && !shouldShowNoItemsMessage;
+  }, [shouldRedirect, shouldShowContent, shouldShowNoItemsMessage]);
 
   // TODO: HARDCODE! Add support for multiple organizations in cart
   const firstOrganization = useMemo(() => {
@@ -63,7 +80,7 @@ const DonationCart: NextPageWithLayout = () => {
 
   // redirect to Donation Details if they aren't filled yet
   useEffect(() => {
-    if (isCartReady && !isDonationDetailsFilled) {
+    if (shouldRedirect) {
       router.push({
         pathname: '/donation/details',
         query: {
@@ -72,9 +89,10 @@ const DonationCart: NextPageWithLayout = () => {
         },
       });
     }
-  }, [isCartReady, isDonationDetailsFilled]);
+  }, [shouldRedirect]);
 
   // fetch instructions
+  const getFetchInstructionsCancelToken = useCancelToken();
   useEffect(() => {
     if (
       !isCartReady ||
@@ -121,10 +139,12 @@ const DonationCart: NextPageWithLayout = () => {
 
       {/* TODO: placeholder for "isCartReady" */}
 
-      <Container>
+      <Container className={styles.mainContent}>
         <Row>
           <Col className={styles.donationCart}>
-            {isCartReady && !isDonationDetailsFilled ? (
+            <h2>Cart</h2>
+
+            {shouldRedirect ? (
               <div className={styles.loadingMessage}>
                 <Spinner animation="border" role="status"></Spinner>
                 <span>
@@ -144,14 +164,25 @@ const DonationCart: NextPageWithLayout = () => {
               </div>
             ) : null}
 
-            {!isDataReady ? (
+            {shouldShowLoadingMessage ? (
               <div className={styles.loadingMessage}>
                 <Spinner animation="border" role="status"></Spinner>
                 <span>Loading data...</span>
               </div>
             ) : null}
 
-            {isDataReady ? (
+            {shouldShowNoItemsMessage ? (
+              <p className={styles.noItemsMessage}>
+                Your donation cart doesn&apos;t have any goods. Check the
+                requested goods on{' '}
+                <Link href={{ pathname: '/' }}>
+                  <a>the homepage</a>
+                </Link>
+                .
+              </p>
+            ) : null}
+
+            {shouldShowContent ? (
               <div>
                 <button onClick={handleFundDonation}>Fund Donation</button>
                 <button onClick={handleTangibleDonation}>

@@ -41,9 +41,25 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
     ];
   }, [organization]);
 
+  const shouldRedirect = useMemo(() => {
+    return isCartReady && !isDonationDetailsFilled;
+  }, [isCartReady, isDonationDetailsFilled]);
+
+  const shouldShowForm = useMemo(() => {
+    return initialCartItems?.length > 0 && !shouldRedirect;
+  }, [initialCartItems, shouldRedirect]);
+
+  const shouldShowNoItemsMessage = useMemo(() => {
+    return !shouldShowForm && !shouldRedirect && isCartReady;
+  }, [shouldShowForm, shouldRedirect, isCartReady]);
+
+  const shouldShowLoadingMessage = useMemo(() => {
+    return !shouldShowForm && !shouldShowNoItemsMessage && !shouldRedirect;
+  }, [shouldShowForm, shouldShowNoItemsMessage, shouldRedirect]);
+
   // redirect to Donation Details if they aren't filled yet
   useEffect(() => {
-    if (isCartReady && !isDonationDetailsFilled) {
+    if (shouldRedirect) {
       router.push({
         pathname: '/donation/details',
         query: {
@@ -53,7 +69,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
         },
       });
     }
-  }, [isCartReady, isDonationDetailsFilled]);
+  }, [shouldRedirect]);
 
   // Select cart items for the organization and persist them,
   // so the registration form stays on screen after showing up
@@ -73,22 +89,6 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
     setInitialCartItems(cartItemsForOrganization);
   }, [initialCartItems, isCartReady, cart, organization]);
-
-  const shouldRedirect = useMemo(() => {
-    return isCartReady && !isDonationDetailsFilled;
-  }, [isCartReady, isDonationDetailsFilled]);
-
-  const shouldShowForm = useMemo(() => {
-    return initialCartItems?.length > 0 && !shouldRedirect;
-  }, [initialCartItems, shouldRedirect]);
-
-  const shouldShowNoItemsMessage = useMemo(() => {
-    return !shouldShowForm && !shouldRedirect && isCartReady;
-  }, [shouldShowForm, shouldRedirect, isCartReady]);
-
-  const shouldShowLoadingMessage = useMemo(() => {
-    return !shouldShowForm && !shouldShowNoItemsMessage && !shouldRedirect;
-  }, [shouldShowForm, shouldShowNoItemsMessage, shouldRedirect]);
 
   return (
     <>
@@ -132,13 +132,13 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
             {shouldShowLoadingMessage ? (
               <div className={styles.loadingMessage}>
                 <Spinner animation="border" role="status"></Spinner>
-                <span>Loading packages...</span>
+                <span>Loading data...</span>
               </div>
             ) : null}
 
             {shouldShowNoItemsMessage ? (
               <p className={styles.noItemsMessage}>
-                You haven&apos;t added any products to your package for this
+                Your donation cart doesn&apos;t have any goods requested by the
                 organization. Check the requested goods on{' '}
                 <Link
                   href={{

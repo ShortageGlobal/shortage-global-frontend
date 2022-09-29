@@ -33,6 +33,7 @@ export function PackageRegistrationForm({
       })
     )
   );
+
   const [deliveryCompany, setDeliveryCompany] = useState('');
   const [trackingCode, setTrackingNumber] = useState('');
   const [photo /*, setPhoto */] = useState();
