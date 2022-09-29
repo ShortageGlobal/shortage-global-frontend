@@ -1,8 +1,9 @@
 import styles from 'styles/pages/donation-cart.module.scss';
 import { useMemo, useCallback, useEffect, useState } from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, Button } from 'react-bootstrap';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { wrapper } from 'app/store';
 import {
@@ -141,7 +142,7 @@ const DonationCart: NextPageWithLayout = () => {
 
       <Container className={styles.mainContent}>
         <Row>
-          <Col className={styles.donationCart}>
+          <Col className={styles.donationCartCol}>
             <h2>Cart</h2>
 
             {shouldRedirect ? (
@@ -183,12 +184,52 @@ const DonationCart: NextPageWithLayout = () => {
             ) : null}
 
             {shouldShowContent ? (
-              <div>
-                <button onClick={handleFundDonation}>Fund Donation</button>
-                <button onClick={handleTangibleDonation}>
-                  Donate what I have
-                </button>
-              </div>
+              <>
+                <div>
+                  <h4 className={styles.sectionHeader}>
+                    How would you like to donate?
+                  </h4>
+                  <Row>
+                    {/* Fund donation option */}
+                    <Col sm={6} className={styles.donationOptionButtonCol}>
+                      <button
+                        onClick={handleFundDonation}
+                        className={styles.donationOptionButton}
+                      >
+                        <Image
+                          alt=""
+                          src="/images/donation-cart/donation-fund.svg"
+                          width={50}
+                          height={50}
+                        />
+                        <p>We&apos;ll buy the selected goods on your behalf</p>
+                        <Button as="span" size="lg" tabIndex={-1}>
+                          Fund Donation
+                        </Button>
+                      </button>
+                    </Col>
+
+                    {/* Send what donor has option */}
+                    <Col sm={6} className={styles.donationOptionButtonCol}>
+                      <button
+                        onClick={handleTangibleDonation}
+                        className={styles.donationOptionButton}
+                      >
+                        <Image
+                          alt=""
+                          src="/images/donation-cart/donation-package.svg"
+                          width={50}
+                          height={50}
+                        />
+                        <p>We&apos;ll provide delivery instructions</p>
+                        <Button as="span" size="lg" tabIndex={-1}>
+                          Donate what I have
+                        </Button>
+                      </button>
+                    </Col>
+                  </Row>
+                </div>
+              </>
             ) : null}
           </Col>
         </Row>
