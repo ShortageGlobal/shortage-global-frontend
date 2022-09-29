@@ -31,7 +31,17 @@
 }
 
 .sectionHeader {
-  margin: 2rem 0;
+  margin: 3rem 0 2rem;
+}
+
+.cartItemsGroup {
+  margin-bottom: 2rem;
+}
+
+.cartItemsList {
+  > * + * {
+    margin-top: 1.5rem;
+  }
 }
 
 .donationOptionButtonCol {

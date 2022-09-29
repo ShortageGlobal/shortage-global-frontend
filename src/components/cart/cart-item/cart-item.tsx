@@ -1,5 +1,5 @@
 import styles from './cart-item.module.scss';
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { Button, Form } from 'react-bootstrap';
 import { Trash2 } from 'react-feather';
@@ -27,9 +27,14 @@ export function CartItem({
   onRemove,
   isRemoveDisabled = false,
 }: CartItemProps) {
-  const [quantity, setQuantity] = useState<number | string>(
+  const [displayQuantity, setDisplayQuantity] = useState<number | string>(
     () => item.quantity
   );
+
+  // change display quantity value if it changes from outside
+  useEffect(() => {
+    setDisplayQuantity(item.quantity);
+  }, [item.quantity]);
 
   const productPageHref = useMemo(() => {
     return {
@@ -46,7 +51,7 @@ export function CartItem({
       const value = e.target.value;
 
       // set to local state
-      setQuantity(value);
+      setDisplayQuantity(value);
 
       // if valid, set in store
       const quantity = Number(value);
@@ -59,7 +64,7 @@ export function CartItem({
   );
 
   const handleQuantityBlur = useCallback(() => {
-    setQuantity(item.quantity);
+    setDisplayQuantity(item.quantity);
   }, [item, onQuantityChange]);
 
   const handleRemove = useCallback(() => {
@@ -99,7 +104,7 @@ export function CartItem({
           step={1}
           min={1}
           placeholder="Quantity"
-          value={quantity}
+          value={displayQuantity}
           onChange={handleQuantityChange}
           onBlur={handleQuantityBlur}
           required

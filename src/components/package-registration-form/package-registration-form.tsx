@@ -10,29 +10,22 @@ import type { Organization, CartItem as CartItemType } from 'app/api/types';
 
 type PackageRegistrationFormProps = {
   organization: Organization;
-  initialCartItems: CartItemType[];
+  items: CartItemType[];
 };
 
 export function PackageRegistrationForm({
   organization,
-  initialCartItems,
+  items,
 }: PackageRegistrationFormProps) {
   const router = useRouter();
 
-  const { deleteFromCart } = useCart();
+  const { updateCartItemQuantity, deleteFromCart } = useCart();
 
   const [isCreating, setIsCreating] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [items, setItems] = useState(() =>
-    Object.freeze(
-      initialCartItems.map((item) => {
-        return Object.freeze({ ...item });
-      })
-    )
-  );
 
   const [deliveryCompany, setDeliveryCompany] = useState('');
   const [trackingCode, setTrackingNumber] = useState('');
@@ -42,23 +35,23 @@ export function PackageRegistrationForm({
   const getCreatePackageCancelToken = useCancelToken();
 
   const handleItemQuantityChange = useCallback(
-    ({ item, quantity }: { item: CartItemType; quantity: number }) => {
-      const newItems = items.map((d) => {
-        if (d.uuid === item.uuid) {
-          return { ...d, quantity };
+    async ({ item, quantity }: { item: CartItemType; quantity: number }) => {
+      try {
+        await updateCartItemQuantity({ cartItemId: item.uuid, quantity });
+      } catch (rejection) {
+        if (!isRequestCancel(rejection)) {
+          throw rejection;
         }
-        return d;
-      });
-      setItems(Object.freeze(newItems));
+      }
     },
-    [items]
+    [updateCartItemQuantity]
   );
 
   const handleItemRemove = useCallback(
     ({ item }: { item: CartItemType }) => {
-      setItems(Object.freeze(items.filter((d) => d.uuid !== item.uuid)));
+      deleteFromCart({ cartItemId: item.uuid });
     },
-    [items]
+    [deleteFromCart]
   );
 
   const handleFormSubmit = useCallback(
@@ -208,7 +201,6 @@ export function PackageRegistrationForm({
               item={item}
               onQuantityChange={handleItemQuantityChange}
               onRemove={handleItemRemove}
-              isRemoveDisabled={items.length === 1}
             />
           );
         })}

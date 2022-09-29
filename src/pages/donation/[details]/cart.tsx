@@ -11,26 +11,35 @@ import {
   useAppSelector,
   useCart,
   useCancelToken,
+  isRequestCancel,
 } from 'app/hooks';
 import { fetchInstructions } from 'app/store/slices/instructions';
 import { selectInstructions } from 'app/store/slices/instructions';
-import { groupCartItemsByOrganization } from 'app/helpers';
+import { formatPrice, groupCartItemsByOrganization } from 'app/helpers';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getDonationDetailsCrumb,
   getDonationCartCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import { CartItem } from 'components/cart/cart-item/cart-item';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { PAGE_KEY } from 'app/constants';
+import type { CartItem as CartItemType } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const DonationCart: NextPageWithLayout = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { cart, isCartReady, isDonationDetailsFilled } = useCart();
+  const {
+    cart,
+    isCartReady,
+    isDonationDetailsFilled,
+    updateCartItemQuantity,
+    deleteFromCart,
+  } = useCart();
   const { instructions, isInstructionsLoading } =
     useAppSelector(selectInstructions);
 
@@ -43,6 +52,13 @@ const DonationCart: NextPageWithLayout = () => {
       getDonationCartCrumb({ isActive: true }),
     ];
   }, []);
+
+  const totalPrice = useMemo(() => {
+    return cart?.items.reduce(
+      (sum, item) => sum + (item.product.price || 0) * item.quantity,
+      0
+    );
+  }, [cart?.items]);
 
   const groupedCartItems = useMemo(() => {
     return groupCartItemsByOrganization({ items: cart?.items });
@@ -107,6 +123,26 @@ const DonationCart: NextPageWithLayout = () => {
     const cancelToken = getFetchInstructionsCancelToken();
     dispatch(fetchInstructions({ organizationSlugs, cancelToken }));
   }, [isCartReady, isDonationDetailsFilled, groupedCartItems, instructions]);
+
+  const handleItemQuantityChange = useCallback(
+    async ({ item, quantity }: { item: CartItemType; quantity: number }) => {
+      try {
+        await updateCartItemQuantity({ cartItemId: item.uuid, quantity });
+      } catch (rejection) {
+        if (!isRequestCancel(rejection)) {
+          throw rejection;
+        }
+      }
+    },
+    [updateCartItemQuantity]
+  );
+
+  const handleItemRemove = useCallback(
+    ({ item }: { item: CartItemType }) => {
+      deleteFromCart({ cartItemId: item.uuid });
+    },
+    [deleteFromCart]
+  );
 
   const handleFundDonation = useCallback(() => {
     //
@@ -185,6 +221,51 @@ const DonationCart: NextPageWithLayout = () => {
 
             {shouldShowContent ? (
               <>
+                <div>
+                  {Array.from(groupedCartItems.values()).map(
+                    (cartItemsGroup) => {
+                      return (
+                        <div
+                          key={cartItemsGroup.organizationSlug}
+                          className={styles.cartItemsGroup}
+                        >
+                          <p>
+                            For{' '}
+                            <Link
+                              href={{
+                                pathname: '/organizations/[organizationSlug]',
+                                query: {
+                                  organizationSlug:
+                                    cartItemsGroup.organizationSlug,
+                                },
+                              }}
+                            >
+                              <a>{cartItemsGroup.organizationName}</a>
+                            </Link>
+                          </p>
+                          <div className={styles.cartItemsList}>
+                            {cartItemsGroup.items.map((item) => {
+                              return (
+                                <CartItem
+                                  key={item.uuid}
+                                  item={item}
+                                  onQuantityChange={handleItemQuantityChange}
+                                  onRemove={handleItemRemove}
+                                />
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+
+                <div>
+                  <h4 className={styles.sectionHeader}>Total</h4>
+                  <p>{formatPrice(totalPrice)}</p>
+                </div>
+
                 <div>
                   <h4 className={styles.sectionHeader}>
                     How would you like to donate?
