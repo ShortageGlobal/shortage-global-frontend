@@ -1,6 +1,10 @@
 @import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
+.mainContent {
+  flex-grow: 1;
+}
+
 .donationCart {
   max-width: $donation-cart-form-max-width;
   width: 100%;
@@ -13,10 +17,15 @@
   .loadingMessage {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 3rem 0;
 
     > * + * {
       margin-left: 1rem;
     }
+  }
+
+  .noItemsMessage {
+    margin: 3rem 0;
   }
 }
