@@ -1,5 +1,5 @@
 import styles from 'styles/pages/package-registration.module.scss';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -25,7 +25,16 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
   const { cart, isCartReady, isDonationDetailsFilled } = useCart();
 
-  const [initialCartItems, setInitialCartItems] = useState(null);
+  const organizationCartItems = useMemo(() => {
+    return cart?.items
+      .filter((item) => item.product.organization.slug === organization.slug)
+      .sort((a, b) => {
+        if (b.created_at > a.created_at) {
+          return 1;
+        }
+        return -1;
+      });
+  }, [cart, organization]);
 
   const breadcrumbs = useMemo(() => {
     return [
@@ -46,8 +55,8 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   }, [isCartReady, isDonationDetailsFilled]);
 
   const shouldShowForm = useMemo(() => {
-    return initialCartItems?.length > 0 && !shouldRedirect;
-  }, [initialCartItems, shouldRedirect]);
+    return organizationCartItems?.length > 0 && !shouldRedirect;
+  }, [organizationCartItems, shouldRedirect]);
 
   const shouldShowNoItemsMessage = useMemo(() => {
     return !shouldShowForm && !shouldRedirect && isCartReady;
@@ -70,25 +79,6 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       });
     }
   }, [shouldRedirect]);
-
-  // Select cart items for the organization and persist them,
-  // so the registration form stays on screen after showing up
-  useEffect(() => {
-    if (initialCartItems !== null || !isCartReady) {
-      return;
-    }
-
-    const cartItemsForOrganization = cart.items
-      .filter((item) => item.product.organization.slug === organization.slug)
-      .sort((a, b) => {
-        if (b.created_at > a.created_at) {
-          return 1;
-        }
-        return -1;
-      });
-
-    setInitialCartItems(cartItemsForOrganization);
-  }, [initialCartItems, isCartReady, cart, organization]);
 
   return (
     <>
@@ -155,7 +145,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
             {shouldShowForm ? (
               <PackageRegistrationForm
                 organization={organization}
-                initialCartItems={initialCartItems}
+                items={organizationCartItems}
               />
             ) : null}
           </Col>

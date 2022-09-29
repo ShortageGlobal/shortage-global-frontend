@@ -83,7 +83,7 @@ type ProductBase = {
   slug: Slug;
   category: Category;
   photo?: string;
-  price?: string;
+  price?: number;
   requested_amount: number;
   top_priority: boolean;
   organization: OrganizationPreview;
