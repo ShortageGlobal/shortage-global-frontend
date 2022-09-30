@@ -117,6 +117,8 @@ $cart-item-photo-border-color: var(--bs-dark);
 $cart-item-product-name-link-color: var(--bs-body-color);
 $cart-item-remove-button-border-color: $input-border-color;
 $cart-item-remove-button-hover-border-color: var(--bs-gray-900);
+$cart-item-summary-line-border-color: var(--bs-dark);
+$cart-item-summary-line-labels-br-color: var(--bs-body-bg);
 
 // Package registration
 $package-registration-form-max-width: 650px;
@@ -148,5 +150,7 @@ $donation-details-form-max-width: $package-registration-form-max-width;
 
 // Donation Cart
 $donation-cart-max-width: $package-registration-form-max-width;
+$donation-cart-summary-line-border-color: var(--bs-dark);
+$donation-cart-summary-line-labels-br-color: var(--bs-body-bg);
 $donation-cart-donation-option-border-color: var(--bs-dark);
-$donation-cart-donation-option-hover-bg-color: $secondary-background;
+$donation-cart-donation-option-hover-bg-color: rgba($primary, 0.1);

@@ -5,6 +5,7 @@ import { Button, Form } from 'react-bootstrap';
 import { Trash2 } from 'react-feather';
 import Link from 'next/link';
 import Image from 'next/image';
+import { formatPrice } from 'app/helpers';
 import type { ChangeEvent } from 'react';
 import type { CartItem } from 'app/api/types';
 
@@ -18,15 +19,9 @@ type CartItemProps = {
     quantity: number;
   }) => void;
   onRemove: ({ item }: { item: CartItem }) => void;
-  isRemoveDisabled?: boolean;
 };
 
-export function CartItem({
-  item,
-  onQuantityChange,
-  onRemove,
-  isRemoveDisabled = false,
-}: CartItemProps) {
+export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
   const [displayQuantity, setDisplayQuantity] = useState<number | string>(
     () => item.quantity
   );
@@ -88,10 +83,15 @@ export function CartItem({
         </Link>
       </div>
 
-      <div className={classNames(styles.name, 'text-truncate')}>
+      <div className={styles.name}>
         <Link href={productPageHref}>
-          <a className={styles.nameLink}>{item.product.name}</a>
+          <a className={classNames(styles.nameLink, 'text-truncate')}>
+            {item.product.name}
+          </a>
         </Link>
+        <div className={styles.productPrice}>
+          {formatPrice(item.product.price)}
+        </div>
       </div>
 
       <Form.Group
@@ -116,7 +116,6 @@ export function CartItem({
           variant="outline-dark"
           className={styles.removeButton}
           onClick={handleRemove}
-          disabled={isRemoveDisabled}
         >
           <Trash2 size="1rem" />
           <span className={styles.removeButtonLabel}>Remove</span>
