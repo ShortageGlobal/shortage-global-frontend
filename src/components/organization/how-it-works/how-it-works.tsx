@@ -8,6 +8,7 @@ import {
   Accordion,
   useAccordionButton,
 } from 'react-bootstrap';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 
 const ACCORDION_KEY = 'ACCORDION_KEY';
 
@@ -48,8 +49,8 @@ export function OrganizationHowItWorks() {
                   role="button"
                   onClick={() => {
                     document
-                      .getElementById('needed-supplies-header')
-                      .scrollIntoView({ behavior: 'smooth' });
+                      .getElementById(REQUESTED_GOODS_CONTAINER_ID)
+                      ?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
                   <div className={donationStepsStyles.stepBlock}>
