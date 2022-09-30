@@ -98,7 +98,7 @@ export const getDonationDetailsCrumb = (props: BreadcrumbItem = {}) =>
 export const getDonationCartCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
-    label: 'Cart',
+    label: 'Donation Cart',
     href: {
       pathname: '/donation/details/cart',
     },

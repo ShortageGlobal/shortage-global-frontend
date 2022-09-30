@@ -179,7 +179,7 @@ const DonationCart: NextPageWithLayout = () => {
       <Container className={styles.mainContent}>
         <Row>
           <Col className={styles.donationCartCol}>
-            <h2>Cart</h2>
+            <h2>Donation Cart</h2>
 
             {shouldRedirect ? (
               <div className={styles.loadingMessage}>
@@ -261,10 +261,12 @@ const DonationCart: NextPageWithLayout = () => {
                   )}
                 </div>
 
-                <div>
-                  <h4 className={styles.sectionHeader}>Total</h4>
-                  <p>{formatPrice(totalPrice)}</p>
-                </div>
+                <dl className={styles.summaryLine}>
+                  <dt className={styles.summaryLabel}>Total donation</dt>
+                  <dd className={styles.summaryValue}>
+                    {formatPrice(totalPrice)}
+                  </dd>
+                </dl>
 
                 <div>
                   <h4 className={styles.sectionHeader}>
@@ -277,12 +279,14 @@ const DonationCart: NextPageWithLayout = () => {
                         onClick={handleFundDonation}
                         className={styles.donationOptionButton}
                       >
-                        <Image
-                          alt=""
-                          src="/images/donation-cart/donation-fund.svg"
-                          width={50}
-                          height={50}
-                        />
+                        <div className={styles.donationOptionGlyph}>
+                          <Image
+                            alt=""
+                            src="/images/donation-cart/donation-fund.svg"
+                            width={50}
+                            height={50}
+                          />
+                        </div>
                         <p>We&apos;ll buy the selected goods on your behalf</p>
                         <Button as="span" size="lg" tabIndex={-1}>
                           Fund Donation
@@ -296,12 +300,14 @@ const DonationCart: NextPageWithLayout = () => {
                         onClick={handleTangibleDonation}
                         className={styles.donationOptionButton}
                       >
-                        <Image
-                          alt=""
-                          src="/images/donation-cart/donation-package.svg"
-                          width={50}
-                          height={50}
-                        />
+                        <div className={styles.donationOptionGlyph}>
+                          <Image
+                            alt=""
+                            src="/images/donation-cart/donation-package.svg"
+                            width={50}
+                            height={50}
+                          />
+                        </div>
                         <p>We&apos;ll provide delivery instructions</p>
                         <Button as="span" size="lg" tabIndex={-1}>
                           Donate what I have
