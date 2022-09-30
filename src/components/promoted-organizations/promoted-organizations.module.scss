@@ -1,12 +1,11 @@
 @import 'styles/_variables';
 
 .promotedOrganizations {
-  margin-top: 2rem;
+  margin-bottom: 2rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid $promoted-organizations-border-color;
 
   .heading {
     text-align: center;
@@ -34,5 +33,13 @@
     display: block;
     width: 200px;
     height: 100px;
+    filter: grayscale(1);
+    opacity: 0.8;
+    transition: all 150ms ease-in-out;
+
+    &:hover {
+      filter: grayscale(0);
+      opacity: 1;
+    }
   }
 }

@@ -46,7 +46,7 @@ export function Products({
           <Col>
             <div>
               <SectionHeader id={NEEDED_SUPPLIES_CONTAINER_ID}>
-                Needed supplies
+                Requested goods
               </SectionHeader>
 
               {categories?.length > 1 ? (
