@@ -7,7 +7,7 @@ import { setSearchQuery } from 'app/store/slices/search';
 import { SectionHeader } from 'components/section-header/section-header';
 import { CategorySelector } from 'components/products/category-selector/category-selector';
 import { ProductCard } from 'components/products/product-card/product-card';
-import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 import type { Slug, ProductPreview, Category } from 'app/api/types';
 
 type ProductsProps = {
@@ -45,7 +45,7 @@ export function Products({
         <Row>
           <Col>
             <div>
-              <SectionHeader id={NEEDED_SUPPLIES_CONTAINER_ID}>
+              <SectionHeader id={REQUESTED_GOODS_CONTAINER_ID}>
                 Requested goods
               </SectionHeader>
 

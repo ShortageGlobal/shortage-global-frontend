@@ -58,9 +58,12 @@ $breadcrumb-divider: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/
 $error-page-status-code-border-color: var(--bs-gray-400);
 
 // Promo banner
-$promo-banner-text-color: $white;
-$promo-tax-deductible-color: var(--bs-body-color);
-$promo-tax-deductible-background: #ffce00;
+$promo-banner-highlighted-header-underline-color: $primary;
+
+// Promo steps
+$promo-step-bg-color: $secondary-background;
+$promo-step-counter-bg-color: $primary;
+$promo-step-counter-color: $white;
 
 // Donation Steps
 $donation-step-primary-background: $primary;

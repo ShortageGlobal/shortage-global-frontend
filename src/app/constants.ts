@@ -81,7 +81,7 @@ export const PACKAGE_STATUS_LABEL = Object.freeze({
 });
 
 // used for scrolling
-export const NEEDED_SUPPLIES_CONTAINER_ID = 'needed-supplies-header';
+export const REQUESTED_GOODS_CONTAINER_ID = 'requested-goods-header';
 
 export const PRODUCTS_PAGE_SIZE = 15;
 
