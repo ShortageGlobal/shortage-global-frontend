@@ -21,8 +21,8 @@ const IndexPage: NextPageWithLayout = () => {
         <title>Shortage | Donate tangible goods</title>
       </Head>
       <PromoBanner />
-      <PromotedOrganizations />
       <PromotedProducts />
+      <PromotedOrganizations />
     </>
   );
 };
