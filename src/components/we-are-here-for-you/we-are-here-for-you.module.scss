@@ -23,5 +23,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include media-breakpoint-down(sm) {
+      padding: 0 20%;
+    }
   }
 }
