@@ -1,14 +1,14 @@
-import styles from './promo-steps.module.scss';
+import styles from './donation-steps.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import Image from 'next/image';
 
-export function PromoSteps() {
+export function DonationSteps() {
   return (
-    <Container className={styles.promoStepsContainer}>
+    <Container className={styles.donationStepsContainer}>
       <Row>
         <Col>
-          <ol className={styles.promoSteps}>
-            <li className={styles.promoStep}>
+          <ol className={styles.donationSteps}>
+            <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>1</div>
                 <div className={styles.glyph}>
@@ -25,7 +25,7 @@ export function PromoSteps() {
               </div>
             </li>
 
-            <li className={styles.promoStep}>
+            <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>2</div>
                 <div className={styles.glyph}>
@@ -42,7 +42,7 @@ export function PromoSteps() {
               </div>
             </li>
 
-            <li className={styles.promoStep}>
+            <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>3</div>
                 <div className={styles.glyph}>
@@ -59,7 +59,7 @@ export function PromoSteps() {
               </div>
             </li>
 
-            <li className={styles.promoStep}>
+            <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>4</div>
                 <div className={styles.glyph}>
