@@ -1,92 +1,106 @@
 @import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
-.promoBanner {
-  display: flex;
-  flex-direction: column;
-  color: $promo-banner-text-color;
+.promoBannerWrap {
+  width: 100%;
+  overflow: hidden;
+}
 
-  .backgroundContainer {
+.promoBanner {
+  .banner {
+    position: relative;
+    padding: 3.5rem 1rem 0;
+    margin-bottom: 4rem;
     display: flex;
     flex-direction: column;
-    position: relative;
-    padding: 3.5rem;
-    background-image: url('/images/promo_banner_bg.png');
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-size: cover;
-    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-    &::after {
-      content: 'all donations are tax deductible';
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-color: $promo-tax-deductible-background;
-      padding: 5px 50px;
-      transform: rotate(30deg);
-      transform-origin: 100px 150px;
-      box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 75%);
-      color: $promo-tax-deductible-color;
+  .header {
+    font-size: 4rem;
+    line-height: 1.1;
+    text-transform: capitalize;
+    font-weight: 700;
+
+    .highlightedHeader {
+      text-decoration: underline;
+      text-decoration-color: $promo-banner-highlighted-header-underline-color;
     }
 
-    .taxDeductableBadgeContainer {
-      display: none;
+    @include media-breakpoint-down(sm) {
+      font-size: 3rem;
+    }
+  }
 
-      .taxDeductableBadge {
-        border: 1px solid $badge-border-color;
-        color: $promo-tax-deductible-color;
-        background-color: $promo-tax-deductible-background;
-        font-weight: 400;
-      }
+  .text {
+    margin: 1rem 3rem 3rem;
+    font-size: 1rem;
+
+    @include media-breakpoint-down(sm) {
+      margin: 1rem 1rem 3rem;
+    }
+  }
+
+  .checkGoodsButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .image {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .glisterLeft {
+    $width: 236px;
+    $height: 188px;
+
+    width: $width;
+    height: $height;
+    right: calc(50% + 250px);
+    top: calc(3.5rem - 20px);
+
+    @include media-breakpoint-down(lg) {
+      right: calc(50% + 120px);
     }
 
     @include media-breakpoint-down(md) {
-      &::after {
-        display: none;
-      }
-
-      .taxDeductableBadgeContainer {
-        display: block;
-      }
+      top: calc(3.5rem);
+      right: calc(50% + 80px);
     }
 
-    @include media-breakpoint-down(lg) {
-      padding: 2.5rem;
-      background-image: url('/images/promo_banner_bg_vertical.png');
+    @include media-breakpoint-down(sm) {
+      @include visually-hidden;
     }
   }
 
-  .bannerHeader {
-    display: flex;
-    font-size: 2.8rem;
-    align-items: center;
-    line-height: 1;
-    font-weight: 500;
-    margin-bottom: 2rem;
+  .glisterRight {
+    $width: 195px;
+    $height: 174px;
+
+    width: $width;
+    height: $height;
+    left: calc(50% + 290px);
+    top: calc(3.5rem - 20px);
 
     @include media-breakpoint-down(lg) {
-      font-size: 2rem;
-    }
-  }
-
-  .bannerText {
-    margin: 0;
-    font-weight: normal;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    margin-right: 2rem;
-
-    p {
-      margin-bottom: 0;
+      left: calc(50% + 150px);
     }
 
-    > * + * {
-      margin-top: 0.5rem;
+    @include media-breakpoint-down(md) {
+      left: calc(50% + 130px);
     }
 
-    @include media-breakpoint-down(lg) {
-      font-size: 1.3rem;
+    @include media-breakpoint-down(sm) {
+      @include visually-hidden;
     }
   }
 }

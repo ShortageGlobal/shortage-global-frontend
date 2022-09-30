@@ -1,76 +1,63 @@
 import styles from './promo-banner.module.scss';
-import donationStepsStyles from 'components/donation-steps/donation-steps.module.scss';
-import { Container, Row, Col, Badge } from 'react-bootstrap';
-import { NEEDED_SUPPLIES_CONTAINER_ID } from 'app/constants';
+import { useCallback } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import classNames from 'classnames';
+import Image from 'next/image';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+import { ChevronsDown } from 'react-feather';
 
 export function PromoBanner() {
+  const handleCheckRequestedGoods = useCallback(() => {
+    document
+      .getElementById(REQUESTED_GOODS_CONTAINER_ID)
+      ?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   return (
-    <Container className={styles.promoBanner}>
-      <Row>
-        <Col>
-          <div className={styles.backgroundContainer}>
-            <div className={styles.bannerHeader}>
-              <span>Donate tangible goods</span>
-            </div>
-            <div className={styles.bannerText}>
-              <p>
+    <div className={styles.promoBannerWrap}>
+      <Container className={styles.promoBanner}>
+        <Row>
+          <Col>
+            <div className={styles.banner}>
+              <h2 className={styles.header}>
+                Donate{' '}
+                <span className={styles.highlightedHeader}>tangible goods</span>
+              </h2>
+
+              <p className={styles.text}>
                 A place for you to donate{' '}
                 <span className="text-uppercase">goods</span> directly to
                 charity and receive a photo report of delivery where it is
                 needed
               </p>
 
-              <p className={styles.taxDeductableBadgeContainer}>
-                <Badge
-                  className={styles.taxDeductableBadge}
-                  bg="warning"
-                  text="dark"
-                >
-                  All donations are tax deductible
-                </Badge>
-              </p>
-            </div>
+              <Button
+                size="lg"
+                className={styles.checkGoodsButton}
+                onClick={handleCheckRequestedGoods}
+              >
+                <span>Check Requested Goods</span>
+                <ChevronsDown />
+              </Button>
 
-            <ol className={donationStepsStyles.donationSteps}>
-              <li>
-                <div
-                  className={donationStepsStyles.stepWrap}
-                  role="button"
-                  onClick={() => {
-                    document
-                      .getElementById(NEEDED_SUPPLIES_CONTAINER_ID)
-                      ?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  <div className={donationStepsStyles.stepBlock}>
-                    <span className={donationStepsStyles.stepText}>
-                      Find supplies
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className={donationStepsStyles.stepWrap}>
-                  <div className={donationStepsStyles.stepBlock}>
-                    <span className={donationStepsStyles.stepText}>
-                      Package & send
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className={donationStepsStyles.stepWrap}>
-                  <div className={donationStepsStyles.stepBlock}>
-                    <span className={donationStepsStyles.stepText}>
-                      Enter tracking info
-                    </span>
-                  </div>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+              <div className={classNames(styles.image, styles.glisterLeft)}>
+                <Image
+                  alt=""
+                  src="/images/promo-banner/glister-left.svg"
+                  layout="fill"
+                />
+              </div>
+              <div className={classNames(styles.image, styles.glisterRight)}>
+                <Image
+                  alt=""
+                  src="/images/promo-banner/glister-right.svg"
+                  layout="fill"
+                />
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
