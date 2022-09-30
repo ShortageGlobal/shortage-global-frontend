@@ -19,8 +19,8 @@ import {
   getHomeCrumb,
   getOrganizationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { OrganizationHowItWorks } from 'components/organization/how-it-works/how-it-works';
 import { OrganizationDetails } from 'components/organization/details/details';
+import { DonationSteps } from 'components/donation-steps/donation-steps';
 import { OrganizationProducts } from 'components/organization/products/products';
 import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'app/constants';
 import type { Category } from 'app/api/types';
@@ -55,7 +55,9 @@ const OrganizationPage: NextPageWithLayout = () => {
       </Container>
 
       <OrganizationDetails />
-      <OrganizationHowItWorks />
+
+      <DonationSteps />
+
       <OrganizationProducts />
     </>
   );
