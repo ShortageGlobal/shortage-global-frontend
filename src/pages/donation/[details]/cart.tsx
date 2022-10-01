@@ -179,6 +179,13 @@ const DonationCart: NextPageWithLayout = () => {
         lastName: cart.last_name,
         email: cart.email,
         phoneNumber: cart.phone_number,
+        needTaxDeduction: cart.need_tax_deduction,
+        addressLine1: cart.address_line1,
+        addressLine2: cart.address_line2,
+        city: cart.city,
+        stateProvinceRegion: cart.state_province_region,
+        zip: cart.zip,
+        country: cart.country,
         items: groupedCartItems
           .get(firstOrganization.organizationSlug)
           .items.map((item) => {

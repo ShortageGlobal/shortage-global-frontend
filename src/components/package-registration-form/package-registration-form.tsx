@@ -20,13 +20,9 @@ export function PackageRegistrationForm({
 }: PackageRegistrationFormProps) {
   const router = useRouter();
 
-  const { updateCartItemQuantity, deleteFromCart } = useCart();
+  const { cart, updateCartItemQuantity, deleteFromCart } = useCart();
 
   const [isCreating, setIsCreating] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
 
   const [deliveryCompany, setDeliveryCompany] = useState('');
   const [trackingCode, setTrackingNumber] = useState('');
@@ -49,8 +45,14 @@ export function PackageRegistrationForm({
   );
 
   const handleItemRemove = useCallback(
-    ({ item }: { item: CartItemType }) => {
-      deleteFromCart({ cartItemId: item.uuid });
+    async ({ item }: { item: CartItemType }) => {
+      try {
+        await deleteFromCart({ cartItemId: item.uuid });
+      } catch (rejection) {
+        if (!isRequestCancel(rejection)) {
+          throw rejection;
+        }
+      }
     },
     [deleteFromCart]
   );
@@ -73,10 +75,17 @@ export function PackageRegistrationForm({
         const response = await createPackage({
           type: PACKAGE_TYPE.SENT_BY_DONOR,
           organizationSlug: organization.slug,
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
+          firstName: cart.first_name,
+          lastName: cart.last_name,
+          email: cart.email,
+          phoneNumber: cart.phone_number,
+          needTaxDeduction: cart.need_tax_deduction,
+          addressLine1: cart.address_line1,
+          addressLine2: cart.address_line2,
+          city: cart.city,
+          stateProvinceRegion: cart.state_province_region,
+          zip: cart.zip,
+          country: cart.country,
           items: packageItems,
           deliveryCompany,
           trackingCode,
@@ -110,10 +119,7 @@ export function PackageRegistrationForm({
     [
       organization,
       deleteFromCart,
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
+      cart,
       items,
       deliveryCompany,
       trackingCode,
@@ -127,70 +133,6 @@ export function PackageRegistrationForm({
       onSubmit={handleFormSubmit}
       className={styles.packageRegistrationForm}
     >
-      <header className={styles.sectionHeader}>
-        <h5>Personal Details</h5>
-
-        <p>
-          We need your personal information in case there are any issues with
-          the delivery of the package.
-        </p>
-      </header>
-
-      <Row>
-        <Col md={6}>
-          <Form.Group controlId="first-name" className={styles.formGroup}>
-            <Form.Label>First Name</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder="First Name"
-              autoFocus
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group controlId="last-name" className={styles.formGroup}>
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </Form.Group>
-        </Col>
-
-        <Col md={6}>
-          <Form.Group controlId="email" className={styles.formGroup}>
-            <Form.Label>Email *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="email"
-              placeholder="Email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
-        </Col>
-
-        <Col md={6}>
-          <Form.Group controlId="phone" className={styles.formGroup}>
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder="+12125552368"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-
       <header className={styles.sectionHeader}>
         <h5>Package Content</h5>
       </header>

@@ -13,6 +13,7 @@ import {
 import {
   Breadcrumbs,
   getHomeCrumb,
+  getDonationDetailsCrumb,
   getOrganizationCrumb,
   getPackageRegistrationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
@@ -39,6 +40,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [
       getHomeCrumb(),
+      getDonationDetailsCrumb(),
       getOrganizationCrumb({
         organizationSlug: organization.slug,
         organizationName: organization.name,
