@@ -76,7 +76,7 @@ const DonationDetails: NextPageWithLayout = ({
                 dismissible
               >
                 <Alert.Heading>Details required</Alert.Heading>
-                <div>Fill in the form below before proceeding</div>
+                <div>Fill in the form below before proceeding.</div>
               </Alert>
             ) : null}
 

@@ -2,6 +2,7 @@ import type { CancelTokenSource } from 'axios';
 import {
   PRODUCT_CATEGORY_KEY,
   PRODUCT_CATEGORY_ALL_KEY,
+  PACKAGE_TYPE,
   PACKAGE_STATUS,
 } from 'app/constants';
 
@@ -23,6 +24,9 @@ type CategoryKey = keyof typeof PRODUCT_CATEGORY_KEY;
 export type Category =
   | typeof PRODUCT_CATEGORY_KEY[CategoryKey]
   | typeof PRODUCT_CATEGORY_ALL_KEY;
+
+export type PackageTypeKey = keyof typeof PACKAGE_TYPE;
+export type PackageType = typeof PACKAGE_TYPE[PackageTypeKey];
 
 export type PackageStatusKey = keyof typeof PACKAGE_STATUS;
 export type PackageStatus = typeof PACKAGE_STATUS[PackageStatusKey];
@@ -108,6 +112,7 @@ export type PackageItem = {
 };
 
 export type Package = {
+  type: PackageType;
   uuid: Uuid;
   firstName?: string;
   lastName?: string;
@@ -117,6 +122,7 @@ export type Package = {
   tracking_code: string;
   note?: string;
   photo?: string;
+  checkout_url?: string;
   status: PackageStatus;
 };
 

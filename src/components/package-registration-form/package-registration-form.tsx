@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { createPackage } from 'app/api';
 import { useCart, useCancelToken, isRequestCancel } from 'app/hooks';
 import { CartItem } from 'components/cart/cart-item/cart-item';
+import { PACKAGE_TYPE } from 'app/constants';
 import type { FormEvent } from 'react';
 import type { Organization, CartItem as CartItemType } from 'app/api/types';
 
@@ -70,6 +71,7 @@ export function PackageRegistrationForm({
       setIsCreating(true);
       try {
         const response = await createPackage({
+          type: PACKAGE_TYPE.SENT_BY_DONOR,
           organizationSlug: organization.slug,
           firstName,
           lastName,
