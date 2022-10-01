@@ -2,22 +2,25 @@ import axios from 'axios';
 import { API_ROOT } from 'app/constants';
 import type {
   OrganizationSlugParams,
+  PackageType,
   Package,
   PackageItem,
 } from 'app/api/types';
 
 export type CreatePackageParams = OrganizationSlugParams & {
+  type: PackageType;
   firstName?: string;
   lastName?: string;
   email?: string;
   phoneNumber?: string;
-  deliveryCompany: string;
-  trackingCode: string;
+  deliveryCompany?: string;
+  trackingCode?: string;
   note?: string;
   photo?: File;
   items: PackageItem[];
 };
 export function createPackage({
+  type,
   organizationSlug,
   firstName,
   lastName,
@@ -36,6 +39,7 @@ export function createPackage({
   return axios.post<Package>(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/packages/`),
     {
+      type,
       first_name: firstName,
       last_name: lastName,
       email,

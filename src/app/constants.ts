@@ -67,6 +67,11 @@ export const PRODUCT_CATEGORY_LIST = Object.freeze([
   PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
 ]);
 
+export const PACKAGE_TYPE = Object.freeze({
+  SENT_BY_DONOR: 'SENT_BY_DONOR',
+  FUNDED_BY_DONOR: 'FUNDED_BY_DONOR',
+});
+
 // IMPORTANT: the list of package statuses must be synchronized with backend
 export const PACKAGE_STATUS = Object.freeze({
   REGISTERED: 'REGISTERED',

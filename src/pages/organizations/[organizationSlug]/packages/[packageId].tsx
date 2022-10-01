@@ -1,7 +1,8 @@
 import styles from 'styles/pages/package-status.module.scss';
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import Head from 'next/head';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useRouter } from 'next/router';
+import { Container, Row, Col, Alert } from 'react-bootstrap';
 import { wrapper } from 'app/store';
 import { useAppSelector } from 'app/hooks';
 import {
@@ -19,6 +20,8 @@ import { PACKAGE_STATUS_LABEL } from 'app/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const PackageRegistrationPage: NextPageWithLayout = () => {
+  const router = useRouter();
+
   const { organization } = useAppSelector(selectOrganization);
   const packageState = useAppSelector(selectPackage);
 
@@ -37,6 +40,24 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
     ];
   }, [organization]);
 
+  const [showDonationSuccessAlert, setShowDonationSuccessAlert] = useState(
+    () => router.query?.paymentStatus === 'succeeded'
+  );
+
+  const handleDismissDonationSuccessAlert = useCallback(() => {
+    setShowDonationSuccessAlert(false);
+
+    // remove "paymentStatus" from query params
+    const queryParams = { ...router.query };
+    delete queryParams.paymentStatus;
+
+    router.replace(
+      { query: queryParams },
+      undefined,
+      { shallow: true } // do not run getServerSideProps
+    );
+  }, [router]);
+
   return (
     <>
       <Head>
@@ -52,6 +73,22 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       </Container>
 
       <Container className={styles.packageStatus}>
+        {showDonationSuccessAlert ? (
+          <Alert
+            variant="success"
+            className={styles.requireDetailsAlert}
+            onClose={handleDismissDonationSuccessAlert}
+            dismissible
+          >
+            <Alert.Heading>Thank you for your donation</Alert.Heading>
+            <div>
+              The payment is being processed. You can track the status of your
+              donation on this page. The confirmation email will be in your
+              inbox shortly.
+            </div>
+          </Alert>
+        ) : null}
+
         <Row>
           <Col>
             <h2>Package is registered</h2>
@@ -60,21 +97,23 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
         <Row>
           <Col>
-            {/* {state?.justRegistered ? (
-              <div>The confirmation email will be in your inbox shortly.</div>
-            ) : null} */}
             <p>Thank you for helping 💚</p>
 
-            <header className={styles.sectionHeader}>
-              <h5>Package Details</h5>
-            </header>
+            {packageState.package.delivery_company &&
+            packageState.package.tracking_code ? (
+              <>
+                <header className={styles.sectionHeader}>
+                  <h5>Package Details</h5>
+                </header>
 
-            <dl className={styles.packageDetails}>
-              <dt>Shipping Carrier</dt>
-              <dd>{packageState.package.delivery_company}</dd>
-              <dt>Tracking number</dt>
-              <dd>{packageState.package.tracking_code}</dd>
-            </dl>
+                <dl className={styles.packageDetails}>
+                  <dt>Shipping Carrier</dt>
+                  <dd>{packageState.package.delivery_company}</dd>
+                  <dt>Tracking number</dt>
+                  <dd>{packageState.package.tracking_code}</dd>
+                </dl>
+              </>
+            ) : null}
 
             <header className={styles.sectionHeader}>
               <h5>Package Status</h5>
