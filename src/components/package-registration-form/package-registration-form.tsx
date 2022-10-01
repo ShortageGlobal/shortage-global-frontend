@@ -105,7 +105,7 @@ export function PackageRegistrationForm({
         // Remove registered products from the cart
         // TODO: do batch deletion. Or delete on the backend side and refetch the cart
         items.forEach((item) => {
-          deleteFromCart({ cartItemId: item.uuid });
+          handleItemRemove({ item });
         });
 
         setIsCreating(false);
@@ -118,7 +118,7 @@ export function PackageRegistrationForm({
     },
     [
       organization,
-      deleteFromCart,
+      handleItemRemove,
       cart,
       items,
       deliveryCompany,
