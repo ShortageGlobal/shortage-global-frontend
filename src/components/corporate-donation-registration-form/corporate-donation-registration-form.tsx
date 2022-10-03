@@ -291,15 +291,6 @@ export function CorporateDonationRegistrationForm({
           className={styles.formGroup}
         >
           <Form.Label>Phone Number</Form.Label>
-          {/* <Form.Control
-            size="lg"
-            type="text"
-            placeholder="+12125552368"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            isValid={getIsValid('phone_number')}
-            isInvalid={getIsInvalid('phone_number')}
-          /> */}
           <PhoneInput
             value={phoneNumber}
             inputProps={{ id: 'phoneNumber' }}
