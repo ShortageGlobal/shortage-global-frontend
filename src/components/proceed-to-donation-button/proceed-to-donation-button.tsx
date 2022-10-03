@@ -27,7 +27,7 @@ export function ProceedToDonationButton({
         size="lg"
         className={classNames(styles.proceedToDonationButton, className)}
       >
-        <span>Proceed to donation</span>
+        <span>Proceed to donate</span>
         <ArrowRightCircle />
       </Button>
     </Link>

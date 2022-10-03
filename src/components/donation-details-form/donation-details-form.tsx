@@ -283,12 +283,11 @@ export function DonationDetailsForm({
               controlId="addressLine2"
               className={styles.formGroup}
             >
-              <Form.Label>Address Line 2 *</Form.Label>
+              <Form.Label>Address Line 2</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
                 placeholder=""
-                required={needTaxDeduction}
                 value={addressLine2}
                 onChange={(e) => setAddressLine2(e.target.value)}
                 isValid={getIsValid('address_line2')}

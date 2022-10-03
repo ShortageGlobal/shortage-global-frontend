@@ -19,7 +19,7 @@ export function DonationSteps() {
                   />
                 </div>
               </div>
-              <div className={styles.title}>Choose Item(s)</div>
+              <div className={styles.title}>Select Item(s)</div>
               <div className={styles.text}>
                 Our platform lists requested goods
               </div>
@@ -38,7 +38,8 @@ export function DonationSteps() {
               </div>
               <div className={styles.title}>Purchase & Send</div>
               <div className={styles.text}>
-                Order online or send what you have
+                Order directly from our marketplace or send what you already
+                have
               </div>
             </li>
 
@@ -53,9 +54,9 @@ export function DonationSteps() {
                   />
                 </div>
               </div>
-              <div className={styles.title}>Get tax deduction</div>
+              <div className={styles.title}>Get a Tax Deduction</div>
               <div className={styles.text}>
-                Required receipt will be sent to your email
+                A tax deduction receipt will be emailed to your inbox
               </div>
             </li>
 
@@ -70,9 +71,9 @@ export function DonationSteps() {
                   />
                 </div>
               </div>
-              <div className={styles.title}>Share your impact</div>
+              <div className={styles.title}>Share Your Impact</div>
               <div className={styles.text}>
-                A nonprofit will provide you a photo of delivered goods
+                We will send you a photo when the items are delivered
               </div>
             </li>
           </ol>

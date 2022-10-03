@@ -183,7 +183,7 @@ const ProductPage: NextPageWithLayout = () => {
                 </Button>
               ) : null}
 
-              {/* Proceed to donation button */}
+              {/* Proceed to donate button */}
               {isProductInCart && isCartReady ? (
                 <>
                   <div>

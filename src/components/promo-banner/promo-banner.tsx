@@ -26,9 +26,8 @@ export function PromoBanner() {
 
               <p className={styles.text}>
                 A place for you to donate{' '}
-                <span className="text-uppercase">goods</span> directly to
-                charity and receive a photo report of delivery where it is
-                needed
+                <span className="text-uppercase">goods</span> directly to the
+                charities that need it most
               </p>
 
               <Button
@@ -36,7 +35,7 @@ export function PromoBanner() {
                 className={styles.checkGoodsButton}
                 onClick={handleCheckRequestedGoods}
               >
-                <span>Check Requested Goods</span>
+                <span>Check Out Our Top Requests</span>
                 <ChevronsDown />
               </Button>
 
