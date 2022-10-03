@@ -61,20 +61,23 @@ export async function updateCart({
   country,
   cancelToken = null,
 }: UpdateCartParams) {
-  return axios.put(encodeURI(`${API_ROOT}/api/carts/${cartId}/`), {
-    first_name: firstName,
-    last_name: lastName,
-    email,
-    phone_number: phoneNumber,
-    need_tax_deduction: needTaxDeduction,
-    address_line1: addressLine1,
-    address_line2: addressLine2,
-    city,
-    state_province_region: stateProvinceRegion,
-    zip,
-    country,
-    cancelToken: cancelToken?.token,
-  });
+  return axios.put(
+    encodeURI(`${API_ROOT}/api/carts/${cartId}/`),
+    {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      phone_number: phoneNumber,
+      need_tax_deduction: needTaxDeduction,
+      address_line1: addressLine1,
+      address_line2: addressLine2,
+      city,
+      state_province_region: stateProvinceRegion,
+      zip,
+      country,
+    },
+    { cancelToken: cancelToken?.token }
+  );
 }
 
 export type CreateCartItemParams = CartUuidParams & CreateCartItem;

@@ -5,6 +5,7 @@ import { Row, Col, Form, Accordion, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useCart, isRequestCancel } from 'app/hooks';
+import { PhoneInput } from 'components/phone-input/phone-input';
 import { PAGE_KEY } from 'app/constants';
 import type { FormEvent } from 'react';
 import type { Cart, CountryChoice } from 'app/api/types';
@@ -217,15 +218,13 @@ export function DonationDetailsForm({
           className={styles.formGroup}
         >
           <Form.Label>Phone Number {needTaxDeduction ? ' *' : null}</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder="+12125552368"
-            required={needTaxDeduction}
+          <PhoneInput
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            inputProps={{ id: 'phoneNumber' }}
+            inputClass="form-control-lg"
             isValid={getIsValid('phone_number')}
             isInvalid={getIsInvalid('phone_number')}
+            onChange={(phone) => setPhoneNumber(phone)}
           />
           {getErrorsFeedback('phone_number')}
         </Form.Group>
