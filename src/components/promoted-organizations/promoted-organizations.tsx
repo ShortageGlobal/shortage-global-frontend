@@ -14,7 +14,7 @@ export function PromotedOrganizations() {
       <Row>
         <Col>
           <div className={styles.promotedOrganizations}>
-            <SectionHeader>Our partners</SectionHeader>
+            <SectionHeader>Our nonprofit partners</SectionHeader>
             <ul className={styles.organizationsList}>
               {organizations
                 .filter((organization) => organization.photo)

@@ -46,7 +46,7 @@ export function Products({
           <Col>
             <div>
               <SectionHeader id={REQUESTED_GOODS_CONTAINER_ID}>
-                Requested goods
+                Most requested items
               </SectionHeader>
 
               {categories?.length > 1 ? (
