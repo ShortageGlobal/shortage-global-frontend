@@ -75,12 +75,18 @@ export const PACKAGE_TYPE = Object.freeze({
 // IMPORTANT: the list of package statuses must be synchronized with backend
 export const PACKAGE_STATUS = Object.freeze({
   REGISTERED: 'REGISTERED',
+  UNPAID: 'UNPAID',
+  PAYMENT_FAILED: 'PAYMENT_FAILED',
+  PAID: 'PAID',
   CONFIRMED: 'CONFIRMED',
   DELIVERED: 'DELIVERED',
 });
 
 export const PACKAGE_STATUS_LABEL = Object.freeze({
   [PACKAGE_STATUS.REGISTERED]: 'Registered',
+  [PACKAGE_STATUS.UNPAID]: 'Unpaid',
+  [PACKAGE_STATUS.PAYMENT_FAILED]: 'Payment_Failed',
+  [PACKAGE_STATUS.PAID]: 'Paid',
   [PACKAGE_STATUS.CONFIRMED]: 'Confirmed',
   [PACKAGE_STATUS.DELIVERED]: 'Delivered',
 });
