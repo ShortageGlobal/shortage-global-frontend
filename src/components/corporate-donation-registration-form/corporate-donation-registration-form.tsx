@@ -4,6 +4,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { registerCorporateDonation } from 'app/api';
 import { useCancelToken, isRequestCancel } from 'app/hooks';
 import { CorporateDonationRegistrationSuccess } from 'components/corporate-donation-registration-form/registration-success/registration-success';
+import { PhoneInput } from 'components/phone-input/phone-input';
 import type { FormEvent } from 'react';
 import type { CountryChoice } from 'app/api/types';
 
@@ -290,7 +291,7 @@ export function CorporateDonationRegistrationForm({
           className={styles.formGroup}
         >
           <Form.Label>Phone Number</Form.Label>
-          <Form.Control
+          {/* <Form.Control
             size="lg"
             type="text"
             placeholder="+12125552368"
@@ -298,6 +299,14 @@ export function CorporateDonationRegistrationForm({
             onChange={(e) => setPhoneNumber(e.target.value)}
             isValid={getIsValid('phone_number')}
             isInvalid={getIsInvalid('phone_number')}
+          /> */}
+          <PhoneInput
+            value={phoneNumber}
+            inputProps={{ id: 'phoneNumber' }}
+            inputClass="form-control-lg"
+            isValid={getIsValid('phone_number')}
+            isInvalid={getIsInvalid('phone_number')}
+            onChange={(phone) => setPhoneNumber(phone)}
           />
           {getErrorsFeedback('phone_number')}
         </Form.Group>
