@@ -339,64 +339,70 @@ const DonationCart: NextPageWithLayout = () => {
                     How would you like to donate?
                   </h4>
                   <Row>
-                    {/* Fund donation option */}
-                    <Col sm={6} className={styles.donationOptionButtonCol}>
-                      <button
-                        onClick={handleFundDonation}
-                        className={styles.donationOptionButton}
-                        disabled={isPackageBeingCreated}
-                      >
-                        <div className={styles.donationOptionGlyph}>
-                          <Image
-                            alt=""
-                            src="/images/donation-cart/donation-fund.svg"
-                            width={50}
-                            height={50}
-                          />
-                        </div>
-                        <p>We&apos;ll buy the selected goods on your behalf</p>
-                        <Button
-                          as="span"
-                          size="lg"
-                          tabIndex={-1}
-                          className={styles.button}
+                    <Col>
+                      <div className={styles.donationOptions}>
+                        {/* Fund donation option */}
+                        <button
+                          onClick={handleFundDonation}
+                          className={styles.donationOptionButton}
+                          disabled={isPackageBeingCreated}
                         >
-                          {isPackageBeingCreated ? (
-                            <Loader
-                              role="status"
-                              aria-hidden="true"
-                              className={animationStyles.rotate}
+                          <div className={styles.donationOptionGlyph}>
+                            <Image
+                              alt=""
+                              src="/images/donation-cart/donation-fund.svg"
+                              width={50}
+                              height={50}
                             />
-                          ) : null}
-                          <span>Fund Donation</span>
-                        </Button>
-                      </button>
-                    </Col>
+                          </div>
+                          <p>
+                            We&apos;ll buy the selected goods on your behalf
+                          </p>
+                          <Button
+                            as="span"
+                            size="lg"
+                            tabIndex={-1}
+                            className={styles.button}
+                          >
+                            {isPackageBeingCreated ? (
+                              <Loader
+                                role="status"
+                                aria-hidden="true"
+                                className={animationStyles.rotate}
+                              />
+                            ) : null}
+                            <span>Fund Donation</span>
+                          </Button>
+                        </button>
 
-                    {/* Send what donor has option */}
-                    <Col sm={6} className={styles.donationOptionButtonCol}>
-                      <button
-                        onClick={handleTangibleDonation}
-                        className={styles.donationOptionButton}
-                      >
-                        <div className={styles.donationOptionGlyph}>
-                          <Image
-                            alt=""
-                            src="/images/donation-cart/donation-package.svg"
-                            width={50}
-                            height={50}
-                          />
+                        <div className={styles.donationOptionsSeparator}>
+                          <span>or</span>
                         </div>
-                        <p>We&apos;ll provide delivery instructions</p>
-                        <Button
-                          as="span"
-                          size="lg"
-                          tabIndex={-1}
-                          className={styles.button}
+
+                        {/* Send what donor has option */}
+                        <button
+                          onClick={handleTangibleDonation}
+                          className={styles.donationOptionButton}
                         >
-                          Donate what I have
-                        </Button>
-                      </button>
+                          <div className={styles.donationOptionGlyph}>
+                            <Image
+                              alt=""
+                              src="/images/donation-cart/donation-package.svg"
+                              width={50}
+                              height={50}
+                            />
+                          </div>
+                          <p>We&apos;ll provide delivery instructions</p>
+                          <Button
+                            as="span"
+                            size="lg"
+                            tabIndex={-1}
+                            className={styles.button}
+                          >
+                            Donate what I have
+                          </Button>
+                        </button>
+                      </div>
                     </Col>
                   </Row>
                 </div>
