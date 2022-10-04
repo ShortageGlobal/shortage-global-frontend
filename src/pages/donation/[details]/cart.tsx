@@ -1,11 +1,8 @@
 import styles from 'styles/pages/donation-cart.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useCallback, useEffect, useState } from 'react';
-import { Container, Row, Col, Alert, Spinner, Button } from 'react-bootstrap';
-import { Loader } from 'react-feather';
+import { Container, Row, Col, Alert, Spinner } from 'react-bootstrap';
 import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { wrapper } from 'app/store';
 import {
@@ -19,7 +16,6 @@ import {
   fetchInstructions,
   selectInstructions,
 } from 'app/store/slices/instructions';
-import { createPackage } from 'app/api';
 import { formatPrice, groupCartItemsByOrganization } from 'app/helpers';
 import {
   Breadcrumbs,
@@ -28,11 +24,11 @@ import {
   getDonationCartCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { CartItem } from 'components/cart/cart-item/cart-item';
-import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
-import { PAGE_KEY, PACKAGE_TYPE } from 'app/constants';
+import { PAGE_KEY } from 'app/constants';
 import type { CartItem as CartItemType } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
+import { DonationOptions } from 'components/cart/donation-options/donation-options';
 
 const DonationCart: NextPageWithLayout = () => {
   const router = useRouter();
@@ -47,9 +43,6 @@ const DonationCart: NextPageWithLayout = () => {
   } = useCart();
   const { instructions, isInstructionsLoading } =
     useAppSelector(selectInstructions);
-
-  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
-  const [isPackageBeingCreated, setIsPackageBeingCreated] = useState(false);
 
   const breadcrumbs = useMemo(() => {
     return [
@@ -110,14 +103,6 @@ const DonationCart: NextPageWithLayout = () => {
     return !shouldRedirect && !shouldShowContent && !shouldShowNoItemsMessage;
   }, [shouldRedirect, shouldShowContent, shouldShowNoItemsMessage]);
 
-  // TODO: HARDCODE! Add support for multiple organizations in cart
-  const firstOrganization = useMemo(() => {
-    return Array.from(groupedCartItems.values())[0];
-  }, [groupedCartItems]);
-  const organizationInstructions = useMemo(() => {
-    return instructions?.[firstOrganization?.organizationSlug];
-  }, [instructions, firstOrganization]);
-
   // redirect to Donation Details if they aren't filled yet
   useEffect(() => {
     if (shouldRedirect) {
@@ -166,53 +151,6 @@ const DonationCart: NextPageWithLayout = () => {
     },
     [deleteFromCart]
   );
-
-  const getCreatePackageCancelToken = useCancelToken();
-  const handleFundDonation = useCallback(async () => {
-    const cancelToken = getCreatePackageCancelToken();
-    setIsPackageBeingCreated(true);
-    try {
-      const response = await createPackage({
-        type: PACKAGE_TYPE.FUNDED_BY_DONOR,
-        organizationSlug: firstOrganization.organizationSlug,
-        firstName: cart.first_name,
-        lastName: cart.last_name,
-        email: cart.email,
-        phoneNumber: cart.phone_number,
-        needTaxDeduction: cart.need_tax_deduction,
-        addressLine1: cart.address_line1,
-        addressLine2: cart.address_line2,
-        city: cart.city,
-        stateProvinceRegion: cart.state_province_region,
-        zip: cart.zip,
-        country: cart.country,
-        items: groupedCartItems
-          .get(firstOrganization.organizationSlug)
-          .items.map((item) => {
-            return { product: item.product.slug, quantity: item.quantity };
-          }),
-        cancelToken,
-      });
-      window.open(response.data.checkout_url, '_self');
-    } catch (rejection) {
-      if (isRequestCancel(rejection)) {
-        return;
-      }
-      setIsPackageBeingCreated(false);
-    }
-  }, [firstOrganization, cart, groupedCartItems]);
-
-  const handleShowInstructionsModal = useCallback(() => {
-    setShowInstructionsModal(true);
-  }, []);
-
-  const handleHideInstructionsModal = useCallback(() => {
-    setShowInstructionsModal(false);
-  }, []);
-
-  const handleTangibleDonation = useCallback(() => {
-    handleShowInstructionsModal();
-  }, []);
 
   return (
     <>
@@ -340,69 +278,7 @@ const DonationCart: NextPageWithLayout = () => {
                   </h4>
                   <Row>
                     <Col>
-                      <div className={styles.donationOptions}>
-                        {/* Fund donation option */}
-                        <button
-                          onClick={handleFundDonation}
-                          className={styles.donationOptionButton}
-                          disabled={isPackageBeingCreated}
-                        >
-                          <div className={styles.donationOptionGlyph}>
-                            <Image
-                              alt=""
-                              src="/images/donation-cart/donation-fund.svg"
-                              width={50}
-                              height={50}
-                            />
-                          </div>
-                          <p>
-                            We&apos;ll buy the selected goods on your behalf
-                          </p>
-                          <Button
-                            as="span"
-                            size="lg"
-                            tabIndex={-1}
-                            className={styles.button}
-                          >
-                            {isPackageBeingCreated ? (
-                              <Loader
-                                role="status"
-                                aria-hidden="true"
-                                className={animationStyles.rotate}
-                              />
-                            ) : null}
-                            <span>Fund Donation</span>
-                          </Button>
-                        </button>
-
-                        <div className={styles.donationOptionsSeparator}>
-                          <span>OR</span>
-                        </div>
-
-                        {/* Send what donor has option */}
-                        <button
-                          onClick={handleTangibleDonation}
-                          className={styles.donationOptionButton}
-                        >
-                          <div className={styles.donationOptionGlyph}>
-                            <Image
-                              alt=""
-                              src="/images/donation-cart/donation-package.svg"
-                              width={50}
-                              height={50}
-                            />
-                          </div>
-                          <p>We&apos;ll provide delivery instructions</p>
-                          <Button
-                            as="span"
-                            size="lg"
-                            tabIndex={-1}
-                            className={styles.button}
-                          >
-                            Donate what I have
-                          </Button>
-                        </button>
-                      </div>
+                      <DonationOptions groupedCartItems={groupedCartItems} />
                     </Col>
                   </Row>
                 </div>
@@ -413,16 +289,6 @@ const DonationCart: NextPageWithLayout = () => {
       </Container>
 
       <WeAreHereForYou />
-
-      {organizationInstructions?.length > 0 ? (
-        <InstructionsModal
-          show={showInstructionsModal}
-          organizationSlug={firstOrganization?.organizationSlug}
-          organizationName={firstOrganization?.organizationName}
-          instructions={organizationInstructions}
-          onHide={handleHideInstructionsModal}
-        />
-      ) : null}
     </>
   );
 };

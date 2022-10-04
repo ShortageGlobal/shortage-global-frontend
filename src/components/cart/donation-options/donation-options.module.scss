@@ -1,0 +1,99 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.donationOptions {
+  display: grid;
+  grid-template-columns: 1fr 4rem 1fr;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr 3rem 1fr;
+  }
+
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: unset;
+    grid-template-rows: 1fr 3rem 1fr;
+  }
+
+  .donationOptionsSeparator {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $donation-cart-donation-option-separator-text-color;
+
+    &::before,
+    &::after {
+      content: '';
+      background-color: $donation-cart-donation-option-delimiter-color;
+      margin: 0.5rem 0;
+      height: 3rem;
+      width: 1px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: row;
+
+      &::before,
+      &::after {
+        margin: 0 1rem;
+        width: 3rem;
+        height: 1px;
+      }
+    }
+  }
+
+  .donationOptionButton {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    color: $donation-cart-donation-option-color;
+    background-color: transparent;
+    border: 1px solid $donation-cart-donation-option-border-color;
+    transition: background-color 150ms ease-out;
+
+    @include media-breakpoint-between(sm, md) {
+      padding: 1rem;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      > * + * {
+        margin-left: 0.5rem;
+      }
+    }
+
+    .donationOptionGlyph {
+      width: auto;
+      transition: transform 150ms ease-out;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $donation-cart-donation-option-hover-bg-color;
+
+      .donationOptionGlyph {
+        transform: scale(1.2, 1.2);
+      }
+    }
+
+    > * {
+      width: 100%;
+      margin: 0;
+    }
+
+    > * + * {
+      margin-top: 1rem;
+    }
+  }
+}
