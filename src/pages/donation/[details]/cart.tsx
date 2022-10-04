@@ -376,7 +376,7 @@ const DonationCart: NextPageWithLayout = () => {
                         </button>
 
                         <div className={styles.donationOptionsSeparator}>
-                          <span>or</span>
+                          <span>OR</span>
                         </div>
 
                         {/* Send what donor has option */}
