@@ -1,7 +1,7 @@
 import styles from './donation-details-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState } from 'react';
-import { Row, Col, Form, Accordion, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useCart, isRequestCancel } from 'app/hooks';
@@ -234,153 +234,151 @@ export function DonationDetailsForm({
         <h5>Do you need tax deduction?</h5>
       </header>
 
-      <Accordion activeKey={needTaxDeduction ? 'open' : 'collapsed'}>
+      <Row>
+        <Form.Group
+          as={Col}
+          controlId="needTaxDeduction"
+          className={styles.formGroup}
+        >
+          <Form.Check
+            type="checkbox"
+            id="needTaxDeduction"
+            label={'Request tax deduction'}
+            checked={needTaxDeduction}
+            onChange={(e) => {
+              setErrors(null);
+              setNeedTaxDeduction(e.target.checked);
+            }}
+          />
+        </Form.Group>
+      </Row>
+
+      <Collapse in={needTaxDeduction}>
         <Row>
           <Form.Group
             as={Col}
-            controlId="needTaxDeduction"
+            md={6}
+            controlId="addressLine1"
             className={styles.formGroup}
           >
-            <Form.Check
-              type="checkbox"
-              id="needTaxDeduction"
-              label={'Request tax deduction'}
-              checked={needTaxDeduction}
-              onChange={(e) => {
-                setErrors(null);
-                setNeedTaxDeduction(e.target.checked);
-              }}
+            <Form.Label>Address Line 1 *</Form.Label>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder=""
+              required={needTaxDeduction}
+              value={addressLine1}
+              onChange={(e) => setAddressLine1(e.target.value)}
+              isValid={getIsValid('address_line1')}
+              isInvalid={getIsInvalid('address_line1')}
             />
+            {getErrorsFeedback('address_line1')}
+          </Form.Group>
+
+          <Form.Group
+            as={Col}
+            md={6}
+            controlId="addressLine2"
+            className={styles.formGroup}
+          >
+            <Form.Label>Address Line 2</Form.Label>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder=""
+              value={addressLine2}
+              onChange={(e) => setAddressLine2(e.target.value)}
+              isValid={getIsValid('address_line2')}
+              isInvalid={getIsInvalid('address_line2')}
+            />
+            {getErrorsFeedback('address_line2')}
+          </Form.Group>
+
+          <Form.Group
+            as={Col}
+            md={6}
+            controlId="city"
+            className={styles.formGroup}
+          >
+            <Form.Label>City *</Form.Label>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder=""
+              required={needTaxDeduction}
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              isValid={getIsValid('city')}
+              isInvalid={getIsInvalid('city')}
+            />
+            {getErrorsFeedback('city')}
+          </Form.Group>
+
+          <Form.Group
+            as={Col}
+            md={6}
+            controlId="stateProvinceRegion"
+            className={styles.formGroup}
+          >
+            <Form.Label>State / Province / Region *</Form.Label>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder=""
+              required={needTaxDeduction}
+              value={stateProvinceRegion}
+              onChange={(e) => setStateProvinceRegion(e.target.value)}
+              isValid={getIsValid('state_province_region')}
+              isInvalid={getIsInvalid('state_province_region')}
+            />
+            {getErrorsFeedback('state_province_region')}
+          </Form.Group>
+
+          <Form.Group
+            as={Col}
+            md={6}
+            controlId="zip"
+            className={styles.formGroup}
+          >
+            <Form.Label>Zip *</Form.Label>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder=""
+              required={needTaxDeduction}
+              value={zip}
+              onChange={(e) => setZip(e.target.value)}
+              isValid={getIsValid('zip')}
+              isInvalid={getIsInvalid('zip')}
+            />
+            {getErrorsFeedback('zip')}
+          </Form.Group>
+
+          <Form.Group
+            as={Col}
+            md={6}
+            controlId="country"
+            className={styles.formGroup}
+          >
+            <Form.Label>Country *</Form.Label>
+            <Form.Select
+              size="lg"
+              value={country}
+              required={needTaxDeduction}
+              onChange={(e) => setCountry(e.target.value)}
+              isValid={getIsValid('country')}
+              isInvalid={getIsInvalid('country')}
+            >
+              {countries?.map(({ value, display_name }) => (
+                <option key={value} value={value}>
+                  {display_name}
+                </option>
+              ))}
+            </Form.Select>
+            {getErrorsFeedback('country')}
           </Form.Group>
         </Row>
-
-        <Accordion.Collapse eventKey="open">
-          <Row>
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="addressLine1"
-              className={styles.formGroup}
-            >
-              <Form.Label>Address Line 1 *</Form.Label>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder=""
-                required={needTaxDeduction}
-                value={addressLine1}
-                onChange={(e) => setAddressLine1(e.target.value)}
-                isValid={getIsValid('address_line1')}
-                isInvalid={getIsInvalid('address_line1')}
-              />
-              {getErrorsFeedback('address_line1')}
-            </Form.Group>
-
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="addressLine2"
-              className={styles.formGroup}
-            >
-              <Form.Label>Address Line 2</Form.Label>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder=""
-                value={addressLine2}
-                onChange={(e) => setAddressLine2(e.target.value)}
-                isValid={getIsValid('address_line2')}
-                isInvalid={getIsInvalid('address_line2')}
-              />
-              {getErrorsFeedback('address_line2')}
-            </Form.Group>
-
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="city"
-              className={styles.formGroup}
-            >
-              <Form.Label>City *</Form.Label>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder=""
-                required={needTaxDeduction}
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                isValid={getIsValid('city')}
-                isInvalid={getIsInvalid('city')}
-              />
-              {getErrorsFeedback('city')}
-            </Form.Group>
-
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="stateProvinceRegion"
-              className={styles.formGroup}
-            >
-              <Form.Label>State / Province / Region *</Form.Label>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder=""
-                required={needTaxDeduction}
-                value={stateProvinceRegion}
-                onChange={(e) => setStateProvinceRegion(e.target.value)}
-                isValid={getIsValid('state_province_region')}
-                isInvalid={getIsInvalid('state_province_region')}
-              />
-              {getErrorsFeedback('state_province_region')}
-            </Form.Group>
-
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="zip"
-              className={styles.formGroup}
-            >
-              <Form.Label>Zip *</Form.Label>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder=""
-                required={needTaxDeduction}
-                value={zip}
-                onChange={(e) => setZip(e.target.value)}
-                isValid={getIsValid('zip')}
-                isInvalid={getIsInvalid('zip')}
-              />
-              {getErrorsFeedback('zip')}
-            </Form.Group>
-
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="country"
-              className={styles.formGroup}
-            >
-              <Form.Label>Country *</Form.Label>
-              <Form.Select
-                size="lg"
-                value={country}
-                required={needTaxDeduction}
-                onChange={(e) => setCountry(e.target.value)}
-                isValid={getIsValid('country')}
-                isInvalid={getIsInvalid('country')}
-              >
-                {countries?.map(({ value, display_name }) => (
-                  <option key={value} value={value}>
-                    {display_name}
-                  </option>
-                ))}
-              </Form.Select>
-              {getErrorsFeedback('country')}
-            </Form.Group>
-          </Row>
-        </Accordion.Collapse>
-      </Accordion>
+      </Collapse>
 
       {errors ? (
         <Row>

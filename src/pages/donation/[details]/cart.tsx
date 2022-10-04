@@ -24,11 +24,12 @@ import {
   getDonationCartCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { CartItem } from 'components/cart/cart-item/cart-item';
+import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
+import { DonationOptions } from 'components/cart/donation-options/donation-options';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { PAGE_KEY } from 'app/constants';
 import type { CartItem as CartItemType } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
-import { DonationOptions } from 'components/cart/donation-options/donation-options';
 
 const DonationCart: NextPageWithLayout = () => {
   const router = useRouter();
@@ -271,6 +272,8 @@ const DonationCart: NextPageWithLayout = () => {
                     {formatPrice(totalPrice)}
                   </dd>
                 </dl>
+
+                <ReviewDonationDetails />
 
                 <div>
                   <h4 className={styles.sectionHeader}>

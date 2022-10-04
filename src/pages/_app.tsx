@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { wrapper } from 'app/store';
 import { Header } from 'components/header/header';
 import { Footer } from 'components/footer/footer';
-import { Cart } from 'components/cart/cart';
+import { CartSidebar } from 'components/cart/sidebar/cart-sidebar';
 import { LiveChat } from 'components/live-chat/live-chat';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <Header />
         <main className="main-container">{page}</main>
         <Footer />
-        <Cart />
+        <CartSidebar />
         <LiveChat />
       </>
     ));
