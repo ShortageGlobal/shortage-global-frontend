@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { createPackage } from 'app/api';
 import { useCart, useCancelToken, isRequestCancel } from 'app/hooks';
 import { CartItem } from 'components/cart/cart-item/cart-item';
+import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { PACKAGE_TYPE } from 'app/constants';
 import type { FormEvent } from 'react';
 import type { Organization, CartItem as CartItemType } from 'app/api/types';
@@ -154,36 +155,45 @@ export function PackageRegistrationForm({
         <h5>Tracking Information</h5>
       </header>
 
-      <Row>
-        <Col md={6}>
-          <Form.Group controlId="delivery-company" className={styles.formGroup}>
-            <Form.Label>Shipping Carrier *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder="UPS, FedEx, DHL, etc."
-              required
-              value={deliveryCompany}
-              onChange={(e) => setDeliveryCompany(e.target.value)}
-            />
-          </Form.Group>
-        </Col>
+      <div className={styles.formGroupsWrapper}>
+        <Row>
+          <Col md={6}>
+            <Form.Group
+              controlId="delivery-company"
+              className={styles.formGroup}
+            >
+              <Form.Label>Shipping Carrier *</Form.Label>
+              <Form.Control
+                size="lg"
+                type="text"
+                placeholder="UPS, FedEx, DHL, etc."
+                required
+                value={deliveryCompany}
+                onChange={(e) => setDeliveryCompany(e.target.value)}
+              />
+            </Form.Group>
+          </Col>
 
-        <Col md={6}>
-          <Form.Group controlId="tracking-number" className={styles.formGroup}>
-            <Form.Label>Tracking Number *</Form.Label>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder="Tracking Number"
-              required
-              value={trackingCode}
-              onChange={(e) => setTrackingNumber(e.target.value)}
-            />
-          </Form.Group>
-        </Col>
+          <Col md={6}>
+            <Form.Group
+              controlId="tracking-number"
+              className={styles.formGroup}
+            >
+              <Form.Label>Tracking Number *</Form.Label>
+              <Form.Control
+                size="lg"
+                type="text"
+                placeholder=""
+                required
+                value={trackingCode}
+                onChange={(e) => setTrackingNumber(e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
         {/* Optional photo of package. Decided to exclude because the form is already overloaded with elements */}
+        {/*<Row>*/}
         {/*<Col>*/}
         {/*  <Form.Group>*/}
         {/*    <Form.Label htmlFor="photo">Photo</Form.Label>*/}
@@ -195,18 +205,31 @@ export function PackageRegistrationForm({
         {/*    />*/}
         {/*  </Form.Group>*/}
         {/*</Col>*/}
+        {/*</Row>*/}
 
+        <Row>
+          <Col>
+            <Form.Group controlId="note" className={styles.formGroup}>
+              <Form.Label>Notes</Form.Label>
+              <Form.Control
+                size="lg"
+                as="textarea"
+                placeholder="Type something here"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+      </div>
+
+      <header className={styles.sectionHeader}>
+        <h5>Donation Details</h5>
+      </header>
+
+      <Row>
         <Col>
-          <Form.Group controlId="note" className={styles.formGroup}>
-            <Form.Label>Notes</Form.Label>
-            <Form.Control
-              size="lg"
-              as="textarea"
-              placeholder="Type something here"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-            />
-          </Form.Group>
+          <ReviewDonationDetails className={styles.reviewDonationDetails} />
         </Col>
       </Row>
 

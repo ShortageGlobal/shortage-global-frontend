@@ -1,4 +1,4 @@
-import styles from './cart.module.scss';
+import styles from './cart-sidebar.module.scss';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ import { CartItem } from 'components/cart/cart-item/cart-item';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
 import type { CartItem as CartItemType } from 'app/api/types';
 
-export function Cart() {
+export function CartSidebar() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { cart, isCartSidebarShown } = useAppSelector(selectCart);
