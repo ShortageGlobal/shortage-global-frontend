@@ -145,5 +145,7 @@ $donation-cart-max-width: $package-registration-form-max-width;
 $donation-cart-summary-line-border-color: var(--bs-dark);
 $donation-cart-summary-line-labels-br-color: var(--bs-body-bg);
 $donation-cart-donation-option-color: var(--bs-body-color);
+$donation-cart-donation-option-separator-text-color: $secondary;
+$donation-cart-donation-option-delimiter-color: $input-border-color;
 $donation-cart-donation-option-border-color: var(--bs-dark);
 $donation-cart-donation-option-hover-bg-color: rgba($primary, 0.2);
