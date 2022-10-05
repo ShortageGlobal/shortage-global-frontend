@@ -73,7 +73,6 @@ export type OrganizationPreview = {
 export type Organization = OrganizationPreview & {
   description?: string;
   url?: string;
-  tax_form_url?: string;
 };
 
 export type Instruction = {
