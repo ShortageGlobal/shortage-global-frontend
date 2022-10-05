@@ -20,7 +20,7 @@ export function Footer() {
             <Link href="/">
               <a className={styles.logo}>
                 <Image
-                  src="/images/logo/ShortageGlobal-black.png"
+                  src="/images/logo/Shortage.svg"
                   alt="Shortage"
                   layout="fill"
                   priority
@@ -32,9 +32,7 @@ export function Footer() {
           </Col>
 
           <Col md="6" className={styles.contactMail}>
-            <a href="mailto:notifications@shortage.global">
-              notifications@shortage.global
-            </a>
+            <a href="mailto:support@shortage.global">support@shortage.global</a>
           </Col>
         </Row>
       </Container>

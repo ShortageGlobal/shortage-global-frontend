@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
 import { selectCart, setIsCartSidebarShown } from 'app/store/slices/cart';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
-import { GlobalNotification } from 'components/global-notification/global-notification';
 
 export function Header() {
   const router = useRouter();
@@ -69,12 +68,12 @@ export function Header() {
           [styles.navbarWithBorder]: showNavbarBorder,
         })}
       >
-        <GlobalNotification />
+        {/* <GlobalNotification /> */}
         <Container className={styles.container}>
           <Link href="/" passHref>
             <Navbar.Brand className={styles.navbarBrand}>
               <Image
-                src="/images/logo/ShortageGlobal-black.png"
+                src="/images/logo/Shortage.svg"
                 alt="Shortage"
                 layout="fill"
                 priority
