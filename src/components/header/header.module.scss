@@ -24,13 +24,15 @@
     }
 
     .navbarBrand {
+      $width: 131px;
+      $height: 32px;
       position: relative;
-      width: 200px;
-      height: 28px;
+      width: $width;
+      height: $height;
 
       @include media-breakpoint-down(lg) {
-        width: calc(200px * 4 / 5);
-        height: calc(28px * 4 / 5);
+        width: $width * 0.8;
+        height: $height * 0.8;
       }
     }
 
