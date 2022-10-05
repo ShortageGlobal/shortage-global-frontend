@@ -116,6 +116,9 @@ $package-item-photo-border-color: var(--bs-dark);
 $package-item-remove-button-border-color: $input-border-color;
 $package-item-remove-button-hover-border-color: var(--bs-gray-900);
 
+// Package status
+$package-status-max-width: $package-registration-form-max-width;
+
 // How it works
 $how-it-works-banner-bg-color: $secondary-background;
 $how-it-works-header-color: $primary;

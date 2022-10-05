@@ -72,54 +72,62 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
         </Row>
       </Container>
 
-      <Container className={styles.packageStatus}>
-        {showDonationSuccessAlert ? (
-          <Alert
-            variant="success"
-            className={styles.requireDetailsAlert}
-            onClose={handleDismissDonationSuccessAlert}
-            dismissible
-          >
-            <Alert.Heading>Thank you for your donation</Alert.Heading>
-            <div>
-              The payment is being processed. You can track the status of your
-              donation on this page. The confirmation email will be in your
-              inbox shortly.
-            </div>
-          </Alert>
-        ) : null}
-
+      <Container>
         <Row>
-          <Col>
-            <h2>Package is registered</h2>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            <p>Thank you for helping 💚</p>
-
-            {packageState.package.delivery_company &&
-            packageState.package.tracking_code ? (
-              <>
-                <header className={styles.sectionHeader}>
-                  <h5>Package Details</h5>
-                </header>
-
-                <dl className={styles.packageDetails}>
-                  <dt>Shipping Carrier</dt>
-                  <dd>{packageState.package.delivery_company}</dd>
-                  <dt>Tracking number</dt>
-                  <dd>{packageState.package.tracking_code}</dd>
-                </dl>
-              </>
+          <Col className={styles.packageStatus}>
+            {showDonationSuccessAlert ? (
+              <Row>
+                <Col>
+                  <Alert
+                    variant="success"
+                    className={styles.requireDetailsAlert}
+                    onClose={handleDismissDonationSuccessAlert}
+                    dismissible
+                  >
+                    <Alert.Heading>Thank you for your donation</Alert.Heading>
+                    <div>
+                      The payment is being processed. You can track the status
+                      of your donation on this page. The confirmation email will
+                      be in your inbox shortly.
+                    </div>
+                  </Alert>
+                </Col>
+              </Row>
             ) : null}
 
-            <header className={styles.sectionHeader}>
-              <h5>Package Status</h5>
-            </header>
+            <Row>
+              <Col>
+                <h2>Package is registered</h2>
+              </Col>
+            </Row>
 
-            <p>{PACKAGE_STATUS_LABEL[packageState.package.status]}</p>
+            <Row>
+              <Col>
+                <p>Thank you for helping 💚</p>
+
+                {packageState.package.delivery_company &&
+                packageState.package.tracking_code ? (
+                  <>
+                    <header className={styles.sectionHeader}>
+                      <h5>Package Details</h5>
+                    </header>
+
+                    <dl className={styles.packageDetails}>
+                      <dt>Shipping Carrier</dt>
+                      <dd>{packageState.package.delivery_company}</dd>
+                      <dt>Tracking number</dt>
+                      <dd>{packageState.package.tracking_code}</dd>
+                    </dl>
+                  </>
+                ) : null}
+
+                <header className={styles.sectionHeader}>
+                  <h5>Package Status</h5>
+                </header>
+
+                <p>{PACKAGE_STATUS_LABEL[packageState.package.status]}</p>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
