@@ -1,6 +1,11 @@
 export const API_ROOT = process.env.NEXT_PUBLIC_API_ROOT;
 
-export const LIVE_CHAT_LICENCE_ID = '13843851';
+// Live Chat
+export const LIVE_CHAT_LICENCE_ID =
+  process.env.NEXT_PUBLIC_LIVE_CHAT_LICENCE_ID;
+
+// Google Analytics
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
 
 // IMPORTANT: the list of category keys must be synchronized with backend
 export const PRODUCT_CATEGORY_KEY = Object.freeze({
