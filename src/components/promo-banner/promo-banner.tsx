@@ -1,18 +1,12 @@
 import styles from './promo-banner.module.scss';
-import { useCallback } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Image from 'next/image';
+import Link from 'next/link';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 import { ChevronsDown } from 'react-feather';
 
 export function PromoBanner() {
-  const handleCheckRequestedGoods = useCallback(() => {
-    document
-      .getElementById(REQUESTED_GOODS_CONTAINER_ID)
-      ?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
-
   return (
     <div className={styles.promoBannerWrap}>
       <Container className={styles.promoBanner}>
@@ -30,14 +24,12 @@ export function PromoBanner() {
                 charities that need it most
               </p>
 
-              <Button
-                size="lg"
-                className={styles.checkGoodsButton}
-                onClick={handleCheckRequestedGoods}
-              >
-                <span>Check Out Our Top Requests</span>
-                <ChevronsDown />
-              </Button>
+              <Link href={`#${REQUESTED_GOODS_CONTAINER_ID}`} passHref>
+                <Button size="lg" className={styles.checkGoodsButton}>
+                  <span>Check Out Our Top Requests</span>
+                  <ChevronsDown />
+                </Button>
+              </Link>
 
               <div className={classNames(styles.image, styles.glisterLeft)}>
                 <Image
