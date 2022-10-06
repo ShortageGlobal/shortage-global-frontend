@@ -97,8 +97,8 @@ export function Header() {
             {shouldShowSearchField ? <SearchProducts /> : null}
 
             <Nav>
-              <ActiveLink href="/how-it-works" passHref>
-                <Nav.Link>How it works</Nav.Link>
+              <ActiveLink href="/about-us" passHref>
+                <Nav.Link>About Us</Nav.Link>
               </ActiveLink>
 
               {/* <ActiveLink href="/for-nonprofit" passHref>

@@ -10,9 +10,9 @@ export function ActiveLink({ children, href, ...props }) {
   const { asPath } = useRouter();
   const child = Children.only(children);
 
-  // pages/index.js will be matched via href
-  // pages/about.js will be matched via href
-  // pages/[slug].js will be matched via props.as
+  // pages/index.tsx will be matched via href
+  // pages/about-us.tsx will be matched via href
+  // pages/[slug].tsx will be matched via props.as
   const isActive = asPath === href || asPath === props.as;
 
   return (
