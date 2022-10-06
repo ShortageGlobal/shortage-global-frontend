@@ -1,14 +1,16 @@
 import styles from 'styles/pages/about-us.module.scss';
 import { useMemo } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getAboutUsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const team = [
@@ -125,6 +127,16 @@ const HowItWorks: NextPageWithLayout = () => {
               Our platform provides you a receipt for a tax deduction and a
               photo/video from the nonprofit that you can share on social media.
             </p>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col className="text-center">
+            <Link href={`/#${REQUESTED_GOODS_CONTAINER_ID}`} passHref>
+              <Button size="lg" className={styles.checkGoodsButton}>
+                <span>Check Out Our Top Requests</span>
+              </Button>
+            </Link>
           </Col>
         </Row>
 
