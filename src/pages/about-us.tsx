@@ -106,20 +106,6 @@ const HowItWorks: NextPageWithLayout = () => {
       <Container className={styles.aboutPlatform}>
         <Row>
           <Col>
-            {/* <p>
-              Our platform provides an alternative way to give. Here you can
-              easily donate tangible goods instead of money to nonprofits you
-              trust.
-            </p>
-            <p>
-              Goods donation gives you as a donor more control, you can receive
-              proof of your donation in a photo or video report.
-            </p>
-            <p>
-              The Shorage team believes in this approach and plans to make it a
-              new giving trend. Join us!
-            </p> */}
-
             <p>
               Shortage.com is a place where you can easily donate needed goods
               to the nonprofits you trust. We are proud to have delivered more
