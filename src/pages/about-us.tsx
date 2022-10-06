@@ -1,4 +1,4 @@
-import styles from 'styles/pages/how-it-works.module.scss';
+import styles from 'styles/pages/about-us.module.scss';
 import { useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import Image from 'next/image';
 import {
   Breadcrumbs,
   getHomeCrumb,
-  getHowItWorksCrumb,
+  getAboutUsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import type { NextPageWithLayout } from 'pages/_app';
 
@@ -31,13 +31,13 @@ const team = [
 
 const HowItWorks: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getHowItWorksCrumb({ isActive: true })];
+    return [getHomeCrumb(), getAboutUsCrumb({ isActive: true })];
   }, []);
 
   return (
     <>
       <Head>
-        <title>How it works | Shortage</title>
+        <title>About Us | Shortage</title>
       </Head>
 
       <Container>
@@ -52,44 +52,15 @@ const HowItWorks: NextPageWithLayout = () => {
         <Row>
           <Col>
             <div className={styles.banner}>
-              <h2 className={styles.header}>How it works</h2>
-              <p className={styles.motto}>
-                Donate tangible goods and feel <br />
-                the joy of giving
-              </p>
-
-              <div className={styles.description}>
-                <div>
-                  <h4 className={styles.descriptionHeader}>
-                    <span className={styles.number}>1</span>
-                    <span>Find what is needed</span>
-                  </h4>
-                  <ul className={styles.descriptionList}>
-                    <li>Chose an item</li>
-                    <li>
-                      Order the item(s) online <br />
-                      or send what you own using instructions
-                    </li>
-                    <li>Register your donation</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className={styles.descriptionHeader}>
-                    <span className={styles.number}>2</span>
-                    <span>Manage donations</span>
-                  </h4>
-                  <ul className={styles.descriptionList}>
-                    <li>
-                      Register your donor account to keep in touch with us
-                    </li>
-                    <li>
-                      Check the photo/video report of the delivery <br />
-                      in your personal account or via a unique link we provide
-                    </li>
-                    <li>Share your impact on social media </li>
-                  </ul>
-                </div>
-              </div>
+              <h2 className={styles.header}>
+                Donate{' '}
+                <span className={styles.highlightedHeader}>tangible goods</span>
+                <br />
+                and feel{' '}
+                <span className={styles.highlightedHeader}>
+                  the joy of giving
+                </span>
+              </h2>
 
               <div
                 className={classNames(styles.image, styles.imageBoyLooksRight)}
@@ -135,7 +106,7 @@ const HowItWorks: NextPageWithLayout = () => {
       <Container className={styles.aboutPlatform}>
         <Row>
           <Col>
-            <p>
+            {/* <p>
               Our platform provides an alternative way to give. Here you can
               easily donate tangible goods instead of money to nonprofits you
               trust.
@@ -147,6 +118,26 @@ const HowItWorks: NextPageWithLayout = () => {
             <p>
               The Shorage team believes in this approach and plans to make it a
               new giving trend. Join us!
+            </p> */}
+
+            <p>
+              Shortage.com is a place where you can easily donate needed goods
+              to the nonprofits you trust. We are proud to have delivered more
+              than 25,000 items valuing more than $300,000 in the past 6 months
+              to trusted charity organizations.
+            </p>
+
+            <p>
+              Our team believes that the “in-kind” donation of goods (as opposed
+              to money) gives donors a better understanding of real needs and
+              provides more agency and control over donations. In addition, it
+              allows donors to build a stronger connection with the nonprofits
+              they support.
+            </p>
+
+            <p>
+              Our platform provides you a receipt for a tax deduction and a
+              photo/video from the nonprofit that you can share on social media.
             </p>
           </Col>
         </Row>
@@ -154,6 +145,15 @@ const HowItWorks: NextPageWithLayout = () => {
         <Row>
           <Col>
             <h2 className={styles.header}>We are here for you to help</h2>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <p>
+              The Shortage team works 24/7 to make your donation experience
+              simple and pleasant.
+            </p>
           </Col>
         </Row>
 

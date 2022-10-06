@@ -4,80 +4,43 @@
 .howItWorks {
   .banner {
     position: relative;
-    padding: 3.5rem;
+    padding: 3.5rem 1rem;
     margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: $how-it-works-banner-bg-color;
-    overflow: hidden;
 
     @include media-breakpoint-down(md) {
-      padding: 11rem 1rem;
+      padding: 10rem 1rem;
     }
 
     .header {
-      color: $how-it-works-header-color;
       font-size: 4rem;
+      margin-bottom: 2rem;
       line-height: 1.1;
 
-      @include media-breakpoint-down(lg) {
-        font-size: 2rem;
+      .highlightedHeader {
+        text-decoration: underline;
+        text-decoration-color: $about-us-highlighted-header-underline-color;
+        text-decoration-thickness: from-font;
       }
-    }
 
-    .motto {
-      font-weight: 500;
-      font-size: 2rem;
-
-      @include media-breakpoint-down(lg) {
-        font-size: 1.5rem;
+      @include media-breakpoint-down(xl) {
+        font-size: 3rem;
       }
-    }
-
-    .description {
-      margin-top: 1rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      text-align: left;
 
       @include media-breakpoint-down(lg) {
-        grid-template-columns: 1fr;
+        font-size: 2.2rem;
       }
 
-      > * {
-        max-width: 450px;
+      @include media-breakpoint-down(md) {
+        font-size: 2.5rem;
       }
 
-      .descriptionHeader {
-        margin: 2rem 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .number {
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 1.5rem;
-          font-size: 2rem;
-          width: 3.5rem;
-          height: 3.5rem;
-          border-radius: 100%;
-          background-color: $how-it-works-counter-bg-color;
-          color: $how-it-works-counter-color;
-
-          @include media-breakpoint-down(sm) {
-            margin-right: 1rem;
-          }
-        }
-      }
-
-      .descriptionList {
-        list-style: square;
+      @include media-breakpoint-down(sm) {
+        font-size: 1.8rem;
       }
     }
 
@@ -91,25 +54,23 @@
 
       width: $width;
       height: $height;
-      top: 3rem;
-      right: calc(50% + 440px);
+      top: 1rem;
+      right: calc(50% + 492px);
 
       @include media-breakpoint-down(xl) {
-        right: calc(50% + 350px);
+        right: calc(50% + 380px);
       }
 
       @include media-breakpoint-down(lg) {
-        top: 25rem;
-        right: calc(50% + 230px);
+        right: calc(50% + 320px);
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.7;
-        height: $height * 0.7;
+        width: $width * 0.9;
+        height: $height * 0.9;
         top: unset;
-        bottom: 2.5rem;
-        right: unset;
-        left: 25%;
+        bottom: 2rem;
+        right: calc(50% + 42px);
       }
     }
 
@@ -119,23 +80,23 @@
 
       width: $width;
       height: $height;
-      top: 8rem;
-      right: calc(50% + 280px);
+      top: 7rem;
+      right: calc(50% + 382px);
 
       @include media-breakpoint-down(xl) {
-        right: calc(50% + 260px);
+        right: calc(50% + 290px);
       }
 
       @include media-breakpoint-down(lg) {
-        top: 7.5rem;
-        right: calc(50% + 190px);
+        top: 5rem;
+        right: calc(50% + 214px);
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.7;
-        height: $height * 0.7;
+        width: $width * 0.8;
+        height: $height * 0.8;
         top: 1.5rem;
-        right: calc(50% + 40px);
+        right: calc(50% + 32px);
       }
     }
 
@@ -145,22 +106,21 @@
 
       width: $width;
       height: $height;
-      top: 5rem;
-      left: calc(50% + 440px);
+      top: 1rem;
+      left: calc(50% + 473px);
 
       @include media-breakpoint-down(xl) {
-        left: calc(50% + 350px);
+        left: calc(50% + 390px);
       }
 
       @include media-breakpoint-down(lg) {
-        top: 4rem;
-        left: calc(50% + 230px);
+        left: calc(50% + 310px);
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.7;
-        height: $height * 0.7;
-        top: 3rem;
+        width: $width * 0.8;
+        height: $height * 0.8;
+        top: 2rem;
         left: calc(50% + 40px);
       }
     }
@@ -172,23 +132,23 @@
       width: $width;
       height: $height;
       top: 8rem;
-      left: calc(50% + 280px);
+      left: calc(50% + 363px);
 
       @include media-breakpoint-down(xl) {
-        left: calc(50% + 245px);
+        left: calc(50% + 275px);
       }
 
       @include media-breakpoint-down(lg) {
-        top: 20rem;
-        left: calc(50% + 160px);
+        top: 6rem;
+        left: calc(50% + 197px);
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.7;
-        height: $height * 0.7;
+        width: $width * 0.9;
+        height: $height * 0.9;
         top: unset;
         bottom: 1.5rem;
-        left: calc(50% + 40px);
+        left: calc(50% + 27px);
       }
     }
   }
@@ -197,7 +157,7 @@
 .aboutPlatform {
   max-width: 900px;
   margin: 0 auto 4rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
 
   @include media-breakpoint-down(lg) {
     font-size: 1.1rem;
@@ -220,7 +180,7 @@
     border: 1px solid $team-card-border-color;
     background-color: $team-card-bg-color;
     color: $team-card-color;
-    margin-bottom: 1.6rem;
+    margin-top: 1.6rem;
     max-width: 280px;
 
     @include media-breakpoint-down(sm) {

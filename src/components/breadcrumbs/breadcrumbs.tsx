@@ -55,12 +55,12 @@ export const getHomeCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getHowItWorksCrumb = (props: BreadcrumbItem = {}) =>
+export const getAboutUsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
-    label: 'How It Works',
+    label: 'About Us',
     href: {
-      pathname: '/how-it-works',
+      pathname: '/about-us',
     },
     ...props,
   });
