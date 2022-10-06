@@ -109,10 +109,10 @@ const HowItWorks: NextPageWithLayout = () => {
         <Row>
           <Col>
             <p>
-              Shortage.com is a place where you can easily donate needed goods
-              to the nonprofits you trust. We are proud to have delivered more
-              than 25,000 items valuing more than $300,000 in the past 6 months
-              to trusted charity organizations.
+              Shortage is a place where you can easily donate needed goods to
+              the nonprofits you trust. We are proud to have delivered more than
+              25,000 items valuing more than $300,000 in the past 6 months to
+              trusted charity organizations.
             </p>
 
             <p>
