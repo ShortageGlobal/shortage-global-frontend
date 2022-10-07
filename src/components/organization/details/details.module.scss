@@ -77,6 +77,10 @@
   @include media-breakpoint-down(sm) {
     .textContent {
       padding: 3rem 1rem;
+
+      .description {
+        font-size: 1.2rem;
+      }
     }
   }
 }
