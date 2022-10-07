@@ -67,12 +67,13 @@ export type PaginatedResponse<Result> = {
 export type OrganizationPreview = {
   name: string;
   slug: Slug;
-  photo?: string;
+  logo?: string;
 };
 
 export type Organization = OrganizationPreview & {
   description?: string;
   url?: string;
+  banner?: string;
 };
 
 export type Instruction = {
