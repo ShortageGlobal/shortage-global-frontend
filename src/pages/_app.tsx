@@ -74,6 +74,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <title>Shortage | Donate tangible goods</title>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="facebook-domain-verification"
+          content="n6iogeto9yr1xgqtzj2icomr1u84sp"
+        />
       </Head>
 
       {/* Global Site Tag (gtag.js) - Google Analytics */}
