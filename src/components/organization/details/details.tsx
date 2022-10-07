@@ -68,6 +68,8 @@ export function OrganizationDetails() {
                 ></div>
               ) : null}
 
+              <h5 className={styles.sectionHeader}>Ready to donate?</h5>
+
               <Link href={`#${REQUESTED_GOODS_CONTAINER_ID}`} passHref>
                 <Button size="lg" className={styles.checkGoodsButton}>
                   <span>Check Out Our Top Requests</span>

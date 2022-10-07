@@ -38,10 +38,17 @@
       }
     }
 
+    .sectionHeader {
+      font-size: 1.5rem;
+      margin-top: 3rem;
+      margin-bottom: 0;
+    }
+
     .checkGoodsButton {
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      margin-top: 1rem;
 
       > * + * {
         margin-left: 0.5rem;
