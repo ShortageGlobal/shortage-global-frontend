@@ -4,7 +4,7 @@
 .footer {
   padding-top: 2rem;
   padding-bottom: 2rem;
-  background-color: $secondary-background;
+  background-color: $footer-background-color;
 
   .logo {
     position: relative;
@@ -13,15 +13,29 @@
     height: 32px;
   }
 
-  .copyrightBlock {
-    margin-top: 0.5rem;
+  .address {
+    color: $footer-secondary-text-color;
   }
 
-  .contactMail {
+  .copyrightBlock {
+    color: $footer-secondary-text-color;
+  }
+
+  .leftColumn {
+    > * + * {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .rightColumn {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
+
+    > * + * {
+      margin-top: 0.5rem;
+    }
 
     @include media-breakpoint-down(md) {
       margin-top: 0.5rem;

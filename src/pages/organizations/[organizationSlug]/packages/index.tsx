@@ -96,7 +96,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
         </Row>
         <Row>
           <Col className={styles.packageRegistration}>
-            <h2 className="text-break">
+            <h2 className={styles.header}>
               Register package for {organization.name}
             </h2>
 

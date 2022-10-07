@@ -97,7 +97,9 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
             <Row>
               <Col>
-                <h2>Package is registered</h2>
+                <header>
+                  <h2 className={styles.header}>Package is registered</h2>
+                </header>
               </Col>
             </Row>
 
