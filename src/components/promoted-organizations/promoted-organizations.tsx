@@ -17,7 +17,7 @@ export function PromotedOrganizations() {
             <SectionHeader>Our nonprofit partners</SectionHeader>
             <ul className={styles.organizationsList}>
               {organizations
-                .filter((organization) => organization.photo)
+                .filter((organization) => organization.logo)
                 .map((organization) => {
                   return (
                     <li key={organization.slug}>
@@ -29,7 +29,7 @@ export function PromotedOrganizations() {
                       >
                         <a className={styles.organizationLink}>
                           <Image
-                            src={organization.photo}
+                            src={organization.logo}
                             alt={organization.name}
                             layout="fill"
                             objectFit="contain"

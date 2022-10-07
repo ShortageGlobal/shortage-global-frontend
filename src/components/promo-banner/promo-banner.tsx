@@ -3,8 +3,8 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 import { ChevronsDown } from 'react-feather';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 
 export function PromoBanner() {
   return (
