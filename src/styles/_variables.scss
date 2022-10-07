@@ -45,6 +45,10 @@ $header-height-lg: calc(55px + $global-notification-height);
 $header-background: var(--bs-body-bg);
 $header-border-bottom-color: $border-color;
 
+// Footer
+$footer-background-color: $secondary-background;
+$footer-secondary-text-color: $secondary;
+
 // Search Products Input
 $search-products-placeholder-hover-color: $primary;
 $search-products-input-border-color: var(--bs-dark);
