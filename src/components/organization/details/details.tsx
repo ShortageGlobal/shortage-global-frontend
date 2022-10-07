@@ -18,35 +18,6 @@ export function OrganizationDetails() {
         <Col>
           <div className={styles.organizationDetails}>
             <div className={styles.textContent}>
-              {/* logo as link */}
-              {organization.logo && organization.url ? (
-                <a
-                  href={organization.url}
-                  className={styles.logo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    alt=""
-                    src={organization.logo}
-                    layout="fill"
-                    objectFit="contain"
-                  />
-                </a>
-              ) : null}
-
-              {/* logo without link */}
-              {organization.logo && !organization.url ? (
-                <div className={styles.logo}>
-                  <Image
-                    alt=""
-                    src={organization.logo}
-                    layout="fill"
-                    objectFit="contain"
-                  />
-                </div>
-              ) : null}
-
               {/* link */}
               {organization.url ? (
                 <div className={classNames(styles.link, 'text-truncate')}>
