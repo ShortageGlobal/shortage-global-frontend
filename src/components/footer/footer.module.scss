@@ -13,15 +13,29 @@
     height: 32px;
   }
 
-  .copyrightBlock {
-    margin-top: 0.5rem;
+  .address {
+    color: $secondary;
   }
 
-  .contactMail {
+  .copyrightBlock {
+    color: $secondary;
+  }
+
+  .leftColumn {
+    > * + * {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .rightColumn {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
+
+    > * + * {
+      margin-top: 0.5rem;
+    }
 
     @include media-breakpoint-down(md) {
       margin-top: 0.5rem;

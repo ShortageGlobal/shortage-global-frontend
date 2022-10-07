@@ -172,7 +172,7 @@ const DonationCart: NextPageWithLayout = () => {
       <Container className={styles.mainContent}>
         <Row>
           <Col className={styles.donationCartCol}>
-            <h2>Donation Cart</h2>
+            <h2 className={styles.header}>Donation Cart</h2>
 
             {showPaymentStatusCanceledAlert ? (
               <Alert

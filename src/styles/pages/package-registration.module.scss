@@ -9,6 +9,11 @@
     margin-top: 1rem;
   }
 
+  .header {
+    word-break: break-word;
+    text-align: center;
+  }
+
   .loadingMessage {
     display: flex;
     align-items: center;

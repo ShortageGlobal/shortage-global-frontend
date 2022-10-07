@@ -55,6 +55,16 @@ export const getHomeCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    label: 'Privacy Policy',
+    href: {
+      pathname: '/privacy-policy',
+    },
+    ...props,
+  });
+
 export const getAboutUsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,

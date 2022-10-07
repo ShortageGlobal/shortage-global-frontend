@@ -5,9 +5,6 @@ import Image from 'next/image';
 import { Col, Container, Row } from 'react-bootstrap';
 
 export function Footer() {
-  const copyrightText = (
-    <span>&copy; {new Date().getFullYear()} All rights reserved. Shortage</span>
-  );
   return (
     <Container
       as="footer"
@@ -16,7 +13,7 @@ export function Footer() {
     >
       <Container>
         <Row>
-          <Col md="6">
+          <Col md="6" className={styles.leftColumn}>
             <Link href="/">
               <a className={styles.logo}>
                 <Image
@@ -28,11 +25,19 @@ export function Footer() {
               </a>
             </Link>
 
-            <div className={styles.copyrightBlock}>{copyrightText}</div>
+            <div className={styles.address}>
+              440 N Barranca Ave #7074 Covina, CA 91723
+            </div>
+
+            <div className={styles.copyrightBlock}>
+              &copy; {new Date().getFullYear()} All rights reserved. Shortage
+            </div>
           </Col>
 
-          <Col md="6" className={styles.contactMail}>
+          <Col md="6" className={styles.rightColumn}>
             <a href="mailto:support@shortage.global">support@shortage.global</a>
+
+            <Link href="/privacy-policy">Privacy Policy</Link>
           </Col>
         </Row>
       </Container>

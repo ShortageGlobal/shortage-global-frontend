@@ -31,7 +31,7 @@ const team = [
   },
 ];
 
-const HowItWorks: NextPageWithLayout = () => {
+const AboutUs: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getAboutUsCrumb({ isActive: true })];
   }, []);
@@ -109,26 +109,31 @@ const HowItWorks: NextPageWithLayout = () => {
         <Row>
           <Col>
             <p>
-              Shortage is a place where you can easily donate needed goods to
-              the nonprofits you trust. We are proud to have delivered more than
-              25,000 items valuing more than $300,000 in the past 6 months to
-              trusted charity organizations.
+              Shortage is a place where you can easily donate{' '}
+              <b>requested goods</b> to the nonprofits you trust.
             </p>
 
             <p>
-              Our team believes that the “in-kind” donation of goods (as opposed
-              to money) gives donors a better understanding of real needs and
-              provides more agency and control over donations. In addition, it
-              allows donors to build a stronger connection with the nonprofits
-              they support.
+              Our team believes that the <b>“in-kind”</b> donation of goods
+              gives donors a better understanding of real needs and provides
+              more agency and control over donations. In addition, it allows
+              donors to build a stronger connection with the nonprofits they
+              support.
             </p>
 
             <p>
               Our platform provides you a receipt for a tax deduction and a
               photo/video from the nonprofit that you can share on social media.
             </p>
+
+            <p className={styles.accentedText}>
+              Over <span className={styles.highlighted}>25,000 items</span>{' '}
+              delivered to charities in the past 6 months
+            </p>
           </Col>
         </Row>
+
+        <h4>Ready to donate?</h4>
 
         <Row>
           <Col className="text-center">
@@ -185,4 +190,4 @@ const HowItWorks: NextPageWithLayout = () => {
   );
 };
 
-export default HowItWorks;
+export default AboutUs;
