@@ -66,6 +66,10 @@ export function CorporateDonationRegistrationForm({
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
+      if (isPending) {
+        return;
+      }
+
       const cancelToken = getRegistrationCancelToken();
 
       setIsPending(true);
@@ -105,6 +109,7 @@ export function CorporateDonationRegistrationForm({
       }
     },
     [
+      isPending,
       companyName,
       department,
       firstName,
@@ -171,7 +176,7 @@ export function CorporateDonationRegistrationForm({
   return (
     <Form
       onSubmit={handleFormSubmit}
-      className={styles.CorporateDonationRegistrationForm}
+      className={styles.corporateDonationRegistrationForm}
     >
       <Row>
         <Col>
