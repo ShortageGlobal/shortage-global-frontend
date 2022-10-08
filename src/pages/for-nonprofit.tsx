@@ -50,7 +50,7 @@ const ForNonprofit: NextPageWithLayout = () => {
               <div className={styles.bannerText}>
                 <p>
                   We will create your unique page (
-                  <Link href="/organizations/meira-academy">
+                  <Link href="/organizations/meira_academy">
                     {/* TODO: Hardcoded href! */}
                     <a>check an example here</a>
                   </Link>
