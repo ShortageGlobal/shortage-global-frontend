@@ -2,4 +2,191 @@
 @import 'styles/_variables';
 
 .forNonprofit {
+  .banner {
+    position: relative;
+    padding: 3.5rem 1rem 0;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    @include media-breakpoint-down(lg) {
+      padding: 1.5rem 1rem 0;
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 0rem 1rem 0;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 1rem 1rem 0;
+    }
+
+    .header {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      line-height: 1.1;
+
+      .highlightedHeader {
+        text-decoration: underline;
+        text-decoration-color: $for-corporate-highlighted-header-underline-color;
+        text-decoration-thickness: from-font;
+      }
+
+      @include media-breakpoint-down(xl) {
+        font-size: 3rem;
+      }
+
+      @include media-breakpoint-down(lg) {
+        font-size: 2.2rem;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 2.5rem;
+      }
+
+      @include media-breakpoint-down(sm) {
+        padding: 0rem 4rem 0;
+        font-size: 1.8rem;
+      }
+    }
+
+    .bannerText {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 500px;
+      margin-bottom: 0;
+      text-align: center;
+
+      > * {
+        margin-bottom: 0;
+      }
+
+      > * + * {
+        margin-top: 0.5rem;
+      }
+
+      @include media-breakpoint-down(xxl) {
+        .pleaseCompleteFormMessage {
+          max-width: 380px;
+        }
+      }
+
+      @include media-breakpoint-down(xl) {
+        max-width: 420px;
+
+        .pleaseCompleteFormMessage {
+          max-width: 280px;
+        }
+      }
+
+      @include media-breakpoint-down(lg) {
+        max-width: 310px;
+      }
+
+      @include media-breakpoint-down(md) {
+        max-width: 260px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        max-width: 100%;
+
+        .pleaseCompleteFormMessage {
+          max-width: 100%;
+        }
+      }
+    }
+
+    .textHighlighted {
+      font-weight: 700;
+    }
+
+    .image {
+      position: absolute;
+    }
+
+    .womanLeft {
+      $width: 267px;
+      $height: 311px;
+
+      width: $width;
+      height: $height;
+      top: 0;
+      left: 5%;
+
+      @include media-breakpoint-down(xxl) {
+        left: 0;
+      }
+
+      @include media-breakpoint-down(xl) {
+        top: 1rem;
+      }
+
+      @include media-breakpoint-down(lg) {
+        width: $width * 0.7;
+        height: $height * 0.7;
+        top: 2rem;
+      }
+
+      @include media-breakpoint-down(md) {
+        top: 5.5rem;
+        left: -10px;
+        width: $width * 0.5;
+        height: $height * 0.5;
+      }
+
+      @include media-breakpoint-down(sm) {
+        top: 0;
+        left: 0;
+        width: $width * 0.28;
+        height: $height * 0.28;
+      }
+    }
+
+    .manRight {
+      $width: 331px;
+      $height: 333px;
+
+      width: $width;
+      height: $height;
+      top: 2rem;
+      right: 5%;
+
+      @include media-breakpoint-down(xxl) {
+        right: 0;
+      }
+
+      @include media-breakpoint-down(lg) {
+        width: $width * 0.7;
+        height: $height * 0.7;
+        top: 2.5rem;
+      }
+
+      @include media-breakpoint-down(md) {
+        top: 6.5rem;
+        width: $width * 0.5;
+        height: $height * 0.5;
+      }
+
+      @include media-breakpoint-down(sm) {
+        top: 0;
+        right: 0;
+        width: $width * 0.28;
+        height: $height * 0.28;
+      }
+    }
+  }
+}
+
+.donorRegistration {
+  max-width: $for-corporate-donor-registration-form-max-width;
+  width: 100%;
+  margin: 1rem auto;
+
+  > * + * {
+    margin-top: 1rem;
+  }
 }
