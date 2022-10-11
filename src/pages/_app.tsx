@@ -71,22 +71,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>Shortage | Donate tangible goods</title>
-        <link rel="icon" href="/favicon.png" />
-
-        {/* 
-          manifest.json provides metadata used when your web app is installed on a
-          user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/ 
-        */}
-        <link rel="manifest" href="/manifest.json" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        <meta
-          name="facebook-domain-verification"
-          content="n6iogeto9yr1xgqtzj2icomr1u84sp"
-        />
-
         {/* for sharing  */}
         <meta property="og:url" content="https://shortage.global" />
         <meta property="og:type" content="website" />
@@ -101,6 +85,22 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+
+        <title>Shortage | Donate tangible goods</title>
+        <link rel="icon" href="/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <meta
+          name="facebook-domain-verification"
+          content="n6iogeto9yr1xgqtzj2icomr1u84sp"
+        />
+
+        {/*
+          manifest.json provides metadata used when your web app is installed on a
+          user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+        */}
+        <link rel="manifest" href="/manifest.json" />
       </Head>
 
       {/* Global Site Tag (gtag.js) - Google Analytics */}
