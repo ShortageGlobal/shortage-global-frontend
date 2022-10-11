@@ -72,12 +72,35 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <Head>
         <title>Shortage | Donate tangible goods</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
+
+        {/* 
+          manifest.json provides metadata used when your web app is installed on a
+          user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/ 
+        */}
+        <link rel="manifest" href="/manifest.json" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <meta
           name="facebook-domain-verification"
           content="n6iogeto9yr1xgqtzj2icomr1u84sp"
         />
+
+        {/* for sharing  */}
+        <meta property="og:url" content="https://shortage.global" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Shortage | Donate tangible goods" />
+        <meta
+          property="og:description"
+          content="A place for you to donate goods directly to the charities that need it most"
+        />
+        <meta
+          property="og:image"
+          content="https://shortage.global/social_media_sharing_baner.png"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
       </Head>
 
       {/* Global Site Tag (gtag.js) - Google Analytics */}
