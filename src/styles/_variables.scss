@@ -150,3 +150,8 @@ $donation-cart-donation-option-color: var(--bs-body-color);
 $donation-cart-donation-option-delimiter-color: $input-border-color;
 $donation-cart-donation-option-border-color: var(--bs-dark);
 $donation-cart-donation-option-hover-bg-color: rgba($primary, 0.2);
+
+// Package Status Visualization
+$package-status-visualization-step-active-color: $primary;
+$package-status-visualization-step-muted-color: #90a1b1;
+$package-status-visualization-step-color: $primary;

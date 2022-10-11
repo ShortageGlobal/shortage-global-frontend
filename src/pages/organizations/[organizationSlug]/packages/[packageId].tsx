@@ -16,7 +16,7 @@ import {
   getOrganizationCrumb,
   getPackageStatusCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { PACKAGE_STATUS_LABEL } from 'app/constants';
+import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const PackageRegistrationPage: NextPageWithLayout = () => {
@@ -105,7 +105,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
             <Row>
               <Col>
-                <p>Thank you for helping 💚</p>
+                <p className="text-center">Thank you for helping 💚</p>
 
                 {packageState.package.delivery_company &&
                 packageState.package.tracking_code ? (
@@ -127,7 +127,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
                   <h5>Package Status</h5>
                 </header>
 
-                <p>{PACKAGE_STATUS_LABEL[packageState.package.status]}</p>
+                <PackageStatusVisualization package={packageState.package} />
               </Col>
             </Row>
           </Col>
