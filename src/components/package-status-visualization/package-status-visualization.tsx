@@ -27,7 +27,7 @@ export function PackageStatusVisualization({
             step = packageState.status;
             activeLifecycleIndex = index;
           } else {
-            step = steps[0];
+            step = steps[0] as PackageStatus;
           }
 
           const isActive = index <= activeLifecycleIndex;
