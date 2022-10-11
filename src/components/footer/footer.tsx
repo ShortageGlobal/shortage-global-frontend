@@ -35,6 +35,48 @@ export function Footer() {
           </Col>
 
           <Col md="6" className={styles.rightColumn}>
+            <ul className={styles.socialMediaLinks}>
+              <li>
+                <a
+                  href="https://www.facebook.com/shortage.global/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/social-media-glyphs/facebook.svg"
+                    alt="Shortage Facebook page"
+                    layout="fill"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/shortageglobal/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/social-media-glyphs/linkedin.svg"
+                    alt="Shortage LinkedIn page"
+                    layout="fill"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/shortage.global/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/social-media-glyphs/instagram.svg"
+                    alt="Shortage Instagram page"
+                    layout="fill"
+                  />
+                </a>
+              </li>
+            </ul>
+
             <a href="mailto:support@shortage.global">support@shortage.global</a>
 
             <Link href="/privacy-policy">Privacy Policy</Link>

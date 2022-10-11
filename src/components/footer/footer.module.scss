@@ -37,8 +37,33 @@
       margin-top: 0.5rem;
     }
 
+    .socialMediaLinks {
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      > * + * {
+        margin-left: 1rem;
+      }
+
+      :global(a) {
+        position: relative;
+        display: block;
+        opacity: 0.75;
+        transition: opacity 150ms ease-in-out;
+        width: 16px;
+        height: 16px;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
     @include media-breakpoint-down(md) {
-      margin-top: 0.5rem;
+      margin-top: 1rem;
       align-items: flex-start;
     }
   }
