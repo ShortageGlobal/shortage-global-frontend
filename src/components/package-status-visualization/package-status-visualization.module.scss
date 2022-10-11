@@ -1,0 +1,82 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.packageStatusVisualizationWrap {
+  .packageStatusVisualization {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+  }
+
+  .step {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $package-status-visualization-step-muted-color;
+
+    &.active {
+      color: $package-status-visualization-step-active-color;
+    }
+
+    &.withDelimiter::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 1.5rem;
+      right: 50%;
+      width: 100%;
+      height: 2px;
+      background-color: currentColor;
+      z-index: -1;
+    }
+  }
+
+  .stepBullet {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    background-color: currentColor;
+  }
+
+  .stepLabel {
+    margin-top: 0.5rem;
+    line-height: 1.2;
+    color: currentColor;
+  }
+
+  @include media-breakpoint-down(sm) {
+    display: flex;
+    justify-content: center;
+
+    .packageStatusVisualization {
+      flex-direction: column;
+    }
+
+    .step {
+      flex-direction: row;
+
+      &.withDelimiter {
+        padding-top: 1rem;
+      }
+
+      &.withDelimiter::before {
+        height: 100%;
+        width: 2px;
+        top: unset;
+        bottom: 50%;
+        right: unset;
+        left: 1.5rem;
+      }
+    }
+
+    .stepLabel {
+      margin-top: 0;
+      margin-left: 0.5rem;
+    }
+  }
+}
