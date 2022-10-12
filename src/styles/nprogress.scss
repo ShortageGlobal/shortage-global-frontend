@@ -1,0 +1,16 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+#nprogress {
+  pointer-events: none;
+
+  .bar {
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $nprogress-color;
+  }
+}

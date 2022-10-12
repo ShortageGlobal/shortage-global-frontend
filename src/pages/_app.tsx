@@ -1,6 +1,7 @@
 import 'styles/globals.scss';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import SSRProvider from 'react-bootstrap/SSRProvider';
+import NProgress from 'nprogress';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
@@ -54,6 +55,38 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
+
+  // configure router progress bar
+  useEffect(() => {
+    NProgress.configure({ showSpinner: false });
+  }, []);
+
+  // router progress bar events
+  const basePath = useRef(router.pathname);
+  useEffect(() => {
+    const handleStart = (url) => {
+      const [newBasePath] = url.split('?');
+      if (newBasePath !== basePath.current) {
+        // ignore changes in query parameters
+        NProgress.start();
+        basePath.current = newBasePath;
+      }
+    };
+
+    const handleStop = () => {
+      NProgress.done();
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
 
   // Use the layout defined at the page level, if available
   const getLayout =
