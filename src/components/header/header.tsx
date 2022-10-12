@@ -60,7 +60,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <Navbar
-        expand="lg"
+        expand="md"
         fixed="top"
         expanded={isNavbarExpanded}
         onToggle={handleNavbarToggle}
