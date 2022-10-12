@@ -100,16 +100,9 @@ export function PackageRegistrationForm({
           query: {
             organizationSlug: organization.slug,
             packageId: response.data.uuid,
+            dci: items.map((item) => item.uuid),
           },
         });
-
-        // Remove registered products from the cart
-        // TODO: do batch deletion. Or delete on the backend side and refetch the cart
-        items.forEach((item) => {
-          handleItemRemove({ item });
-        });
-
-        setIsCreating(false);
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
           return;

@@ -25,7 +25,7 @@ const ProductPage: NextPageWithLayout = () => {
 
   const {
     isCartReady,
-    showCartSidebar,
+    setIsCartSidebarShown,
     getCartItem,
     addToCart,
     deleteFromCart,
@@ -62,7 +62,7 @@ const ProductPage: NextPageWithLayout = () => {
   }, [cartItem]);
 
   const handleShowCartSidebar = useCallback(() => {
-    showCartSidebar();
+    setIsCartSidebarShown(true);
   }, []);
 
   const handleAddProduct = useCallback(async () => {

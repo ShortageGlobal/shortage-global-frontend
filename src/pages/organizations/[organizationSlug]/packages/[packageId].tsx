@@ -1,10 +1,10 @@
 import styles from 'styles/pages/package-status.module.scss';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import { wrapper } from 'app/store';
-import { useAppSelector } from 'app/hooks';
+import { useAppSelector, useCart } from 'app/hooks';
 import {
   fetchOrganization,
   selectOrganization,
@@ -25,6 +25,8 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
   const packageState = useAppSelector(selectPackage);
 
+  const { isCartReady, deleteFromCart } = useCart();
+
   const breadcrumbs = useMemo(() => {
     return [
       getHomeCrumb(),
@@ -39,6 +41,35 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       }),
     ];
   }, [organization]);
+
+  // detect "dci" query parameters and delete corresponding cart items
+  useEffect(() => {
+    if (isCartReady && router.query?.dci) {
+      const cartItemIds = Array.isArray(router.query.dci)
+        ? router.query.dci
+        : [router.query.dci];
+
+      (async function () {
+        try {
+          await Promise.all(
+            cartItemIds.map((cartItemId) => deleteFromCart({ cartItemId }))
+          );
+        } catch (rejection) {
+          // ignore failure. So what the item might have been already deleted or is fake?
+        }
+      })();
+
+      // remove "dci" from query params
+      const queryParams = { ...router.query };
+      delete queryParams.dci;
+
+      router.replace(
+        { query: queryParams },
+        undefined,
+        { shallow: true } // do not run getServerSideProps
+      );
+    }
+  }, [isCartReady, router.query?.dci]);
 
   const [showDonationSuccessAlert, setShowDonationSuccessAlert] = useState(
     () => router.query?.paymentStatus === 'succeeded'
