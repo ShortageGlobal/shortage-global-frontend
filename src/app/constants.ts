@@ -92,17 +92,6 @@ export const PACKAGE_STATUS = Object.freeze({
   DELIVERED: 'DELIVERED',
 });
 
-export const PACKAGE_DISPLAY_LABELS = Object.freeze({
-  [PACKAGE_STATUS.REGISTERED]: 'Registered',
-  [PACKAGE_STATUS.PAYMENT_CANCELED]: 'Payment Canceled',
-  [PACKAGE_STATUS.PAYMENT_FAILED]: 'Payment Failed',
-  [PACKAGE_STATUS.PAYMENT_PROCESSING]: 'Processing',
-  [PACKAGE_STATUS.PAYMENT_SUCCEEDED]: 'Processing', // same as PAYMENT_PROCESSING
-  [PACKAGE_STATUS.CONFIRMED]: 'Confirmed',
-  [PACKAGE_STATUS.ON_ITS_WAY]: 'On Its Way',
-  [PACKAGE_STATUS.DELIVERED]: 'Delivered',
-});
-
 export const PACKAGE_STATUS_LIFECYCLE = Object.freeze({
   [PACKAGE_TYPE.SENT_BY_DONOR]: Object.freeze([
     Object.freeze([

@@ -23,6 +23,10 @@
       color: $package-status-visualization-step-active-color;
     }
 
+    &.failed {
+      color: $package-status-visualization-step-failed-color;
+    }
+
     &.withDelimiter::before {
       content: '';
       display: block;
@@ -37,15 +41,25 @@
   }
 
   .stepBullet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 3rem;
     height: 3rem;
     border-radius: 100%;
     background-color: currentColor;
+
+    .glyph {
+      position: relative;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 
   .stepLabel {
     margin-top: 0.5rem;
     line-height: 1.2;
+    text-align: center;
     color: currentColor;
   }
 
