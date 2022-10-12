@@ -2,7 +2,7 @@ import { useMemo, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   selectCart,
-  setIsCartSidebarShown,
+  setIsCartSidebarShown as setIsCartSidebarShownAction,
   setCart as setCartAction,
   updateCartItemQuantity as updateCartItemQuantityAction,
   deleteCartItem as deleteCartItemAction,
@@ -24,7 +24,8 @@ import type {
 
 export function useCart() {
   const dispatch = useAppDispatch();
-  const { cart, isCartLoading } = useAppSelector(selectCart);
+  const { cart, isCartLoading, isCartSidebarShown } =
+    useAppSelector(selectCart);
 
   const isCartReady = useMemo(() => !!cart?.uuid, [cart]);
 
@@ -32,8 +33,8 @@ export function useCart() {
     return !!cart?.email;
   }, [cart]);
 
-  const showCartSidebar = useCallback(() => {
-    dispatch(setIsCartSidebarShown(true));
+  const setIsCartSidebarShown = useCallback((value: boolean) => {
+    dispatch(setIsCartSidebarShownAction(value));
   }, []);
 
   const getCartItem = useCallback(
@@ -181,10 +182,11 @@ export function useCart() {
 
   return {
     cart,
+    isCartSidebarShown,
     isCartLoading,
     isCartReady,
     isDonationDetailsFilled,
-    showCartSidebar,
+    setIsCartSidebarShown,
     getCartItem,
     checkIsProductInCart,
     updateCart,

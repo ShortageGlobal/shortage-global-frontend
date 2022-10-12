@@ -10,12 +10,7 @@ import {
   useCart,
   isRequestCancel,
 } from 'app/hooks';
-import {
-  selectCart,
-  setIsCartSidebarShown,
-  setIsCartLoading,
-  setCart,
-} from 'app/store/slices/cart';
+import { selectCart, setIsCartLoading, setCart } from 'app/store/slices/cart';
 import { fetchCart, createAndFetchCart } from 'app/api';
 import { groupCartItemsByOrganization } from 'app/helpers';
 import { CART_ID_KEY } from 'app/constants';
@@ -26,9 +21,14 @@ import type { CartItem as CartItemType } from 'app/api/types';
 export function CartSidebar() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { cart, isCartSidebarShown } = useAppSelector(selectCart);
+  const { isCartSidebarShown } = useAppSelector(selectCart);
 
-  const { updateCartItemQuantity, deleteFromCart } = useCart();
+  const {
+    cart,
+    setIsCartSidebarShown,
+    updateCartItemQuantity,
+    deleteFromCart,
+  } = useCart();
 
   const getFetchOrCreateCartCancelToken = useCancelToken();
 
@@ -81,13 +81,13 @@ export function CartSidebar() {
   }, []);
 
   const handleSidebarHide = useCallback(() => {
-    dispatch(setIsCartSidebarShown(false));
+    setIsCartSidebarShown(false);
   }, []);
 
   // hide cart sidebar on route change
   useEffect(() => {
     handleSidebarHide();
-  }, [router.route]);
+  }, [router.asPath]);
 
   const groupedCartItems = useMemo(() => {
     return groupCartItemsByOrganization({ items: cart?.items });

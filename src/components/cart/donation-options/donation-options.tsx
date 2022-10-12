@@ -58,7 +58,11 @@ export function DonationOptions({ groupedCartItems }: DonationOptionsProps) {
         items: groupedCartItems
           .get(firstOrganization.organizationSlug)
           .items.map((item) => {
-            return { product: item.product.slug, quantity: item.quantity };
+            return {
+              product: item.product.slug,
+              quantity: item.quantity,
+              cart_item_uuid: item.uuid,
+            };
           }),
         cancelToken,
       });
