@@ -45,6 +45,25 @@ export function PromoBanner() {
                   layout="fill"
                 />
               </div>
+
+              <div
+                className={classNames(styles.image, styles.glisterLeftShort)}
+              >
+                <Image
+                  alt=""
+                  src="/images/promo-banner/glister_left_short.svg"
+                  layout="fill"
+                />
+              </div>
+              <div
+                className={classNames(styles.image, styles.glisterRightShort)}
+              >
+                <Image
+                  alt=""
+                  src="/images/promo-banner/glister_right_short.svg"
+                  layout="fill"
+                />
+              </div>
             </div>
           </Col>
         </Row>

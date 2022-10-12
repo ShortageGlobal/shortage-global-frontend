@@ -49,6 +49,8 @@
       justify-content: center;
       align-items: center;
       margin-top: 1rem;
+      padding: 1rem 2rem;
+      line-height: 1.1;
 
       > * + * {
         margin-left: 0.5rem;
@@ -81,9 +83,9 @@
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     .textContent {
-      padding: 3rem 1rem;
+      padding: 2rem;
 
       .description {
         font-size: 1.2rem;
