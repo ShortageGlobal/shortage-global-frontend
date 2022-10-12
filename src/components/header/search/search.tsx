@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Search } from 'react-feather';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectSearch, setSearchQuery } from 'app/store/slices/search';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 
 export function SearchProducts() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export function SearchProducts() {
 
   const handleInputFocus = useCallback(() => {
     setIsInputFocused(true);
+    document.getElementById(REQUESTED_GOODS_CONTAINER_ID)?.scrollIntoView();
   }, []);
 
   const handleInputBlur = useCallback(() => {
