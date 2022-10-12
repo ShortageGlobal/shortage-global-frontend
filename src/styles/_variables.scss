@@ -45,6 +45,9 @@ $header-height-lg: calc(55px + $global-notification-height);
 $header-background: var(--bs-body-bg);
 $header-border-bottom-color: $border-color;
 
+// Nprogress (router events bar)
+$nprogress-color: $primary;
+
 // Footer
 $footer-background-color: $secondary-background;
 $footer-secondary-text-color: $secondary;
