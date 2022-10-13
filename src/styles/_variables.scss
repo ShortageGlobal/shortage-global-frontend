@@ -5,6 +5,16 @@ $border-radius: 0;
 $border-radius-sm: 0;
 $btn-border-radius-lg: 0;
 
+$grid-breakpoints: (
+  xxs: 0,
+  xs: 375px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
 @import 'bootstrap/scss/variables';
 
 // Base

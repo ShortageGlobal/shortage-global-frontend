@@ -64,31 +64,29 @@ export function Products({
       {/* Products List */}
       {products?.length > 0 ? (
         <Container>
-          <Row
-            xl={5}
-            lg={4}
-            md={3}
-            sm={2}
-            xs={1}
-            className={classNames(styles.productsContainer, {
-              [styles.productsContainerLoading]: isLoading,
-            })}
-          >
-            {products?.map((product) => {
-              // only promoted products have "organization_slug" and "organization_name" property
-              const organizationSlug = getOrganizationSlug(product);
-              const organizationName = product.organization?.name || null;
-              const key = `${organizationSlug}-${product.slug}`;
-              return (
-                <Col key={key}>
-                  <ProductCard
-                    product={product}
-                    organizationSlug={organizationSlug}
-                    organizationName={organizationName}
-                  />
-                </Col>
-              );
-            })}
+          <Row>
+            <Col>
+              <div
+                className={classNames(styles.productsContainer, {
+                  [styles.productsContainerLoading]: isLoading,
+                })}
+              >
+                {products?.map((product) => {
+                  // only promoted products have "organization_slug" and "organization_name" property
+                  const organizationSlug = getOrganizationSlug(product);
+                  const organizationName = product.organization?.name || null;
+                  const key = `${organizationSlug}-${product.slug}`;
+                  return (
+                    <ProductCard
+                      key={key}
+                      product={product}
+                      organizationSlug={organizationSlug}
+                      organizationName={organizationName}
+                    />
+                  );
+                })}
+              </div>
+            </Col>
           </Row>
 
           {products.length < count ? (

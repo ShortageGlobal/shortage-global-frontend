@@ -1,3 +1,4 @@
+@import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
 .categorySelector {
@@ -44,6 +45,10 @@
 
     .hidden {
       visibility: hidden;
+    }
+
+    @include media-breakpoint-down(md) {
+      margin: 1rem 0rem 0;
     }
   }
 }

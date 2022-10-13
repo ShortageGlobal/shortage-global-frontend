@@ -1,3 +1,4 @@
+@import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
 .promotedOrganizations {
@@ -29,10 +30,13 @@
   }
 
   .organizationLink {
+    $width: 200px;
+    $height: 100px;
+
     position: relative;
     display: block;
-    width: 200px;
-    height: 100px;
+    width: $width;
+    height: $height;
     filter: grayscale(1);
     opacity: 0.8;
     transition: all 150ms ease-in-out;
@@ -40,6 +44,11 @@
     &:hover {
       filter: grayscale(0);
       opacity: 1;
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: $width * 0.7;
+      height: $height * 0.7;
     }
   }
 }

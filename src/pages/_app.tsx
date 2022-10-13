@@ -1,6 +1,7 @@
 import 'styles/globals.scss';
 import { useEffect, useRef } from 'react';
 import SSRProvider from 'react-bootstrap/SSRProvider';
+import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import NProgress from 'nprogress';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -175,7 +176,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         }}
       />
 
-      <SSRProvider>{getLayout(<Component {...pageProps} />)}</SSRProvider>
+      <SSRProvider>
+        <ThemeProvider
+          breakpoints={['xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+        >
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
+      </SSRProvider>
     </>
   );
 }
