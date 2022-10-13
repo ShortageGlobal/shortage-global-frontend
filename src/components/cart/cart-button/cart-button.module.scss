@@ -1,0 +1,20 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables.scss';
+
+.cartButton {
+  position: relative;
+
+  &:hover,
+  &:focus {
+    color: $navbar-light-hover-color;
+  }
+
+  .cartButtonBadge {
+    position: absolute;
+    top: 0.15em;
+    right: 0.35em;
+    font-size: 0.6rem;
+    padding: 0.35em 0.55em;
+    border: 1px solid $header-background;
+  }
+}

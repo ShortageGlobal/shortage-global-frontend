@@ -6,19 +6,24 @@ export const searchSlice = createSlice({
 
   initialState: {
     searchQuery: '',
+    isSearchInputFocused: false,
   } as {
     searchQuery: string;
+    isSearchInputFocused: boolean;
   },
 
   reducers: {
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+    setIsSearchInputFocused: (state, action) => {
+      state.isSearchInputFocused = action.payload;
+    },
   },
 });
 
 // Actions
-export const { setSearchQuery } = searchSlice.actions;
+export const { setSearchQuery, setIsSearchInputFocused } = searchSlice.actions;
 
 // Selectors
 export const selectSearch = (state: AppState) => state.search;

@@ -20,8 +20,8 @@ body {
     padding-top: $header-height;
     flex-shrink: 0;
 
-    @include media-breakpoint-down(md) {
-      padding-top: $header-height-md;
+    @include media-breakpoint-down(lg) {
+      padding-top: $header-height-lg;
     }
   }
 }

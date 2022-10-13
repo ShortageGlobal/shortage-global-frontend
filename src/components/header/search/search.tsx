@@ -1,18 +1,21 @@
 import styles from './search.module.scss';
-import { useRef, useCallback, useEffect, useState } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { Search } from 'react-feather';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectSearch, setSearchQuery } from 'app/store/slices/search';
+import {
+  selectSearch,
+  setSearchQuery,
+  setIsSearchInputFocused,
+} from 'app/store/slices/search';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
 
 export function SearchProducts() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { searchQuery } = useAppSelector(selectSearch);
+  const { searchQuery, isSearchInputFocused } = useAppSelector(selectSearch);
 
-  const [isInputFocused, setIsInputFocused] = useState(false);
   const inputElement = useRef(null);
 
   const handleFormSubmit = useCallback((e) => {
@@ -24,12 +27,12 @@ export function SearchProducts() {
   }, []);
 
   const handleInputFocus = useCallback(() => {
-    setIsInputFocused(true);
+    dispatch(setIsSearchInputFocused(true));
     document.getElementById(REQUESTED_GOODS_CONTAINER_ID)?.scrollIntoView();
   }, []);
 
   const handleInputBlur = useCallback(() => {
-    setIsInputFocused(false);
+    dispatch(setIsSearchInputFocused(false));
   }, []);
 
   const handleSearchQueryChange = useCallback((e) => {
@@ -66,11 +69,12 @@ export function SearchProducts() {
       onSubmit={handleFormSubmit}
       onClick={handleFormClick}
       className={classNames(styles.searchForm, {
-        [styles.active]: isInputFocused || searchQuery?.length > 0,
-        [styles.focused]: isInputFocused,
+        [styles.active]: isSearchInputFocused || searchQuery?.length > 0,
+        [styles.focused]: isSearchInputFocused,
       })}
     >
       <Search className={styles.glyph} />
+
       <input
         ref={inputElement}
         type="text"
