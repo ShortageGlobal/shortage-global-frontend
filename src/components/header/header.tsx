@@ -1,7 +1,7 @@
 import styles from './header.module.scss';
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { Menu } from 'react-feather';
+import { Menu, X } from 'react-feather';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -86,7 +86,7 @@ export function Header() {
               className={styles.navbarToggle}
               onClick={() => setIsNavbarExpanded(!isNavbarExpanded)}
             >
-              <Menu />
+              {isNavbarExpanded ? <X /> : <Menu />}
             </Button>
 
             <CartButton className={styles.cartButtonCollapsedNav} />
