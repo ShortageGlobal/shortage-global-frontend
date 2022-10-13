@@ -10,10 +10,6 @@
   cursor: text;
   transition: $btn-transition;
 
-  @include media-breakpoint-down(lg) {
-    padding: 0.5rem 0;
-  }
-
   &:hover:not(.active) {
     color: $search-products-placeholder-hover-color;
   }
@@ -28,6 +24,10 @@
 
   .placeholder {
     width: $initial-width;
+
+    @include media-breakpoint-down(lg) {
+      @include visually-hidden;
+    }
   }
 
   .input {
@@ -56,6 +56,14 @@
 
     .placeholder {
       @include visually-hidden;
+    }
+
+    @media (max-width: 500px) {
+      flex: 1;
+
+      .input {
+        flex: 1;
+      }
     }
   }
 }

@@ -41,7 +41,7 @@ $form-select-border-radius-lg: 0;
 $header-height: calc(
   82px + $global-notification-height
 ); // used for padding-top of main container, because header has fixed-top
-$header-height-md: calc(55px + $global-notification-height);
+$header-height-lg: calc(55px + $global-notification-height);
 $header-background: var(--bs-body-bg);
 $header-border-bottom-color: $border-color;
 

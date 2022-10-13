@@ -1,22 +1,21 @@
 import styles from './header.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState, useMemo, useEffect } from 'react';
-import { Container, Navbar, Nav, Button, Badge } from 'react-bootstrap';
-import { Menu, ShoppingCart } from 'react-feather';
+import { Container, Navbar, Nav, Button } from 'react-bootstrap';
+import { Menu } from 'react-feather';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAppDispatch, useAppSelector, useScrollPosition } from 'app/hooks';
-import { selectCart, setIsCartSidebarShown } from 'app/store/slices/cart';
+import { useAppSelector, useScrollPosition } from 'app/hooks';
+import { selectSearch } from 'app/store/slices/search';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
+import { CartButton } from 'components/cart/cart-button/cart-button';
 
 export function Header() {
   const router = useRouter();
-  const dispatch = useAppDispatch();
 
-  const { cart } = useAppSelector(selectCart);
+  const { searchQuery, isSearchInputFocused } = useAppSelector(selectSearch);
 
   const [isWindowScrollAtTop, setIsWindowScrollAtTop] = useState(true);
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
@@ -53,19 +52,17 @@ export function Header() {
     setIsNavbarExpanded(newIsNavbarExpanded);
   }, []);
 
-  const handleCartSidebarShow = useCallback(() => {
-    dispatch(setIsCartSidebarShown(true));
-  }, []);
-
   return (
     <header className={styles.header}>
       <Navbar
-        expand="md"
+        expand="lg"
         fixed="top"
         expanded={isNavbarExpanded}
         onToggle={handleNavbarToggle}
         className={classNames(styles.navbar, {
           [styles.navbarWithBorder]: showNavbarBorder,
+          [styles.withSearchExpanded]:
+            isSearchInputFocused || searchQuery?.length > 0,
         })}
       >
         {/* <GlobalNotification /> */}
@@ -81,20 +78,25 @@ export function Header() {
             </Navbar.Brand>
           </Link>
 
-          <Navbar.Toggle
-            aria-controls="header-navbar-nav"
-            className={styles.navbarToggle}
-          >
-            <Menu className={styles.navbarToggleIcon} />
-          </Navbar.Toggle>
+          <div className={styles.controlsBar}>
+            {shouldShowSearchField ? <SearchProducts /> : null}
+
+            <Button
+              variant=""
+              className={styles.navbarToggle}
+              onClick={() => setIsNavbarExpanded(!isNavbarExpanded)}
+            >
+              <Menu />
+            </Button>
+
+            <CartButton className={styles.cartButtonCollapsedNav} />
+          </div>
 
           <Navbar.Collapse
             className={styles.navbarCollapse}
             id="header-navbar-nav"
           >
             <div className={styles.navbarCollapsedTopPlaceholder} />
-
-            {shouldShowSearchField ? <SearchProducts /> : null}
 
             <Nav>
               <ActiveLink href="/about-us" passHref>
@@ -120,36 +122,10 @@ export function Header() {
                   <span className={styles.controlText}>Account</span>
                 </Nav.Link>
               </Link> */}
-
-              <Button
-                variant=""
-                className={classNames(
-                  styles.button,
-                  styles.cartButton,
-                  styles.control
-                )}
-                onClick={handleCartSidebarShow}
-              >
-                <ShoppingCart size={20} />
-
-                <span className={styles.controlText}>Donation cart</span>
-
-                {/* Count of Products in the cart  */}
-                {cart?.items?.length > 0 ? (
-                  <Badge
-                    pill
-                    className={classNames(
-                      styles.cartButtonBadge,
-                      animationStyles.scale
-                    )}
-                  >
-                    {cart.items.length}
-                    <span className="visually-hidden"> products in cart</span>
-                  </Badge>
-                ) : null}
-              </Button>
             </Nav>
           </Navbar.Collapse>
+
+          <CartButton className={styles.cartButtonExpandedNav} />
         </Container>
       </Navbar>
     </header>
