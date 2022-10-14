@@ -12,7 +12,6 @@ import {
   getDonationDetailsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { DonationDetailsForm } from 'components/donation-details-form/donation-details-form';
-import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { CountryChoice } from 'app/api/types';
 
@@ -93,8 +92,6 @@ const DonationDetails: NextPageWithLayout = ({
           </Col>
         </Row>
       </Container>
-
-      <WeAreHereForYou />
     </>
   );
 };

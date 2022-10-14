@@ -86,7 +86,7 @@ export function ReviewDonationDetails({
 
                   {cart.state_province_region ? (
                     <Col>
-                      <dt>State / Province / Region</dt>
+                      <dt>State / Province</dt>
                       <dd>{cart.state_province_region}</dd>
                     </Col>
                   ) : null}

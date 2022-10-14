@@ -3,13 +3,18 @@
 
 .weAreHereForYou {
   margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+
+  .header {
+    @include media-breakpoint-down(sm) {
+      font-size: calc(1.125rem + 0.9vw);
+    }
+  }
 
   .content {
-    margin-bottom: 2rem;
+    max-width: $we-are-here-for-you-text-max-width;
 
     @include media-breakpoint-up(lg) {
-      max-width: $we-are-here-for-you-text-max-width;
       margin-right: 4rem;
     }
   }
@@ -20,12 +25,28 @@
   }
 
   .imageContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    $width: 326px;
+    $height: 243px;
+
+    position: relative;
+    width: $width * 0.7;
+    height: $height * 0.7;
+
+    @include media-breakpoint-down(md) {
+      width: $width * 0.5;
+      height: $height * 0.5;
+    }
 
     @include media-breakpoint-down(sm) {
-      padding: 0 20%;
+      margin-top: 2rem;
+      width: $width * 0.37;
+      height: $height * 0.37;
+    }
+
+    @include media-breakpoint-down(xs) {
+      margin-top: 1rem;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }

@@ -26,7 +26,6 @@ import {
 import { CartItem } from 'components/cart/cart-item/cart-item';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { DonationOptions } from 'components/cart/donation-options/donation-options';
-import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { PAGE_KEY } from 'app/constants';
 import type { CartItem as CartItemType } from 'app/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -290,8 +289,6 @@ const DonationCart: NextPageWithLayout = () => {
           </Col>
         </Row>
       </Container>
-
-      <WeAreHereForYou />
     </>
   );
 };

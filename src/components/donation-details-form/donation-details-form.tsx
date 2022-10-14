@@ -152,7 +152,7 @@ export function DonationDetailsForm({
       <Row>
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="firstName"
           className={styles.formGroup}
         >
@@ -172,7 +172,7 @@ export function DonationDetailsForm({
 
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="lastName"
           className={styles.formGroup}
         >
@@ -192,7 +192,7 @@ export function DonationDetailsForm({
 
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="email"
           className={styles.formGroup}
         >
@@ -213,7 +213,7 @@ export function DonationDetailsForm({
 
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="phoneNumber"
           className={styles.formGroup}
         >
@@ -257,7 +257,7 @@ export function DonationDetailsForm({
         <Row>
           <Form.Group
             as={Col}
-            md={6}
+            xs={6}
             controlId="addressLine1"
             className={styles.formGroup}
           >
@@ -277,7 +277,7 @@ export function DonationDetailsForm({
 
           <Form.Group
             as={Col}
-            md={6}
+            xs={6}
             controlId="addressLine2"
             className={styles.formGroup}
           >
@@ -296,7 +296,7 @@ export function DonationDetailsForm({
 
           <Form.Group
             as={Col}
-            md={6}
+            xs={6}
             controlId="city"
             className={styles.formGroup}
           >
@@ -316,11 +316,11 @@ export function DonationDetailsForm({
 
           <Form.Group
             as={Col}
-            md={6}
+            xs={6}
             controlId="stateProvinceRegion"
             className={styles.formGroup}
           >
-            <Form.Label>State / Province / Region *</Form.Label>
+            <Form.Label>State / Province *</Form.Label>
             <Form.Control
               size="lg"
               type="text"
@@ -336,7 +336,7 @@ export function DonationDetailsForm({
 
           <Form.Group
             as={Col}
-            md={6}
+            xs={6}
             controlId="zip"
             className={styles.formGroup}
           >
@@ -356,7 +356,7 @@ export function DonationDetailsForm({
 
           <Form.Group
             as={Col}
-            md={6}
+            xs={6}
             controlId="country"
             className={styles.formGroup}
           >

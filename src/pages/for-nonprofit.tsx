@@ -12,7 +12,6 @@ import {
   getForNonprofitCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { NonprofitRegistrationForm } from 'components/nonprofit-registration-form/nonprofit-registration-form';
-import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ForNonprofit: NextPageWithLayout = () => {
@@ -90,8 +89,6 @@ const ForNonprofit: NextPageWithLayout = () => {
           </Col>
         </Row>
       </Container>
-
-      <WeAreHereForYou />
     </>
   );
 };

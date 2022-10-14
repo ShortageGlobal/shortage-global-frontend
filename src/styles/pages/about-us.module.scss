@@ -13,7 +13,7 @@
     text-align: center;
 
     @include media-breakpoint-down(md) {
-      padding: 10rem 1rem;
+      padding: 8rem 1rem;
     }
 
     .header {
@@ -66,8 +66,8 @@
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.9;
-        height: $height * 0.9;
+        width: $width * 0.7;
+        height: $height * 0.7;
         top: unset;
         bottom: 2rem;
         right: calc(50% + 42px);
@@ -93,9 +93,9 @@
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.8;
-        height: $height * 0.8;
-        top: 1.5rem;
+        width: $width * 0.7;
+        height: $height * 0.7;
+        top: 0.6rem;
         right: calc(50% + 32px);
       }
     }
@@ -118,9 +118,9 @@
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.8;
-        height: $height * 0.8;
-        top: 2rem;
+        width: $width * 0.7;
+        height: $height * 0.7;
+        top: 0.5rem;
         left: calc(50% + 40px);
       }
     }
@@ -144,8 +144,8 @@
       }
 
       @include media-breakpoint-down(md) {
-        width: $width * 0.9;
-        height: $height * 0.9;
+        width: $width * 0.7;
+        height: $height * 0.7;
         top: unset;
         bottom: 1.5rem;
         left: calc(50% + 27px);
@@ -156,7 +156,7 @@
 
 .aboutPlatform {
   max-width: 900px;
-  margin: 0 auto 4rem;
+  margin: 0 auto 1rem;
   font-size: 1rem;
   text-align: center;
 
@@ -173,7 +173,7 @@
     justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
-    margin: 1rem auto;
+    margin: 1rem auto 3rem;
     line-height: 1.1;
   }
 

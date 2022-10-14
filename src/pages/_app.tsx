@@ -8,6 +8,7 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { wrapper } from 'app/store';
 import { Header } from 'components/header/header';
+import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { Footer } from 'components/footer/footer';
 import { CartSidebar } from 'components/cart/sidebar/cart-sidebar';
 import { LiveChat } from 'components/live-chat/live-chat';
@@ -96,6 +97,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <>
         <Header />
         <main className="main-container">{page}</main>
+        <WeAreHereForYou />
         <Footer />
         <CartSidebar />
         <LiveChat />
@@ -179,6 +181,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <SSRProvider>
         <ThemeProvider
           breakpoints={['xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+          minBreakpoint="xxs"
         >
           {getLayout(<Component {...pageProps} />)}
         </ThemeProvider>

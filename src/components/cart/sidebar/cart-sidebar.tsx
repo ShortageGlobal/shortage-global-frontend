@@ -86,8 +86,11 @@ export function CartSidebar() {
 
   // hide cart sidebar on route change
   useEffect(() => {
-    handleSidebarHide();
-  }, [router.asPath]);
+    router.events.on('routeChangeStart', handleSidebarHide);
+    return () => {
+      router.events.off('routeChangeStart', handleSidebarHide);
+    };
+  }, [router]);
 
   const groupedCartItems = useMemo(() => {
     return groupCartItemsByOrganization({ items: cart?.items });
