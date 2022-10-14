@@ -147,7 +147,7 @@ const AboutUs: NextPageWithLayout = () => {
 
         <Row>
           <Col>
-            <h2 className={styles.header}>We are here for you to help</h2>
+            <h2 className={styles.header}>Our Team</h2>
           </Col>
         </Row>
 
@@ -160,7 +160,7 @@ const AboutUs: NextPageWithLayout = () => {
           </Col>
         </Row>
 
-        <Row md={3} sm={2} xs={1}>
+        <Row md={3} xs={2} xxs={1}>
           {team.map((member) => {
             return (
               <Col key={member.name}>

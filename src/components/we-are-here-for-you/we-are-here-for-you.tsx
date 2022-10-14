@@ -15,7 +15,7 @@ export function WeAreHereForYou() {
     <Container className={styles.weAreHereForYou}>
       <Row className="justify-content-center">
         <Col className={styles.content}>
-          <h2>We are here for you</h2>
+          <h2 className={styles.header}>We are here for you</h2>
           <p>
             If you have any questions or would like more information, please
             reach out to our wonderful{' '}
@@ -29,13 +29,17 @@ export function WeAreHereForYou() {
             who will be happy to help you.
           </p>
         </Col>
-        <Col md="auto" className={styles.imageContainer}>
-          <Image
-            alt=""
-            src="/images/characters/woman-sits-looks-left.svg"
-            width="326"
-            height="243"
-          />
+
+        <Col xs="auto">
+          <div className={styles.imageContainer}>
+            <Image
+              alt=""
+              src="/images/characters/woman-sits-looks-left.svg"
+              layout="fill"
+              width="326"
+              height="243"
+            />
+          </div>
         </Col>
       </Row>
     </Container>

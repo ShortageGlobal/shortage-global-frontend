@@ -1,5 +1,5 @@
 import styles from './proceed-to-donation-button.module.scss';
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { ArrowRightCircle } from 'react-feather';
 import classNames from 'classnames';
 import Button from 'react-bootstrap/Button';
@@ -13,7 +13,7 @@ type ProceedToDonationButtonProps = {
 export function ProceedToDonationButton({
   className = '',
 }: ProceedToDonationButtonProps) {
-  const { isDonationDetailsFilled } = useCart();
+  const { isDonationDetailsFilled, setIsCartSidebarShown } = useCart();
 
   const donationHref = useMemo(() => {
     return isDonationDetailsFilled
@@ -21,11 +21,16 @@ export function ProceedToDonationButton({
       : { pathname: '/donation/details' };
   }, [isDonationDetailsFilled]);
 
+  const handleButtonClick = useCallback(() => {
+    setIsCartSidebarShown(false);
+  }, []);
+
   return (
     <Link href={donationHref} passHref>
       <Button
         size="lg"
         className={classNames(styles.proceedToDonationButton, className)}
+        onClick={handleButtonClick}
       >
         <span>Proceed to donate</span>
         <ArrowRightCircle />

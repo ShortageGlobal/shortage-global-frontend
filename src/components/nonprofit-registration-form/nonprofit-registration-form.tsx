@@ -129,7 +129,7 @@ export function NonprofitRegistrationForm() {
       <Row>
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="firstName"
           className={styles.formGroup}
         >
@@ -148,7 +148,7 @@ export function NonprofitRegistrationForm() {
         </Form.Group>
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="lastName"
           className={styles.formGroup}
         >
@@ -168,7 +168,7 @@ export function NonprofitRegistrationForm() {
 
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="email"
           className={styles.formGroup}
         >
@@ -188,7 +188,7 @@ export function NonprofitRegistrationForm() {
 
         <Form.Group
           as={Col}
-          md={6}
+          xs={6}
           controlId="phoneNumber"
           className={styles.formGroup}
         >

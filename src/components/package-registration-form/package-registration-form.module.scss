@@ -6,10 +6,8 @@
     margin: 2rem 0;
   }
 
-  .formGroupsWrapper {
-    > * + * {
-      margin-top: 1.5rem;
-    }
+  .formGroup {
+    margin-bottom: 1.5rem;
   }
 
   .reviewDonationDetails {
@@ -17,8 +15,10 @@
   }
 
   .packageContentItems {
+    margin-bottom: 3rem;
+
     > * + * {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
   }
 
