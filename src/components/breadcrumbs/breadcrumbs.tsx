@@ -1,11 +1,15 @@
 import styles from './breadcrumbs.module.scss';
 import classNames from 'classnames';
+import { Home } from 'react-feather';
 import Link, { LinkProps } from 'next/link';
 import type { Slug, Uuid } from 'app/api/types';
+import type { ReactNode } from 'react';
 
 type BreadcrumbItem = {
-  label?: string;
+  key?: string;
+  label?: string | ReactNode;
   href?: LinkProps['href'];
+  className?: string;
   isActive?: boolean;
 };
 
@@ -20,10 +24,14 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
         {items.map((item) => {
           return (
             <li
-              key={item.label}
-              className={classNames('breadcrumb-item text-truncate', {
-                active: item.isActive,
-              })}
+              key={item.key}
+              className={classNames(
+                'breadcrumb-item text-truncate',
+                item.className,
+                {
+                  active: item.isActive,
+                }
+              )}
               {...(item.isActive ? { 'aria-current': 'page' } : {})}
             >
               {item.isActive ? (
@@ -42,22 +50,27 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
 }
 
 const defaultCrumb = Object.freeze({
+  key: 'crumb',
   label: 'Crumb',
   href: '/',
+  className: null,
   isActive: false,
 });
 
 export const getHomeCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
-    label: 'Home',
+    key: 'home',
+    label: <Home size="1rem" />,
     href: '/',
+    className: styles.homeBreadcrumb,
     ...props,
   });
 
 export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'privacy-policy',
     label: 'Privacy Policy',
     href: {
       pathname: '/privacy-policy',
@@ -68,6 +81,7 @@ export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
 export const getAboutUsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'about-us',
     label: 'About Us',
     href: {
       pathname: '/about-us',
@@ -78,6 +92,7 @@ export const getAboutUsCrumb = (props: BreadcrumbItem = {}) =>
 export const getForCorporateCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'for-corporate',
     label: 'For Corporate',
     href: {
       pathname: '/for-corporate',
@@ -88,6 +103,7 @@ export const getForCorporateCrumb = (props: BreadcrumbItem = {}) =>
 export const getForNonprofitCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'for-nonprofit',
     label: 'For Nonprofit',
     href: {
       pathname: '/for-nonprofit',
@@ -98,6 +114,7 @@ export const getForNonprofitCrumb = (props: BreadcrumbItem = {}) =>
 export const getDonationDetailsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'donation-details',
     label: 'Donation Details',
     href: {
       pathname: '/donation/details',
@@ -108,6 +125,7 @@ export const getDonationDetailsCrumb = (props: BreadcrumbItem = {}) =>
 export const getDonationCartCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'donation-cart',
     label: 'Donation Cart',
     href: {
       pathname: '/donation/details/cart',
@@ -125,6 +143,7 @@ export const getOrganizationCrumb = ({
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'organization-crumb',
     label: organizationName,
     href: {
       pathname: '/organizations/[organizationSlug]',
@@ -141,6 +160,7 @@ export const getPackageRegistrationCrumb = ({
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'package-registration',
     label: 'Package Registration',
     href: {
       pathname: '/organizations/[organizationSlug]/packages',
@@ -159,6 +179,7 @@ export const getPackageStatusCrumb = ({
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'package-status',
     label: 'Package Status',
     href: {
       pathname: '/organizations/[organizationSlug]/packages/[packageId]',
@@ -179,6 +200,7 @@ export const getProductCrumb = ({
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
+    key: 'product-crumb',
     label: productName,
     href: {
       pathname: '/organizations/[organizationSlug]/products/[productSlug]',
