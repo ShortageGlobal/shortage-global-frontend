@@ -90,7 +90,6 @@ export function CartSidebar() {
     return () => {
       router.events.off('routeChangeStart', handleSidebarHide);
     };
-    handleSidebarHide();
   }, [router]);
 
   const groupedCartItems = useMemo(() => {
