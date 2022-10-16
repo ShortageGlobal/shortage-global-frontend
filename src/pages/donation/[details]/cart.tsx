@@ -1,6 +1,13 @@
 import styles from 'styles/pages/donation-cart.module.scss';
 import { useMemo, useCallback, useEffect, useState } from 'react';
-import { Container, Row, Col, Alert, Spinner } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Alert,
+  Spinner,
+  Placeholder,
+} from 'react-bootstrap';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,6 +31,7 @@ import {
   getDonationCartCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { CartItem } from 'components/cart/cart-item/cart-item';
+import { CartItemPlaceholder } from 'components/cart/cart-item/cart-item-placeholder/cart-item-placeholder';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { DonationOptions } from 'components/cart/donation-options/donation-options';
 import { PAGE_KEY } from 'app/constants';
@@ -206,10 +214,19 @@ const DonationCart: NextPageWithLayout = () => {
             ) : null}
 
             {shouldShowLoadingMessage ? (
-              <div className={styles.loadingMessage}>
-                <Spinner animation="border" role="status"></Spinner>
-                <span>Loading data...</span>
-              </div>
+              <Placeholder
+                as="div"
+                animation="wave"
+                className={styles.placeholderContainer}
+              >
+                <Placeholder
+                  as="div"
+                  size="lg"
+                  className={styles.organizationName}
+                />
+                <CartItemPlaceholder />
+                <CartItemPlaceholder />
+              </Placeholder>
             ) : null}
 
             {shouldShowNoItemsMessage ? (

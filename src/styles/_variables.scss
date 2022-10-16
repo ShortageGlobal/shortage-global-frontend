@@ -39,6 +39,11 @@ $navbar-light-hover-color: rgba($primary, 1);
 $navbar-light-active-color: $navbar-light-hover-color;
 $navbar-toggler-focus-width: 0;
 
+// Placeholder
+$placeholder-opacity-max: 0.5;
+$placeholder-opacity-min: 0.4;
+$placeholder-background-color: var(--bs-gray-400);
+
 // Form Control
 $input-border-radius: 0;
 $input-border-radius-sm: 0;
