@@ -1,0 +1,56 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.cartItemPlaceholder {
+  display: grid;
+  color: $placeholder-background-color;
+  grid-template-columns: 100px 1fr 1fr;
+  grid-template-rows: 2rem 1fr;
+  gap: 0px 1rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'photo name name'
+    'photo quantity remove';
+
+  .photo {
+    grid-area: photo;
+
+    > * {
+      display: block;
+      height: 100px;
+    }
+  }
+
+  .name {
+    grid-area: name;
+    display: flex;
+    flex-direction: column;
+
+    > * {
+      width: 15ch;
+    }
+  }
+
+  .quantity {
+    grid-area: quantity;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .quantityLabel {
+      width: 8ch;
+    }
+  }
+
+  .remove {
+    grid-area: remove;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .quantityInput,
+  .removeButton {
+    min-height: 38px; // matches input height
+  }
+}
