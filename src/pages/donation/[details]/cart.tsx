@@ -107,7 +107,7 @@ const DonationCart: NextPageWithLayout = () => {
     );
   }, [shouldRedirect, shouldShowContent, isCartReady, groupedCartItems]);
 
-  const shouldShowLoadingMessage = useMemo(() => {
+  const shouldShowPlaceholder = useMemo(() => {
     return !shouldRedirect && !shouldShowContent && !shouldShowNoItemsMessage;
   }, [shouldRedirect, shouldShowContent, shouldShowNoItemsMessage]);
 
@@ -213,10 +213,10 @@ const DonationCart: NextPageWithLayout = () => {
               </div>
             ) : null}
 
-            {shouldShowLoadingMessage ? (
+            {shouldShowPlaceholder ? (
               <Placeholder
                 as="div"
-                animation="wave"
+                animation="glow"
                 className={styles.placeholderContainer}
               >
                 <Placeholder

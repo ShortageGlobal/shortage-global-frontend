@@ -5,7 +5,7 @@ export function CartItemPlaceholder() {
   return (
     <Placeholder
       as="div"
-      animation="wave"
+      animation="glow"
       className={styles.cartItemPlaceholder}
     >
       <div className={styles.photo}>

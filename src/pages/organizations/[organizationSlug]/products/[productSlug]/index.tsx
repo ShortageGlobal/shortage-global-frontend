@@ -153,7 +153,7 @@ const ProductPage: NextPageWithLayout = () => {
 
               {/* Placeholder */}
               {!isCartReady ? (
-                <Placeholder as="div" animation="wave">
+                <Placeholder as="div" animation="glow">
                   <Placeholder.Button
                     size="lg"
                     aria-hidden="true"
