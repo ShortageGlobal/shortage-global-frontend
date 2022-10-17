@@ -1,4 +1,5 @@
 export const API_ROOT = process.env.NEXT_PUBLIC_API_ROOT;
+export const IS_STAGING = process.env.NEXT_PUBLIC_ENV === 'staging';
 
 // Live Chat
 export const LIVE_CHAT_LICENCE_ID =
