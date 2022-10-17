@@ -123,10 +123,17 @@ const ProductPage: NextPageWithLayout = () => {
             {/* Price */}
             {product.price !== null ? (
               <div>
-                <span className={styles.price}>
-                  {formatPrice(product.price)}
-                </span>{' '}
-                <span>retail price</span>
+                <div>
+                  <span className={styles.price}>
+                    {formatPrice(product.price)}
+                  </span>{' '}
+                  <span>retail price</span>
+                </div>
+                <div>
+                  <span className="text-muted">
+                    including all commissions and fees
+                  </span>
+                </div>
               </div>
             ) : null}
 
