@@ -5,7 +5,6 @@ import { Menu, X } from 'react-feather';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAppSelector, useScrollPosition } from 'app/hooks';
 import { selectSearch } from 'app/store/slices/search';
 import { LogoImage } from 'components/logo-image/logo-image';
