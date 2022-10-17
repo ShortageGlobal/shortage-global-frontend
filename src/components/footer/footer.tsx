@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Col, Container, Row } from 'react-bootstrap';
+import { LogoImage } from 'components/logo-image/logo-image';
 
 export function Footer() {
   return (
@@ -16,12 +17,7 @@ export function Footer() {
           <Col md="6" className={styles.leftColumn}>
             <Link href="/">
               <a className={styles.logo}>
-                <Image
-                  src="/images/logo/Shortage.svg"
-                  alt="Shortage"
-                  layout="fill"
-                  priority
-                />
+                <LogoImage />
               </a>
             </Link>
 
