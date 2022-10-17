@@ -83,6 +83,14 @@ $error-page-status-code-border-color: var(--bs-gray-400);
 // Promo banner
 $promo-banner-highlighted-header-underline-color: $primary;
 
+// Promo campaign
+$promo-campaign-color: $white;
+$primary-campaign-action-bg-color: $white;
+$primary-campaign-action-border-color: var(--bs-dark);
+$primary-campaign-action-color: $primary;
+$primary-campaign-action-hover-bg-color: $primary;
+$primary-campaign-action-hover-color: $white;
+
 // Promo steps
 $promo-step-bg-color: $secondary-background;
 $promo-step-counter-bg-color: $primary;
