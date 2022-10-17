@@ -8,6 +8,7 @@ import {
 import { fetchPromotedProducts } from 'app/store/slices/promoted-products';
 import { setSearchQuery } from 'app/store/slices/search';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
+import { PromoCampaign } from 'components/promo-campaign/promo-campaign';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
 import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
@@ -22,6 +23,10 @@ const IndexPage: NextPageWithLayout = () => {
         <title>Shortage | Donate tangible goods</title>
       </Head>
       <PromoBanner />
+      <PromoCampaign
+        text="Florida Emergency Response"
+        background="/images/promo-campaigns/florida_flood_banner.png"
+      />
       <DonationSteps />
       <PromotedProducts />
       <PromotedOrganizations />

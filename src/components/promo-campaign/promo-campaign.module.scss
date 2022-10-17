@@ -1,0 +1,64 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.promoCampaign {
+  display: flex;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
+  min-height: 100px;
+  justify-content: space-between;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: cover;
+  text-decoration: none;
+
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+  }
+
+  &:hover {
+    .checkRequestsButton {
+      color: $primary-campaign-action-hover-color;
+      background-color: $primary-campaign-action-hover-bg-color;
+    }
+  }
+
+  .text {
+    flex: 1;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: $promo-campaign-color;
+  }
+
+  .checkRequestsButton {
+    flex-shrink: 0;
+    padding: 0.5rem 2rem;
+    margin-left: 2rem;
+    text-transform: capitalize;
+    color: $primary-campaign-action-color;
+    background-color: $primary-campaign-action-bg-color;
+    border-color: $primary-campaign-action-border-color;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .text {
+      font-size: 2rem;
+      line-height: 1.3;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+
+    .checkRequestsButton {
+      margin-left: 0rem;
+      margin-top: 1rem;
+    }
+  }
+}
