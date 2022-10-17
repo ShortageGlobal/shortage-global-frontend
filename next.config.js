@@ -1,9 +1,5 @@
 module.exports = {
   images: {
-    domains: [
-      '127.0.0.1',
-      'app.shortage.global',
-      'shortage-global.sfo3.digitaloceanspaces.com',
-    ],
+    domains: process.env.NEXT_PUBLIC_IMAGES_DOMAINS.split(','),
   },
 };
