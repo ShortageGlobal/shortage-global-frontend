@@ -14,7 +14,7 @@ import { CartSidebar } from 'components/cart/sidebar/cart-sidebar';
 import { LiveChat } from 'components/live-chat/live-chat';
 import * as gtag from 'app/tracking/gtag';
 import * as fbq from 'app/tracking/fpixel';
-import { GA_TRACKING_ID, FB_PIXEL_ID } from 'app/constants';
+import { IS_STAGING, GA_TRACKING_ID, FB_PIXEL_ID } from 'app/constants';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
@@ -104,6 +104,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </>
     ));
 
+  const faviconHref = IS_STAGING ? '/favicon_staging.png' : '/favicon.png';
+
   return (
     <>
       <Head>
@@ -124,7 +126,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta property="og:image:type" content="image/png" />
 
         <title>Shortage | Donate tangible goods</title>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href={faviconHref} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <meta

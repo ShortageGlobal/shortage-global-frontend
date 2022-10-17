@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAppSelector, useScrollPosition } from 'app/hooks';
 import { selectSearch } from 'app/store/slices/search';
+import { LogoImage } from 'components/logo-image/logo-image';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
 import { CartButton } from 'components/cart/cart-button/cart-button';
@@ -69,12 +70,7 @@ export function Header() {
         <Container className={styles.container}>
           <Link href="/" passHref>
             <Navbar.Brand className={styles.navbarBrand}>
-              <Image
-                src="/images/logo/Shortage.svg"
-                alt="Shortage"
-                layout="fill"
-                priority
-              />
+              <LogoImage />
             </Navbar.Brand>
           </Link>
 
