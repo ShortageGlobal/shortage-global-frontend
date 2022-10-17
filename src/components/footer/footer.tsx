@@ -75,7 +75,7 @@ export function Footer() {
 
             <a href="mailto:support@shortage.global">support@shortage.global</a>
 
-            <Link href="/privacy-policy">Privacy Policy</Link>
+            {/* <Link href="/privacy-policy">Privacy Policy</Link> */}
           </Col>
         </Row>
       </Container>
