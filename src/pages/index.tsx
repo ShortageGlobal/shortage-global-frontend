@@ -29,7 +29,7 @@ const IndexPage: NextPageWithLayout = () => {
       />
       <DonationSteps />
       <PromotedProducts />
-      <PromotedOrganizations />
+      {/* <PromotedOrganizations /> */}
     </>
   );
 };
