@@ -17,7 +17,9 @@ import {
   getPackageStatusCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
+import { PACKAGE_TYPE } from 'app/constants';
 import type { NextPageWithLayout } from 'pages/_app';
+import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
 
 const PackageRegistrationPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -25,7 +27,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
   const packageState = useAppSelector(selectPackage);
 
-  const { isCartReady, deleteFromCart } = useCart();
+  const { isCartReady, cart, deleteFromCart } = useCart();
 
   const breadcrumbs = useMemo(() => {
     return [
@@ -41,6 +43,16 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       }),
     ];
   }, [organization]);
+
+  const hasOtherCartItems = useMemo(() => {
+    const cartItemIdsToDelete = router.query?.dci || [];
+    return (
+      isCartReady &&
+      cart.items.filter(
+        (cartItem) => !cartItemIdsToDelete.includes(cartItem.uuid)
+      ).length > 0
+    );
+  }, [isCartReady, cart, router]);
 
   // detect "dci" query parameters and delete corresponding cart items
   useEffect(() => {
@@ -71,12 +83,22 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
     }
   }, [isCartReady, router.query?.dci]);
 
-  const [showDonationSuccessAlert, setShowDonationSuccessAlert] = useState(
-    () => router.query?.paymentStatus === 'succeeded'
+  // for funded donations
+  const [showPaymentSucceededAlert, setShowPaymentSucceededAlert] = useState(
+    () =>
+      router.query?.paymentStatus === 'succeeded' &&
+      packageState.package.type === PACKAGE_TYPE.FUNDED_BY_DONOR
   );
 
-  const handleDismissDonationSuccessAlert = useCallback(() => {
-    setShowDonationSuccessAlert(false);
+  const [showRegistrationSucceededAlert, setShowRegistrationSucceededAlert] =
+    useState(
+      () =>
+        router.query?.registrationStatus === 'succeeded' &&
+        packageState.package.type === PACKAGE_TYPE.SENT_BY_DONOR
+    );
+
+  const handleDismissPaymentSucceededAlert = useCallback(() => {
+    setShowPaymentSucceededAlert(false);
 
     // remove "paymentStatus" from query params
     const queryParams = { ...router.query };
@@ -88,6 +110,29 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       { shallow: true } // do not run getServerSideProps
     );
   }, [router]);
+
+  const handleDismissRegistrationSucceededAlert = useCallback(() => {
+    setShowRegistrationSucceededAlert(false);
+
+    // remove "registrationStatus" from query params
+    const queryParams = { ...router.query };
+    delete queryParams.registrationStatus;
+
+    router.replace(
+      { query: queryParams },
+      undefined,
+      { shallow: true } // do not run getServerSideProps
+    );
+  }, [router]);
+
+  const otherCartItemsAction = hasOtherCartItems ? (
+    <>
+      <div>Also, there are other items in your cart. </div>
+      <div className={styles.donateButton}>
+        <ProceedToDonationButton />
+      </div>
+    </>
+  ) : null;
 
   return (
     <>
@@ -106,20 +151,52 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       <Container>
         <Row>
           <Col className={styles.packageStatus}>
-            {showDonationSuccessAlert ? (
+            {showPaymentSucceededAlert ? (
               <Row>
                 <Col>
                   <Alert
                     variant="success"
-                    className={styles.requireDetailsAlert}
-                    onClose={handleDismissDonationSuccessAlert}
+                    className={styles.successAlert}
+                    onClose={handleDismissPaymentSucceededAlert}
                     dismissible
                   >
-                    <Alert.Heading>Thank you for your donation</Alert.Heading>
-                    <div>
-                      The payment is being processed. You can track the status
-                      of your donation on this page. The confirmation email will
-                      be in your inbox shortly.
+                    <Alert.Heading>
+                      <span>Thank you for your donation</span>
+                    </Alert.Heading>
+                    <div className={styles.body}>
+                      <div>
+                        The payment is being processed. You can track the status
+                        of your donation on this page. The confirmation email
+                        will be in your inbox shortly.
+                      </div>
+
+                      {otherCartItemsAction}
+                    </div>
+                  </Alert>
+                </Col>
+              </Row>
+            ) : null}
+
+            {showRegistrationSucceededAlert ? (
+              <Row>
+                <Col>
+                  <Alert
+                    variant="success"
+                    className={styles.successAlert}
+                    onClose={handleDismissRegistrationSucceededAlert}
+                    dismissible
+                  >
+                    <Alert.Heading>
+                      <span>Thank you for your donation</span>
+                    </Alert.Heading>
+                    <div className={styles.body}>
+                      <div>
+                        We have received your donation details. You can track
+                        the status of your donation on this page. The
+                        confirmation email will be in your inbox shortly.
+                      </div>
+
+                      {otherCartItemsAction}
                     </div>
                   </Alert>
                 </Col>

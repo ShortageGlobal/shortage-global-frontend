@@ -101,6 +101,7 @@ export function PackageRegistrationForm({
             organizationSlug: organization.slug,
             packageId: response.data.uuid,
             dci: items.map((item) => item.uuid),
+            registrationStatus: 'succeeded',
           },
         });
       } catch (rejection) {
