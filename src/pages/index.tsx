@@ -10,7 +10,7 @@ import { setSearchQuery } from 'app/store/slices/search';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromoCampaign } from 'components/promo-campaign/promo-campaign';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
-import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
+// import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
 import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'app/constants';
 import type { Category } from 'app/api/types';
