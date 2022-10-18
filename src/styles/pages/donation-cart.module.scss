@@ -31,57 +31,78 @@
   }
 }
 
+.redirectingMessage {
+  display: flex;
+  align-items: center;
+  margin: 3rem 0;
+  > * + * {
+    margin-left: 1rem;
+  }
+}
+
 .noItemsMessage {
   margin: 3rem 0;
 }
 
-.sectionHeader {
-  margin: 3rem 0 2rem;
-  text-align: center;
-}
-
-.cartItemsGroup {
-  margin-bottom: 2rem;
-}
-
-.cartItemsList {
-  > * + * {
-    margin-top: 1.5rem;
-  }
-}
-
-.summaryLine {
+.donationOptionsAlertHeading {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: 3rem 0;
-  font-size: 1.2rem;
-  font-weight: 500;
-  position: relative;
 
-  > * {
-    margin: 0;
+  > * + * {
+    margin-left: 0.5rem;
+  }
+}
+
+.donationOptionsAlertList {
+  margin: 0;
+}
+
+.cartGroup {
+  margin-top: 2rem;
+
+  .cartGroupTitle {
+    font-size: 1.5rem;
   }
 
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: 2px;
-    width: 100%;
-    border-bottom: 2px solid $donation-cart-summary-line-border-color;
-    z-index: -1;
+  .cartItemsList {
+    > * + * {
+      margin-top: 1.5rem;
+    }
   }
 
-  .summaryLabel {
+  .summaryLine {
     display: flex;
-    padding-right: 0.5rem;
-    background-color: $donation-cart-summary-line-labels-br-color;
-  }
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    position: relative;
 
-  .summaryValue {
-    display: flex;
-    padding-left: 0.5rem;
-    background-color: white;
+    > * {
+      margin: 0;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 2px;
+      width: 100%;
+      border-bottom: 2px solid $donation-cart-summary-line-border-color;
+      z-index: -1;
+    }
+
+    .summaryLabel {
+      display: flex;
+      padding-right: 0.5rem;
+      background-color: $donation-cart-summary-line-labels-br-color;
+    }
+
+    .summaryValue {
+      display: flex;
+      padding-left: 0.5rem;
+      background-color: white;
+    }
   }
 }

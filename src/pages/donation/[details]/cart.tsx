@@ -8,6 +8,7 @@ import {
   Spinner,
   Placeholder,
 } from 'react-bootstrap';
+import { Info } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -76,13 +77,6 @@ const DonationCart: NextPageWithLayout = () => {
       { shallow: true } // do not run getServerSideProps
     );
   }, [router]);
-
-  const totalPrice = useMemo(() => {
-    return cart?.items.reduce(
-      (sum, item) => sum + (item.product.price || 0) * item.quantity,
-      0
-    );
-  }, [cart?.items]);
 
   const groupedCartItems = useMemo(() => {
     return groupCartItemsByOrganization({ items: cart?.items });
@@ -194,7 +188,7 @@ const DonationCart: NextPageWithLayout = () => {
             ) : null}
 
             {shouldRedirect ? (
-              <div className={styles.loadingMessage}>
+              <div className={styles.redirectingMessage}>
                 <Spinner animation="border" role="status"></Spinner>
                 <span>
                   Redirecting to{' '}
@@ -242,30 +236,64 @@ const DonationCart: NextPageWithLayout = () => {
 
             {shouldShowContent ? (
               <>
+                <Alert variant="info">
+                  <Alert.Heading className={styles.donationOptionsAlertHeading}>
+                    <Info size={20} />
+                    <span>Donation Options</span>
+                  </Alert.Heading>
+                  <div>
+                    <span>You can donate in two ways:</span>
+                    <ol className={styles.donationOptionsAlertList}>
+                      <li>
+                        <b>Fund donation</b> - we will buy the selected goods on
+                        your behalf.
+                      </li>
+                      <li>
+                        <b>Donate what you have</b> - we will provide delivery
+                        instructions.
+                      </li>
+                    </ol>
+                  </div>
+                </Alert>
+
+                <ReviewDonationDetails />
+
+                {/* Cart Groups */}
                 <div>
                   {Array.from(groupedCartItems.values()).map(
-                    (cartItemsGroup) => {
+                    (cartGroup, index) => {
+                      const totalPrice = cartGroup.items.reduce(
+                        (sum, item) =>
+                          sum + (item.product.price || 0) * item.quantity,
+                        0
+                      );
+
                       return (
                         <div
-                          key={cartItemsGroup.organizationSlug}
-                          className={styles.cartItemsGroup}
+                          key={cartGroup.organizationSlug}
+                          className={styles.cartGroup}
                         >
-                          <p>
+                          {/* Title */}
+                          <p className={styles.cartGroupTitle}>
+                            {groupedCartItems.size > 1
+                              ? `${index + 1}. `
+                              : null}
                             For{' '}
                             <Link
                               href={{
                                 pathname: '/organizations/[organizationSlug]',
                                 query: {
-                                  organizationSlug:
-                                    cartItemsGroup.organizationSlug,
+                                  organizationSlug: cartGroup.organizationSlug,
                                 },
                               }}
                             >
-                              <a>{cartItemsGroup.organizationName}</a>
+                              <a>{cartGroup.organizationName}</a>
                             </Link>
                           </p>
+
+                          {/* Cart Items */}
                           <div className={styles.cartItemsList}>
-                            {cartItemsGroup.items.map((item) => {
+                            {cartGroup.items.map((item) => {
                               return (
                                 <CartItem
                                   key={item.uuid}
@@ -276,30 +304,23 @@ const DonationCart: NextPageWithLayout = () => {
                               );
                             })}
                           </div>
+
+                          {/* Summary */}
+                          <dl className={styles.summaryLine}>
+                            <dt className={styles.summaryLabel}>
+                              Total donation
+                            </dt>
+                            <dd className={styles.summaryValue}>
+                              {formatPrice(totalPrice)}
+                            </dd>
+                          </dl>
+
+                          {/* Donation Options */}
+                          <DonationOptions cartGroup={cartGroup} />
                         </div>
                       );
                     }
                   )}
-                </div>
-
-                <dl className={styles.summaryLine}>
-                  <dt className={styles.summaryLabel}>Total donation</dt>
-                  <dd className={styles.summaryValue}>
-                    {formatPrice(totalPrice)}
-                  </dd>
-                </dl>
-
-                <ReviewDonationDetails />
-
-                <div>
-                  <h4 className={styles.sectionHeader}>
-                    How would you like to donate?
-                  </h4>
-                  <Row>
-                    <Col>
-                      <DonationOptions groupedCartItems={groupedCartItems} />
-                    </Col>
-                  </Row>
                 </div>
               </>
             ) : null}
