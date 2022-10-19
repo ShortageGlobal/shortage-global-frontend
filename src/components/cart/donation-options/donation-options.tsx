@@ -2,8 +2,8 @@ import styles from './donation-options.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState, useMemo } from 'react';
 import { Button } from 'react-bootstrap';
-import { Loader } from 'react-feather';
-import Image from 'next/image';
+import { DollarSign, Loader, Package } from 'react-feather';
+import classNames from 'classnames';
 import {
   useAppSelector,
   useCart,
@@ -13,14 +13,14 @@ import {
 import { selectInstructions } from 'app/store/slices/instructions';
 import { createPackage } from 'app/api';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
-import { groupCartItemsByOrganization } from 'app/helpers';
 import { PACKAGE_TYPE } from 'app/constants';
+import type { CartGroup } from 'app/helpers';
 
 type DonationOptionsProps = {
-  groupedCartItems: ReturnType<typeof groupCartItemsByOrganization>;
+  cartGroup: CartGroup;
 };
 
-export function DonationOptions({ groupedCartItems }: DonationOptionsProps) {
+export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   const { cart } = useCart();
   const { instructions } = useAppSelector(selectInstructions);
 
@@ -29,13 +29,9 @@ export function DonationOptions({ groupedCartItems }: DonationOptionsProps) {
 
   const getCreatePackageCancelToken = useCancelToken();
 
-  // TODO: HARDCODE! Add support for multiple organizations in cart
-  const firstOrganization = useMemo(() => {
-    return Array.from(groupedCartItems.values())[0];
-  }, [groupedCartItems]);
   const organizationInstructions = useMemo(() => {
-    return instructions?.[firstOrganization?.organizationSlug];
-  }, [instructions, firstOrganization]);
+    return instructions?.[cartGroup.organizationSlug];
+  }, [instructions, cartGroup]);
 
   const handleFundDonation = useCallback(async () => {
     const cancelToken = getCreatePackageCancelToken();
@@ -43,7 +39,7 @@ export function DonationOptions({ groupedCartItems }: DonationOptionsProps) {
     try {
       const response = await createPackage({
         type: PACKAGE_TYPE.FUNDED_BY_DONOR,
-        organizationSlug: firstOrganization.organizationSlug,
+        organizationSlug: cartGroup.organizationSlug,
         firstName: cart.first_name,
         lastName: cart.last_name,
         email: cart.email,
@@ -55,15 +51,13 @@ export function DonationOptions({ groupedCartItems }: DonationOptionsProps) {
         stateProvinceRegion: cart.state_province_region,
         zip: cart.zip,
         country: cart.country,
-        items: groupedCartItems
-          .get(firstOrganization.organizationSlug)
-          .items.map((item) => {
-            return {
-              product: item.product.slug,
-              quantity: item.quantity,
-              cart_item_uuid: item.uuid,
-            };
-          }),
+        items: cartGroup.items.map((item) => {
+          return {
+            product: item.product.slug,
+            quantity: item.quantity,
+            cart_item_uuid: item.uuid,
+          };
+        }),
         cancelToken,
       });
       // redirect to the checkout page
@@ -74,7 +68,7 @@ export function DonationOptions({ groupedCartItems }: DonationOptionsProps) {
       }
       setIsPackageBeingCreated(false);
     }
-  }, [firstOrganization, cart, groupedCartItems]);
+  }, [cartGroup, cart]);
 
   const handleShowInstructionsModal = useCallback(() => {
     setShowInstructionsModal(true);
@@ -92,61 +86,45 @@ export function DonationOptions({ groupedCartItems }: DonationOptionsProps) {
     <>
       <div className={styles.donationOptions}>
         {/* Fund donation option */}
-        <button
+        <Button
+          size="lg"
+          className={styles.button}
           onClick={handleFundDonation}
-          className={styles.donationOptionButton}
           disabled={isPackageBeingCreated}
         >
-          <div className={styles.donationOptionGlyph}>
-            <Image
-              alt=""
-              src="/images/donation-cart/donation-fund.svg"
-              width={50}
-              height={50}
+          {isPackageBeingCreated ? (
+            <Loader
+              role="status"
+              aria-hidden="true"
+              className={classNames(animationStyles.rotate, styles.buttonGlyph)}
             />
-          </div>
-          <p>We&apos;ll buy the selected goods on your behalf</p>
-          <Button as="span" size="lg" tabIndex={-1} className={styles.button}>
-            {isPackageBeingCreated ? (
-              <Loader
-                role="status"
-                aria-hidden="true"
-                className={animationStyles.rotate}
-              />
-            ) : null}
-            <span>Fund Donation</span>
-          </Button>
-        </button>
+          ) : (
+            <DollarSign className={styles.buttonGlyph} />
+          )}
+          <span>Fund donation</span>
+        </Button>
 
-        <div className={styles.donationOptionsSeparator}>
+        {/* Separator */}
+        <div className={styles.separator}>
           <span>OR</span>
         </div>
 
         {/* Send what donor has option */}
-        <button
+        <Button
+          size="lg"
+          className={styles.button}
           onClick={handleTangibleDonation}
-          className={styles.donationOptionButton}
         >
-          <div className={styles.donationOptionGlyph}>
-            <Image
-              alt=""
-              src="/images/donation-cart/donation-package.svg"
-              width={50}
-              height={50}
-            />
-          </div>
-          <p>We&apos;ll provide delivery instructions</p>
-          <Button as="span" size="lg" tabIndex={-1} className={styles.button}>
-            Donate what I have
-          </Button>
-        </button>
+          <Package className={styles.buttonGlyph} />
+          <span>Donate what I have</span>
+        </Button>
       </div>
 
       {organizationInstructions?.length > 0 ? (
         <InstructionsModal
           show={showInstructionsModal}
-          organizationSlug={firstOrganization?.organizationSlug}
-          organizationName={firstOrganization?.organizationName}
+          organizationSlug={cartGroup.organizationSlug}
+          organizationName={cartGroup.organizationName}
           instructions={organizationInstructions}
           onHide={handleHideInstructionsModal}
         />

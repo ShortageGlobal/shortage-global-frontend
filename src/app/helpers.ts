@@ -30,7 +30,7 @@ export function stripProtocolFromUrl(url: string) {
 }
 
 // group a cart items list by organization
-type CartGroup = {
+export type CartGroup = {
   organizationName: string;
   organizationSlug: Slug;
   items: CartItem[];
