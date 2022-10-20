@@ -45,7 +45,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     // try to extract category from query parameters
     const { categories } = store.getState().promotedCategories;
     const categoryQuery = context.query.category as Category;
-    const currentCategory = categories.includes(categoryQuery)
+    const currentCategory = categories?.includes(categoryQuery)
       ? categoryQuery
       : PRODUCT_CATEGORY_ALL_KEY;
     store.dispatch(setCurrentCategory(currentCategory));

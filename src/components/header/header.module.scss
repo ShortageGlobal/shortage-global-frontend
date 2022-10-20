@@ -80,18 +80,10 @@
     }
   }
 
-  .button {
-    border: none;
-    text-align: left;
-
-    &:hover,
-    &:focus {
-      color: $navbar-light-hover-color;
-    }
-
-    @include media-breakpoint-down(lg) {
-      padding: 0.5rem 0.7rem;
-    }
+  .shortageUaLink {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
   }
 
   .control {
