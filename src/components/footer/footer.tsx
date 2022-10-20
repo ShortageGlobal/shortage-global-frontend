@@ -34,6 +34,19 @@ export function Footer() {
             <ul className={styles.socialMediaLinks}>
               <li>
                 <a
+                  href="https://twitter.com/shortageglobal"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/social-media-glyphs/twitter.svg"
+                    alt="Shortage Twitter page"
+                    layout="fill"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://www.facebook.com/shortage.global/"
                   target="_blank"
                   rel="noreferrer"
@@ -47,19 +60,6 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.linkedin.com/company/shortageglobal/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Image
-                    src="/images/social-media-glyphs/linkedin.svg"
-                    alt="Shortage LinkedIn page"
-                    layout="fill"
-                  />
-                </a>
-              </li>
-              <li>
-                <a
                   href="https://www.instagram.com/shortage.global/"
                   target="_blank"
                   rel="noreferrer"
@@ -67,6 +67,19 @@ export function Footer() {
                   <Image
                     src="/images/social-media-glyphs/instagram.svg"
                     alt="Shortage Instagram page"
+                    layout="fill"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/shortageglobal/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/social-media-glyphs/linkedin.svg"
+                    alt="Shortage LinkedIn page"
                     layout="fill"
                   />
                 </a>
