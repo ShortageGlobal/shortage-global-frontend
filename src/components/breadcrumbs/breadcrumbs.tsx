@@ -67,6 +67,42 @@ export const getHomeCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getSignInCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'sign-in',
+    label: 'Sign In',
+    href: '/account/sign-in',
+    ...props,
+  });
+
+export const getRegisterCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'register',
+    label: 'Register',
+    href: '/account/register',
+    ...props,
+  });
+
+export const getForgotPasswordCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'forgot-password',
+    label: 'Forgot Password',
+    href: '/account/forgot-password',
+    ...props,
+  });
+
+export const getProfile = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'profile',
+    label: 'Profile',
+    href: '/private/profile',
+    ...props,
+  });
+
 export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
