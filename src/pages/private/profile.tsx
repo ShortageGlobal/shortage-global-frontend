@@ -2,7 +2,7 @@ import styles from 'styles/pages/account-form.module.scss';
 import { useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
-import { wrapper } from 'app/store';
+import { wrapper } from 'core/store';
 import {
   Breadcrumbs,
   getHomeCrumb,

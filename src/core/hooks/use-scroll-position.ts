@@ -12,7 +12,7 @@ type ScrollProps = {
 
 type ElementRef = MutableRefObject<HTMLElement | undefined>;
 
-const isBrowser = typeof window !== `undefined`;
+const isBrowser = typeof window !== 'undefined';
 const zeroPosition = { x: 0, y: 0 };
 
 const getClientRect = (element?: HTMLElement) =>

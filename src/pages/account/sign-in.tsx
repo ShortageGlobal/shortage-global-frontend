@@ -1,7 +1,7 @@
 import styles from 'styles/pages/account-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import classNames from 'classnames';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import {
   Container,
   Row,
@@ -12,8 +12,10 @@ import {
   Button,
 } from 'react-bootstrap';
 import { Loader, Eye, EyeOff } from 'react-feather';
+import { getCsrfToken, signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { wrapper } from 'app/store';
+import { wrapper } from 'core/store';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -21,39 +23,76 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import type { FormEvent } from 'react';
 import type { NextPageWithLayout } from 'pages/_app';
+import { isRequestCancel } from 'core/hooks';
 
-const SignIn: NextPageWithLayout = () => {
+type SignInProps = { csrfToken: Awaited<ReturnType<typeof getCsrfToken>> };
+
+const SignIn: NextPageWithLayout = ({ csrfToken }: SignInProps) => {
+  const session = useSession();
+  const router = useRouter();
+
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getSignInCrumb({ isActive: true })];
   }, []);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const isAuthenticated = useMemo(
+    () => session?.status === 'authenticated',
+    [session?.status]
+  );
+
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  // redirect from sign in page if authenticated
+  useEffect(() => {
+    if (session?.status === 'authenticated') {
+      const callbackUrl = router?.query?.callbackUrl || '/';
+      const url = Array.isArray(callbackUrl) ? callbackUrl[0] : callbackUrl;
+      router.replace(url);
+    }
+  }, [isAuthenticated, router?.query?.callbackUrl]);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (isPending) {
+      if (isPending || isAuthenticated) {
         return;
       }
 
       setIsPending(true);
 
+      // use form instead of state because of problems with autofill
+      const target = e.target as typeof e.target & {
+        email: HTMLInputElement;
+        password: HTMLInputElement;
+      };
+
       try {
-        // await signIn({ email, password });
-      } catch (rejection) {
-        if (rejection.response?.status === 401) {
-          setErrorMessage(rejection.response.data.detail);
+        const response = await signIn('credentials', {
+          email: target.email.value,
+          password: target.password.value,
+          csrfToken,
+          redirect: false,
+        });
+
+        if (response.error) {
+          // show error message if
+          setErrorMessage(response.error);
           setIsPending(false);
+        }
+      } catch (rejection) {
+        if (isRequestCancel(rejection)) {
           return;
         }
+        setErrorMessage(
+          'Operation failed. Try again and contact support if the problem persists'
+        );
+        setIsPending(false);
       }
     },
-    [email, password, isPending]
+    [csrfToken, isPending, isAuthenticated, router]
   );
 
   return (
@@ -84,12 +123,10 @@ const SignIn: NextPageWithLayout = () => {
               <Form.Control
                 size="lg"
                 type="email"
-                placeholder=""
+                name="email"
                 required
                 autoFocus
-                value={email}
                 isInvalid={!!errorMessage}
-                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
           </Row>
@@ -105,12 +142,10 @@ const SignIn: NextPageWithLayout = () => {
                 <Form.Control
                   size="lg"
                   type={showPassword ? 'test' : 'password'}
-                  placeholder=""
+                  name="password"
                   required
                   autoFocus
-                  value={password}
                   isInvalid={!!errorMessage}
-                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button
                   variant=""
@@ -138,7 +173,7 @@ const SignIn: NextPageWithLayout = () => {
               <Button
                 type="submit"
                 size="lg"
-                disabled={isPending}
+                disabled={isPending || isAuthenticated}
                 className={styles.submitBtn}
               >
                 {isPending ? (
@@ -159,8 +194,11 @@ const SignIn: NextPageWithLayout = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
+  const csrfToken = await getCsrfToken();
   return {
-    props: {},
+    props: {
+      csrfToken,
+    },
   };
 });
 

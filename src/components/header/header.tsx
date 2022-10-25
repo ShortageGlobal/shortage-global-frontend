@@ -10,6 +10,7 @@ import { selectSearch } from 'core/store/slices/search';
 import { LogoImage } from 'components/logo-image/logo-image';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
+import { AccountDropdown } from 'components/header/account-dropdown/account-dropdown';
 import { CartButton } from 'components/cart/cart-button/cart-button';
 
 export function Header() {
@@ -84,7 +85,11 @@ export function Header() {
               {isNavbarExpanded ? <X /> : <Menu />}
             </Button>
 
-            <CartButton className={styles.cartButtonCollapsedNav} />
+            <AccountDropdown
+              toggleClassName={styles.headerControlCollapsedNav}
+            />
+
+            <CartButton className={styles.headerControlCollapsedNav} />
           </div>
 
           <Navbar.Collapse
@@ -109,18 +114,12 @@ export function Header() {
               {/* <ActiveLink href="/impact-stories" passHref>
                 <Nav.Link>Impact Stories</Nav.Link>
               </ActiveLink> */}
-
-              {/* <Link href="/" passHref>
-                <Nav.Link className={styles.control}>
-                  <User />
-
-                  <span className={styles.controlText}>Account</span>
-                </Nav.Link>
-              </Link> */}
             </Nav>
           </Navbar.Collapse>
 
-          <CartButton className={styles.cartButtonExpandedNav} />
+          <AccountDropdown toggleClassName={styles.headerControlExpandedNav} />
+
+          <CartButton className={styles.headerControlExpandedNav} />
         </Container>
       </Navbar>
     </header>
