@@ -147,7 +147,7 @@ export function useCart() {
         content_type: 'product',
         content_name: organization_slug,
         contents: [{ id: product_slug, quantity }],
-        value: product_price,
+        value: product_price * quantity,
         currency: 'USD',
       });
     },
