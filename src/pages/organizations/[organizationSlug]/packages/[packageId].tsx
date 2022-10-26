@@ -1,8 +1,9 @@
 import styles from 'styles/pages/package-status.module.scss';
 import { useMemo, useState, useCallback, useEffect } from 'react';
+import { Container, Row, Col, Alert } from 'react-bootstrap';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
+import * as fbq from 'app/tracking/fpixel';
 import { wrapper } from 'app/store';
 import { useAppSelector, useCart } from 'app/hooks';
 import {
@@ -61,6 +62,16 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
         ? router.query.dci
         : [router.query.dci];
 
+      // form data for tracking
+      const cartItems = cart.items.filter((cartItem) =>
+        cartItemIds.includes(cartItem.uuid)
+      );
+      const cartItemsPriceSum = cartItems.reduce((result, cartItem) => {
+        result += cartItem.quantity * cartItem.product.price;
+        return result;
+      }, 0);
+
+      // send request to remove cart items
       (async function () {
         try {
           await Promise.all(
@@ -80,6 +91,17 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
         undefined,
         { shallow: true } // do not run getServerSideProps
       );
+
+      fbq.event('Purchase', {
+        content_type: 'product',
+        content_name: organization.slug,
+        contents: cartItems.map((cartItem) => ({
+          id: cartItem.product.slug,
+          quantity: cartItem.quantity,
+        })),
+        value: cartItemsPriceSum,
+        currency: 'USD',
+      });
     }
   }, [isCartReady, router.query?.dci]);
 

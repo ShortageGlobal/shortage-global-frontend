@@ -1,4 +1,5 @@
 import { useMemo, useCallback } from 'react';
+import * as fbq from 'app/tracking/fpixel';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   selectCart,
@@ -114,7 +115,12 @@ export function useCart() {
   );
 
   const addToCart = useCallback(
-    async ({ product_slug, organization_slug, quantity }: CreateCartItem) => {
+    async ({
+      organization_slug,
+      product_slug,
+      product_price,
+      quantity,
+    }: CreateCartItem & { product_price: Product['price'] }) => {
       if (!isCartReady) {
         // the action should have been disabled, so do nothing
         return;
@@ -137,6 +143,13 @@ export function useCart() {
         quantity,
       });
       dispatch(setCartAction(cartResponse.data));
+      fbq.event('AddToCart', {
+        content_type: 'product',
+        content_name: organization_slug,
+        contents: [{ id: product_slug, quantity }],
+        value: product_price,
+        currency: 'USD',
+      });
     },
     [isCartReady, checkIsProductInCart, cart]
   );

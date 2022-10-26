@@ -127,8 +127,8 @@ export type Package = {
 };
 
 export type CreateCartItem = {
-  product_slug: string;
-  organization_slug: string;
+  organization_slug: Organization['slug'];
+  product_slug: Product['slug'];
   quantity: number;
 };
 

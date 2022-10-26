@@ -2,6 +2,7 @@ import styles from './we-are-here-for-you.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useCallback } from 'react';
 import Image from 'next/image';
+import * as fbq from 'app/tracking/fpixel';
 import { useAppDispatch } from 'app/hooks';
 import { toggleLiveChat } from 'app/store/slices/live-chat';
 
@@ -9,6 +10,7 @@ export function WeAreHereForYou() {
   const dispatch = useAppDispatch();
   const handleSupportTeamClick = useCallback(() => {
     dispatch(toggleLiveChat());
+    fbq.event('Contact', { content_name: 'LiveChat' });
   }, []);
 
   return (
