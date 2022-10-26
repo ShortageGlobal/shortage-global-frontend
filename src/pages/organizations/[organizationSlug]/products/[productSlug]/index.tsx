@@ -69,8 +69,9 @@ const ProductPage: NextPageWithLayout = () => {
     setIsProductBeingAddedToCart(true);
     try {
       await addToCart({
-        product_slug: product.slug,
         organization_slug: product.organization.slug,
+        product_slug: product.slug,
+        product_price: product.price,
         quantity: 1,
       });
       setIsProductBeingAddedToCart(false);
