@@ -12,7 +12,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import { Loader, Eye, EyeOff } from 'react-feather';
-import { getCsrfToken, signIn, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { wrapper } from 'core/store';
@@ -25,9 +25,7 @@ import type { FormEvent } from 'react';
 import type { NextPageWithLayout } from 'pages/_app';
 import { isRequestCancel } from 'core/hooks';
 
-type SignInProps = { csrfToken: Awaited<ReturnType<typeof getCsrfToken>> };
-
-const SignIn: NextPageWithLayout = ({ csrfToken }: SignInProps) => {
+const SignIn: NextPageWithLayout = () => {
   const session = useSession();
   const router = useRouter();
 
@@ -73,7 +71,6 @@ const SignIn: NextPageWithLayout = ({ csrfToken }: SignInProps) => {
         const response = await signIn('credentials', {
           email: target.email.value,
           password: target.password.value,
-          csrfToken,
           redirect: false,
         });
 
@@ -92,7 +89,7 @@ const SignIn: NextPageWithLayout = ({ csrfToken }: SignInProps) => {
         setIsPending(false);
       }
     },
-    [csrfToken, isPending, isAuthenticated, router]
+    [isPending, isAuthenticated, router]
   );
 
   return (
@@ -194,11 +191,8 @@ const SignIn: NextPageWithLayout = ({ csrfToken }: SignInProps) => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
-  const csrfToken = await getCsrfToken();
   return {
-    props: {
-      csrfToken,
-    },
+    props: {},
   };
 });
 

@@ -12,10 +12,9 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // Add logic here to look up the user from the credentials supplied
-
+        let response;
         try {
-          await requestAccessToken({
+          response = await requestAccessToken({
             email: credentials.email,
             password: credentials.password,
           });
@@ -26,15 +25,12 @@ export const authOptions = {
           );
         }
 
-        const user = { id: credentials.email, email: credentials.email };
-
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
-        }
+        return {
+          id: credentials.email,
+          email: credentials.email,
+          accessToken: response.data.access,
+          refreshToken: response.data.refresh,
+        };
       },
     }),
   ],
@@ -45,6 +41,8 @@ export const authOptions = {
     },
     session: async ({ session, token }) => {
       session.user = token.user; // Setting token in session
+      session.accessToken = token.accessToken;
+      session.error = token.error;
       return session;
     },
   },
@@ -52,7 +50,8 @@ export const authOptions = {
     signIn: '/account/sign-in',
   },
   session: {
-    maxAge: 60,
+    maxAge: 60, // 60 seconds
   },
+  debug: process.env.NODE_ENV === 'development',
 };
 export default NextAuth(authOptions);
