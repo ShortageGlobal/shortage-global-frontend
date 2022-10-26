@@ -5,7 +5,6 @@ import { Menu, X } from 'react-feather';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAppSelector, useScrollPosition } from 'app/hooks';
 import { selectSearch } from 'app/store/slices/search';
 import { LogoImage } from 'components/logo-image/logo-image';
@@ -76,20 +75,6 @@ export function Header() {
 
           <div className={styles.controlsBar}>
             {shouldShowSearchField ? <SearchProducts /> : null}
-
-            <Nav.Link
-              href="https://shortageua.com/us"
-              target="_blank"
-              rel="noreferrer"
-              className={styles.shortageUaLink}
-            >
-              <Image
-                alt="Help Ukraine"
-                src="/images/ukraine.svg"
-                width="24"
-                height="16"
-              />
-            </Nav.Link>
 
             <Button
               variant=""
