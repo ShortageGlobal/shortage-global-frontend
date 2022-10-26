@@ -1,6 +1,7 @@
 import styles from './nonprofit-registration-form.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
+import * as fbq from 'app/tracking/fpixel';
 import { registerNonprofit } from 'app/api';
 import { useCancelToken, isRequestCancel } from 'app/hooks';
 import { NonprofitRegistrationSuccess } from 'components/nonprofit-registration-form/registration-success/registration-success';
@@ -55,6 +56,8 @@ export function NonprofitRegistrationForm() {
           einNumber,
           cancelToken,
         });
+
+        fbq.event('Lead', { content_name: 'Nonprofit registration' });
 
         setIsPending(false);
         setIsRegistered(true);
