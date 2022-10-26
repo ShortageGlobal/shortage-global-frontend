@@ -1,6 +1,7 @@
 import styles from 'styles/pages/privacy-policy.module.scss';
 import { useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import Link from 'next/link';
 import Head from 'next/head';
 import {
   Breadcrumbs,
@@ -32,394 +33,427 @@ const PrivacyPolicy: NextPageWithLayout = () => {
         <Row>
           <Col className={styles.privacyPolicy}>
             <header>
-              <h2 className={styles.header}>Shortage Privacy Policy</h2>
-              <p className={styles.effectiveFrom}>Effective October 06, 2022</p>
+              <h2 className={styles.header}>Privacy Policy</h2>
+              <p className={styles.effectiveFrom}>Effective June 19, 2022</p>
             </header>
             <p>
-              By clicking “I Accept,” or using this website, you acknowledge
-              that you have READ, UNDERSTOOD, AND AGREED to this Privacy Policy
-              and the Terms of Service.
-            </p>
-            <h4 className={styles.sectionHeader}>1. General</h4>
-            <p>
-              This Privacy Policy explains the information collection, use, and
-              sharing practices of Shortage Global, Inc. (“we,” “us,” and “our”)
-              in connection with the use of Shortage.Global (“Platform”) by you
-              (“you,” “your,” and “User”).
-            </p>
-            <p>
-              IF YOU DO NOT AGREE TO THIS PRIVACY POLICY, PLEASE DO NOT USE THE
-              PLATFORM.
-            </p>
-            <p>
-              The Platform is intended for users over the age of 18. Please do
-              not use or otherwise access the Platform if you are not 18.
+              <Link href="/">
+                <a>Shortage</a>
+              </Link>{' '}
+              places a high priority on protecting your privacy. This Privacy
+              Policy was created in order to demonstrate Shortage&apos;s
+              commitment to the privacy of our members and website users. This
+              Privacy Policy applies to{' '}
+              <Link href="/">
+                <a>shortage.global</a>
+              </Link>{' '}
+              and to our social media profiles, and governs data collection,
+              usage, and sharing. The Shortage website is an informational and
+              ecommerce website. By using the Shortage website, you consent to
+              the data practices described in this document.
             </p>
             <p>
-              Before you use or submit any information through or in connection
-              with the Platform, please carefully review this Privacy Policy. By
-              using any part of the Platform, you understand that your
-              information will be collected, used, and disclosed as outlined in
-              this Privacy Policy.
+              This Policy explains what types of information are collected by
+              Shortage&apos;s website,{' '}
+              <Link href="/">
+                <a>shortage.global</a>
+              </Link>
+              , and how this information is used.
             </p>
             <h4 className={styles.sectionHeader}>
-              2. Revisions of Privacy Policy and Terms of Service
+              Collection of your Personal Information
             </h4>
             <p>
-              We may revise this Privacy Policy and the Terms of Service at any
-              time and for any reason. We will post the revised Privacy Policy
-              and Terms of Service on the Platform. By clicking “I Accept” or
-              using the Platform after the effective date of the revisions you
-              agree to the revised Privacy Policy and Terms of Service.
+              “Personal Information” is information that can be used to identify
+              you as an individual or allow someone to contact you, as well as
+              information attributed with such information. We collect different
+              categories of Personal Information from different sources,
+              including User-Provided Information and Automatically Collected
+              Information. We also collect Personal Information from social
+              networking platforms, which may provide both User-Provided
+              Information and Automatically Collected Information. For more on
+              social networking platforms, see the Social Networking section,
+              below. This privacy policy applies to all personal information,
+              whether collected online or offline.
             </p>
-            <h4 className={styles.sectionHeader}>3. Information We Collect</h4>
+            <h4 className={styles.sectionHeader}>User-Provided Information</h4>
             <p>
-              We collect information in multiple ways, including when you
-              provide information directly to us, when we passively collect
-              information from you, such as from your browser or electronic
-              device, and from third parties.
+              In order to better provide you with products and services offered
+              on our website, Shortage may collect personally identifiable
+              information, such as your:
             </p>
+            <ul>
+              <li>Company/organization name</li>
+              <li>First and last name</li>
+              <li>Mailing address</li>
+              <li>Shipping address</li>
+              <li>Email address</li>
+              <li>Phone number</li>
+              <li>Photograph(s)</li>
+            </ul>
+            <p>No credit card information is stored on the Shortage website.</p>
             <p>
-              Information You Provide Directly to Us. We may collect any
-              information you provide to us. This information may include your
-              name, e-mail address, phone number, address, anything included in
-              the video and audio recording, information needed for the
-              electronic record of online notarizations as detailed in the Terms
-              of Service, notary&apos;s photo, notary commission information,
-              geographic location, and your social media handles. No credit card
-              information is stored on the Platform after the end of the online
-              notarization session. An electronic document that is not notarized
-              on the Platform on the day it is uploaded is automatically deleted
-              from the Platform at the end of the day. A notarized electronic
-              document is automatically deleted from the Platform after 7 days
-              from the day of online notarization. If you take the identity
-              proofing quiz, the Platform does not store your answers after the
-              quiz is completed.
-            </p>
-            <p>
-              Information Collected Automatically: Device/Usage Information. We
-              may collect certain information about the electronic devices you
-              use to access the Platform. As described further below, we may
-              collect and analyze (i) device information such as IP addresses,
-              location information (by country and city), unique device
-              identifiers, IMEI and TCP/IP address, browser types, browser
-              language, operating system, mobile device carrier information, and
-              (ii) information related to the ways in which you interact with
-              the Platform, such as referring and exit web pages and URLs, the
-              number of clicks, domain names, landing pages, pages and content
-              viewed and the order of those pages, statistical information about
-              the use of the Platform, the amount of time spent on particular
-              pages, the date and time you used the Platform, the frequency of
-              your use of the Platform, error logs, and other similar
-              information. As described further below, we may use third-party
-              analytics providers and technologies, including cookies and
-              similar tools, to assist in collecting this information.
-            </p>
-            <p>
-              Information Collected Automatically: Cookies and Other Tracking
-              Technologies. We may also collect data about your use of the
-              Platform through the use of Internet server logs and online
-              tracking technologies, like cookies and/or tracking pixels. A web
-              server log is a file where website activity is stored. A cookie is
-              a small text file that is placed on your electronic device when
-              you visit a website, that enables us to: (i) recognize your
-              device; (ii) store your preferences and settings; (iii) understand
-              the web pages of the Platform you have visited and the referral
-              sites that have led you to the Platform; (iv) enhance your user
-              experience by delivering content specific to your inferred
-              interests; (v) perform searches and analytics; and (vi) assist
-              with security administrative functions. Tracking pixels (sometimes
-              referred to as web beacons or clear GIFs) are tiny electronic tags
-              with a unique identifier embedded in websites, online ads and/or
-              e-mail, and that are designed to provide usage information like ad
-              impressions or clicks, measure popularity of the Platform and any
-              associated advertising, and to access user cookies. We may also
-              use tracking technologies in our license buttons and/or icons that
-              you can embed on other sites/services to track the website
-              addresses where they are embedded, gauge user interaction with
-              them, and determine the number of unique viewers of them. If you
-              receive e-mail from us (such as our newsletter, updates, or other
-              ongoing e-mail communications) we may use certain analytics tools,
-              such as clear GIFs, to capture data such as whether you open our
-              message, click on any links or banners our e-mail contains, or
-              otherwise interact with what we send. This data allows us to gauge
-              the effectiveness of our communications. As we adopt additional
-              technologies, we may also gather additional information through
-              other methods. You can change your settings to notify you when a
-              cookie is being set or updated, or to block cookies altogether.
-              Please consult the “Help” section of your browser for more
-              information. Please note that by blocking any or all cookies, you
-              may not have access to certain features of the Platform.
-            </p>
-            <p>
-              Information Collected from Third Parties. To the extent permitted
-              by law, we may collect information about you from third parties,
-              including public sources, social media platforms, and marketing
-              and market research firms.
+              We do not collect any Personal Information from you unless you
+              voluntarily provide it to us. However, you may be required to
+              provide certain Personal Information to us when you elect to use
+              certain features or services available on the website. These may
+              include: (a) registering for an account on our website; (b)
+              sending us an email message; (c) submitting your credit card or
+              other payment information when ordering products and services on
+              our website; (d) signing up for email newsletters and other
+              communications; (e) completing surveys; (f) posting a comment or
+              otherwise contributing to a social forum on the web site. We will
+              use your information for, but not limited to, communicating with
+              you in relation to services and/or products you have requested
+              from us. We also may gather additional personal or non-Personal
+              Information in the future.
             </p>
             <h4 className={styles.sectionHeader}>
-              4. How We Use Your Information
+              Automatically Collected Information
             </h4>
             <p>
-              We may use the information we collect from and about you to: (i)
-              fulfill the purposes for which you provided it; (ii) provide and
-              improve the Platform, including to develop new features, take
-              steps to secure the Platform, and for technical and customer
-              support; (iii) send you information about your relationship or
-              transactions with us, account alerts, or other communications;
-              (iv) process and respond to your inquiries or to request your
-              feedback; (v) conduct analytics, research, and reporting,
-              including to synthesize and derive insights from your use of the
-              Platform; and (vi) comply with the law and protect the safety,
-              rights, property, or security of Shortage Global, Inc., the
-              Platform, our users, and the general public.
+              As is the case with many websites, Information about your computer
+              hardware and software may be automatically collected by Shortage.
+              This information can include: your IP address, browser types,
+              domain names, access times and referring website addresses. This
+              information is used for the operation of the service, to maintain
+              quality of the service, and to provide general statistics
+              regarding use of the Shortage website. In order to improve our
+              Services, we may receive a notification when you open an email
+              from Shortage or click on a link therein.
             </p>
             <p>
-              We may combine information that we collect from you and about you
-              (including automatically collected information) with information
-              we obtain about you from third parties, and use such combined
-              information in accordance with this Privacy Policy.
+              Among other things, this information enables us to generate
+              analytics reports on the usage of our website. To opt-out of your
+              website usage being included in our Google Analytics reports, you
+              may follow the instructions at{' '}
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noreferrer"
+              >
+                https://tools.google.com/dlpage/gaoptout
+              </a>
+              .
+            </p>
+            <h4 className={styles.sectionHeader}>Use of Cookies</h4>
+            <p>
+              The Shortage website may use “cookies” to help you personalize
+              your online experience. A cookie is a text file that is placed on
+              your hard disk by a web server. Cookies cannot be used to run
+              programs or deliver viruses to your computer. Cookies are uniquely
+              assigned to you, and can only be read by a web server in the
+              domain that issued the cookie to you.
             </p>
             <p>
-              We may aggregate and/or de-identify information collected through
-              the Platform. We may use de-identified and/or aggregated data for
-              any purpose, including for research and marketing purposes.
+              One of the primary purposes of cookies is to provide a convenience
+              feature to save you time. The purpose of a cookie is to tell the
+              web server that you have returned to a specific page. For example,
+              if you register with the Shortage website or services, a cookie
+              helps Shortage to recall your specific information on subsequent
+              visits. This simplifies the process of recording your Personal
+              Information, such as billing addresses, shipping addresses and so
+              on. When you return to the Shortage website, the information you
+              previously provided can be retrieved, so you can easily use the
+              features of the website.
+            </p>
+            <p>
+              You have the ability to accept or decline cookies. Most web
+              browsers automatically accept cookies, but you can usually modify
+              your browser settings to decline cookies if you prefer. If you
+              choose to decline cookies, you may not be able to fully experience
+              the interactive features of the Shortage website.
+            </p>
+            <h4 className={styles.sectionHeader}>Social Networking</h4>
+            <p>
+              We maintain a presence on several social networking and blogging
+              platforms which are operated by third parties, such as Facebook,
+              Twitter, Instagram, LinkedIn, YouTube and Reddit. Through these
+              platforms and features, we receive some Personal Information about
+              you, and this Privacy Policy applies to that information as well.
+              However, this Policy does not apply to what those third party
+              social networking platforms and blogging platforms do with your
+              information. Those platforms have their own privacy policies,
+              which explain how they will use, protect and share your
+              information, and we encourage you to read them.
+            </p>
+            <h4 className={styles.sectionHeader}>Opt In and Opt Out</h4>
+            <p>
+              You may have the right to opt in to or opt out of certain of our
+              uses and disclosures of your Personal Information. For example,
+              when you are asked to provide Personal Information on this
+              website, you may have the opportunity to elect to, or not to,
+              receive messages from us by e-mail. If you would like to stop
+              receiving marketing or promotional communications via email from
+              Shortage, you may opt out of such communications by clicking on
+              the unsubscribe link in any email and updating the “manage
+              preferences” form. You can also opt-out of our promotional emails
+              by sending us your name, address, e-mail and phone number to:{' '}
+              <a href="mailto:support@shortage.global">
+                support@shortage.global
+              </a>
+              . Please understand that it may take us a few days to process any
+              opt out request and that even if you opt out of receiving
+              promotional correspondence from us, we may still contact you in
+              connection with your relationship, activities, transactions and
+              communications with us.
             </p>
             <h4 className={styles.sectionHeader}>
-              5. When We or Shortage May Disclose Your Information
+              Use of your Personal Information
             </h4>
             <p>
-              Service Providers. We may disclose your information to third
-              parties who perform services for us, including credit card
-              processing, identity verification, credential analysis, event
-              management, marketing, customer support, data storage, data
-              analysis and processing, and legal services.
+              Shortage collects and uses your Personal Information, including
+              User-Provided Information, Automatically Collected Information
+              and/or any information collected through Social Networking sites,
+              to perform the following business functions:
             </p>
+            <ul>
+              <li>enabling users to use our website and its features</li>
+              <li>processing and fulfilling your transactions</li>
+              <li>administering the website and your account with us</li>
+              <li>responding to your requests, questions, and concerns</li>
+              <li>market research</li>
+              <li>developing new features and offerings on the website</li>
+              <li>
+                consistent with any communications preferences you have set on
+                the Shortage website, sending you marketing and other
+                communications, including announcements, promotional offers,
+                alerts, confirmations, surveys and/or general communications
+                about products, services, and events, of ours and of others,
+                that we think might interest you. You may opt out of receiving
+                such notices from us by following the instructions in the Opt In
+                and Opt Out section above.
+              </li>
+              <li>protecting our rights and property</li>
+              <li>recovering debt and preventing fraud</li>
+              <li>
+                customizing our Website to your interests and history with us
+              </li>
+              <li>
+                tailoring ads displayed to you on our website and elsewhere to
+                your interests and history with us
+              </li>
+              <li>
+                in connection with organizational changes or dissolution,
+                including for example a merger, acquisition, reorganization,
+                consolidation, bankruptcy, liquidation, sale of assets or wind
+                down of operations
+              </li>
+              <li>
+                other purposes disclosed when Personal Information is submitted
+                to us
+              </li>
+            </ul>
             <p>
-              Disclosure by Florida Shortage. A Florida Shortage, upon request
-              and payment of the fees allowed by the applicable law, must make
-              electronic copies of the pertinent entries in the electronic
-              record of online notarizations and provide access to the related
-              audio-video communication recordings to the following persons: (a)
-              the parties to an electronic document notarized by the Shortage;
-              (b) the qualified custodian of an electronic will notarized by the
-              Shortage; (c) the title agent, settlement agent, or title insurer
-              who insured the electronic record or engaged the Shortage with
-              regard to a real estate transaction; (d) the Shortage&apos;s
-              remote online notarization service provider whose services were
-              used to notarize the electronic document; (e) any person who is
-              asked to accept a power of attorney that was notarized by the
-              Shortage; (f) the Florida Department of State pursuant to a notary
-              misconduct investigation; and (g) any other persons pursuant to a
-              subpoena, court order, law enforcement investigation, or other
-              lawful inspection demand.
-            </p>
-            <p>
-              Disclosure by Minnesota Shortage. A Minnesota notary public and
-              the notary public&apos;s agent must make a copy of the
-              individual&apos;s data included in the electronic record of online
-              notarizations available only to the individual whose signature was
-              notarized or to a guardian, conservator, attorney-in-fact, or
-              personal representative of an incapacitated or deceased
-              individual. The individual whose signature was notarized or the
-              individual&apos;s guardian, conservator, attorney-in-fact, or
-              personal representative of an incapacitated or deceased individual
-              may consent to the release of the data to a third party.
-            </p>
-            <p>
-              Disclosure by Tennessee Shortage. The electronic record kept of a
-              Tennessee notary public&apos;s official acts is a public record.
-              Such information is available for public inspection, unless it is
-              a confidential record according to law. The Shortage can provide a
-              paper or electronic copy of the information when needed or when
-              requested by a member of the public.
-            </p>
-            <p>
-              Disclosure by Texas Shortage. Records regarding Texas notarial
-              acts performed are public information. On payment of all fees, a
-              Texas notary public is required to promptly provide a certified
-              copy of any entries in the notary public&apos;s records to any
-              person requesting the copy. If any portion of the audio visual
-              recording of an online notarization includes biometric information
-              or includes an image of the identification card used to identify
-              the signer, that portion of the recording is confidential and
-              shall not be released without consent of the individual whose
-              identity is being established, unless ordered by a court of
-              competent jurisdiction or upon request by the Texas secretary of
-              state.
-            </p>
-            <p>
-              Disclosure by Virginia Shortage. A Virginia Shortage must respond
-              to a lawful, written request to inspect the Shortage&apos;s
-              electronic record of online notarizations by producing a certified
-              copy of the electronic record that includes an entry documenting
-              the certified copy production.
-            </p>
-            <p>
-              Legal Compliance and Protection. We may disclose your information
-              if required to do so by law or in a good faith belief that such
-              disclosure is permitted by this Privacy Policy or reasonably
-              necessary or appropriate for any of the following reasons: (i) to
-              comply with legal process; (ii) to enforce or apply this Privacy
-              Policy, the Terms of Service, or other contracts with you,
-              including investigation of potential violations thereof; (iii) to
-              respond to your requests for customer service; and/or (iv) to
-              protect the rights, property, or personal safety of Shortage
-              Global, Inc., our agents and affiliates, our users, and the
-              public. This includes exchanging information with other
-              organizations for fraud protection, spam/malware prevention, and
-              similar purposes.
-            </p>
-            <p>
-              Business Transfers. As we continue to develop our business, we may
-              engage in certain business transactions, such as the transfer or
-              sale of our assets. In such transactions, (including in
-              contemplation of such transactions, e.g., due diligence) your
-              information may be disclosed. If any of our assets are sold or
-              transferred to a third party, user information (including your
-              e-mail address) would likely be one of the transferred business
-              assets.
-            </p>
-            <p>
-              Affiliated Companies. We may disclose your information with
-              current or future affiliated companies.
-            </p>
-            <p>
-              Consent. We may disclose your information to any third parties
-              based on your consent to do so.
-            </p>
-            <p>
-              Aggregate/De-identified Information. We may disclose de-identified
-              and/or aggregated data for any purpose to third parties, including
-              advertisers, promotional partners, and/or others.
+              To perform the above functions, we may match information collected
+              from you through different means or at different times, including
+              both Personal Information and Automatically Collected Information,
+              and use such information along with information obtained from
+              other sources (including third parties) such as demographic
+              information and updated contact information. We or our service
+              providers may also use your information to assess the level of
+              interest in, and use of, the Shortage website, our e-mails and our
+              other messaging campaigns both on an individual basis and in the
+              aggregate.
             </p>
             <h4 className={styles.sectionHeader}>
-              6. Legal Basis for Processing Personal Data
+              Sharing Information with Third Parties
             </h4>
             <p>
-              The laws in some jurisdictions require companies to tell you about
-              the legal ground they rely on to use or disclose information that
-              can be directly linked to or used to identify you. To the extent
-              those laws apply, our legal grounds for processing such
-              information are as follows:
+              Shortage does not sell, rent or lease its customer or donor
+              information to third parties, nor do we share, trade or exchange
+              that information in any way. However, information you voluntarily
+              post to public areas on the Shortage web site will be available to
+              other Shortage website users.
             </p>
             <p>
-              Our Contractual Commitments to You. Much of our processing of
-              information is to meet our contractual obligations to provide
-              services to our users.
+              As described in <b>Use of your Personal Information</b>, Shortage
+              may, from time to time, contact you on behalf of external business
+              partners about a particular offering that may be of interest to
+              you. In those cases, your unique personally identifiable
+              information (email, name, address, telephone number) is not
+              transferred to the third party.
             </p>
             <p>
-              Legitimate Interests. In many cases, we handle information on the
-              ground that it furthers our legitimate interests in ways that are
-              not overridden by the interests or fundamental rights and freedoms
-              of the affected individuals, these include: (i) customer service;
-              (ii) marketing, advertising, and fundraising; (iii) protecting our
-              users, personnel, and property; (iv) managing user accounts; (v)
-              organizing and running events and programs; (vi) analyzing and
-              improving our business; and (vii) managing legal issues. We may
-              also process information for the same legitimate interests of our
-              users and business partners.
+              Shortage may share your information with our co-sponsor(s) if we
+              obtain your information in connection with a contest, sweepstakes,
+              offering, or other promotional activity that is jointly offered by
+              us and any third parties, unless you instruct us not to by
+              following the instructions in the Opt In and Opt Out section
+              above.
             </p>
-            Legal Compliance. We may need to use and disclose information in
-            certain ways to comply with our legal obligations.
             <p>
-              Consent. Where required by law, and in some other cases where
-              legally permissible, we handle information on the basis of
-              consent. Where we handle your information on the basis of consent,
-              you have the right to withdraw your consent, in accordance with
-              applicable law.
+              Shortage may share data with trusted partners to help perform
+              credit card processing, statistical analysis, marketing, provide
+              customer support, data storage, data analysis and processing,
+              legal services, send you email or postal mail, or arrange for
+              deliveries. For example, we may store your data on external data
+              storage sites or servers provided by third party hosting vendors
+              with whom we have contracted. All such third parties are
+              prohibited from using your Personal Information except to provide
+              these services to Shortage, and they are required to maintain the
+              confidentiality of your information.
             </p>
-            <h4 className={styles.sectionHeader}>7. Online Analytics</h4>
             <p>
-              We may use third-party web analytics services (such as Google
-              Analytics) on our Platform to collect and analyze the information
-              discussed above, and to engage in auditing, research, or
-              reporting. The information (including your IP address) collected
-              by various analytics technologies described in the Cookies and
-              Other Tracking Technologies provision above will be disclosed to
-              or collected directly by these service providers, who use the
-              information to evaluate your use of the Platform, including by
-              noting the third-party website from which you arrive to the
-              Platform, analyzing usage trends, assisting with fraud prevention,
-              and providing certain features to you. To prevent Google Analytics
-              from using your information for analytics, you may install the
-              Google Analytics Opt-out Browser Add-on.
+              We utilize Google Analytics for our web analytics and you can opt
+              out of your website usage data being included in our Google
+              Analytics reports by visiting{' '}
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noreferrer"
+              >
+                https://tools.google.com/dlpage/gaoptout
+              </a>
+              .
+            </p>
+            <p>
+              Shortage may disclose your Personal Information, without
+              additional notice, if required to do so by law or in the good
+              faith belief that such action is necessary to: (a) conform to the
+              edicts of the law or comply with legal process served on Shortage
+              or the website; (b) protect and defend the rights or property of
+              Shortage; and/or (c) act under exigent circumstances to protect
+              the personal safety of users of Shortage or the public.
+            </p>
+            <h4 className={styles.sectionHeader}>Do Not Track Disclosures</h4>
+            <p>
+              Some web browsers may transmit “do-not-track” (DNT) signals to the
+              websites with which the user communicates. Because of differences
+              in how web browsers incorporate and activate this feature, it is
+              not always clear whether users intend for these signals to be
+              transmitted, or whether they even are aware of them. We currently
+              do not change our tracking practices (which are explained in more
+              detail under “Automatically Collected Information” above) in
+              response to DNT settings in your web browser.
             </p>
             <h4 className={styles.sectionHeader}>
-              8. Your Choices and Data Subject Rights
+              Security of your Personal Information
             </h4>
             <p>
-              You have various rights with respect to the collection and use of
-              your information through the Platform. Those choices are as
-              follows:
+              Shortage endeavors to secure your Personal Information from
+              unauthorized access, use or disclosure. Unfortunately, due to the
+              inherent nature of the Internet as an open global communications
+              vehicle, no data transmission over the Internet or any wireless
+              network can be guaranteed to be 100% secure. We cannot guarantee
+              that any information, during transmission through the Internet or
+              while stored on our system or otherwise in our care, will be
+              absolutely safe from intrusion by others, such as hackers.
             </p>
             <p>
-              E-mail Unsubscribe. You may unsubscribe from our marketing e-mails
-              at any time by e-mailing us with your request at
-              support@shortage.global.
+              As a result, while we strive to protect your information, you
+              acknowledge that: (a) there are security and privacy limitations
+              inherent to the Internet which are beyond our control; and (b)
+              security, integrity, and privacy of any and all information and
+              data exchanged between you and us through this website cannot be
+              guaranteed. While no website or electronic data can ever be
+              completely secure, we are always working to maintain up-to-date
+              and appropriate security mechanisms.
             </p>
             <p>
-              EU Data Subject Rights. Individuals in the European Economic Area
-              and other jurisdictions have certain legal rights (subject to
-              applicable exceptions and limitations) to obtain confirmation of
-              whether we hold certain information about them, to access such
-              information, and to obtain its correction or deletion in
-              appropriate circumstances. You may have the right to object to our
-              handling of your information, restrict our processing of your
-              information, and to withdraw any consent you have provided. To
-              exercise these rights, please e-mail us with the nature of your
-              request at support@shortage.global. You also have the right to go
-              directly to the relevant supervisory or legal authority, but we
-              encourage you to contact us so that we may resolve your concerns
-              directly as best and as promptly as we can.
+              We use a variety of security measures to protect your personal
+              information and our data. We maintain procedural, electronic, and
+              physical safeguards to help prevent unauthorized access to and
+              improper use of personally identifiable information.
             </p>
-            <h4 className={styles.sectionHeader}>9. International Transfers</h4>
             <p>
-              Some of your information may be processed outside the United
-              States. By providing us with your information, you acknowledge any
-              such transfer, storage or use.
+              We protect the security of credit card transactions using measures
+              such as encryption, access controls, network firewalls, and
+              physical security. These measures make it extremely difficult for
+              anyone to intercept any credit card information you send to us.
+              When we work with other companies to process credit card
+              transactions, those companies also use encryption and other
+              appropriate security measures.
             </p>
-            <h4 className={styles.sectionHeader}>10. Security Measures</h4>
             <p>
-              We have implemented technical, physical, and organizational
-              security measures to protect against the loss, misuse, and/or
-              alteration of your information. These safeguards vary based on the
-              sensitivity of the information that we collect and store. However,
-              we cannot and do not guarantee that these measures will prevent
-              every unauthorized attempt to access, use, or disclose your
-              information since despite our efforts, no Internet and/or other
-              electronic transmission can be completely secure.
+              We will have no liability for disclosure of your information due
+              to errors or unauthorized acts of third parties during or after
+              transmission.
             </p>
-            <h4 className={styles.sectionHeader}>11. Data Retention</h4>
             <p>
-              We retain the information we collect for as long as necessary to
-              fulfill the purposes set forth in this Privacy Policy and the
-              Terms of Service, or as long as we are legally required or
-              permitted to do so. Information may persist in copies made for
-              backup and business continuity purposes for additional time.
+              If you create an account on our website, you are responsible for
+              maintaining the strict confidentiality of your account password,
+              and you shall be responsible for any activity that occurs using
+              your account credentials, whether or not you authorized such
+              activity. Please notify us of any unauthorized use of your
+              password or account or any other breach of security.
+            </p>
+            <p>
+              If at any time during or after our relationship we believe that
+              the security of your Personal Information in our care may have
+              been compromised, we may seek to notify you of that development.
+              If a notification is appropriate, we will endeavor to notify you
+              as promptly as possible under the circumstances. If we have your
+              e-mail address, we may notify you by e-mail to the most recent
+              e-mail address you have provided us in your account profile.
+              Please keep your e-mail address in your account up to date. You
+              can change that e-mail address at any time in your account
+              profile. If you receive a notice from us, you can print it to
+              retain a copy of it. To receive these notices, you must check your
+              e-mail account using your computer or mobile device and email
+              application software.{' '}
+              <b>
+                You consent to our use of e-mail as a means of such
+                notification. If you prefer for us to use the U.S. Postal
+                Service to notify you in this situation, please e-mail us at{' '}
+                <a href="mailto:support@shortage.global">
+                  support@shortage.global
+                </a>
+              </b>
+              . You can make this election any time, and it will apply to
+              notifications we make after a reasonable time thereafter for us to
+              process your request. You may also use this e-mail address to
+              request a print copy, at no charge, of an electronic notice we
+              have sent to you regarding a compromise of your Personal
+              Information.
             </p>
             <h4 className={styles.sectionHeader}>
-              12. Third-Party Links and Platform
+              Links and Linked-To Websites
             </h4>
             <p>
-              The Platform may contain links to third-party websites,
-              third-party plug-ins, and other services. If you choose to use
-              these sites or features, you may disclose your information not
-              just to those third parties, but also to their users and the
-              public more generally depending on how their services function. We
-              are not responsible for the content or privacy practices of such
-              third party websites or services. The collection, use and
-              disclosure of your information will be subject to the privacy
-              policies of the third party websites or services, and not this
-              Privacy Policy. We encourage you to read the privacy statements of
-              each and every site you visit.
+              The Shortage website contains links, banners, widgets or
+              advertisements that lead to other websites. Please be aware that
+              we are not responsible for the content or privacy practices of
+              such other websites and so their posted privacy policies (not this
+              Policy) will govern the collection and use of your information on
+              them. We encourage our users to be aware when they leave our
+              website and to read the privacy statements of each website visited
+              after leaving Shoratge to learn about how your information is
+              treated by others.
+            </p>
+            <h4 className={styles.sectionHeader}>Children Under Thirteen</h4>
+            <p>
+              Shortage does not knowingly collect personally identifiable
+              information from children under the age of thirteen, and the
+              website is not intended for users who are under 13 years old.
             </p>
             <h4 className={styles.sectionHeader}>
-              13. Questions about this Privacy Policy
+              Changes to this Privacy Policy
             </h4>
             <p>
-              If you have any questions about this Privacy Policy, you can
-              e-mail us with your question at support@shortage.global.
+              Shortage reserves the right to change this Privacy Policy from
+              time to time. We will notify you about significant changes in the
+              way we treat Personal Information by sending a notice to the
+              primary email address specified in your account, by placing a
+              prominent notice on our website, and/or by updating any privacy
+              information on this page. For some changes to our Privacy Policy,
+              we may ask for your consent.
+            </p>
+            <h4 className={styles.sectionHeader}>Contact Information</h4>
+            <p>
+              Shortage welcomes your questions or comments regarding this
+              Privacy Policy. If you believe that Shortage has not adhered to
+              this Privacy Policy, please contact Shortage at:
+            </p>
+
+            <p>Shortage</p>
+            <p>440 N Barranca Ave #7074</p>
+            <p>Covina, CA 91723</p>
+            <p>
+              Email:{' '}
+              <a href="mailto:support@shortage.global">
+                support@shortage.global
+              </a>
             </p>
           </Col>
         </Row>
