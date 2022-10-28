@@ -8,6 +8,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { wrapper } from 'core/store';
+import { Authentication } from 'components/authentication/authentication';
 import { Header } from 'components/header/header';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { Footer } from 'components/footer/footer';
@@ -15,7 +16,12 @@ import { CartSidebar } from 'components/cart/sidebar/cart-sidebar';
 import { LiveChat } from 'components/live-chat/live-chat';
 import * as gtag from 'core/tracking/gtag';
 import * as fbq from 'core/tracking/fpixel';
-import { IS_STAGING, GA_TRACKING_ID, FB_PIXEL_ID } from 'core/constants';
+import {
+  IS_STAGING,
+  GA_TRACKING_ID,
+  FB_PIXEL_ID,
+  CLIENT_SESSION_REFETCH_INTERVAL,
+} from 'core/constants';
 import type { ReactElement, ReactNode } from 'react';
 import type { Session } from 'next-auth';
 import type { NextPage } from 'next';
@@ -101,7 +107,9 @@ function MyApp({
     ((page) => (
       <>
         <Header />
-        <main className="main-container">{page}</main>
+        <main className="main-container">
+          <Authentication>{page}</Authentication>
+        </main>
         <WeAreHereForYou />
         <Footer />
         <CartSidebar />
@@ -186,7 +194,10 @@ function MyApp({
       />
 
       <SSRProvider>
-        <SessionProvider session={session}>
+        <SessionProvider
+          session={session}
+          refetchInterval={CLIENT_SESSION_REFETCH_INTERVAL}
+        >
           <ThemeProvider
             breakpoints={['xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
             minBreakpoint="xxs"

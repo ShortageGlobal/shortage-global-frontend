@@ -11,7 +11,18 @@ export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
 // Facebook Pixel
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
 
-// IMPORTANT: the list of category keys must be synchronized with backend
+// How long jwt token lives on the backend (django) before expiring (in seconds).
+// Make it smaller than the real value so network costs are neglected.
+export const BACKEND_JWT_MAX_AGE = 60 * 60 * 0.75; // 1 hour * 0.75 = 45 minutes
+
+// How long jwt token lives on the client (next-auth.js) before expiring (in seconds).
+export const CLIENT_JWT_MAX_AGE = BACKEND_JWT_MAX_AGE; // 45 minutes
+
+// A time interval (in seconds) after which the session will be re-fetched.
+// If set to `0` (default), the session is not polled.
+export const CLIENT_SESSION_REFETCH_INTERVAL = CLIENT_JWT_MAX_AGE / 2; // 22.5 minutes
+
+// !IMPORTANT: the list of category keys must be synchronized with backend
 export const PRODUCT_CATEGORY_KEY = Object.freeze({
   VITAL_GOODS: 'VITAL_GOODS',
   HEALTHCARE: 'HEALTHCARE',
@@ -81,7 +92,7 @@ export const PACKAGE_TYPE = Object.freeze({
   FUNDED_BY_DONOR: 'FUNDED_BY_DONOR',
 });
 
-// IMPORTANT: the list of package statuses must be synchronized with backend
+// !IMPORTANT: the list of package statuses must be synchronized with backend
 export const PACKAGE_STATUS = Object.freeze({
   REGISTERED: 'REGISTERED',
   PAYMENT_CANCELED: 'PAYMENT_CANCELED',

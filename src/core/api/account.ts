@@ -31,3 +31,11 @@ export async function refreshAccessToken({
     { cancelToken: cancelToken?.token }
   );
 }
+
+export async function fetchProfile({
+  cancelToken = null,
+}: CancelTokenParams = {}) {
+  return axios.get(encodeURI(`/api/private/profile`), {
+    cancelToken: cancelToken?.token,
+  });
+}

@@ -1,7 +1,9 @@
 import { forwardRef, useCallback } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { User } from 'react-feather';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import type { MouseEvent, ReactNode } from 'react';
 
 type AccountMenuTogglerProps = {
@@ -36,13 +38,19 @@ type AccountDropdownProps = {
 
 export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
   const session = useSession();
+  const router = useRouter();
 
   const handleSignIn = useCallback(() => {
-    signIn();
-  }, [signIn]);
+    router.push({
+      pathname: '/account/sign-in',
+      query: {
+        callbackUrl: router.asPath,
+      },
+    });
+  }, [router]);
 
   const handleSignOut = useCallback(() => {
-    signOut();
+    signOut({ redirect: false });
   }, [signOut]);
 
   return (
@@ -58,6 +66,9 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
         {session?.status === 'authenticated' ? (
           <>
             <Dropdown.Header>{session.data.user.email}</Dropdown.Header>
+            <Link href="/private/profile" passHref>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
           </>
         ) : (
