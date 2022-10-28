@@ -85,7 +85,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   return (
     <>
       <div className={styles.donationOptions}>
-        {/* Fund donation option */}
+        {/* Order items option */}
         <Button
           size="lg"
           className={styles.button}
@@ -101,7 +101,9 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           ) : (
             <DollarSign className={styles.buttonGlyph} />
           )}
-          <span>Fund donation</span>
+          <span>
+            {cartGroup.items.length > 1 ? 'Order items' : 'Order item'}
+          </span>
         </Button>
 
         {/* Separator */}

@@ -245,7 +245,7 @@ const DonationCart: NextPageWithLayout = () => {
                     <span>You can donate in two ways:</span>
                     <ol className={styles.donationOptionsAlertList}>
                       <li>
-                        <b>Fund donation</b> - we will buy the selected goods on
+                        <b>Order items</b> - we will buy the selected goods on
                         your behalf.
                       </li>
                       <li>
