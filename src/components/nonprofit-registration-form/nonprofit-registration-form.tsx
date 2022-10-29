@@ -1,6 +1,6 @@
 import styles from './nonprofit-registration-form.module.scss';
 import { useCallback, useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import * as fbq from 'app/tracking/fpixel';
 import { registerNonprofit } from 'app/api';
 import { useCancelToken, isRequestCancel } from 'app/hooks';
@@ -136,12 +136,10 @@ export function NonprofitRegistrationForm() {
           controlId="firstName"
           className={styles.formGroup}
         >
-          <Form.Label>First Name *</Form.Label>
+          <Form.Label>First Name</Form.Label>
           <Form.Control
             size="lg"
             type="text"
-            placeholder=""
-            required
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             isValid={getIsValid('first_name')}
@@ -155,12 +153,11 @@ export function NonprofitRegistrationForm() {
           controlId="lastName"
           className={styles.formGroup}
         >
-          <Form.Label>Last Name *</Form.Label>
+          <Form.Label>Last Name</Form.Label>
           <Form.Control
             size="lg"
             type="text"
             placeholder=""
-            required
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             isValid={getIsValid('last_name')}
@@ -208,7 +205,7 @@ export function NonprofitRegistrationForm() {
         </Form.Group>
       </Row>
 
-      <header className={styles.sectionHeader}>
+      {/* <header className={styles.sectionHeader}>
         <h5>Organization Details</h5>
       </header>
 
@@ -262,12 +259,14 @@ export function NonprofitRegistrationForm() {
           />
           {getErrorsFeedback('ein_number')}
         </Form.Group>
-      </Row>
+      </Row> */}
 
       {errors ? (
         <Row>
           <Col>
-            <div className="text-danger">Fix errors above and try again</div>
+            <Alert variant="danger" className={styles.errorAlert}>
+              Fix errors above and try again
+            </Alert>
           </Col>
         </Row>
       ) : null}
