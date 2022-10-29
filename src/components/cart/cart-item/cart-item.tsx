@@ -78,8 +78,8 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
             <Image
               src={item.product.photo}
               alt={item.product.name}
-              layout="fill"
-              objectFit="contain"
+              fill
+              className={styles.photoImg}
             />
           ) : null}
         </Link>

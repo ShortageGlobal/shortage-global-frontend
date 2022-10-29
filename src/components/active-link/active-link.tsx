@@ -16,7 +16,7 @@ export function ActiveLink({ children, href, ...props }) {
   const isActive = asPath === href || asPath === props.as;
 
   return (
-    <Link href={href} {...props}>
+    <Link href={href} {...props} legacyBehavior>
       {React.cloneElement(child, {
         active: isActive,
       })}

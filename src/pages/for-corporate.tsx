@@ -65,14 +65,14 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
                 <Image
                   alt=""
                   src="/images/characters/girl-jumps-right.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div className={classNames(styles.image, styles.boyJumpsLeft)}>
                 <Image
                   alt=""
                   src="/images/characters/boy-jumps-left.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
             </div>

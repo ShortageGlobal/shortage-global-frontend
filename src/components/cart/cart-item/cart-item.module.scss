@@ -59,6 +59,10 @@
     height: 100%;
   }
 
+  .photoImg {
+    object-fit: contain;
+  }
+
   .nameLink {
     color: $cart-item-product-name-link-color;
     font-weight: 700;

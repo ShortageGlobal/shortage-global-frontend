@@ -69,14 +69,14 @@ const ForNonprofit: NextPageWithLayout = () => {
                 <Image
                   alt=""
                   src="/images/characters/woman-with-packages-looks-right.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div className={classNames(styles.image, styles.manRight)}>
                 <Image
                   alt=""
                   src="/images/characters/man-with-packages-looks-left.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
             </div>

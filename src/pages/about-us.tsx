@@ -70,7 +70,7 @@ const AboutUs: NextPageWithLayout = () => {
                 <Image
                   alt=""
                   src="/images/characters/boy-looks-right.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div
@@ -79,7 +79,7 @@ const AboutUs: NextPageWithLayout = () => {
                 <Image
                   alt=""
                   src="/images/characters/girl-runs-right.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div
@@ -88,17 +88,13 @@ const AboutUs: NextPageWithLayout = () => {
                 <Image
                   alt=""
                   src="/images/characters/girl-looks-left.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div
                 className={classNames(styles.image, styles.imageBoyRunsLeft)}
               >
-                <Image
-                  alt=""
-                  src="/images/characters/boy-runs-left.svg"
-                  layout="fill"
-                />
+                <Image alt="" src="/images/characters/boy-runs-left.svg" fill />
               </div>
             </div>
           </Col>

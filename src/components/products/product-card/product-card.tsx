@@ -29,12 +29,9 @@ export function ProductCard({
           pathname: '/organizations/[organizationSlug]/products/[productSlug]',
           query: { organizationSlug, productSlug: product.slug },
         }}
-      >
-        <a
-          className={styles.productLinkOverlay}
-          aria-label="Visit product page"
-        ></a>
-      </Link>
+        className={styles.productLinkOverlay}
+        aria-label="Visit product page"
+      ></Link>
 
       <div className={styles.cardImage}>
         {/* photo */}
@@ -42,8 +39,8 @@ export function ProductCard({
           <Image
             src={product.photo}
             alt={product.name}
-            layout="fill"
-            objectFit="contain"
+            fill
+            className={styles.photo}
           />
         ) : null}
 

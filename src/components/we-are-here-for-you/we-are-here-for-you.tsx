@@ -35,9 +35,7 @@ export function WeAreHereForYou() {
             <Image
               alt=""
               src="/images/characters/woman-sits-looks-left.svg"
-              layout="fill"
-              width="326"
-              height="243"
+              fill
             />
           </div>
         </Col>

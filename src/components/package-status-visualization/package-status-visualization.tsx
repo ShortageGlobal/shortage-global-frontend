@@ -72,11 +72,7 @@ export function PackageStatusVisualization({
             >
               <div className={styles.stepBullet}>
                 <div className={styles.glyph}>
-                  <Image
-                    src={PACKAGE_STATUS_GLYPHS[step]}
-                    layout="fill"
-                    alt=""
-                  />
+                  <Image src={PACKAGE_STATUS_GLYPHS[step]} fill alt="" />
                 </div>
               </div>
               <div className={styles.stepLabel}>

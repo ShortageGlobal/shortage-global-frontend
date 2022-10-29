@@ -26,7 +26,7 @@ export function ProceedToDonationButton({
   }, []);
 
   return (
-    <Link href={donationHref} passHref>
+    <Link href={donationHref} passHref legacyBehavior>
       <Button
         size="lg"
         className={classNames(styles.proceedToDonationButton, className)}

@@ -15,7 +15,7 @@ export function DonationSteps() {
                   <Image
                     alt=""
                     src="/images/donation-steps/choose-items.svg"
-                    layout="fill"
+                    fill
                   />
                 </div>
               </div>
@@ -32,7 +32,7 @@ export function DonationSteps() {
                   <Image
                     alt=""
                     src="/images/donation-steps/purchase-send.svg"
-                    layout="fill"
+                    fill
                   />
                 </div>
               </div>
@@ -50,7 +50,7 @@ export function DonationSteps() {
                   <Image
                     alt=""
                     src="/images/donation-steps/get-tax-deduction.svg"
-                    layout="fill"
+                    fill
                   />
                 </div>
               </div>
@@ -67,7 +67,7 @@ export function DonationSteps() {
                   <Image
                     alt=""
                     src="/images/donation-steps/share-your-impact.svg"
-                    layout="fill"
+                    fill
                   />
                 </div>
               </div>

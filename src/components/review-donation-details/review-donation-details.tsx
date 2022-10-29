@@ -110,7 +110,11 @@ export function ReviewDonationDetails({
               </>
             ) : null}
 
-            <Link href={{ pathname: '/donation/details' }} passHref>
+            <Link
+              href={{ pathname: '/donation/details' }}
+              passHref
+              legacyBehavior
+            >
               <Button variant="outline-dark" className={styles.editButton}>
                 <Edit3 />
                 <span>Change donation details</span>

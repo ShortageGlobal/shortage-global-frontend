@@ -50,6 +50,7 @@ export function InstructionsModal({
             query: { organizationSlug },
           }}
           passHref
+          legacyBehavior
         >
           <Button size="lg" variant="primary" className={styles.confirmButton}>
             Register package for {organizationName}

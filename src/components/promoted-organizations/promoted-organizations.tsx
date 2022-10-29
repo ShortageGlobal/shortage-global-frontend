@@ -31,8 +31,8 @@ export function PromotedOrganizations() {
                         <Image
                           src={organization.logo}
                           alt={organization.name}
-                          layout="fill"
-                          objectFit="contain"
+                          fill
+                          className={styles.logoImg}
                         />
                       </Link>
                     </li>

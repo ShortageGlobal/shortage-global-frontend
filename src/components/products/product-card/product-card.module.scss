@@ -30,6 +30,10 @@
     background-color: $product-card-image-background-color;
     z-index: 1;
 
+    .photo {
+      object-fit: contain;
+    }
+
     .highDemandBadge {
       position: absolute;
       top: -1px;

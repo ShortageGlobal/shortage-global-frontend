@@ -41,7 +41,11 @@ export function OrganizationDetails() {
 
               <h5 className={styles.sectionHeader}>Ready to donate?</h5>
 
-              <Link href={`#${REQUESTED_GOODS_CONTAINER_ID}`} passHref>
+              <Link
+                href={`#${REQUESTED_GOODS_CONTAINER_ID}`}
+                passHref
+                legacyBehavior
+              >
                 <Button size="lg" className={styles.checkGoodsButton}>
                   <span>Check Out Our Top Requests</span>
                   <ChevronsDown />
@@ -55,8 +59,8 @@ export function OrganizationDetails() {
                 <Image
                   alt=""
                   src={organization.banner}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className={styles.bannerImg}
                 />
               </div>
             ) : null}

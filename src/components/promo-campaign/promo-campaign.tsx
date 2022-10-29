@@ -14,22 +14,21 @@ export function PromoCampaign({ background, text }: PromoCampaignProps) {
     <Container>
       <Row>
         <Col>
-          <Link href={`#${REQUESTED_GOODS_CONTAINER_ID}`}>
-            <a
-              className={styles.promoCampaign}
-              style={{ backgroundImage: `url(${background})` }}
-            >
-              <span className={styles.text}>{text}</span>
+          <Link
+            href={`#${REQUESTED_GOODS_CONTAINER_ID}`}
+            className={styles.promoCampaign}
+            style={{ backgroundImage: `url(${background})` }}
+          >
+            <span className={styles.text}>{text}</span>
 
-              <span
-                className={classNames(
-                  'btn btn-outline-primary',
-                  styles.checkRequestsButton
-                )}
-              >
-                Check requests
-              </span>
-            </a>
+            <span
+              className={classNames(
+                'btn btn-outline-primary',
+                styles.checkRequestsButton
+              )}
+            >
+              Check requests
+            </span>
           </Link>
         </Col>
       </Row>
