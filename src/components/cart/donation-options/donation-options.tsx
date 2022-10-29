@@ -104,7 +104,6 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           <span>
             {cartGroup.items.length > 1 ? 'Order items' : 'Order item'}
           </span>
-
         </Button>
 
         {/* Separator */}
