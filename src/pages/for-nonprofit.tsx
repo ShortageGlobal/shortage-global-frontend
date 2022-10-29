@@ -48,14 +48,16 @@ const ForNonprofit: NextPageWithLayout = () => {
 
               <div className={styles.bannerText}>
                 <p>
-                  We will create your unique page (
-                  <Link href="/organizations/meira_academy">
-                    {/* TODO: Hardcoded href! */}
-                    <a>check an example here</a>
-                  </Link>
-                  ) with a list of requested goods and guarantee delivery of
-                  donated goods directly from your donors to your
-                  office/warehouse.
+                  <span className={styles.textOnWhite}>
+                    We will create your unique page (
+                    <Link href="/organizations/meira_academy">
+                      {/* TODO: Hardcoded href! */}
+                      <a>check an example here</a>
+                    </Link>
+                    ) with a list of requested goods and guarantee delivery of
+                    donated goods directly from your donors to your
+                    office/warehouse.
+                  </span>
                 </p>
                 <p className={styles.pleaseCompleteFormMessage}>
                   Please complete the form below and we&apos;ll get back to you

@@ -69,6 +69,10 @@
         margin-top: 0.5rem;
       }
 
+      .textOnWhite {
+        background-color: var(--bs-body-bg);
+      }
+
       @include media-breakpoint-down(xxl) {
         .pleaseCompleteFormMessage {
           max-width: 380px;
@@ -106,6 +110,7 @@
 
     .image {
       position: absolute;
+      z-index: -1;
     }
 
     .womanLeft {
@@ -144,6 +149,10 @@
         width: $width * 0.28;
         height: $height * 0.28;
       }
+
+      @media (max-width: 390px) {
+        top: 2rem;
+      }
     }
 
     .manRight {
@@ -160,9 +169,10 @@
       }
 
       @include media-breakpoint-down(lg) {
+        top: 2.5rem;
+        right: -0.5rem;
         width: $width * 0.7;
         height: $height * 0.7;
-        top: 2.5rem;
       }
 
       @include media-breakpoint-down(md) {
@@ -176,6 +186,10 @@
         right: 0;
         width: $width * 0.28;
         height: $height * 0.28;
+      }
+
+      @media (max-width: 390px) {
+        top: 2rem;
       }
     }
   }
