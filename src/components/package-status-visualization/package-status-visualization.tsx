@@ -1,8 +1,8 @@
 import styles from './package-status-visualization.module.scss';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { PACKAGE_STATUS, PACKAGE_STATUS_LIFECYCLE } from 'app/constants';
-import type { Package, PackageStatus } from 'app/api/types';
+import { PACKAGE_STATUS, PACKAGE_STATUS_LIFECYCLE } from 'core/constants';
+import type { Package, PackageStatus } from 'core/api/types';
 
 const PACKAGE_DISPLAY_LABELS = Object.freeze({
   [PACKAGE_STATUS.REGISTERED]: 'Registered',

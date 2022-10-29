@@ -10,7 +10,7 @@ import {
   getHomeCrumb,
   getAboutUsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const team = [

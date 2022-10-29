@@ -5,11 +5,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { ShoppingCart, Loader } from 'react-feather';
 import { Container, Row, Col, Button, Placeholder } from 'react-bootstrap';
-import { formatPrice } from 'app/helpers';
-import { isRequestCancel, useAppSelector, useCart } from 'app/hooks';
-import { wrapper } from 'app/store';
-import { fetchProduct } from 'app/store/slices/product';
-import { selectProduct } from 'app/store/slices/product';
+import { formatPrice } from 'core/helpers';
+import { isRequestCancel, useAppSelector, useCart } from 'core/hooks';
+import { wrapper } from 'core/store';
+import { fetchProduct } from 'core/store/slices/product';
+import { selectProduct } from 'core/store/slices/product';
 import {
   Breadcrumbs,
   getHomeCrumb,

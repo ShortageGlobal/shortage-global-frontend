@@ -4,8 +4,8 @@ import { useCallback } from 'react';
 import classNames from 'classnames';
 import { Button, Badge } from 'react-bootstrap';
 import { ShoppingCart } from 'react-feather';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectCart, setIsCartSidebarShown } from 'app/store/slices/cart';
+import { useAppDispatch, useAppSelector } from 'core/hooks';
+import { selectCart, setIsCartSidebarShown } from 'core/store/slices/cart';
 
 type CartButtonProps = {
   className?: string;

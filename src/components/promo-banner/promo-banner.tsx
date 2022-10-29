@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronsDown } from 'react-feather';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 export function PromoBanner() {
   return (

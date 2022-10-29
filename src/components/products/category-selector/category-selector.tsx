@@ -8,8 +8,8 @@ import {
   PRODUCT_CATEGORY_LIST,
   PRODUCT_CATEGORY_DETAILS,
   PRODUCT_CATEGORY_ALL_KEY,
-} from 'app/constants';
-import type { Category } from 'app/api/types';
+} from 'core/constants';
+import type { Category } from 'core/api/types';
 
 type CategorySelectorProps = {
   categories: Category[];

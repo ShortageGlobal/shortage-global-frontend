@@ -4,12 +4,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
-import { wrapper } from 'app/store';
-import { useAppSelector, useCart } from 'app/hooks';
+import { wrapper } from 'core/store';
+import { useAppSelector, useCart } from 'core/hooks';
 import {
   fetchOrganization,
   selectOrganization,
-} from 'app/store/slices/organization';
+} from 'core/store/slices/organization';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -18,7 +18,7 @@ import {
   getPackageRegistrationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { PackageRegistrationForm } from 'components/package-registration-form/package-registration-form';
-import { PAGE_KEY } from 'app/constants';
+import { PAGE_KEY } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const PackageRegistrationPage: NextPageWithLayout = () => {

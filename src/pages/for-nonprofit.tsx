@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { wrapper } from 'app/store';
+import { wrapper } from 'core/store';
 import {
   Breadcrumbs,
   getHomeCrumb,

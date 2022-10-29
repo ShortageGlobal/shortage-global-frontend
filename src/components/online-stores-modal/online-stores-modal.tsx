@@ -1,7 +1,9 @@
+
+
 import styles from './online-stores-modal.module.scss';
 import { Modal, Button } from 'react-bootstrap';
 import Image from 'next/image';
-import { OnlineStore } from 'app/api/types';
+import { OnlineStore } from 'core/api/types';
 
 type OnlineStoresModalProps = {
   show: boolean;

@@ -3,13 +3,13 @@ import { useRef, useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { Search } from 'react-feather';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'core/hooks';
 import {
   selectSearch,
   setSearchQuery,
   setIsSearchInputFocused,
-} from 'app/store/slices/search';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+} from 'core/store/slices/search';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 export function SearchProducts() {
   const router = useRouter();

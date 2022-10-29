@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { IS_STAGING } from 'app/constants';
+import { IS_STAGING } from 'core/constants';
 
 export function LogoImage() {
   const src = IS_STAGING

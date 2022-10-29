@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import classNames from 'classnames';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
-import { formatPrice } from 'app/helpers';
-import type { ProductPreview, Slug } from 'app/api/types';
+import { formatPrice } from 'core/helpers';
+import type { ProductPreview, Slug } from 'core/api/types';
 
 type ProductCardProps = {
   product: ProductPreview;

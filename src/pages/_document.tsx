@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import { FB_PIXEL_ID } from 'app/constants';
+import { FB_PIXEL_ID } from 'core/constants';
 
 export default function Document() {
   return (

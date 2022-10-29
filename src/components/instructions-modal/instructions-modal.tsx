@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Modal, Button } from 'react-bootstrap';
-import { Organization, Instruction } from 'app/api/types';
+import { Organization, Instruction } from 'core/api/types';
 
 type InstructionsModalProps = {
   show: boolean;

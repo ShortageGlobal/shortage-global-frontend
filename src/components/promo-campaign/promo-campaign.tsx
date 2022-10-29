@@ -2,7 +2,7 @@ import styles from './promo-campaign.module.scss';
 import classNames from 'classnames';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 type PromoCampaignProps = {
   text: string;

@@ -5,9 +5,9 @@ import { Button, Form } from 'react-bootstrap';
 import { Trash2 } from 'react-feather';
 import Link from 'next/link';
 import Image from 'next/image';
-import { formatPrice } from 'app/helpers';
+import { formatPrice } from 'core/helpers';
 import type { ChangeEvent } from 'react';
-import type { CartItem } from 'app/api/types';
+import type { CartItem } from 'core/api/types';
 
 type CartItemProps = {
   item: CartItem;

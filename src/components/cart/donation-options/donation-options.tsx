@@ -9,12 +9,12 @@ import {
   useCart,
   useCancelToken,
   isRequestCancel,
-} from 'app/hooks';
-import { selectInstructions } from 'app/store/slices/instructions';
-import { createPackage } from 'app/api';
+} from 'core/hooks';
+import { selectInstructions } from 'core/store/slices/instructions';
+import { createPackage } from 'core/api';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
-import { PACKAGE_TYPE } from 'app/constants';
-import type { CartGroup } from 'app/helpers';
+import { PACKAGE_TYPE } from 'core/constants';
+import type { CartGroup } from 'core/helpers';
 
 type DonationOptionsProps = {
   cartGroup: CartGroup;
@@ -104,6 +104,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           <span>
             {cartGroup.items.length > 1 ? 'Order items' : 'Order item'}
           </span>
+
         </Button>
 
         {/* Separator */}

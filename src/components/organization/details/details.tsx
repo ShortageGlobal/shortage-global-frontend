@@ -4,10 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { ChevronsDown } from 'react-feather';
-import { useAppSelector } from 'app/hooks';
-import { selectOrganization } from 'app/store/slices/organization';
-import { stripProtocolFromUrl } from 'app/helpers';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+import { useAppSelector } from 'core/hooks';
+import { selectOrganization } from 'core/store/slices/organization';
+import { stripProtocolFromUrl } from 'core/helpers';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 export function OrganizationDetails() {
   const { organization } = useAppSelector(selectOrganization);

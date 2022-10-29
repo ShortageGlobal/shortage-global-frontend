@@ -12,19 +12,19 @@ import { Info } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { wrapper } from 'app/store';
+import { wrapper } from 'core/store';
 import {
   useAppDispatch,
   useAppSelector,
   useCart,
   useCancelToken,
   isRequestCancel,
-} from 'app/hooks';
+} from 'core/hooks';
 import {
   fetchInstructions,
   selectInstructions,
-} from 'app/store/slices/instructions';
-import { formatPrice, groupCartItemsByOrganization } from 'app/helpers';
+} from 'core/store/slices/instructions';
+import { formatPrice, groupCartItemsByOrganization } from 'core/helpers';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -35,8 +35,8 @@ import { CartItem } from 'components/cart/cart-item/cart-item';
 import { CartItemPlaceholder } from 'components/cart/cart-item/cart-item-placeholder/cart-item-placeholder';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { DonationOptions } from 'components/cart/donation-options/donation-options';
-import { PAGE_KEY } from 'app/constants';
-import type { CartItem as CartItemType } from 'app/api/types';
+import { PAGE_KEY } from 'core/constants';
+import type { CartItem as CartItemType } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const DonationCart: NextPageWithLayout = () => {

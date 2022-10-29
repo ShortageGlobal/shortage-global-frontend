@@ -2,13 +2,13 @@ import styles from './package-registration-form.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { createPackage } from 'app/api';
-import { useCart, useCancelToken, isRequestCancel } from 'app/hooks';
+import { createPackage } from 'core/api';
+import { useCart, useCancelToken, isRequestCancel } from 'core/hooks';
 import { CartItem } from 'components/cart/cart-item/cart-item';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
-import { PACKAGE_TYPE } from 'app/constants';
+import { PACKAGE_TYPE } from 'core/constants';
 import type { FormEvent } from 'react';
-import type { Organization, CartItem as CartItemType } from 'app/api/types';
+import type { Organization, CartItem as CartItemType } from 'core/api/types';
 
 type PackageRegistrationFormProps = {
   organization: Organization;

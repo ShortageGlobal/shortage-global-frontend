@@ -2,7 +2,7 @@ import styles from './review-donation-details.module.scss';
 import classNames from 'classnames';
 import { Row, Col, Button, Accordion } from 'react-bootstrap';
 import Link from 'next/link';
-import { useCart } from 'app/hooks';
+import { useCart } from 'core/hooks';
 import { Edit3 } from 'react-feather';
 
 type ReviewDonationDetailsProps = {

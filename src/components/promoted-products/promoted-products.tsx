@@ -5,20 +5,20 @@ import {
   useAppSelector,
   useCancelToken,
   useDidMountEffect,
-} from 'app/hooks';
+} from 'core/hooks';
 import {
   setCurrentCategory,
   selectPromotedCategories,
-} from 'app/store/slices/promoted-categories';
-import { selectSearch } from 'app/store/slices/search';
+} from 'core/store/slices/promoted-categories';
+import { selectSearch } from 'core/store/slices/search';
 import {
   fetchPromotedProducts,
   selectPromotedProducts,
   setIsLoading,
-} from 'app/store/slices/promoted-products';
-import { PRODUCTS_PAGE_SIZE } from 'app/constants';
+} from 'core/store/slices/promoted-products';
+import { PRODUCTS_PAGE_SIZE } from 'core/constants';
 import { Products } from 'components/products/products';
-import type { Category } from 'app/api/types';
+import type { Category } from 'core/api/types';
 
 export function PromotedProducts() {
   const dispatch = useAppDispatch();

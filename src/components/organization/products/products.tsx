@@ -5,21 +5,21 @@ import {
   useAppSelector,
   useCancelToken,
   useDidMountEffect,
-} from 'app/hooks';
-import { selectOrganization } from 'app/store/slices/organization';
+} from 'core/hooks';
+import { selectOrganization } from 'core/store/slices/organization';
 import {
   setCurrentCategory,
   selectCategories,
-} from 'app/store/slices/categories';
-import { selectSearch } from 'app/store/slices/search';
+} from 'core/store/slices/categories';
+import { selectSearch } from 'core/store/slices/search';
 import {
   fetchProducts,
   selectProducts,
   setIsLoading,
-} from 'app/store/slices/products';
-import { PRODUCTS_PAGE_SIZE } from 'app/constants';
+} from 'core/store/slices/products';
+import { PRODUCTS_PAGE_SIZE } from 'core/constants';
 import { Products } from 'components/products/products';
-import type { Category } from 'app/api/types';
+import type { Category } from 'core/api/types';
 
 export function OrganizationProducts() {
   const dispatch = useAppDispatch();
