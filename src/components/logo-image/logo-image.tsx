@@ -6,5 +6,5 @@ export function LogoImage() {
     ? '/images/logo/Shortage_staging.svg'
     : '/images/logo/Shortage.svg';
 
-  return <Image src={src} alt="Shortage" layout="fill" priority />;
+  return <Image src={src} alt="Shortage" fill priority />;
 }

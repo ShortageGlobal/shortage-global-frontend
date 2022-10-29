@@ -15,8 +15,8 @@ export function Footer() {
       <Container>
         <Row>
           <Col md="6" className={styles.leftColumn}>
-            <Link href="/">
-              <a className={styles.logo}>
+            <Link href="/" className={styles.logo}>
+              <a>
                 <LogoImage />
               </a>
             </Link>

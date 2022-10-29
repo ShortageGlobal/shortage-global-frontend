@@ -82,8 +82,9 @@ export function ProductCard({
                   pathname: '/organizations/[organizationSlug]',
                   query: { organizationSlug },
                 }}
+                className={styles.organizationLink}
               >
-                <a className={styles.organizationLink}>{organizationName}</a>
+                <a>{organizationName}</a>
               </Link>
             </div>
           ) : null}

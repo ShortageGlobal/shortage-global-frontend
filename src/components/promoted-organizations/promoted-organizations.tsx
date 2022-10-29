@@ -26,8 +26,9 @@ export function PromotedOrganizations() {
                           pathname: '/organizations/[organizationSlug]',
                           query: { organizationSlug: organization.slug },
                         }}
+                        className={styles.organizationLink}
                       >
-                        <a className={styles.organizationLink}>
+                        <a>
                           <Image
                             src={organization.logo}
                             alt={organization.name}

@@ -37,8 +37,8 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               {item.isActive ? (
                 <span>{item.label}</span>
               ) : (
-                <Link href={item.href}>
-                  <a className={styles.link}>{item.label}</a>
+                <Link href={item.href} className={styles.link}>
+                  {item.label}
                 </Link>
               )}
             </li>
