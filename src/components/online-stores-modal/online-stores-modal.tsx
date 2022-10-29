@@ -1,5 +1,3 @@
-
-
 import styles from './online-stores-modal.module.scss';
 import { Modal, Button } from 'react-bootstrap';
 import Image from 'next/image';
