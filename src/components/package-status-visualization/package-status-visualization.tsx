@@ -1,8 +1,8 @@
 import styles from './package-status-visualization.module.scss';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { PACKAGE_STATUS, PACKAGE_STATUS_LIFECYCLE } from 'app/constants';
-import type { Package, PackageStatus } from 'app/api/types';
+import { PACKAGE_STATUS, PACKAGE_STATUS_LIFECYCLE } from 'core/constants';
+import type { Package, PackageStatus } from 'core/api/types';
 
 const PACKAGE_DISPLAY_LABELS = Object.freeze({
   [PACKAGE_STATUS.REGISTERED]: 'Registered',
@@ -72,11 +72,7 @@ export function PackageStatusVisualization({
             >
               <div className={styles.stepBullet}>
                 <div className={styles.glyph}>
-                  <Image
-                    src={PACKAGE_STATUS_GLYPHS[step]}
-                    layout="fill"
-                    alt=""
-                  />
+                  <Image src={PACKAGE_STATUS_GLYPHS[step]} fill alt="" />
                 </div>
               </div>
               <div className={styles.stepLabel}>

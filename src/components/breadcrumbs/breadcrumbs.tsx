@@ -2,7 +2,7 @@ import styles from './breadcrumbs.module.scss';
 import classNames from 'classnames';
 import { Home } from 'react-feather';
 import Link, { LinkProps } from 'next/link';
-import type { Slug, Uuid } from 'app/api/types';
+import type { Slug, Uuid } from 'core/api/types';
 import type { ReactNode } from 'react';
 
 type BreadcrumbItem = {
@@ -37,8 +37,8 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               {item.isActive ? (
                 <span>{item.label}</span>
               ) : (
-                <Link href={item.href}>
-                  <a className={styles.link}>{item.label}</a>
+                <Link href={item.href} className={styles.link}>
+                  {item.label}
                 </Link>
               )}
             </li>

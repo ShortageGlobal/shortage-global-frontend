@@ -69,6 +69,10 @@
     position: relative;
     max-width: 40%;
     max-height: 700px;
+
+    .bannerImg {
+      object-fit: cover;
+    }
   }
 
   @include media-breakpoint-down(lg) {

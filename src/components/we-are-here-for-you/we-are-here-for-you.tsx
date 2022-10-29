@@ -2,8 +2,8 @@ import styles from './we-are-here-for-you.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useCallback } from 'react';
 import Image from 'next/image';
-import { useAppDispatch } from 'app/hooks';
-import { toggleLiveChat } from 'app/store/slices/live-chat';
+import { useAppDispatch } from 'core/hooks';
+import { toggleLiveChat } from 'core/store/slices/live-chat';
 
 export function WeAreHereForYou() {
   const dispatch = useAppDispatch();
@@ -35,9 +35,7 @@ export function WeAreHereForYou() {
             <Image
               alt=""
               src="/images/characters/woman-sits-looks-left.svg"
-              layout="fill"
-              width="326"
-              height="243"
+              fill
             />
           </div>
         </Col>

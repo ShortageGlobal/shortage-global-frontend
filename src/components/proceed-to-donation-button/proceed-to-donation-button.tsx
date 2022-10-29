@@ -4,7 +4,7 @@ import { ArrowRightCircle } from 'react-feather';
 import classNames from 'classnames';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
-import { useCart } from 'app/hooks';
+import { useCart } from 'core/hooks';
 
 type ProceedToDonationButtonProps = {
   className?: string;
@@ -26,7 +26,7 @@ export function ProceedToDonationButton({
   }, []);
 
   return (
-    <Link href={donationHref} passHref>
+    <Link href={donationHref} passHref legacyBehavior>
       <Button
         size="lg"
         className={classNames(styles.proceedToDonationButton, className)}

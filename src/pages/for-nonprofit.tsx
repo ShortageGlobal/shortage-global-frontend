@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { wrapper } from 'app/store';
+import { wrapper } from 'core/store';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -52,7 +52,7 @@ const ForNonprofit: NextPageWithLayout = () => {
                     We will create your unique page (
                     <Link href="/organizations/meira_academy">
                       {/* TODO: Hardcoded href! */}
-                      <a>check an example here</a>
+                      check an example here
                     </Link>
                     ) with a list of requested goods and guarantee delivery of
                     donated goods directly from your donors to your
@@ -69,14 +69,14 @@ const ForNonprofit: NextPageWithLayout = () => {
                 <Image
                   alt=""
                   src="/images/characters/woman-with-packages-looks-right.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div className={classNames(styles.image, styles.manRight)}>
                 <Image
                   alt=""
                   src="/images/characters/man-with-packages-looks-left.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
             </div>

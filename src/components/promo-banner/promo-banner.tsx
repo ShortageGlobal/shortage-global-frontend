@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronsDown } from 'react-feather';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 export function PromoBanner() {
   return (
@@ -24,7 +24,11 @@ export function PromoBanner() {
                 charities that need it most
               </p>
 
-              <Link href={`#${REQUESTED_GOODS_CONTAINER_ID}`} passHref>
+              <Link
+                href={`#${REQUESTED_GOODS_CONTAINER_ID}`}
+                passHref
+                legacyBehavior
+              >
                 <Button size="lg" className={styles.checkGoodsButton}>
                   <span>Check Out Our Top Requests</span>
                   <ChevronsDown />
@@ -35,14 +39,14 @@ export function PromoBanner() {
                 <Image
                   alt=""
                   src="/images/promo-banner/glister-left.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div className={classNames(styles.image, styles.glisterRight)}>
                 <Image
                   alt=""
                   src="/images/promo-banner/glister-right.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
 
@@ -52,7 +56,7 @@ export function PromoBanner() {
                 <Image
                   alt=""
                   src="/images/promo-banner/glister_left_short.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div
@@ -61,7 +65,7 @@ export function PromoBanner() {
                 <Image
                   alt=""
                   src="/images/promo-banner/glister_right_short.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
             </div>

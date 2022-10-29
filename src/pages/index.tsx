@@ -1,19 +1,19 @@
 import Head from 'next/head';
-import { wrapper } from 'app/store';
-import { fetchPromotedOrganizations } from 'app/store/slices/promoted-organizations';
+import { wrapper } from 'core/store';
+import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
 import {
   fetchPromotedCategories,
   setCurrentCategory,
-} from 'app/store/slices/promoted-categories';
-import { fetchPromotedProducts } from 'app/store/slices/promoted-products';
-import { setSearchQuery } from 'app/store/slices/search';
+} from 'core/store/slices/promoted-categories';
+import { fetchPromotedProducts } from 'core/store/slices/promoted-products';
+import { setSearchQuery } from 'core/store/slices/search';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromoCampaign } from 'components/promo-campaign/promo-campaign';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
 // import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
-import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'app/constants';
-import type { Category } from 'app/api/types';
+import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'core/constants';
+import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const IndexPage: NextPageWithLayout = () => {

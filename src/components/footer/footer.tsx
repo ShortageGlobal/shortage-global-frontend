@@ -15,10 +15,8 @@ export function Footer() {
       <Container>
         <Row>
           <Col md="6" className={styles.leftColumn}>
-            <Link href="/">
-              <a className={styles.logo}>
-                <LogoImage />
-              </a>
+            <Link href="/" className={styles.logo}>
+              <LogoImage />
             </Link>
 
             <div className={styles.address}>
@@ -41,7 +39,7 @@ export function Footer() {
                   <Image
                     src="/images/social-media-glyphs/twitter.svg"
                     alt="Shortage Twitter page"
-                    layout="fill"
+                    fill
                   />
                 </a>
               </li>
@@ -54,7 +52,7 @@ export function Footer() {
                   <Image
                     src="/images/social-media-glyphs/facebook.svg"
                     alt="Shortage Facebook page"
-                    layout="fill"
+                    fill
                   />
                 </a>
               </li>
@@ -67,7 +65,7 @@ export function Footer() {
                   <Image
                     src="/images/social-media-glyphs/instagram.svg"
                     alt="Shortage Instagram page"
-                    layout="fill"
+                    fill
                   />
                 </a>
               </li>
@@ -80,7 +78,7 @@ export function Footer() {
                   <Image
                     src="/images/social-media-glyphs/linkedin.svg"
                     alt="Shortage LinkedIn page"
-                    layout="fill"
+                    fill
                   />
                 </a>
               </li>

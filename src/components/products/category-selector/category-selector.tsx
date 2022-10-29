@@ -8,8 +8,8 @@ import {
   PRODUCT_CATEGORY_LIST,
   PRODUCT_CATEGORY_DETAILS,
   PRODUCT_CATEGORY_ALL_KEY,
-} from 'app/constants';
-import type { Category } from 'app/api/types';
+} from 'core/constants';
+import type { Category } from 'core/api/types';
 
 type CategorySelectorProps = {
   categories: Category[];
@@ -77,7 +77,7 @@ export function CategorySelector({
 
           return (
             <li key={categoryDetails.name}>
-              <Link href={{ query }}>
+              <Link href={{ query }} legacyBehavior>
                 <a
                   className={classNames(styles.categoryLink, {
                     [styles.active]: isActive,
@@ -92,13 +92,13 @@ export function CategorySelector({
                       alt=""
                       className={classNames({ [styles.hidden]: isActive })}
                       src={categoryDetails.img}
-                      layout="fill"
+                      fill
                     />
                     <Image
                       alt=""
                       className={classNames({ [styles.hidden]: !isActive })}
                       src={categoryDetails.imgActive}
-                      layout="fill"
+                      fill
                     />
                   </span>
                   {categoryDetails.name}

@@ -4,11 +4,11 @@ import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
-import { useCart, isRequestCancel } from 'app/hooks';
+import { useCart, isRequestCancel } from 'core/hooks';
 import { PhoneInput } from 'components/phone-input/phone-input';
-import { PAGE_KEY } from 'app/constants';
+import { PAGE_KEY } from 'core/constants';
 import type { FormEvent } from 'react';
-import type { Cart, CountryChoice } from 'app/api/types';
+import type { Cart, CountryChoice } from 'core/api/types';
 
 const ERROR_KEYS = Object.freeze({
   FIRST_NAME: 'first_name',

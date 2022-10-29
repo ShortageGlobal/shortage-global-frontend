@@ -5,9 +5,9 @@ import { Button, Form } from 'react-bootstrap';
 import { Trash2 } from 'react-feather';
 import Link from 'next/link';
 import Image from 'next/image';
-import { formatPrice } from 'app/helpers';
+import { formatPrice } from 'core/helpers';
 import type { ChangeEvent } from 'react';
-import type { CartItem } from 'app/api/types';
+import type { CartItem } from 'core/api/types';
 
 type CartItemProps = {
   item: CartItem;
@@ -69,25 +69,28 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
   return (
     <div className={styles.cartItem}>
       <div className={styles.photo}>
-        <Link href={productPageHref}>
-          <a aria-label="Visit product page" className={styles.photoLink}>
-            {item.product.photo ? (
-              <Image
-                src={item.product.photo}
-                alt={item.product.name}
-                layout="fill"
-                objectFit="contain"
-              />
-            ) : null}
-          </a>
+        <Link
+          href={productPageHref}
+          aria-label="Visit product page"
+          className={styles.photoLink}
+        >
+          {item.product.photo ? (
+            <Image
+              src={item.product.photo}
+              alt={item.product.name}
+              fill
+              className={styles.photoImg}
+            />
+          ) : null}
         </Link>
       </div>
 
       <div className={styles.name}>
-        <Link href={productPageHref}>
-          <a className={classNames(styles.nameLink, 'text-truncate')}>
-            {item.product.name}
-          </a>
+        <Link
+          href={productPageHref}
+          className={classNames(styles.nameLink, 'text-truncate')}
+        >
+          {item.product.name}
         </Link>
         <div className={styles.productPrice}>
           {formatPrice(item.product.price)}

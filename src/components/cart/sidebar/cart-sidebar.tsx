@@ -9,14 +9,14 @@ import {
   useCancelToken,
   useCart,
   isRequestCancel,
-} from 'app/hooks';
-import { selectCart, setIsCartLoading, setCart } from 'app/store/slices/cart';
-import { fetchCart, createAndFetchCart } from 'app/api';
-import { groupCartItemsByOrganization } from 'app/helpers';
-import { CART_ID_KEY } from 'app/constants';
+} from 'core/hooks';
+import { selectCart, setIsCartLoading, setCart } from 'core/store/slices/cart';
+import { fetchCart, createAndFetchCart } from 'core/api';
+import { groupCartItemsByOrganization } from 'core/helpers';
+import { CART_ID_KEY } from 'core/constants';
 import { CartItem } from 'components/cart/cart-item/cart-item';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
-import type { CartItem as CartItemType } from 'app/api/types';
+import type { CartItem as CartItemType } from 'core/api/types';
 
 export function CartSidebar() {
   const router = useRouter();
@@ -150,7 +150,7 @@ export function CartSidebar() {
                       query: { organizationSlug },
                     }}
                   >
-                    <a>{organizationName}</a>
+                    {organizationName}
                   </Link>
                 </p>
 

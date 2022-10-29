@@ -3,9 +3,9 @@ import { useMemo, useState, useCallback } from 'react';
 import { Container, Row, Col, Alert, Spinner } from 'react-bootstrap';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useCart } from 'app/hooks';
-import { wrapper } from 'app/store';
-import { fetchCorporateDonationOptions } from 'app/api';
+import { useCart } from 'core/hooks';
+import { wrapper } from 'core/store';
+import { fetchCorporateDonationOptions } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -13,7 +13,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { DonationDetailsForm } from 'components/donation-details-form/donation-details-form';
 import type { NextPageWithLayout } from 'pages/_app';
-import type { CountryChoice } from 'app/api/types';
+import type { CountryChoice } from 'core/api/types';
 
 type DonationDetailsProps = {
   countries: CountryChoice[];

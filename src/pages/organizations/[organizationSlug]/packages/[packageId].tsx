@@ -3,14 +3,14 @@ import { useMemo, useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import * as fbq from 'app/tracking/fpixel';
-import { wrapper } from 'app/store';
-import { useAppSelector, useCart } from 'app/hooks';
+import * as fbq from 'core/tracking/fpixel';
+import { wrapper } from 'core/store';
+import { useAppSelector, useCart } from 'core/hooks';
 import {
   fetchOrganization,
   selectOrganization,
-} from 'app/store/slices/organization';
-import { fetchPackage, selectPackage } from 'app/store/slices/package';
+} from 'core/store/slices/organization';
+import { fetchPackage, selectPackage } from 'core/store/slices/package';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -18,7 +18,7 @@ import {
   getPackageStatusCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
-import { PACKAGE_TYPE } from 'app/constants';
+import { PACKAGE_TYPE } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
 

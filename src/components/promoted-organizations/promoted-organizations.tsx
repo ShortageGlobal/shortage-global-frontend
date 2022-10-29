@@ -2,8 +2,8 @@ import styles from './promoted-organizations.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useAppSelector } from 'app/hooks';
-import { selectPromotedOrganizations } from 'app/store/slices/promoted-organizations';
+import { useAppSelector } from 'core/hooks';
+import { selectPromotedOrganizations } from 'core/store/slices/promoted-organizations';
 import { SectionHeader } from 'components/section-header/section-header';
 
 export function PromotedOrganizations() {
@@ -26,15 +26,14 @@ export function PromotedOrganizations() {
                           pathname: '/organizations/[organizationSlug]',
                           query: { organizationSlug: organization.slug },
                         }}
+                        className={styles.organizationLink}
                       >
-                        <a className={styles.organizationLink}>
-                          <Image
-                            src={organization.logo}
-                            alt={organization.name}
-                            layout="fill"
-                            objectFit="contain"
-                          />
-                        </a>
+                        <Image
+                          src={organization.logo}
+                          alt={organization.name}
+                          fill
+                          className={styles.logoImg}
+                        />
                       </Link>
                     </li>
                   );

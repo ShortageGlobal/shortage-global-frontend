@@ -1,7 +1,7 @@
 import styles from './online-stores-modal.module.scss';
 import { Modal, Button } from 'react-bootstrap';
 import Image from 'next/image';
-import { OnlineStore } from 'app/api/types';
+import { OnlineStore } from 'core/api/types';
 
 type OnlineStoresModalProps = {
   show: boolean;
@@ -33,11 +33,7 @@ export function OnlineStoresModal({
         <div className={styles.orderSteps}>
           <div>
             <div className={styles.stepImageWrap}>
-              <Image
-                alt=""
-                src="/images/online-stores/order_cart.svg"
-                layout="fill"
-              />
+              <Image alt="" src="/images/online-stores/order_cart.svg" fill />
             </div>
             <span>1. Order on the online store</span>
           </div>
@@ -47,7 +43,7 @@ export function OnlineStoresModal({
               <Image
                 alt=""
                 src="/images/online-stores/order_package.svg"
-                layout="fill"
+                fill
               />
             </div>
             <span>2. Register your package on Shortage</span>
@@ -55,11 +51,7 @@ export function OnlineStoresModal({
 
           <div>
             <div className={styles.stepImageWrap}>
-              <Image
-                alt=""
-                src="/images/online-stores/order_update.svg"
-                layout="fill"
-              />
+              <Image alt="" src="/images/online-stores/order_update.svg" fill />
             </div>
             <span>3. Get delivery updates</span>
           </div>

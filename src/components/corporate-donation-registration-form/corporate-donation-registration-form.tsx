@@ -1,12 +1,12 @@
 import styles from './corporate-donation-registration-form.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import { registerCorporateDonation } from 'app/api';
-import { useCancelToken, isRequestCancel } from 'app/hooks';
+import { registerCorporateDonation } from 'core/api';
+import { useCancelToken, isRequestCancel } from 'core/hooks';
 import { CorporateDonationRegistrationSuccess } from 'components/corporate-donation-registration-form/registration-success/registration-success';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import type { FormEvent } from 'react';
-import type { CountryChoice } from 'app/api/types';
+import type { CountryChoice } from 'core/api/types';
 
 const ERROR_KEYS = Object.freeze({
   COMPANY_NAME: 'company_name',

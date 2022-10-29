@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { wrapper } from 'app/store';
+import { wrapper } from 'core/store';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ImpactStories: NextPageWithLayout = () => {

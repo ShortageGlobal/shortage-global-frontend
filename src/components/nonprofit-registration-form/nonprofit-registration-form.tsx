@@ -1,9 +1,9 @@
 import styles from './nonprofit-registration-form.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import * as fbq from 'app/tracking/fpixel';
-import { registerNonprofit } from 'app/api';
-import { useCancelToken, isRequestCancel } from 'app/hooks';
+import * as fbq from 'core/tracking/fpixel';
+import { registerNonprofit } from 'core/api';
+import { useCancelToken, isRequestCancel } from 'core/hooks';
 import { NonprofitRegistrationSuccess } from 'components/nonprofit-registration-form/registration-success/registration-success';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import type { FormEvent } from 'react';

@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import classNames from 'classnames';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
-import { formatPrice } from 'app/helpers';
-import type { ProductPreview, Slug } from 'app/api/types';
+import { formatPrice } from 'core/helpers';
+import type { ProductPreview, Slug } from 'core/api/types';
 
 type ProductCardProps = {
   product: ProductPreview;
@@ -29,12 +29,9 @@ export function ProductCard({
           pathname: '/organizations/[organizationSlug]/products/[productSlug]',
           query: { organizationSlug, productSlug: product.slug },
         }}
-      >
-        <a
-          className={styles.productLinkOverlay}
-          aria-label="Visit product page"
-        ></a>
-      </Link>
+        className={styles.productLinkOverlay}
+        aria-label="Visit product page"
+      ></Link>
 
       <div className={styles.cardImage}>
         {/* photo */}
@@ -42,8 +39,8 @@ export function ProductCard({
           <Image
             src={product.photo}
             alt={product.name}
-            layout="fill"
-            objectFit="contain"
+            fill
+            className={styles.photo}
           />
         ) : null}
 
@@ -82,8 +79,9 @@ export function ProductCard({
                   pathname: '/organizations/[organizationSlug]',
                   query: { organizationSlug },
                 }}
+                className={styles.organizationLink}
               >
-                <a className={styles.organizationLink}>{organizationName}</a>
+                {organizationName}
               </Link>
             </div>
           ) : null}

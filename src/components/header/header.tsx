@@ -5,8 +5,8 @@ import { Menu, X } from 'react-feather';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useAppSelector, useScrollPosition } from 'app/hooks';
-import { selectSearch } from 'app/store/slices/search';
+import { useAppSelector, useScrollPosition } from 'core/hooks';
+import { selectSearch } from 'core/store/slices/search';
 import { LogoImage } from 'components/logo-image/logo-image';
 import { ActiveLink } from 'components/active-link/active-link';
 import { SearchProducts } from 'components/header/search/search';
@@ -67,7 +67,7 @@ export function Header() {
       >
         {/* <GlobalNotification /> */}
         <Container className={styles.container}>
-          <Link href="/" passHref>
+          <Link href="/" passHref legacyBehavior>
             <Navbar.Brand className={styles.navbarBrand}>
               <LogoImage />
             </Navbar.Brand>

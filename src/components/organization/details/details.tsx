@@ -4,10 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { ChevronsDown } from 'react-feather';
-import { useAppSelector } from 'app/hooks';
-import { selectOrganization } from 'app/store/slices/organization';
-import { stripProtocolFromUrl } from 'app/helpers';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'app/constants';
+import { useAppSelector } from 'core/hooks';
+import { selectOrganization } from 'core/store/slices/organization';
+import { stripProtocolFromUrl } from 'core/helpers';
+import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 export function OrganizationDetails() {
   const { organization } = useAppSelector(selectOrganization);
@@ -41,7 +41,11 @@ export function OrganizationDetails() {
 
               <h5 className={styles.sectionHeader}>Ready to donate?</h5>
 
-              <Link href={`#${REQUESTED_GOODS_CONTAINER_ID}`} passHref>
+              <Link
+                href={`#${REQUESTED_GOODS_CONTAINER_ID}`}
+                passHref
+                legacyBehavior
+              >
                 <Button size="lg" className={styles.checkGoodsButton}>
                   <span>Check Out Our Top Requests</span>
                   <ChevronsDown />
@@ -55,8 +59,8 @@ export function OrganizationDetails() {
                 <Image
                   alt=""
                   src={organization.banner}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className={styles.bannerImg}
                 />
               </div>
             ) : null}

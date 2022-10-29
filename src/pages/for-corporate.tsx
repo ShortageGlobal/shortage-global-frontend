@@ -4,8 +4,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import classNames from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
-import { wrapper } from 'app/store';
-import { fetchCorporateDonationOptions } from 'app/api';
+import { wrapper } from 'core/store';
+import { fetchCorporateDonationOptions } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -13,7 +13,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { CorporateDonationRegistrationForm } from 'components/corporate-donation-registration-form/corporate-donation-registration-form';
 import type { NextPageWithLayout } from 'pages/_app';
-import type { CountryChoice } from 'app/api/types';
+import type { CountryChoice } from 'core/api/types';
 
 type ForCorporateProps = {
   countries: CountryChoice[];
@@ -65,14 +65,14 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
                 <Image
                   alt=""
                   src="/images/characters/girl-jumps-right.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
               <div className={classNames(styles.image, styles.boyJumpsLeft)}>
                 <Image
                   alt=""
                   src="/images/characters/boy-jumps-left.svg"
-                  layout="fill"
+                  fill
                 />
               </div>
             </div>

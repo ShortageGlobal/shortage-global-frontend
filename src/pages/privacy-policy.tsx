@@ -37,28 +37,20 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               <p className={styles.effectiveFrom}>Effective June 19, 2022</p>
             </header>
             <p>
-              <Link href="/">
-                <a>Shortage</a>
-              </Link>{' '}
-              places a high priority on protecting your privacy. This Privacy
-              Policy was created in order to demonstrate Shortage&apos;s
-              commitment to the privacy of our members and website users. This
-              Privacy Policy applies to{' '}
-              <Link href="/">
-                <a>shortage.global</a>
-              </Link>{' '}
-              and to our social media profiles, and governs data collection,
-              usage, and sharing. The Shortage website is an informational and
-              ecommerce website. By using the Shortage website, you consent to
-              the data practices described in this document.
+              <Link href="/">Shortage</Link> places a high priority on
+              protecting your privacy. This Privacy Policy was created in order
+              to demonstrate Shortage&apos;s commitment to the privacy of our
+              members and website users. This Privacy Policy applies to{' '}
+              <Link href="/">shortage.global</Link> and to our social media
+              profiles, and governs data collection, usage, and sharing. The
+              Shortage website is an informational and ecommerce website. By
+              using the Shortage website, you consent to the data practices
+              described in this document.
             </p>
             <p>
               This Policy explains what types of information are collected by
-              Shortage&apos;s website,{' '}
-              <Link href="/">
-                <a>shortage.global</a>
-              </Link>
-              , and how this information is used.
+              Shortage&apos;s website, <Link href="/">shortage.global</Link>,
+              and how this information is used.
             </p>
             <h4 className={styles.sectionHeader}>
               Collection of your Personal Information
