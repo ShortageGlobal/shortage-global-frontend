@@ -201,7 +201,7 @@ const DonationCart: NextPageWithLayout = () => {
                       },
                     }}
                   >
-                    <a>Donation Details</a>
+                    Donation Details
                   </Link>
                 </span>
               </div>
@@ -227,10 +227,7 @@ const DonationCart: NextPageWithLayout = () => {
               <p className={styles.noItemsMessage}>
                 Your donation cart doesn&apos;t have any goods. Check the
                 requested goods on{' '}
-                <Link href={{ pathname: '/' }}>
-                  <a>the homepage</a>
-                </Link>
-                .
+                <Link href={{ pathname: '/' }}>the homepage</Link>.
               </p>
             ) : null}
 
@@ -287,7 +284,7 @@ const DonationCart: NextPageWithLayout = () => {
                                 },
                               }}
                             >
-                              <a>{cartGroup.organizationName}</a>
+                              {cartGroup.organizationName}
                             </Link>
                           </p>
 

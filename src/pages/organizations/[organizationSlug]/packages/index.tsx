@@ -115,7 +115,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
                       },
                     }}
                   >
-                    <a>Donation Details</a>
+                    Donation Details
                   </Link>
                 </span>
               </div>
@@ -138,7 +138,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
                     query: { organizationSlug: organization.slug },
                   }}
                 >
-                  <a>the organization&apos;s page</a>
+                  the organization&apos;s page
                 </Link>
                 .
               </p>

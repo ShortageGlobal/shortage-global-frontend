@@ -41,10 +41,11 @@ const Error = ({ statusCode }: { statusCode: number }) => {
           </span>
         </div>
 
-        <Link href="/">
-          <a className={classNames('btn btn-outline-dark', styles.homeButton)}>
-            Get me to Homepage
-          </a>
+        <Link
+          href="/"
+          className={classNames('btn btn-outline-dark', styles.homeButton)}
+        >
+          Get me to Homepage
         </Link>
       </div>
     </>

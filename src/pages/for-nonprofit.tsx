@@ -52,7 +52,7 @@ const ForNonprofit: NextPageWithLayout = () => {
                     We will create your unique page (
                     <Link href="/organizations/meira_academy">
                       {/* TODO: Hardcoded href! */}
-                      <a>check an example here</a>
+                      check an example here
                     </Link>
                     ) with a list of requested goods and guarantee delivery of
                     donated goods directly from your donors to your

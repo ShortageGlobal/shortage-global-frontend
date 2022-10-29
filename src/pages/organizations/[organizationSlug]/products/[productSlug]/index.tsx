@@ -151,7 +151,7 @@ const ProductPage: NextPageWithLayout = () => {
                     query: { organizationSlug: product.organization.slug },
                   }}
                 >
-                  <a>{product.organization.name}</a>
+                  {product.organization.name}
                 </Link>
               </div>
             </div>

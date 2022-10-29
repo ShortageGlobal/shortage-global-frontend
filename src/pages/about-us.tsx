@@ -137,7 +137,11 @@ const AboutUs: NextPageWithLayout = () => {
 
         <Row>
           <Col className="text-center">
-            <Link href={`/#${REQUESTED_GOODS_CONTAINER_ID}`} passHref>
+            <Link
+              href={`/#${REQUESTED_GOODS_CONTAINER_ID}`}
+              passHref
+              legacyBehavior
+            >
               <Button size="lg" className={styles.checkGoodsButton}>
                 <span>Check Out Our Top Requests</span>
               </Button>
