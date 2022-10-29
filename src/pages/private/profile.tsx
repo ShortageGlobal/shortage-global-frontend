@@ -17,8 +17,6 @@ const SignIn: NextPageWithLayout = () => {
 
   const [profile, setProfile] = useState(null);
 
-  console.log(session);
-
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getProfile({ isActive: true })];
   }, []);

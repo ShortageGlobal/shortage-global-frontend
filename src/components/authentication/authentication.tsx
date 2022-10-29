@@ -11,16 +11,22 @@ type AuthenticationProps = {
   children: ReactNode;
 };
 
+/*
+ * Check if user is authenticated before rendering private content.
+ * Sign out if session got errors (e.g. refresh token expired).
+ */
 export function Authentication({ children }: AuthenticationProps) {
   const session = useSession();
   const router = useRouter();
 
+  // sign out if session.data.error is present
   useEffect(() => {
     if ((session?.data as Session & { error?: string })?.error) {
       signOut();
     }
   }, [session]);
 
+  // click on the "Sign in" button
   const handleSignIn = useCallback(() => {
     router.push({
       pathname: '/account/sign-in',
