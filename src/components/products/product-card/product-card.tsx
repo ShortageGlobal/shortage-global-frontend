@@ -84,7 +84,7 @@ export function ProductCard({
                 }}
                 className={styles.organizationLink}
               >
-                <a>{organizationName}</a>
+                {organizationName}
               </Link>
             </div>
           ) : null}

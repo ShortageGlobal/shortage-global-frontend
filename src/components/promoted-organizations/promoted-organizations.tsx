@@ -28,14 +28,12 @@ export function PromotedOrganizations() {
                         }}
                         className={styles.organizationLink}
                       >
-                        <a>
-                          <Image
-                            src={organization.logo}
-                            alt={organization.name}
-                            layout="fill"
-                            objectFit="contain"
-                          />
-                        </a>
+                        <Image
+                          src={organization.logo}
+                          alt={organization.name}
+                          layout="fill"
+                          objectFit="contain"
+                        />
                       </Link>
                     </li>
                   );

@@ -90,7 +90,7 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
           href={productPageHref}
           className={classNames(styles.nameLink, 'text-truncate')}
         >
-          <a>{item.product.name}</a>
+          {item.product.name}
         </Link>
         <div className={styles.productPrice}>
           {formatPrice(item.product.price)}

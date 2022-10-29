@@ -150,7 +150,7 @@ export function CartSidebar() {
                       query: { organizationSlug },
                     }}
                   >
-                    <a>{organizationName}</a>
+                    {organizationName}
                   </Link>
                 </p>
 
