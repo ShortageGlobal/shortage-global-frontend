@@ -140,6 +140,7 @@ export function NonprofitRegistrationForm() {
           <Form.Control
             size="lg"
             type="text"
+            placeholder=""
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             isValid={getIsValid('first_name')}
