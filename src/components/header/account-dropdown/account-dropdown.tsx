@@ -66,7 +66,7 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
         {session?.status === 'authenticated' ? (
           <>
             <Dropdown.Header>{session.data.user.email}</Dropdown.Header>
-            <Link href="/private/profile" passHref>
+            <Link href="/private/profile" passHref legacyBehavior>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
