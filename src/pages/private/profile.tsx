@@ -1,6 +1,6 @@
-import styles from 'styles/pages/account-form.module.scss';
+import styles from 'styles/pages/private/profile.module.scss';
 import { useMemo, useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Badge } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { wrapper } from 'core/store';
@@ -45,10 +45,15 @@ const SignIn: NextPageWithLayout = () => {
         </Row>
       </Container>
 
-      <Container>
+      <Container className={styles.profile}>
         <Row>
           <Col>
-            <h2 className={styles.header}>Profile</h2>
+            <h2 className={styles.header}>
+              <span>Profile</span>{' '}
+              <Badge bg="warning" className={styles.badge}>
+                BETA
+              </Badge>
+            </h2>
           </Col>
         </Row>
         <Row>

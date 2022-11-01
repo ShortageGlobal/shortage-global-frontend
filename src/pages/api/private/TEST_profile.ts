@@ -2,7 +2,7 @@ import axios from 'axios';
 import { unstable_getServerSession } from 'next-auth/next';
 import { getToken } from 'next-auth/jwt';
 import { authOptions } from 'pages/api/auth/[...nextauth]';
-import { API_ROOT } from 'app/constants';
+import { API_ROOT } from 'core/constants';
 
 export default async function handler(req, res) {
   const session = await unstable_getServerSession(req, res, authOptions);

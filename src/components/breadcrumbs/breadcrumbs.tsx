@@ -76,12 +76,21 @@ export const getSignInCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getRegisterCrumb = (props: BreadcrumbItem = {}) =>
+export const getCreateAccountCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
     key: 'register',
-    label: 'Register',
+    label: 'Create Account',
     href: '/account/register',
+    ...props,
+  });
+
+export const getConfirmAccountCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'confirm-account',
+    label: 'Confirm Account',
+    href: '/account/activate',
     ...props,
   });
 

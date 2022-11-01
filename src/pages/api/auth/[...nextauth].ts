@@ -81,7 +81,7 @@ export const authOptions = {
     },
   },
   pages: {
-    signIn: '/account/sign-in',
+    signIn: '/account/sign-in/',
   },
   session: {
     maxAge: CLIENT_JWT_MAX_AGE,

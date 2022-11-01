@@ -1,4 +1,4 @@
-import styles from 'styles/pages/account-form.module.scss';
+import styles from 'styles/pages/account/sign-in.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import classNames from 'classnames';
 import { useMemo, useState, useCallback, useEffect } from 'react';
@@ -15,6 +15,7 @@ import { Loader, Eye, EyeOff } from 'react-feather';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import { wrapper } from 'core/store';
 import {
   Breadcrumbs,
@@ -141,13 +142,12 @@ const SignIn: NextPageWithLayout = () => {
                   type={showPassword ? 'test' : 'password'}
                   name="password"
                   required
-                  autoFocus
                   isInvalid={!!errorMessage}
                 />
                 <Button
                   variant=""
                   className={classNames(styles.showPasswordBtn, {
-                    [styles.withError]: !!errorMessage,
+                    [styles.withFeedback]: !!errorMessage,
                   })}
                   onClick={() => setShowPassword(!showPassword)}
                 >
@@ -182,6 +182,15 @@ const SignIn: NextPageWithLayout = () => {
                 ) : null}
                 <span>Submit</span>
               </Button>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+              <div>
+                Don&apos;t have an account yet?{' '}
+                <Link href="/account/create-account">Create account</Link>
+              </div>
             </Col>
           </Row>
         </Form>

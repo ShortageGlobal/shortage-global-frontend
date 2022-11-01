@@ -73,7 +73,20 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
           </>
         ) : (
           <>
-            <Dropdown.Item onClick={handleSignIn}>Sign in</Dropdown.Item>
+            <Dropdown.Item
+              onClick={handleSignIn}
+              disabled={router.pathname.startsWith('/account/sign-in')}
+              as="button"
+            >
+              Sign in
+            </Dropdown.Item>
+            <Link href="/account/create-account" passHref legacyBehavior>
+              <Dropdown.Item
+                disabled={router.pathname.startsWith('/account/create-account')}
+              >
+                Create account
+              </Dropdown.Item>
+            </Link>
           </>
         )}
       </Dropdown.Menu>
