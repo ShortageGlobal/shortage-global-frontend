@@ -8,7 +8,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { wrapper } from 'core/store';
-import { Authentication } from 'components/authentication/authentication';
+import { AuthenticationGuard } from 'components/authentication-guard/authentication-guard';
 import { Header } from 'components/header/header';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { Footer } from 'components/footer/footer';
@@ -108,7 +108,7 @@ function MyApp({
       <>
         <Header />
         <main className="main-container">
-          <Authentication>{page}</Authentication>
+          <AuthenticationGuard>{page}</AuthenticationGuard>
         </main>
         <WeAreHereForYou />
         <Footer />

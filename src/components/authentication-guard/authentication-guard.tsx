@@ -1,4 +1,4 @@
-import styles from './authentication.module.scss';
+import styles from './authentication-guard.module.scss';
 import { useEffect, useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import { Lock } from 'react-feather';
@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import type { Session } from 'next-auth';
 
-type AuthenticationProps = {
+type AuthenticationGuardProps = {
   children: ReactNode;
 };
 
@@ -15,7 +15,7 @@ type AuthenticationProps = {
  * Check if user is authenticated before rendering private content.
  * Sign out if session got errors (e.g. refresh token expired).
  */
-export function Authentication({ children }: AuthenticationProps) {
+export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   const session = useSession();
   const router = useRouter();
 
@@ -47,7 +47,7 @@ export function Authentication({ children }: AuthenticationProps) {
   // hide private content if user is not authenticated
   if (session?.status === 'unauthenticated') {
     return (
-      <div className={styles.authentication}>
+      <div className={styles.authenticationGuard}>
         <Lock size="3rem" />
 
         <div className={styles.message}>
