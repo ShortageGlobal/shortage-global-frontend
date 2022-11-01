@@ -12,7 +12,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const SignIn: NextPageWithLayout = () => {
+const Profile: NextPageWithLayout = () => {
   const session = useSession();
 
   const [profile, setProfile] = useState(null);
@@ -72,4 +72,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default SignIn;
+export default Profile;
