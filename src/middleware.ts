@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { API_PROTOCOL, API_HOST } from 'core/constants';
+import { API_PROTOCOL, API_HOSTNAME, API_PORT } from 'core/constants';
 
 export default async function middleware(req) {
   const url = req.nextUrl;
@@ -24,7 +24,8 @@ export default async function middleware(req) {
 
     // rewrite the request from next.js server to backend API
     url.protocol = API_PROTOCOL;
-    url.host = API_HOST;
+    url.hostname = API_HOSTNAME;
+    url.port = API_PORT;
 
     return NextResponse.rewrite(url, {
       request: {
