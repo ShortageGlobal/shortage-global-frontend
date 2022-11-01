@@ -19,6 +19,7 @@ export type Limit = number;
 export type Offset = number;
 export type Slug = string;
 export type Uuid = string;
+export type JWTToken = string;
 
 type CategoryKey = keyof typeof PRODUCT_CATEGORY_KEY;
 export type Category =

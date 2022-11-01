@@ -8,6 +8,7 @@ import {
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { liveChatReducer } from 'core/store/slices/live-chat';
 import { searchReducer } from 'core/store/slices/search';
+import { accountReducer } from 'core/store/slices/account';
 import { cartReducer } from 'core/store/slices/cart';
 import { promotedOrganizationsReducer } from 'core/store/slices/promoted-organizations';
 import { promotedCategoriesReducer } from 'core/store/slices/promoted-categories';
@@ -23,6 +24,7 @@ import { packageReducer } from 'core/store/slices/package';
 const combinedReducer = combineReducers({
   search: searchReducer,
   liveChat: liveChatReducer,
+  account: accountReducer,
   cart: cartReducer,
   promotedOrganizations: promotedOrganizationsReducer,
   promotedCategories: promotedCategoriesReducer,
@@ -71,5 +73,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 export const wrapper = createWrapper(makeStore, {
-  debug: process.env.NODE_ENV === 'development',
+  // debug: process.env.NODE_ENV === 'development',
 });

@@ -1,4 +1,5 @@
 import { useRef, DependencyList, MutableRefObject, useEffect } from 'react';
+import { IS_BROWSER } from 'core/constants';
 
 type Position = {
   x: number;
@@ -12,7 +13,6 @@ type ScrollProps = {
 
 type ElementRef = MutableRefObject<HTMLElement | undefined>;
 
-const isBrowser = typeof window !== `undefined`;
 const zeroPosition = { x: 0, y: 0 };
 
 const getClientRect = (element?: HTMLElement) =>
@@ -27,7 +27,7 @@ const getScrollPosition = ({
   boundingElement?: ElementRef;
   useWindow?: boolean;
 }) => {
-  if (!isBrowser) {
+  if (!IS_BROWSER) {
     return zeroPosition;
   }
 
@@ -70,8 +70,8 @@ export const useScrollPosition = (
   };
 
   useEffect(() => {
-    if (!isBrowser) {
-      return undefined;
+    if (!IS_BROWSER) {
+      return;
     }
 
     const handleScroll = () => {

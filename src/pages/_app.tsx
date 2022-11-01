@@ -3,10 +3,12 @@ import { useEffect, useRef } from 'react';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import NProgress from 'nprogress';
+import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { wrapper } from 'core/store';
+import { AuthenticationGuard } from 'components/authentication-guard/authentication-guard';
 import { Header } from 'components/header/header';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { Footer } from 'components/footer/footer';
@@ -14,8 +16,14 @@ import { CartSidebar } from 'components/cart/sidebar/cart-sidebar';
 import { LiveChat } from 'components/live-chat/live-chat';
 import * as gtag from 'core/tracking/gtag';
 import * as fbq from 'core/tracking/fpixel';
-import { IS_STAGING, GA_TRACKING_ID, FB_PIXEL_ID } from 'core/constants';
+import {
+  IS_STAGING,
+  GA_TRACKING_ID,
+  FB_PIXEL_ID,
+  CLIENT_SESSION_REFETCH_INTERVAL,
+} from 'core/constants';
 import type { ReactElement, ReactNode } from 'react';
+import type { Session } from 'next-auth';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 
@@ -23,11 +31,14 @@ export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
-type AppPropsWithLayout = AppProps & {
+type AppPropsWithLayout = AppProps<{ session: Session }> & {
   Component: NextPageWithLayout;
 };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) {
   const router = useRouter();
 
   // Google Analytics events
@@ -96,7 +107,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     ((page) => (
       <>
         <Header />
-        <main className="main-container">{page}</main>
+        <main className="main-container">
+          <AuthenticationGuard>{page}</AuthenticationGuard>
+        </main>
         <WeAreHereForYou />
         <Footer />
         <CartSidebar />
@@ -181,12 +194,17 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       />
 
       <SSRProvider>
-        <ThemeProvider
-          breakpoints={['xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-          minBreakpoint="xxs"
+        <SessionProvider
+          session={session}
+          refetchInterval={CLIENT_SESSION_REFETCH_INTERVAL}
         >
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeProvider>
+          <ThemeProvider
+            breakpoints={['xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+            minBreakpoint="xxs"
+          >
+            {getLayout(<Component {...pageProps} />)}
+          </ThemeProvider>
+        </SessionProvider>
       </SSRProvider>
     </>
   );

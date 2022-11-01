@@ -1,6 +1,6 @@
 import styles from './corporate-donation-registration-form.module.scss';
 import { useCallback, useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { registerCorporateDonation } from 'core/api';
 import { useCancelToken, isRequestCancel } from 'core/hooks';
 import { CorporateDonationRegistrationSuccess } from 'components/corporate-donation-registration-form/registration-success/registration-success';
@@ -555,7 +555,7 @@ export function CorporateDonationRegistrationForm({
       {errors ? (
         <Row>
           <Col>
-            <div className="text-danger">Fix errors above and try again</div>
+            <Alert variant="danger">Fix errors above and try again</Alert>
           </Col>
         </Row>
       ) : null}

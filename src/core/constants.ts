@@ -1,5 +1,9 @@
-export const API_ROOT = process.env.NEXT_PUBLIC_API_ROOT;
+export const API_PROTOCOL =
+  process.env.NEXT_PUBLIC_SECURE_API_PROTOCOL === 'true' ? 'https:' : 'http:';
+export const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
+export const API_ROOT = `${API_PROTOCOL}//${API_HOST}`;
 export const IS_STAGING = process.env.NEXT_PUBLIC_ENV === 'staging';
+export const IS_BROWSER = typeof window !== 'undefined';
 
 // Live Chat
 export const LIVE_CHAT_LICENCE_ID =
@@ -11,7 +15,19 @@ export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
 // Facebook Pixel
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
 
-// IMPORTANT: the list of category keys must be synchronized with backend
+// How long jwt token lives on the backend (django) before expiring (in seconds).
+// Make it a bit smaller than the real value to compensate networking lag.
+export const BACKEND_JWT_MAX_AGE = 60 * 60 * 0.9; // 1 hour * 0.75 = 54 minutes
+
+// How long jwt token lives on the client (next-auth.js) before expiring (in seconds).
+// Should not be greater than backend refresh token lifetime.
+export const CLIENT_JWT_MAX_AGE = 14 * 24 * 60 * 60; // 14 days
+
+// A time interval (in seconds) after which the session will be re-fetched.
+// If set to `0` (default), the session is not polled.
+export const CLIENT_SESSION_REFETCH_INTERVAL = BACKEND_JWT_MAX_AGE / 2; // 27 minutes
+
+// !IMPORTANT: the list of category keys must be synchronized with backend
 export const PRODUCT_CATEGORY_KEY = Object.freeze({
   VITAL_GOODS: 'VITAL_GOODS',
   HEALTHCARE: 'HEALTHCARE',
@@ -81,7 +97,7 @@ export const PACKAGE_TYPE = Object.freeze({
   FUNDED_BY_DONOR: 'FUNDED_BY_DONOR',
 });
 
-// IMPORTANT: the list of package statuses must be synchronized with backend
+// !IMPORTANT: the list of package statuses must be synchronized with backend
 export const PACKAGE_STATUS = Object.freeze({
   REGISTERED: 'REGISTERED',
   PAYMENT_CANCELED: 'PAYMENT_CANCELED',

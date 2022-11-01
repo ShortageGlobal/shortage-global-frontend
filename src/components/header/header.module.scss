@@ -91,13 +91,13 @@
     align-items: center;
   }
 
-  .cartButtonCollapsedNav {
+  .headerControlCollapsedNav {
     @include media-breakpoint-up(lg) {
       display: none;
     }
   }
 
-  .cartButtonExpandedNav {
+  .headerControlExpandedNav {
     @include media-breakpoint-down(lg) {
       display: none;
     }
