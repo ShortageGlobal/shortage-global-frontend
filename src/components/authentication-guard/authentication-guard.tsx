@@ -29,7 +29,7 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   // click on the "Sign in" button
   const handleSignIn = useCallback(() => {
     router.push({
-      pathname: '/account/sign-in',
+      pathname: '/account/sign-in/',
       query: {
         callbackUrl: router.asPath,
       },

@@ -42,7 +42,7 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
 
   const handleSignIn = useCallback(() => {
     router.push({
-      pathname: '/account/sign-in',
+      pathname: '/account/sign-in/',
       query: {
         callbackUrl: router.asPath,
       },

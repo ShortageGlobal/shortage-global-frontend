@@ -16,7 +16,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const SignIn: NextPageWithLayout = () => {
+const ConfirmAccount: NextPageWithLayout = () => {
   const router = useRouter();
 
   const [isPending, setIsPending] = useState(true);
@@ -59,7 +59,7 @@ const SignIn: NextPageWithLayout = () => {
 
   const handleSignIn = useCallback(() => {
     router.push({
-      pathname: '/account/sign-in',
+      pathname: '/account/sign-in/',
     });
   }, [router]);
 
@@ -134,4 +134,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default SignIn;
+export default ConfirmAccount;
