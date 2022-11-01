@@ -1,7 +1,10 @@
 export const API_PROTOCOL =
   process.env.NEXT_PUBLIC_SECURE_API_PROTOCOL === 'true' ? 'https:' : 'http:';
-export const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
-export const API_ROOT = `${API_PROTOCOL}//${API_HOST}`;
+export const API_HOSTNAME = process.env.NEXT_PUBLIC_API_HOSTNAME;
+export const API_PORT = process.env.NEXT_PUBLIC_API_PORT;
+export const API_ROOT = `${API_PROTOCOL}//${API_HOSTNAME}${
+  API_PORT ? `:${API_PORT}` : ''
+}`;
 export const IS_STAGING = process.env.NEXT_PUBLIC_ENV === 'staging';
 export const IS_BROWSER = typeof window !== 'undefined';
 
