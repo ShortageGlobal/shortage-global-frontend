@@ -4,6 +4,7 @@ import { ArrowRightCircle } from 'react-feather';
 import classNames from 'classnames';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
+import * as fbq from 'app/tracking/fpixel';
 import { useCart } from 'app/hooks';
 
 type ProceedToDonationButtonProps = {
@@ -23,6 +24,7 @@ export function ProceedToDonationButton({
 
   const handleButtonClick = useCallback(() => {
     setIsCartSidebarShown(false);
+    fbq.event('InitiateCheckout');
   }, []);
 
   return (

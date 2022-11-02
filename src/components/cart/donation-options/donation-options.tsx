@@ -13,6 +13,7 @@ import {
 import { selectInstructions } from 'app/store/slices/instructions';
 import { createPackage } from 'app/api';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
+import * as fbq from 'app/tracking/fpixel';
 import { PACKAGE_TYPE } from 'app/constants';
 import type { CartGroup } from 'app/helpers';
 
@@ -36,6 +37,15 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   const handleFundDonation = useCallback(async () => {
     const cancelToken = getCreatePackageCancelToken();
     setIsPackageBeingCreated(true);
+    fbq.custom('ClickOrderItems', {
+      organization_slug: cartGroup.organizationSlug,
+      items: cartGroup.items.map((item) => {
+        return {
+          product: item.product.slug,
+          quantity: item.quantity,
+        };
+      }),
+    });
     try {
       const response = await createPackage({
         type: PACKAGE_TYPE.FUNDED_BY_DONOR,
@@ -79,8 +89,17 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   }, []);
 
   const handleTangibleDonation = useCallback(() => {
+    fbq.custom('ClickDonateWhatIHave', {
+      organization_slug: cartGroup.organizationSlug,
+      items: cartGroup.items.map((item) => {
+        return {
+          product: item.product.slug,
+          quantity: item.quantity,
+        };
+      }),
+    });
     handleShowInstructionsModal();
-  }, []);
+  }, [cartGroup]);
 
   return (
     <>

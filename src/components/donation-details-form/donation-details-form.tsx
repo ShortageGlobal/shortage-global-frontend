@@ -1,6 +1,7 @@
 import styles from './donation-details-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState } from 'react';
+import * as fbq from 'app/tracking/fpixel';
 import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
@@ -64,8 +65,9 @@ export function DonationDetailsForm({
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
       setIsPending(true);
+      fbq.custom('SubmitDonationDetails');
+
       try {
         await updateCart({
           firstName,
