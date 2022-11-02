@@ -1,10 +1,11 @@
 import styles from 'styles/pages/product.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { ShoppingCart, Loader } from 'react-feather';
 import { Container, Row, Col, Button, Placeholder } from 'react-bootstrap';
+import * as fbq from 'core/tracking/fpixel';
 import { formatPrice } from 'core/helpers';
 import { isRequestCancel, useAppSelector, useCart } from 'core/hooks';
 import { wrapper } from 'core/store';
@@ -49,6 +50,15 @@ const ProductPage: NextPageWithLayout = () => {
       }),
     ];
   }, [product]);
+
+  // track page view
+  useEffect(() => {
+    fbq.event('ViewContent', {
+      content_type: 'product',
+      content_name: product.organization.slug,
+      content_ids: [product.slug],
+    });
+  }, []);
 
   const cartItem = useMemo(() => {
     return getCartItem({

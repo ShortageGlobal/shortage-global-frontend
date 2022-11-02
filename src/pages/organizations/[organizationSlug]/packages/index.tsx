@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Loader } from 'react-feather';
+import * as fbq from 'core/tracking/fpixel';
 import { wrapper } from 'core/store';
 import { useAppSelector, useCart } from 'core/hooks';
 import {
@@ -53,6 +54,14 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
       }),
     ];
   }, [organization]);
+
+  // track page view
+  useEffect(() => {
+    fbq.event('ViewContent', {
+      content_category: 'package_registration',
+      content_name: organization.slug,
+    });
+  }, []);
 
   const shouldRedirect = useMemo(() => {
     return isCartReady && !isDonationDetailsFilled;

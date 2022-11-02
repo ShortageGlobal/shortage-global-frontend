@@ -4,6 +4,7 @@ import { useCallback, useState, useMemo } from 'react';
 import { Button } from 'react-bootstrap';
 import { DollarSign, Loader, Package } from 'react-feather';
 import classNames from 'classnames';
+import * as fbq from 'core/tracking/fpixel';
 import {
   useAppSelector,
   useCart,
@@ -12,8 +13,8 @@ import {
 } from 'core/hooks';
 import { selectInstructions } from 'core/store/slices/instructions';
 import { createPackage } from 'core/api';
-import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import { PACKAGE_TYPE } from 'core/constants';
+import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
 import type { CartGroup } from 'core/helpers';
 
 type DonationOptionsProps = {
@@ -36,6 +37,15 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   const handleFundDonation = useCallback(async () => {
     const cancelToken = getCreatePackageCancelToken();
     setIsPackageBeingCreated(true);
+    fbq.custom('ClickOrderItems', {
+      organization_slug: cartGroup.organizationSlug,
+      items: cartGroup.items.map((item) => {
+        return {
+          product: item.product.slug,
+          quantity: item.quantity,
+        };
+      }),
+    });
     try {
       const response = await createPackage({
         type: PACKAGE_TYPE.FUNDED_BY_DONOR,
@@ -79,8 +89,17 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   }, []);
 
   const handleTangibleDonation = useCallback(() => {
+    fbq.custom('ClickDonateWhatIHave', {
+      organization_slug: cartGroup.organizationSlug,
+      items: cartGroup.items.map((item) => {
+        return {
+          product: item.product.slug,
+          quantity: item.quantity,
+        };
+      }),
+    });
     handleShowInstructionsModal();
-  }, []);
+  }, [cartGroup]);
 
   return (
     <>
