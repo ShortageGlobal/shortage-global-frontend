@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
+import * as fbq from 'core/tracking/fpixel';
 import { useCart, isRequestCancel } from 'core/hooks';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import { PAGE_KEY } from 'core/constants';
@@ -64,8 +65,9 @@ export function DonationDetailsForm({
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
       setIsPending(true);
+      fbq.custom('SubmitDonationDetails');
+
       try {
         await updateCart({
           firstName,
