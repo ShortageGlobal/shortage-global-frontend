@@ -1,9 +1,11 @@
 import styles from 'styles/pages/package-registration.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Loader } from 'react-feather';
 import { wrapper } from 'core/store';
 import { useAppSelector, useCart } from 'core/hooks';
 import {
@@ -102,7 +104,11 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
             {isCartReady && !isDonationDetailsFilled ? (
               <div className={styles.loadingMessage}>
-                <Spinner animation="border" role="status"></Spinner>
+                <Loader
+                  role="status"
+                  aria-hidden="true"
+                  className={animationStyles.rotate}
+                />
                 <span>
                   Redirecting to{' '}
                   <Link
@@ -123,7 +129,11 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
             {shouldShowLoadingMessage ? (
               <div className={styles.loadingMessage}>
-                <Spinner animation="border" role="status"></Spinner>
+                <Loader
+                  role="status"
+                  aria-hidden="true"
+                  className={animationStyles.rotate}
+                />
                 <span>Loading data...</span>
               </div>
             ) : null}
