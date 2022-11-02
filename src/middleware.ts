@@ -1,39 +1,6 @@
-import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
-import { API_PROTOCOL, API_HOSTNAME, API_PORT } from 'core/constants';
+import { withAuth } from 'next-auth/middleware';
 
-export default async function middleware(req) {
-  const url = req.nextUrl;
-
-  // next-auth calls should pass unmodified
-  if (url.pathname.startsWith('/api/auth')) {
-    return NextResponse.next();
-  }
-
-  // rewrite any /api/ calls to the backend and attach Authorization header
-  if (url.pathname.startsWith('/api/')) {
-    // retrieve backend access jwt token from session
-    const token = await getToken({ req });
-    const accessToken = (token?.account as any)?.accessToken;
-
-    // clone the request headers and set an Authorization header
-    const reqHeaders = new Headers(req.headers);
-    if (accessToken) {
-      reqHeaders.set('Authorization', `Bearer ${accessToken}`);
-    }
-
-    // rewrite the request from next.js server to backend API
-    url.protocol = API_PROTOCOL;
-    url.hostname = API_HOSTNAME;
-    url.port = API_PORT;
-
-    return NextResponse.rewrite(url, {
-      request: {
-        // New request headers
-        headers: reqHeaders,
-      },
-    });
-  }
-}
-
-export const config = { matcher: ['/api/:path*'] };
+// TODO: fix workaround with the snippet from the next-auth example.
+// See: https://github.com/nextauthjs/next-auth/issues/5649#issuecomment-1296262246
+export default withAuth({});
+export const config = { matcher: ['/private/:path*'] };

@@ -1,14 +1,8 @@
 import styles from 'styles/pages/donation-cart.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useCallback, useEffect, useState } from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Alert,
-  Spinner,
-  Placeholder,
-} from 'react-bootstrap';
-import { Info } from 'react-feather';
+import { Container, Row, Col, Alert, Placeholder } from 'react-bootstrap';
+import { Info, Loader } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -189,7 +183,11 @@ const DonationCart: NextPageWithLayout = () => {
 
             {shouldRedirect ? (
               <div className={styles.redirectingMessage}>
-                <Spinner animation="border" role="status"></Spinner>
+                <Loader
+                  role="status"
+                  aria-hidden="true"
+                  className={animationStyles.rotate}
+                />
                 <span>
                   Redirecting to{' '}
                   <Link

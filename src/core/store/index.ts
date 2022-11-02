@@ -18,7 +18,6 @@ import { categoriesReducer } from 'core/store/slices/categories';
 import { productsReducer } from 'core/store/slices/products';
 import { productReducer } from 'core/store/slices/product';
 import { instructionsReducer } from 'core/store/slices/instructions';
-import { onlineStoresReducer } from 'core/store/slices/online-stores';
 import { packageReducer } from 'core/store/slices/package';
 
 const combinedReducer = combineReducers({
@@ -34,7 +33,6 @@ const combinedReducer = combineReducers({
   products: productsReducer,
   product: productReducer,
   instructions: instructionsReducer,
-  onlineStores: onlineStoresReducer,
   package: packageReducer,
 });
 

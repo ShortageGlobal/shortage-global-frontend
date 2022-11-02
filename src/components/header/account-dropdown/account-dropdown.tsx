@@ -50,7 +50,7 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
   }, [router]);
 
   const handleSignOut = useCallback(() => {
-    signOut({ redirect: false });
+    signOut();
   }, [signOut]);
 
   return (
