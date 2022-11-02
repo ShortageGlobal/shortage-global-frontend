@@ -8,7 +8,6 @@ import type {
   Category,
   ProductPreview,
   Product,
-  OnlineStore,
 } from 'core/api/types';
 
 export type FetchProductsParams = OrganizationSlugParams & {
@@ -46,20 +45,6 @@ export function fetchProduct({
   return axios.get<Product>(
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/`
-    ),
-    { cancelToken: cancelToken?.token }
-  );
-}
-
-export type FetchOnlineStoresParams = ProductSlugParams;
-export function fetchOnlineStores({
-  organizationSlug,
-  productSlug,
-  cancelToken = null,
-}: ProductSlugParams) {
-  return axios.get<OnlineStore[]>(
-    encodeURI(
-      `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/online-stores/`
     ),
     { cancelToken: cancelToken?.token }
   );

@@ -14,7 +14,7 @@ if (IS_BROWSER) {
 
       // sign out on failed attempt to access protected API
       if (error?.response?.status === 401) {
-        signOut({ redirect: false });
+        signOut();
       }
 
       return Promise.reject(error);

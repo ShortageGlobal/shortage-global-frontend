@@ -1,4 +1,5 @@
 import styles from './authentication-guard.module.scss';
+import axios from 'axios';
 import { useEffect, useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import { Lock } from 'react-feather';
@@ -18,6 +19,18 @@ type AuthenticationGuardProps = {
 export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   const session = useSession();
   const router = useRouter();
+
+  const accessToken = (session?.data as Session & { accessToken?: string })
+    ?.accessToken;
+
+  // set authentication tokens
+  useEffect(() => {
+    if (accessToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    } else {
+      delete axios.defaults.headers.common['Authorization'];
+    }
+  }, [accessToken]);
 
   // sign out if session.data.error is present
   useEffect(() => {

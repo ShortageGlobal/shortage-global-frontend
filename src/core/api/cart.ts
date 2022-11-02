@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_ROOT } from 'core/constants';
 import type {
   Uuid,
   CartUuidParams,
@@ -15,7 +16,7 @@ export async function createCart({
   cancelToken = null,
 }: CreateCartParams) {
   return axios.post<{ uuid: Uuid }>(
-    encodeURI(`/api/carts/`),
+    encodeURI(`${API_ROOT}/api/carts/`),
     { items },
     { cancelToken: cancelToken?.token }
   );
@@ -26,7 +27,7 @@ export async function fetchCart({
   cartId,
   cancelToken = null,
 }: FetchCartParams) {
-  return axios.get<Cart>(encodeURI(`/api/carts/${cartId}/`), {
+  return axios.get<Cart>(encodeURI(`${API_ROOT}/api/carts/${cartId}/`), {
     cancelToken: cancelToken?.token,
   });
 }
@@ -61,7 +62,7 @@ export async function updateCart({
   cancelToken = null,
 }: UpdateCartParams) {
   return axios.put(
-    encodeURI(`/api/carts/${cartId}/`),
+    encodeURI(`${API_ROOT}/api/carts/${cartId}/`),
     {
       first_name: firstName,
       last_name: lastName,
@@ -88,7 +89,7 @@ export async function createCartItem({
   cancelToken = null,
 }: CreateCartItemParams) {
   return axios.post<{ uuid: Uuid }>(
-    encodeURI(`/api/carts/${cartId}/items/`),
+    encodeURI(`${API_ROOT}/api/carts/${cartId}/items/`),
     {
       product_slug,
       organization_slug,
@@ -105,7 +106,7 @@ export async function deleteCartItem({
   cancelToken = null,
 }: DeleteCartItemParams) {
   return axios.delete<undefined>(
-    encodeURI(`/api/carts/${cartId}/items/${cartItemId}/`),
+    encodeURI(`${API_ROOT}/api/carts/${cartId}/items/${cartItemId}/`),
     { cancelToken: cancelToken?.token }
   );
 }
@@ -121,7 +122,7 @@ export async function updateCartItemQuantity({
   cancelToken = null,
 }: UpdateCartItemQuantityParams) {
   return axios.put<{ uuid: Uuid }>(
-    encodeURI(`/api/carts/${cartId}/items/${cartItemId}/`),
+    encodeURI(`${API_ROOT}/api/carts/${cartId}/items/${cartItemId}/`),
     { quantity },
     { cancelToken: cancelToken?.token }
   );

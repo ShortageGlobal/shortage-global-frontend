@@ -12,7 +12,6 @@ export type AxiosSerializedError = {
   code: string;
   message: string;
   data: unknown;
-  headers: unknown;
 };
 
 export type Limit = number;

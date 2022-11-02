@@ -1,3 +1,5 @@
+import { getToken } from 'next-auth/jwt';
+import type { GetTokenParams } from 'next-auth/jwt';
 import type { AxiosSerializedError, Slug, CartItem } from 'core/api/types';
 
 // format axios error so it could be stored in redux state
@@ -8,7 +10,6 @@ export function serizalizeAxiosError(rejection): AxiosSerializedError {
     status: rejection.response?.status || null,
     statusText: rejection.response?.statusText || null,
     data: rejection.response?.data || null,
-    headers: rejection.response?.headers || null,
   };
 }
 
@@ -60,4 +61,13 @@ export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
       }
       return groups;
     }, new Map<Slug, CartGroup>());
+}
+
+// Extract backend JWT token from session. Works server-side only
+export async function extractAccessTokenFromSession<R extends boolean = false>(
+  params: GetTokenParams<R>
+) {
+  const token = await getToken({ req: params.req });
+  const accessToken = (token?.account as { accessToken?: string })?.accessToken;
+  return accessToken;
 }

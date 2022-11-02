@@ -24,7 +24,6 @@
       .highlightedHeader {
         text-decoration: underline;
         text-decoration-color: $about-us-highlighted-header-underline-color;
-        text-decoration-thickness: from-font;
       }
 
       @include media-breakpoint-down(xl) {

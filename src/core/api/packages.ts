@@ -77,16 +77,20 @@ export function createPackage({
 
 export type FetchPackageStatusParams = {
   packageId: string;
+  accessToken?: string;
 } & OrganizationSlugParams;
 export function fetchPackageStatus({
   organizationSlug,
   packageId,
+  accessToken = null,
   cancelToken = null,
 }: FetchPackageStatusParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
   return axios.get<Package>(
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/`
     ),
-    { cancelToken: cancelToken?.token }
+    { cancelToken: cancelToken?.token, headers }
   );
 }

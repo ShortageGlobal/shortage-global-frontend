@@ -32,14 +32,6 @@ export async function refreshAccessToken({
   );
 }
 
-export async function fetchProfile({
-  cancelToken = null,
-}: CancelTokenParams = {}) {
-  return axios.get(encodeURI(`/api/private/users/profile/`), {
-    cancelToken: cancelToken?.token,
-  });
-}
-
 export type CreateAccountParams = CancelTokenParams & {
   email: string;
   password: string;
@@ -72,4 +64,12 @@ export async function confirmAccount({
     { uid, token },
     { cancelToken: cancelToken?.token }
   );
+}
+
+export async function fetchProfile({
+  cancelToken = null,
+}: CancelTokenParams = {}) {
+  return axios.get(encodeURI(`${API_ROOT}/api/private/users/profile/`), {
+    cancelToken: cancelToken?.token,
+  });
 }

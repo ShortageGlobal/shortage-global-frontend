@@ -77,7 +77,13 @@ export const authOptions = {
       }
     },
     async session({ session, token }) {
-      return { ...session, error: token.error };
+      const accessToken = token.account?.accessToken;
+
+      return {
+        ...session,
+        accessToken, // reveal backend jwt token to the client
+        error: token.error,
+      };
     },
   },
   pages: {
