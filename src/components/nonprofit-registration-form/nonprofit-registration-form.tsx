@@ -229,7 +229,7 @@ export function NonprofitRegistrationForm() {
       <Row>
         <Form.Group
           as={Col}
-          controlId="organizationName"
+          controlId={INPUT_ID.organizationName}
           className={styles.formGroup}
         >
           <Form.Label>Organization Name</Form.Label>
