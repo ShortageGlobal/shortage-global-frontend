@@ -21,7 +21,7 @@ export type RegisterCorporateDonationParams = CancelTokenParams & {
   estimatedValue?: string;
   url?: string;
   photo?: File;
-  agreedToTermsOfUse: Boolean;
+  agreedToTermsOfUse: boolean;
 };
 export function registerCorporateDonation({
   companyName,
