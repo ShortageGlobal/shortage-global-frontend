@@ -19,11 +19,9 @@ export function Footer() {
               <LogoImage />
             </Link>
 
-            <div className={styles.address}>
-              440 N Barranca Ave #7074 Covina, CA 91723
-            </div>
+            <div>440 N Barranca Ave #7074 Covina, CA 91723</div>
 
-            <div className={styles.copyrightBlock}>
+            <div>
               &copy; {new Date().getFullYear()} All rights reserved. Shortage
             </div>
           </Col>
