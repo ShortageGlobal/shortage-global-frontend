@@ -36,6 +36,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               <h2 className={styles.header}>Privacy Policy</h2>
               <p className={styles.effectiveFrom}>Effective June 19, 2022</p>
             </header>
+
             <p>
               <Link href="/">Shortage</Link> places a high priority on
               protecting your privacy. This Privacy Policy was created in order
@@ -47,14 +48,17 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               using the Shortage website, you consent to the data practices
               described in this document.
             </p>
+
             <p>
               This Policy explains what types of information are collected by
               Shortage&apos;s website, <Link href="/">shortage.global</Link>,
               and how this information is used.
             </p>
+
             <h4 className={styles.sectionHeader}>
               Collection of your Personal Information
             </h4>
+
             <p>
               “Personal Information” is information that can be used to identify
               you as an individual or allow someone to contact you, as well as
@@ -68,12 +72,15 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               below. This privacy policy applies to all personal information,
               whether collected online or offline.
             </p>
+
             <h4 className={styles.sectionHeader}>User-Provided Information</h4>
+
             <p>
               In order to better provide you with products and services offered
               on our website, Shortage may collect personally identifiable
               information, such as your:
             </p>
+
             <ul>
               <li>Company/organization name</li>
               <li>First and last name</li>
@@ -83,7 +90,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               <li>Phone number</li>
               <li>Photograph(s)</li>
             </ul>
+
             <p>No credit card information is stored on the Shortage website.</p>
+
             <p>
               We do not collect any Personal Information from you unless you
               voluntarily provide it to us. However, you may be required to
@@ -100,9 +109,11 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               from us. We also may gather additional personal or non-Personal
               Information in the future.
             </p>
+
             <h4 className={styles.sectionHeader}>
               Automatically Collected Information
             </h4>
+
             <p>
               As is the case with many websites, Information about your computer
               hardware and software may be automatically collected by Shortage.
@@ -114,6 +125,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               Services, we may receive a notification when you open an email
               from Shortage or click on a link therein.
             </p>
+
             <p>
               Among other things, this information enables us to generate
               analytics reports on the usage of our website. To opt-out of your
@@ -128,7 +140,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               </a>
               .
             </p>
+
             <h4 className={styles.sectionHeader}>Use of Cookies</h4>
+
             <p>
               The Shortage website may use “cookies” to help you personalize
               your online experience. A cookie is a text file that is placed on
@@ -137,6 +151,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               assigned to you, and can only be read by a web server in the
               domain that issued the cookie to you.
             </p>
+
             <p>
               One of the primary purposes of cookies is to provide a convenience
               feature to save you time. The purpose of a cookie is to tell the
@@ -149,6 +164,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               previously provided can be retrieved, so you can easily use the
               features of the website.
             </p>
+
             <p>
               You have the ability to accept or decline cookies. Most web
               browsers automatically accept cookies, but you can usually modify
@@ -156,7 +172,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               choose to decline cookies, you may not be able to fully experience
               the interactive features of the Shortage website.
             </p>
+
             <h4 className={styles.sectionHeader}>Social Networking</h4>
+
             <p>
               We maintain a presence on several social networking and blogging
               platforms which are operated by third parties, such as Facebook,
@@ -169,7 +187,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               which explain how they will use, protect and share your
               information, and we encourage you to read them.
             </p>
+
             <h4 className={styles.sectionHeader}>Opt In and Opt Out</h4>
+
             <p>
               You may have the right to opt in to or opt out of certain of our
               uses and disclosures of your Personal Information. For example,
@@ -190,15 +210,18 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               connection with your relationship, activities, transactions and
               communications with us.
             </p>
+
             <h4 className={styles.sectionHeader}>
               Use of your Personal Information
             </h4>
+
             <p>
               Shortage collects and uses your Personal Information, including
               User-Provided Information, Automatically Collected Information
               and/or any information collected through Social Networking sites,
               to perform the following business functions:
             </p>
+
             <ul>
               <li>enabling users to use our website and its features</li>
               <li>processing and fulfilling your transactions</li>
@@ -236,6 +259,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
                 to us
               </li>
             </ul>
+
             <p>
               To perform the above functions, we may match information collected
               from you through different means or at different times, including
@@ -248,9 +272,11 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               other messaging campaigns both on an individual basis and in the
               aggregate.
             </p>
+
             <h4 className={styles.sectionHeader}>
               Sharing Information with Third Parties
             </h4>
+
             <p>
               Shortage does not sell, rent or lease its customer or donor
               information to third parties, nor do we share, trade or exchange
@@ -258,6 +284,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               post to public areas on the Shortage web site will be available to
               other Shortage website users.
             </p>
+
             <p>
               As described in <b>Use of your Personal Information</b>, Shortage
               may, from time to time, contact you on behalf of external business
@@ -266,6 +293,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               information (email, name, address, telephone number) is not
               transferred to the third party.
             </p>
+
             <p>
               Shortage may share your information with our co-sponsor(s) if we
               obtain your information in connection with a contest, sweepstakes,
@@ -274,6 +302,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               following the instructions in the Opt In and Opt Out section
               above.
             </p>
+
             <p>
               Shortage may share data with trusted partners to help perform
               credit card processing, statistical analysis, marketing, provide
@@ -286,6 +315,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               these services to Shortage, and they are required to maintain the
               confidentiality of your information.
             </p>
+
             <p>
               We utilize Google Analytics for our web analytics and you can opt
               out of your website usage data being included in our Google
@@ -299,6 +329,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               </a>
               .
             </p>
+
             <p>
               Shortage may disclose your Personal Information, without
               additional notice, if required to do so by law or in the good
@@ -308,7 +339,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               Shortage; and/or (c) act under exigent circumstances to protect
               the personal safety of users of Shortage or the public.
             </p>
+
             <h4 className={styles.sectionHeader}>Do Not Track Disclosures</h4>
+
             <p>
               Some web browsers may transmit “do-not-track” (DNT) signals to the
               websites with which the user communicates. Because of differences
@@ -319,9 +352,11 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               detail under “Automatically Collected Information” above) in
               response to DNT settings in your web browser.
             </p>
+
             <h4 className={styles.sectionHeader}>
               Security of your Personal Information
             </h4>
+
             <p>
               Shortage endeavors to secure your Personal Information from
               unauthorized access, use or disclosure. Unfortunately, due to the
@@ -332,6 +367,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               while stored on our system or otherwise in our care, will be
               absolutely safe from intrusion by others, such as hackers.
             </p>
+
             <p>
               As a result, while we strive to protect your information, you
               acknowledge that: (a) there are security and privacy limitations
@@ -342,12 +378,14 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               completely secure, we are always working to maintain up-to-date
               and appropriate security mechanisms.
             </p>
+
             <p>
               We use a variety of security measures to protect your personal
               information and our data. We maintain procedural, electronic, and
               physical safeguards to help prevent unauthorized access to and
               improper use of personally identifiable information.
             </p>
+
             <p>
               We protect the security of credit card transactions using measures
               such as encryption, access controls, network firewalls, and
@@ -357,11 +395,13 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               transactions, those companies also use encryption and other
               appropriate security measures.
             </p>
+
             <p>
               We will have no liability for disclosure of your information due
               to errors or unauthorized acts of third parties during or after
               transmission.
             </p>
+
             <p>
               If you create an account on our website, you are responsible for
               maintaining the strict confidentiality of your account password,
@@ -370,6 +410,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               activity. Please notify us of any unauthorized use of your
               password or account or any other breach of security.
             </p>
+
             <p>
               If at any time during or after our relationship we believe that
               the security of your Personal Information in our care may have
@@ -399,9 +440,11 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               have sent to you regarding a compromise of your Personal
               Information.
             </p>
+
             <h4 className={styles.sectionHeader}>
               Links and Linked-To Websites
             </h4>
+
             <p>
               The Shortage website contains links, banners, widgets or
               advertisements that lead to other websites. Please be aware that
@@ -413,15 +456,19 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               after leaving Shoratge to learn about how your information is
               treated by others.
             </p>
+
             <h4 className={styles.sectionHeader}>Children Under Thirteen</h4>
+
             <p>
               Shortage does not knowingly collect personally identifiable
               information from children under the age of thirteen, and the
               website is not intended for users who are under 13 years old.
             </p>
+
             <h4 className={styles.sectionHeader}>
               Changes to this Privacy Policy
             </h4>
+
             <p>
               Shortage reserves the right to change this Privacy Policy from
               time to time. We will notify you about significant changes in the
@@ -431,7 +478,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               information on this page. For some changes to our Privacy Policy,
               we may ask for your consent.
             </p>
+
             <h4 className={styles.sectionHeader}>Contact Information</h4>
+
             <p>
               Shortage welcomes your questions or comments regarding this
               Privacy Policy. If you believe that Shortage has not adhered to

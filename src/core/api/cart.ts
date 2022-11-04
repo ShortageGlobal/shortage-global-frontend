@@ -37,6 +37,7 @@ export type UpdateCartData = {
   lastName?: string;
   email: string;
   phoneNumber?: string;
+  agreedToTermsOfUse: boolean;
   needTaxDeduction: boolean;
   addressLine1?: string;
   addressLine2?: string;
@@ -52,6 +53,7 @@ export async function updateCart({
   lastName,
   email,
   phoneNumber,
+  agreedToTermsOfUse,
   needTaxDeduction,
   addressLine1,
   addressLine2,
@@ -68,6 +70,7 @@ export async function updateCart({
       last_name: lastName,
       email,
       phone_number: phoneNumber,
+      agreed_to_terms_of_use: agreedToTermsOfUse,
       need_tax_deduction: needTaxDeduction,
       address_line1: addressLine1,
       address_line2: addressLine2,

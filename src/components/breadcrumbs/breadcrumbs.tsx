@@ -81,7 +81,7 @@ export const getCreateAccountCrumb = (props: BreadcrumbItem = {}) =>
     ...defaultCrumb,
     key: 'register',
     label: 'Create Account',
-    href: '/account/register/',
+    href: '/account/create-account/',
     ...props,
   });
 
@@ -119,6 +119,17 @@ export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
     label: 'Privacy Policy',
     href: {
       pathname: '/privacy-policy/',
+    },
+    ...props,
+  });
+
+export const getTermsOfUseCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'terms-of-use',
+    label: 'Terms of Use',
+    href: {
+      pathname: '/terms-of-use/',
     },
     ...props,
   });

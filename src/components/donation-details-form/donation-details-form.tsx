@@ -10,6 +10,7 @@ import { PhoneInput } from 'components/phone-input/phone-input';
 import { PAGE_KEY } from 'core/constants';
 import type { FormEvent } from 'react';
 import type { Cart, CountryChoice } from 'core/api/types';
+import Link from 'next/link';
 
 const ERROR_KEYS = Object.freeze({
   FIRST_NAME: 'first_name',
@@ -17,6 +18,7 @@ const ERROR_KEYS = Object.freeze({
   EMAIL: 'email',
   PHONE_NUMBER: 'phone_number',
   NEED_TAX_DEDUCTION: 'need_tax_deduction',
+  AGREED_TO_TERMS_OF_USE: 'agreed_to_terms_of_use',
   ADDRESS_LINE1: 'address_line1',
   ADDRESS_LINE2: 'address_line2',
   CITY: 'city',
@@ -47,6 +49,9 @@ export function DonationDetailsForm({
   const [lastName, setLastName] = useState(() => cart.last_name || '');
   const [email, setEmail] = useState(() => cart.email || '');
   const [phoneNumber, setPhoneNumber] = useState(() => cart.phone_number || '');
+  const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(
+    () => cart?.agreed_to_terms_of_use || !!profile // if there is profile, then the user has already accepted the terms
+  );
   const [needTaxDeduction, setNeedTaxDeduction] = useState(
     () => cart.need_tax_deduction
   );
@@ -66,10 +71,10 @@ export function DonationDetailsForm({
   const isPopulateFromProfileAvailable = useMemo(() => {
     return (
       profile &&
-      (profile?.firstName !== firstName ||
-        profile?.lastName !== lastName ||
-        profile?.email !== email ||
-        profile?.phoneNumber !== phoneNumber)
+      ((profile?.firstName && profile?.firstName !== firstName) ||
+        (profile?.lastName && profile?.lastName !== lastName) ||
+        (profile?.email && profile?.email !== email) ||
+        (profile?.phoneNumber && profile?.phoneNumber !== phoneNumber))
     );
   }, [profile, firstName, lastName, email, phoneNumber]);
 
@@ -92,6 +97,7 @@ export function DonationDetailsForm({
           lastName,
           email,
           phoneNumber,
+          agreedToTermsOfUse,
           needTaxDeduction,
           addressLine1,
           addressLine2,
@@ -132,6 +138,7 @@ export function DonationDetailsForm({
       lastName,
       email,
       phoneNumber,
+      agreedToTermsOfUse,
       needTaxDeduction,
       addressLine1,
       addressLine2,
@@ -196,10 +203,10 @@ export function DonationDetailsForm({
             required={needTaxDeduction}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            isValid={getIsValid('first_name')}
-            isInvalid={getIsInvalid('first_name')}
+            isValid={getIsValid(ERROR_KEYS.FIRST_NAME)}
+            isInvalid={getIsInvalid(ERROR_KEYS.FIRST_NAME)}
           />
-          {getErrorsFeedback('first_name')}
+          {getErrorsFeedback(ERROR_KEYS.FIRST_NAME)}
         </Form.Group>
 
         <Form.Group
@@ -216,10 +223,10 @@ export function DonationDetailsForm({
             required={needTaxDeduction}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            isValid={getIsValid('last_name')}
-            isInvalid={getIsInvalid('last_name')}
+            isValid={getIsValid(ERROR_KEYS.LAST_NAME)}
+            isInvalid={getIsInvalid(ERROR_KEYS.LAST_NAME)}
           />
-          {getErrorsFeedback('last_name')}
+          {getErrorsFeedback(ERROR_KEYS.LAST_NAME)}
         </Form.Group>
 
         <Form.Group
@@ -237,10 +244,10 @@ export function DonationDetailsForm({
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            isValid={getIsValid('email')}
-            isInvalid={getIsInvalid('email')}
+            isValid={getIsValid(ERROR_KEYS.EMAIL)}
+            isInvalid={getIsInvalid(ERROR_KEYS.EMAIL)}
           />
-          {getErrorsFeedback('email')}
+          {getErrorsFeedback(ERROR_KEYS.EMAIL)}
         </Form.Group>
 
         <Form.Group
@@ -254,11 +261,11 @@ export function DonationDetailsForm({
             value={phoneNumber}
             inputProps={{ id: 'phoneNumber' }}
             inputClass="form-control-lg"
-            isValid={getIsValid('phone_number')}
-            isInvalid={getIsInvalid('phone_number')}
+            isValid={getIsValid(ERROR_KEYS.PHONE_NUMBER)}
+            isInvalid={getIsInvalid(ERROR_KEYS.PHONE_NUMBER)}
             onChange={(phone) => setPhoneNumber(phone)}
           />
-          {getErrorsFeedback('phone_number')}
+          {getErrorsFeedback(ERROR_KEYS.PHONE_NUMBER)}
         </Form.Group>
       </Row>
 
@@ -301,10 +308,10 @@ export function DonationDetailsForm({
               required={needTaxDeduction}
               value={addressLine1}
               onChange={(e) => setAddressLine1(e.target.value)}
-              isValid={getIsValid('address_line1')}
-              isInvalid={getIsInvalid('address_line1')}
+              isValid={getIsValid(ERROR_KEYS.ADDRESS_LINE1)}
+              isInvalid={getIsInvalid(ERROR_KEYS.ADDRESS_LINE1)}
             />
-            {getErrorsFeedback('address_line1')}
+            {getErrorsFeedback(ERROR_KEYS.ADDRESS_LINE1)}
           </Form.Group>
 
           <Form.Group
@@ -320,10 +327,10 @@ export function DonationDetailsForm({
               placeholder=""
               value={addressLine2}
               onChange={(e) => setAddressLine2(e.target.value)}
-              isValid={getIsValid('address_line2')}
-              isInvalid={getIsInvalid('address_line2')}
+              isValid={getIsValid(ERROR_KEYS.ADDRESS_LINE2)}
+              isInvalid={getIsInvalid(ERROR_KEYS.ADDRESS_LINE2)}
             />
-            {getErrorsFeedback('address_line2')}
+            {getErrorsFeedback(ERROR_KEYS.ADDRESS_LINE2)}
           </Form.Group>
 
           <Form.Group
@@ -340,10 +347,10 @@ export function DonationDetailsForm({
               required={needTaxDeduction}
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              isValid={getIsValid('city')}
-              isInvalid={getIsInvalid('city')}
+              isValid={getIsValid(ERROR_KEYS.CITY)}
+              isInvalid={getIsInvalid(ERROR_KEYS.CITY)}
             />
-            {getErrorsFeedback('city')}
+            {getErrorsFeedback(ERROR_KEYS.CITY)}
           </Form.Group>
 
           <Form.Group
@@ -360,10 +367,10 @@ export function DonationDetailsForm({
               required={needTaxDeduction}
               value={stateProvinceRegion}
               onChange={(e) => setStateProvinceRegion(e.target.value)}
-              isValid={getIsValid('state_province_region')}
-              isInvalid={getIsInvalid('state_province_region')}
+              isValid={getIsValid(ERROR_KEYS.CITY)}
+              isInvalid={getIsInvalid(ERROR_KEYS.CITY)}
             />
-            {getErrorsFeedback('state_province_region')}
+            {getErrorsFeedback(ERROR_KEYS.CITY)}
           </Form.Group>
 
           <Form.Group
@@ -380,10 +387,10 @@ export function DonationDetailsForm({
               required={needTaxDeduction}
               value={zip}
               onChange={(e) => setZip(e.target.value)}
-              isValid={getIsValid('zip')}
-              isInvalid={getIsInvalid('zip')}
+              isValid={getIsValid(ERROR_KEYS.ZIP)}
+              isInvalid={getIsInvalid(ERROR_KEYS.ZIP)}
             />
-            {getErrorsFeedback('zip')}
+            {getErrorsFeedback(ERROR_KEYS.ZIP)}
           </Form.Group>
 
           <Form.Group
@@ -398,8 +405,8 @@ export function DonationDetailsForm({
               value={country}
               required={needTaxDeduction}
               onChange={(e) => setCountry(e.target.value)}
-              isValid={getIsValid('country')}
-              isInvalid={getIsInvalid('country')}
+              isValid={getIsValid(ERROR_KEYS.COUNTRY)}
+              isInvalid={getIsInvalid(ERROR_KEYS.COUNTRY)}
             >
               {countries?.map(({ value, display_name }) => (
                 <option key={value} value={value}>
@@ -407,18 +414,48 @@ export function DonationDetailsForm({
                 </option>
               ))}
             </Form.Select>
-            {getErrorsFeedback('country')}
+            {getErrorsFeedback(ERROR_KEYS.COUNTRY)}
           </Form.Group>
         </Row>
       </Collapse>
 
-      {errors ? (
-        <Row>
-          <Col>
-            <div className="text-danger">Fix errors above and try again</div>
-          </Col>
-        </Row>
-      ) : null}
+      <Row>
+        <Form.Group
+          as={Col}
+          controlId={ERROR_KEYS.AGREED_TO_TERMS_OF_USE}
+          className={styles.termsOfUseCheckboxCol}
+        >
+          <Form.Check
+            type="checkbox"
+            id={ERROR_KEYS.AGREED_TO_TERMS_OF_USE}
+            label={
+              <>
+                <span>* I agree to the terms of use. </span>
+                <Link
+                  href="/terms-of-use/"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  View Terms of Use Policy
+                </Link>
+              </>
+            }
+            required
+            checked={agreedToTermsOfUse}
+            isValid={getIsValid(ERROR_KEYS.AGREED_TO_TERMS_OF_USE)}
+            isInvalid={getIsInvalid(ERROR_KEYS.AGREED_TO_TERMS_OF_USE)}
+            feedback={errors?.[ERROR_KEYS.AGREED_TO_TERMS_OF_USE]}
+            feedbackType={
+              getIsInvalid(ERROR_KEYS.AGREED_TO_TERMS_OF_USE) ? 'invalid' : null
+            }
+            onChange={(e) => {
+              setErrors(null);
+              setAgreedToTermsOfUse(e.target.checked);
+            }}
+          />
+        </Form.Group>
+      </Row>
 
       <Row>
         <Col>
