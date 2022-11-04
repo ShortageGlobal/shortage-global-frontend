@@ -1,6 +1,7 @@
 import styles from './nonprofit-registration-form.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import Link from 'next/link';
 import * as fbq from 'core/tracking/fpixel';
 import { registerNonprofit } from 'core/api';
 import { useCancelToken, isRequestCancel } from 'core/hooks';
@@ -8,14 +9,25 @@ import { NonprofitRegistrationSuccess } from 'components/nonprofit-registration-
 import { PhoneInput } from 'components/phone-input/phone-input';
 import type { FormEvent } from 'react';
 
+const INPUT_ID = Object.freeze({
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  organizationName: 'organizationName',
+  url: 'url',
+  einNumber: 'einNumber',
+  agreedToTermsOfUse: 'agreedToTermsOfUse',
+});
 const ERROR_KEYS = Object.freeze({
-  FIRST_NAME: 'first_name',
-  LAST_NAME: 'last_name',
-  EMAIL: 'email',
-  PHONE_NUMBER: 'phone_number',
-  ORGANIZATION_NAME: 'organization_name',
-  URL: 'url',
-  EIN_NUMBER: 'ein_number',
+  [INPUT_ID.firstName]: 'first_name',
+  [INPUT_ID.lastName]: 'last_name',
+  [INPUT_ID.email]: 'email',
+  [INPUT_ID.phoneNumber]: 'phone_number',
+  [INPUT_ID.organizationName]: 'organization_name',
+  [INPUT_ID.url]: 'url',
+  [INPUT_ID.einNumber]: 'ein_number',
+  [INPUT_ID.agreedToTermsOfUse]: 'agreed_to_terms_of_use',
 });
 type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
 
@@ -31,6 +43,7 @@ export function NonprofitRegistrationForm() {
   const [organizationName, setOrganizationName] = useState('');
   const [url, setUrl] = useState('');
   const [einNumber, setEinNumber] = useState('');
+  const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(false);
 
   const getRegistrationCancelToken = useCancelToken();
 
@@ -54,6 +67,7 @@ export function NonprofitRegistrationForm() {
           organizationName,
           url,
           einNumber,
+          agreedToTermsOfUse,
           cancelToken,
         });
 
@@ -80,6 +94,7 @@ export function NonprofitRegistrationForm() {
       organizationName,
       url,
       einNumber,
+      agreedToTermsOfUse,
     ]
   );
 
@@ -95,6 +110,7 @@ export function NonprofitRegistrationForm() {
     setOrganizationName('');
     setUrl('');
     setEinNumber('');
+    setAgreedToTermsOfUse(false);
   }, []);
 
   const getIsValid = (key: ErrorKey) =>
@@ -133,7 +149,7 @@ export function NonprofitRegistrationForm() {
         <Form.Group
           as={Col}
           xs={6}
-          controlId="firstName"
+          controlId={INPUT_ID.firstName}
           className={styles.formGroup}
         >
           <Form.Label>First Name</Form.Label>
@@ -143,15 +159,15 @@ export function NonprofitRegistrationForm() {
             placeholder=""
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            isValid={getIsValid('first_name')}
-            isInvalid={getIsInvalid('first_name')}
+            isValid={getIsValid(ERROR_KEYS.firstName)}
+            isInvalid={getIsInvalid(ERROR_KEYS.firstName)}
           />
-          {getErrorsFeedback('first_name')}
+          {getErrorsFeedback(ERROR_KEYS.firstName)}
         </Form.Group>
         <Form.Group
           as={Col}
           xs={6}
-          controlId="lastName"
+          controlId={INPUT_ID.lastName}
           className={styles.formGroup}
         >
           <Form.Label>Last Name</Form.Label>
@@ -161,16 +177,16 @@ export function NonprofitRegistrationForm() {
             placeholder=""
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            isValid={getIsValid('last_name')}
-            isInvalid={getIsInvalid('last_name')}
+            isValid={getIsValid(ERROR_KEYS.lastName)}
+            isInvalid={getIsInvalid(ERROR_KEYS.lastName)}
           />
-          {getErrorsFeedback('last_name')}
+          {getErrorsFeedback(ERROR_KEYS.lastName)}
         </Form.Group>
 
         <Form.Group
           as={Col}
           xs={6}
-          controlId="email"
+          controlId={INPUT_ID.email}
           className={styles.formGroup}
         >
           <Form.Label>Email *</Form.Label>
@@ -181,16 +197,16 @@ export function NonprofitRegistrationForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            isValid={getIsValid('email')}
-            isInvalid={getIsInvalid('email')}
+            isValid={getIsValid(ERROR_KEYS.email)}
+            isInvalid={getIsInvalid(ERROR_KEYS.email)}
           />
-          {getErrorsFeedback('email')}
+          {getErrorsFeedback(ERROR_KEYS.email)}
         </Form.Group>
 
         <Form.Group
           as={Col}
           xs={6}
-          controlId="phoneNumber"
+          controlId={INPUT_ID.phoneNumber}
           className={styles.formGroup}
         >
           <Form.Label>Phone Number</Form.Label>
@@ -198,11 +214,11 @@ export function NonprofitRegistrationForm() {
             value={phoneNumber}
             inputProps={{ id: 'phoneNumber' }}
             inputClass="form-control-lg"
-            isValid={getIsValid('phone_number')}
-            isInvalid={getIsInvalid('phone_number')}
+            isValid={getIsValid(ERROR_KEYS.phoneNumber)}
+            isInvalid={getIsInvalid(ERROR_KEYS.phoneNumber)}
             onChange={(phone) => setPhoneNumber(phone)}
           />
-          {getErrorsFeedback('phone_number')}
+          {getErrorsFeedback(ERROR_KEYS.phoneNumber)}
         </Form.Group>
       </Row>
 
@@ -213,7 +229,7 @@ export function NonprofitRegistrationForm() {
       <Row>
         <Form.Group
           as={Col}
-          controlId="organizationName"
+          controlId={INPUT_ID.organizationName}
           className={styles.formGroup}
         >
           <Form.Label>Organization Name</Form.Label>
@@ -223,15 +239,15 @@ export function NonprofitRegistrationForm() {
             placeholder=""
             value={organizationName}
             onChange={(e) => setOrganizationName(e.target.value)}
-            isValid={getIsValid('organization_name')}
-            isInvalid={getIsInvalid('organization_name')}
+            isValid={getIsValid(ERROR_KEYS.organizationName)}
+            isInvalid={getIsInvalid(ERROR_KEYS.organizationName)}
           />
-          {getErrorsFeedback('organization_name')}
+          {getErrorsFeedback(ERROR_KEYS.organizationName)}
         </Form.Group>
       </Row>
 
       <Row>
-        <Form.Group as={Col} controlId="url" className={styles.formGroup}>
+        <Form.Group as={Col} controlId={INPUT_ID.url} className={styles.formGroup}>
           <Form.Label>Organization Website</Form.Label>
           <Form.Control
             size="lg"
@@ -239,15 +255,15 @@ export function NonprofitRegistrationForm() {
             placeholder=""
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            isValid={getIsValid('url')}
-            isInvalid={getIsInvalid('url')}
+            isValid={getIsValid(ERROR_KEYS.url)}
+            isInvalid={getIsInvalid(ERROR_KEYS.url)}
           />
-          {getErrorsFeedback('url')}
+          {getErrorsFeedback(ERROR_KEYS.url)}
         </Form.Group>
       </Row>
 
       <Row>
-        <Form.Group as={Col} controlId="einNumber" className={styles.formGroup}>
+        <Form.Group as={Col} controlId={INPUT_ID.einNumber} className={styles.formGroup}>
           <Form.Label>EIN Number</Form.Label>
           <Form.Control
             size="lg"
@@ -255,12 +271,44 @@ export function NonprofitRegistrationForm() {
             placeholder=""
             value={einNumber}
             onChange={(e) => setEinNumber(e.target.value)}
-            isValid={getIsValid('ein_number')}
-            isInvalid={getIsInvalid('ein_number')}
+            isValid={getIsValid(ERROR_KEYS.einNumber)}
+            isInvalid={getIsInvalid(ERROR_KEYS.einNumber)}
           />
-          {getErrorsFeedback('ein_number')}
+          {getErrorsFeedback(ERROR_KEYS.einNumber)}
         </Form.Group>
       </Row> */}
+
+      <Row>
+        <Form.Group as={Col} controlId={INPUT_ID.agreedToTermsOfUse}>
+          <Form.Check
+            type="checkbox"
+            id={INPUT_ID.agreedToTermsOfUse}
+            name={INPUT_ID.agreedToTermsOfUse}
+            label={
+              <>
+                <span>* I agree to the terms of use. </span>
+                <Link
+                  href="/terms-of-use/"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  View Terms of Use Policy
+                </Link>
+              </>
+            }
+            required
+            checked={agreedToTermsOfUse}
+            onChange={(e) => setAgreedToTermsOfUse(e.target.checked)}
+            isValid={getIsValid(ERROR_KEYS.agreedToTermsOfUse)}
+            isInvalid={getIsInvalid(ERROR_KEYS.agreedToTermsOfUse)}
+            feedback={errors?.[ERROR_KEYS.agreedToTermsOfUse]}
+            feedbackType={
+              getIsInvalid(ERROR_KEYS.agreedToTermsOfUse) ? 'invalid' : null
+            }
+          />
+        </Form.Group>
+      </Row>
 
       {errors ? (
         <Row>

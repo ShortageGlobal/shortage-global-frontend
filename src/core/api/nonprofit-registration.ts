@@ -10,6 +10,7 @@ export type RegisterNonprofitParams = CancelTokenParams & {
   organizationName?: string;
   url?: string;
   einNumber?: string;
+  agreedToTermsOfUse: boolean;
 };
 export function registerNonprofit({
   firstName,
@@ -19,6 +20,7 @@ export function registerNonprofit({
   organizationName,
   url,
   einNumber,
+  agreedToTermsOfUse,
   cancelToken = null,
 }: RegisterNonprofitParams) {
   return axios.post(
@@ -31,6 +33,7 @@ export function registerNonprofit({
       organization_name: organizationName,
       url: url,
       ein_number: einNumber,
+      agreed_to_terms_of_use: agreedToTermsOfUse,
     },
     { cancelToken: cancelToken?.token }
   );

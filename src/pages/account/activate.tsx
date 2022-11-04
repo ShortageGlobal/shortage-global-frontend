@@ -114,8 +114,8 @@ const ConfirmAccount: NextPageWithLayout = () => {
                 <Alert variant="warning">
                   <p>
                     The link is not valid. Perhaps, the account has already been
-                    activated. Try signing in and contact support if the problem
-                    persists.
+                    activated. Try signing in and contact support if there is a
+                    problem.
                   </p>
                   <Button onClick={handleSignIn}>Sign in</Button>
                 </Alert>
