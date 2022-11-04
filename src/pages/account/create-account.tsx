@@ -256,11 +256,7 @@ const CreateAccount: NextPageWithLayout = () => {
             </Row>
 
             <Row>
-              <Form.Group
-                as={Col}
-                controlId={INPUT_ID.agreedToTermsOfUse}
-                className={styles.termsOfUseCheckboxCol}
-              >
+              <Form.Group as={Col} controlId={INPUT_ID.agreedToTermsOfUse}>
                 <Form.Check
                   type="checkbox"
                   id={INPUT_ID.agreedToTermsOfUse}
