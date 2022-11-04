@@ -21,6 +21,7 @@ export type RegisterCorporateDonationParams = CancelTokenParams & {
   estimatedValue?: string;
   url?: string;
   photo?: File;
+  agreedToTermsOfUse: Boolean;
 };
 export function registerCorporateDonation({
   companyName,
@@ -41,6 +42,7 @@ export function registerCorporateDonation({
   estimatedValue,
   url,
   photo,
+  agreedToTermsOfUse,
   cancelToken = null,
 }: RegisterCorporateDonationParams) {
   return axios.post(
@@ -64,6 +66,7 @@ export function registerCorporateDonation({
       estimated_value: estimatedValue,
       url,
       photo,
+      agreed_to_terms_of_use: agreedToTermsOfUse,
     },
     { cancelToken: cancelToken?.token }
   );
