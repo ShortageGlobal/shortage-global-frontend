@@ -81,7 +81,7 @@ export const getCreateAccountCrumb = (props: BreadcrumbItem = {}) =>
     ...defaultCrumb,
     key: 'register',
     label: 'Create Account',
-    href: '/account/register/',
+    href: '/account/create-account/',
     ...props,
   });
 

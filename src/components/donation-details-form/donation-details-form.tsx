@@ -50,7 +50,7 @@ export function DonationDetailsForm({
   const [email, setEmail] = useState(() => cart.email || '');
   const [phoneNumber, setPhoneNumber] = useState(() => cart.phone_number || '');
   const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(
-    () => cart?.agreed_to_terms_of_use
+    () => cart?.agreed_to_terms_of_use || !!profile // if there is profile, then the user has already accepted the terms
   );
   const [needTaxDeduction, setNeedTaxDeduction] = useState(
     () => cart.need_tax_deduction
