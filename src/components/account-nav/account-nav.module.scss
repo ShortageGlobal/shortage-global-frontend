@@ -10,11 +10,8 @@
 
   @include media-breakpoint-down(md) {
     > * + * {
-      margin-top: unset;
-      margin-left: 1rem;
-
-      :global(.nav-link) {
-      }
+      margin-top: 0;
+      margin-left: 2rem;
     }
   }
 
