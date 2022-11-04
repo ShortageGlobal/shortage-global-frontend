@@ -1,42 +1,31 @@
 import styles from 'styles/pages/private/profile.module.scss';
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect } from 'react';
 import { Row, Col, Badge } from 'react-bootstrap';
-import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { accountLayout } from 'core/layouts';
 import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
 import { wrapper } from 'core/store';
-import { fetchProfile } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
-  getProfileCrumb,
+  getDonationsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ProfilePage: NextPageWithLayout = () => {
-  const session = useSession();
-
-  const [profile, setProfile] = useState(null);
-
+const DonationsPage: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getProfileCrumb({ isActive: true })];
+    return [getHomeCrumb(), getDonationsCrumb({ isActive: true })];
   }, []);
 
-  // fetch profile
+  // fetch donations
   useEffect(() => {
-    if (session.status === 'authenticated' && !profile) {
-      (async function fetchData() {
-        const response = await fetchProfile();
-        setProfile(response.data);
-      })();
-    }
-  }, [session.status, profile]);
+    //
+  }, []);
 
   return (
     <>
       <Head>
-        <title>Profile | Shortage</title>
+        <title>Donations | Shortage</title>
       </Head>
 
       <AccountBreadcrumbsContainer>
@@ -47,7 +36,7 @@ const ProfilePage: NextPageWithLayout = () => {
         <Row>
           <Col>
             <h2 className={styles.header}>
-              <span>Profile</span>{' '}
+              <span>Donations</span>{' '}
               <Badge bg="warning" className={styles.badge}>
                 BETA
               </Badge>
@@ -56,7 +45,7 @@ const ProfilePage: NextPageWithLayout = () => {
         </Row>
         <Row>
           <Col>
-            <pre>{JSON.stringify(profile, undefined, 2)}</pre>
+            <pre>TBD</pre>
           </Col>
         </Row>
       </div>
@@ -64,7 +53,7 @@ const ProfilePage: NextPageWithLayout = () => {
   );
 };
 
-ProfilePage.getLayout = accountLayout;
+DonationsPage.getLayout = accountLayout;
 
 export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   return {
@@ -72,4 +61,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default ProfilePage;
+export default DonationsPage;
