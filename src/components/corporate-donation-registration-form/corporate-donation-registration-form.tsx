@@ -618,7 +618,9 @@ export function CorporateDonationRegistrationForm({
       {errors ? (
         <Row>
           <Col>
-            <Alert variant="danger">Fix errors above and try again</Alert>
+            <Alert variant="danger" className={styles.errorAlert}>
+              Fix errors above and try again
+            </Alert>
           </Col>
         </Row>
       ) : null}
