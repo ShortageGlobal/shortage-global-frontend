@@ -29,6 +29,10 @@ $secondary-background: #f4f6f8;
 $global-notification-height: 0px;
 $global-notification-background-color: rgb(255, 236, 123);
 
+// Nav
+// $nav-link-padding-x: 0;
+$nav-link-color: var(--bs-body-color);
+
 // Navbar
 $navbar-light-toggler-border-color: transparent;
 $navbar-padding-y: 0;
@@ -54,9 +58,9 @@ $form-select-border-radius-lg: 0;
 
 // Header
 $header-height: calc(
-  82px + $global-notification-height
+  80px + $global-notification-height
 ); // used for padding-top of main container, because header has fixed-top
-$header-height-lg: calc(55px + $global-notification-height);
+$header-height-lg: calc(60px + $global-notification-height);
 $header-background: var(--bs-body-bg);
 $header-border-bottom-color: $border-color;
 

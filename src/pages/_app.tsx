@@ -8,12 +8,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { wrapper } from 'core/store';
-import { AuthenticationGuard } from 'components/authentication-guard/authentication-guard';
-import { Header } from 'components/header/header';
-import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
-import { Footer } from 'components/footer/footer';
-import { CartSidebar } from 'components/cart/sidebar/cart-sidebar';
-import { LiveChat } from 'components/live-chat/live-chat';
+import { commonLayout } from 'core/layouts';
 import * as gtag from 'core/tracking/gtag';
 import * as fbq from 'core/tracking/fpixel';
 import {
@@ -102,20 +97,7 @@ function MyApp({
   }, [router]);
 
   // Use the layout defined at the page level, if available
-  const getLayout =
-    Component.getLayout ||
-    ((page) => (
-      <>
-        <Header />
-        <main className="main-container">
-          <AuthenticationGuard>{page}</AuthenticationGuard>
-        </main>
-        <WeAreHereForYou />
-        <Footer />
-        <CartSidebar />
-        <LiveChat />
-      </>
-    ));
+  const getLayout = Component.getLayout || commonLayout;
 
   const faviconHref = IS_STAGING ? '/favicon_staging.png' : '/favicon.png';
 

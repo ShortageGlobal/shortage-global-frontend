@@ -103,12 +103,21 @@ export const getForgotPasswordCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getProfile = (props: BreadcrumbItem = {}) =>
+export const getProfileCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
     key: 'profile',
     label: 'Profile',
     href: '/private/profile/',
+    ...props,
+  });
+
+export const getDonationsCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'donations',
+    label: 'Donations',
+    href: '/private/donations/',
     ...props,
   });
 

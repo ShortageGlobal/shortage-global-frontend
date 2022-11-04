@@ -1,0 +1,32 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.accountNav {
+  margin-bottom: 1.5rem;
+
+  > * + * {
+    margin-top: 0.5rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    > * + * {
+      margin-top: unset;
+      margin-left: 1rem;
+
+      :global(.nav-link) {
+      }
+    }
+  }
+
+  :global(.nav-link) {
+    padding-left: 0;
+    padding-right: 0;
+    font-weight: 700;
+
+    &:hover,
+    &:focus,
+    &:global(.active) {
+      color: $primary;
+    }
+  }
+}

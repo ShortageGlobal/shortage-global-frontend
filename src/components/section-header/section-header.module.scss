@@ -8,4 +8,8 @@
   font-size: 1.75rem;
   text-transform: capitalize;
   scroll-margin-top: calc($header-height + 1rem);
+
+  @include media-breakpoint-down(lg) {
+    scroll-margin-top: calc($header-height-lg + 1rem);
+  }
 }
