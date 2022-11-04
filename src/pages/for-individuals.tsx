@@ -1,4 +1,4 @@
-import styles from 'styles/pages/about-us.module.scss';
+import styles from 'styles/pages/for-individuals.module.scss';
 import { useMemo } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
@@ -8,7 +8,7 @@ import Link from 'next/link';
 import {
   Breadcrumbs,
   getHomeCrumb,
-  getAboutUsCrumb,
+  getForIndividualsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -33,7 +33,7 @@ const team = [
 
 const AboutUs: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getAboutUsCrumb({ isActive: true })];
+    return [getHomeCrumb(), getForIndividualsCrumb({ isActive: true })];
   }, []);
 
   return (
@@ -50,7 +50,7 @@ const AboutUs: NextPageWithLayout = () => {
         </Row>
       </Container>
 
-      <Container className={styles.howItWorks}>
+      <Container className={styles.forIndividualsBanner}>
         <Row>
           <Col>
             <div className={styles.banner}>

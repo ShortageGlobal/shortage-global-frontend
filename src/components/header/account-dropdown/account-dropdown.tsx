@@ -1,9 +1,13 @@
+import styles from './account-dropdown.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { forwardRef, useCallback } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
-import { User } from 'react-feather';
-import { signOut, useSession } from 'next-auth/react';
+import { User, Loader } from 'react-feather';
+import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useUser } from 'core/hooks';
+import { getFullNameOrEmail } from 'core/helpers';
 import type { MouseEvent, ReactNode } from 'react';
 
 type AccountMenuTogglerProps = {
@@ -37,8 +41,15 @@ type AccountDropdownProps = {
 };
 
 export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
-  const session = useSession();
   const router = useRouter();
+
+  const {
+    isAuthenticated,
+    isUnauthenticated,
+    isSessionLoading,
+    isProfileReady,
+    profile,
+  } = useUser();
 
   const handleSignIn = useCallback(() => {
     router.push({
@@ -63,15 +74,34 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
       </Dropdown.Toggle>
 
       <Dropdown.Menu align="end">
-        {session?.status === 'authenticated' ? (
+        {isSessionLoading ? (
+          <div className={styles.loadingItem}>
+            <Loader
+              role="status"
+              aria-hidden="true"
+              className={animationStyles.rotate}
+            />
+            <span>Loading...</span>
+          </div>
+        ) : null}
+
+        {isAuthenticated ? (
           <>
-            <Dropdown.Header>{session.data.user.email}</Dropdown.Header>
-            <Link href="/private/profile" passHref legacyBehavior>
+            {isProfileReady ? (
+              <Dropdown.Header>
+                {getFullNameOrEmail({ profile })}
+              </Dropdown.Header>
+            ) : null}
+
+            <Link href="/private/profile/" passHref legacyBehavior>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
+
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
           </>
-        ) : (
+        ) : null}
+
+        {isUnauthenticated ? (
           <>
             <Dropdown.Item
               onClick={handleSignIn}
@@ -80,7 +110,8 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
             >
               Sign in
             </Dropdown.Item>
-            <Link href="/account/create-account" passHref legacyBehavior>
+
+            <Link href="/account/create-account/" passHref legacyBehavior>
               <Dropdown.Item
                 disabled={router.pathname.startsWith('/account/create-account')}
               >
@@ -88,7 +119,7 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
               </Dropdown.Item>
             </Link>
           </>
-        )}
+        ) : null}
       </Dropdown.Menu>
     </Dropdown>
   );

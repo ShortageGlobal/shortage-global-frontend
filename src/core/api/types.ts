@@ -33,6 +33,13 @@ export type PackageStatus = typeof PACKAGE_STATUS[PackageStatusKey];
 
 export type CountryChoice = { display_name: string; value: string };
 
+export type Profile = {
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+};
+
 export type PaginationParams = {
   limit?: Limit;
   offset?: Offset;

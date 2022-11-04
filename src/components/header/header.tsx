@@ -99,19 +99,19 @@ export function Header() {
             <div className={styles.navbarCollapsedTopPlaceholder} />
 
             <Nav>
-              <ActiveLink href="/about-us" passHref>
-                <Nav.Link>About Us</Nav.Link>
+              <ActiveLink href="/for-individuals/" passHref>
+                <Nav.Link>For Individuals</Nav.Link>
               </ActiveLink>
 
-              <ActiveLink href="/for-nonprofit" passHref>
+              <ActiveLink href="/for-nonprofit/" passHref>
                 <Nav.Link>For Nonprofit</Nav.Link>
               </ActiveLink>
 
-              <ActiveLink href="/for-corporate" passHref>
+              <ActiveLink href="/for-corporate/" passHref>
                 <Nav.Link>For Corporate</Nav.Link>
               </ActiveLink>
 
-              {/* <ActiveLink href="/impact-stories" passHref>
+              {/* <ActiveLink href="/impact-stories/" passHref>
                 <Nav.Link>Impact Stories</Nav.Link>
               </ActiveLink> */}
             </Nav>

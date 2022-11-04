@@ -5,7 +5,7 @@ import { Container, Row, Col, Alert } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useCart } from 'core/hooks';
+import { useUser, useCart } from 'core/hooks';
 import { wrapper } from 'core/store';
 import { fetchCorporateDonationOptions } from 'core/api';
 import {
@@ -30,10 +30,17 @@ const DonationDetails: NextPageWithLayout = ({
 
   const router = useRouter();
   const { cart, isCartReady } = useCart();
+  const { isAuthenticated, isUnauthenticated, isProfileReady } = useUser();
 
   const [showDonationDetailsAlert, setShowDonationDetailsAlert] = useState(
     () => !!router.query.showDonationDetailsAlert
   );
+
+  const isFormReady = useMemo(() => {
+    return (
+      isCartReady && (isUnauthenticated || (isAuthenticated && isProfileReady))
+    );
+  }, [isCartReady, isUnauthenticated, isAuthenticated, isProfileReady]);
 
   const handleDismissDonationDetailsAlert = useCallback(() => {
     setShowDonationDetailsAlert(false);
@@ -81,7 +88,7 @@ const DonationDetails: NextPageWithLayout = ({
               </Alert>
             ) : null}
 
-            {!isCartReady ? (
+            {!isFormReady ? (
               <div className={styles.loadingMessage}>
                 <Loader
                   role="status"
@@ -92,7 +99,7 @@ const DonationDetails: NextPageWithLayout = ({
               </div>
             ) : null}
 
-            {isCartReady ? (
+            {isFormReady ? (
               <DonationDetailsForm cart={cart} countries={countries} />
             ) : null}
           </Col>

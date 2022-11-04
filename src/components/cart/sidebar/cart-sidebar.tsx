@@ -2,29 +2,28 @@ import styles from './cart-sidebar.module.scss';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Offcanvas } from 'react-bootstrap';
+import { Offcanvas, Button } from 'react-bootstrap';
 import {
   useAppDispatch,
-  useAppSelector,
   useCancelToken,
   useCart,
   isRequestCancel,
 } from 'core/hooks';
-import { selectCart, setIsCartLoading, setCart } from 'core/store/slices/cart';
+import { setIsCartLoading, setCart } from 'core/store/slices/cart';
 import { fetchCart, createAndFetchCart } from 'core/api';
 import { groupCartItemsByOrganization } from 'core/helpers';
-import { CART_ID_KEY } from 'core/constants';
 import { CartItem } from 'components/cart/cart-item/cart-item';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
+import { REQUESTED_GOODS_CONTAINER_ID, CART_ID_KEY } from 'core/constants';
 import type { CartItem as CartItemType } from 'core/api/types';
 
 export function CartSidebar() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isCartSidebarShown } = useAppSelector(selectCart);
 
   const {
     cart,
+    isCartSidebarShown,
     setIsCartSidebarShown,
     updateCartItemQuantity,
     deleteFromCart,
@@ -90,7 +89,7 @@ export function CartSidebar() {
     return () => {
       router.events.off('routeChangeStart', handleSidebarHide);
     };
-  }, [router]);
+  }, [router, isCartSidebarShown]);
 
   const groupedCartItems = useMemo(() => {
     return groupCartItemsByOrganization({ items: cart?.items });
@@ -134,6 +133,19 @@ export function CartSidebar() {
         {groupedCartItems.size === 0 ? (
           <>
             <p>You don&apos;t have any products in your cart.</p>
+            <Link
+              href={`/#${REQUESTED_GOODS_CONTAINER_ID}`}
+              passHref
+              legacyBehavior
+            >
+              <Button
+                size="lg"
+                className={styles.checkGoodsButton}
+                onClick={handleSidebarHide}
+              >
+                <span>Check Out Our Top Requests</span>
+              </Button>
+            </Link>
           </>
         ) : null}
 

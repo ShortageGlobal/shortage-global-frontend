@@ -50,7 +50,7 @@ const ForNonprofit: NextPageWithLayout = () => {
                 <p>
                   <span className={styles.textOnWhite}>
                     We will create your unique page (
-                    <Link href="/organizations/meira_academy">
+                    <Link href="/organizations/meira_academy/">
                       {/* TODO: Hardcoded href! */}
                       check an example here
                     </Link>
