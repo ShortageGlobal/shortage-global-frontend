@@ -123,6 +123,17 @@ export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getTermsOfUseCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'terms-of-use',
+    label: 'Terms of Use',
+    href: {
+      pathname: '/terms-of-use/',
+    },
+    ...props,
+  });
+
 export const getForIndividualsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,

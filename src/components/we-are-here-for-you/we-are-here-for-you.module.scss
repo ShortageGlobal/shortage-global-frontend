@@ -38,7 +38,7 @@
     }
 
     @include media-breakpoint-down(sm) {
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       width: $width * 0.37;
       height: $height * 0.37;
     }

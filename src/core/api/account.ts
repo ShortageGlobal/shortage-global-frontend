@@ -36,16 +36,23 @@ export type CreateAccountParams = CancelTokenParams & {
   email: string;
   password: string;
   confirmPassword: string;
+  agreedToTermsOfUse: boolean;
 };
 export async function createAccount({
   email,
   password,
   confirmPassword,
+  agreedToTermsOfUse,
   cancelToken = null,
 }: CreateAccountParams) {
   return axios.post(
     encodeURI(`${API_ROOT}/api/users/register/`),
-    { email, password, confirm_password: confirmPassword },
+    {
+      email,
+      password,
+      confirm_password: confirmPassword,
+      agreed_to_terms_of_use: agreedToTermsOfUse,
+    },
     { cancelToken: cancelToken?.token }
   );
 }

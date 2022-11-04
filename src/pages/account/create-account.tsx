@@ -19,10 +19,17 @@ import {
 import type { FormEvent } from 'react';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ERROR_KEYS = Object.freeze({
+const INPUT_ID = Object.freeze({
   email: 'email',
   password: 'password',
-  confirmPassword: 'confirm_password',
+  confirmPassword: 'confirmPassword',
+  agreedToTermsOfUse: 'agreedToTermsOfUse',
+});
+const ERROR_KEYS = Object.freeze({
+  [INPUT_ID.email]: 'email',
+  [INPUT_ID.password]: 'password',
+  [INPUT_ID.confirmPassword]: 'confirm_password',
+  [INPUT_ID.agreedToTermsOfUse]: 'agreed_to_terms_of_use',
 });
 type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
 
@@ -65,16 +72,18 @@ const CreateAccount: NextPageWithLayout = () => {
 
       // use form instead of state because of problems with autofill
       const target = e.target as typeof e.target & {
-        email: HTMLInputElement;
-        password: HTMLInputElement;
-        confirmPassword: HTMLInputElement;
+        [INPUT_ID.email]: HTMLInputElement;
+        [INPUT_ID.password]: HTMLInputElement;
+        [INPUT_ID.confirmPassword]: HTMLInputElement;
+        [INPUT_ID.agreedToTermsOfUse]: HTMLInputElement;
       };
 
       try {
         await createAccount({
-          email: target.email.value,
-          password: target.password.value,
-          confirmPassword: target.confirmPassword.value,
+          email: target[INPUT_ID.email].value,
+          password: target[INPUT_ID.password].value,
+          confirmPassword: target[INPUT_ID.confirmPassword].value,
+          agreedToTermsOfUse: target[INPUT_ID.agreedToTermsOfUse].checked,
         });
 
         setErrors(null);
@@ -165,14 +174,14 @@ const CreateAccount: NextPageWithLayout = () => {
             <Row>
               <Form.Group
                 as={Col}
-                controlId="email"
+                controlId={INPUT_ID.email}
                 className={styles.formGroup}
               >
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   size="lg"
                   type="email"
-                  name="email"
+                  name={INPUT_ID.email}
                   required
                   autoFocus
                   isValid={getIsValid(ERROR_KEYS.email)}
@@ -185,7 +194,7 @@ const CreateAccount: NextPageWithLayout = () => {
             <Row>
               <Form.Group
                 as={Col}
-                controlId="password"
+                controlId={INPUT_ID.password}
                 className={styles.formGroup}
               >
                 <Form.Label>Password</Form.Label>
@@ -193,7 +202,7 @@ const CreateAccount: NextPageWithLayout = () => {
                   <Form.Control
                     size="lg"
                     type={showPassword ? 'test' : 'password'}
-                    name="password"
+                    name={INPUT_ID.password}
                     required
                     isValid={getIsValid(ERROR_KEYS.password)}
                     isInvalid={getIsInvalid(ERROR_KEYS.password)}
@@ -217,7 +226,7 @@ const CreateAccount: NextPageWithLayout = () => {
             <Row>
               <Form.Group
                 as={Col}
-                controlId="confirmPassword"
+                controlId={INPUT_ID.confirmPassword}
                 className={styles.formGroup}
               >
                 <Form.Label>Confirm Password</Form.Label>
@@ -225,7 +234,7 @@ const CreateAccount: NextPageWithLayout = () => {
                   <Form.Control
                     size="lg"
                     type={showPassword ? 'test' : 'password'}
-                    name="confirmPassword"
+                    name={INPUT_ID.confirmPassword}
                     required
                     isValid={getIsValid(ERROR_KEYS.confirmPassword)}
                     isInvalid={getIsInvalid(ERROR_KEYS.confirmPassword)}
@@ -243,6 +252,42 @@ const CreateAccount: NextPageWithLayout = () => {
                   </Button>
                   {getErrorsFeedback(ERROR_KEYS.confirmPassword)}
                 </InputGroup>
+              </Form.Group>
+            </Row>
+
+            <Row>
+              <Form.Group
+                as={Col}
+                controlId={INPUT_ID.agreedToTermsOfUse}
+                className={styles.termsOfUseCheckboxCol}
+              >
+                <Form.Check
+                  type="checkbox"
+                  id={INPUT_ID.agreedToTermsOfUse}
+                  name={INPUT_ID.agreedToTermsOfUse}
+                  label={
+                    <>
+                      <span>* I agree to the terms of use. </span>
+                      <Link
+                        href="/terms-of-use/"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        View Terms of Use Policy
+                      </Link>
+                    </>
+                  }
+                  required
+                  isValid={getIsValid(ERROR_KEYS.agreedToTermsOfUse)}
+                  isInvalid={getIsInvalid(ERROR_KEYS.agreedToTermsOfUse)}
+                  feedback={errors?.[ERROR_KEYS.agreedToTermsOfUse]}
+                  feedbackType={
+                    getIsInvalid(ERROR_KEYS.agreedToTermsOfUse)
+                      ? 'invalid'
+                      : null
+                  }
+                />
               </Form.Group>
             </Row>
 

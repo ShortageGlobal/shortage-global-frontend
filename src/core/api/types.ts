@@ -150,7 +150,8 @@ export type Cart = {
   uuid: Uuid;
   created_at: string;
   items: CartItem[];
-  need_tax_deduction?: boolean;
+  agreed_to_terms_of_use: boolean;
+  need_tax_deduction: boolean;
   first_name?: string;
   last_name?: string;
   phone_number?: string;
