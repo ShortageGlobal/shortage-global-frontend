@@ -1,10 +1,11 @@
 import styles from './authentication-guard.module.scss';
 import axios from 'axios';
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import { Lock } from 'react-feather';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useUser } from 'core/hooks';
 import type { ReactNode } from 'react';
 import type { Session } from 'next-auth';
 
@@ -20,24 +21,38 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   const session = useSession();
   const router = useRouter();
 
+  const { isAuthenticated, isUnauthenticated, fetchAndStoreProfile } =
+    useUser();
+
+  const [isAccessTokenSet, setIsAccessTokenSet] = useState(false);
+
+  // fetch profile data if user is authenticated
+  useEffect(() => {
+    if (isAuthenticated && isAccessTokenSet) {
+      fetchAndStoreProfile();
+    }
+  }, [isAuthenticated, isAccessTokenSet]);
+
+  // set accessToken as Authorization header
   const accessToken = (session?.data as Session & { accessToken?: string })
     ?.accessToken;
-
-  // set authentication tokens
   useEffect(() => {
     if (accessToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      setIsAccessTokenSet(true);
     } else {
       delete axios.defaults.headers.common['Authorization'];
+      setIsAccessTokenSet(false);
     }
   }, [accessToken]);
 
   // sign out if session.data.error is present
+  const sessionError = (session?.data as Session & { error?: string })?.error;
   useEffect(() => {
-    if ((session?.data as Session & { error?: string })?.error) {
+    if (sessionError) {
       signOut();
     }
-  }, [session]);
+  }, [sessionError]);
 
   // click on the "Sign in" button
   const handleSignIn = useCallback(() => {
@@ -51,14 +66,14 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
 
   // show content if user is authenticated or page is public
   if (
-    session?.status === 'authenticated' ||
+    (isAuthenticated && isAccessTokenSet) ||
     !router.pathname.startsWith('/private')
   ) {
     return <>{children}</>;
   }
 
   // hide private content if user is not authenticated
-  if (session?.status === 'unauthenticated') {
+  if (isUnauthenticated) {
     return (
       <div className={styles.authenticationGuard}>
         <Lock size="3rem" />

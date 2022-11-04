@@ -1,6 +1,11 @@
 import { getToken } from 'next-auth/jwt';
 import type { GetTokenParams } from 'next-auth/jwt';
-import type { AxiosSerializedError, Slug, CartItem } from 'core/api/types';
+import type {
+  AxiosSerializedError,
+  Slug,
+  CartItem,
+  Profile,
+} from 'core/api/types';
 
 // format axios error so it could be stored in redux state
 export function serizalizeAxiosError(rejection): AxiosSerializedError {
@@ -70,4 +75,9 @@ export async function extractAccessTokenFromSession<R extends boolean = false>(
   const token = await getToken({ req: params.req });
   const accessToken = (token?.account as { accessToken?: string })?.accessToken;
   return accessToken;
+}
+
+export function getFullNameOrEmail({ profile }: { profile: Profile }) {
+  const fullName = `${profile.firstName} ${profile.lastName}`.trim();
+  return fullName ? fullName : profile.email;
 }

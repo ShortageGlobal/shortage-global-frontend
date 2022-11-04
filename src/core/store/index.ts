@@ -6,9 +6,9 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { userReducer } from 'core/store/slices/user';
 import { liveChatReducer } from 'core/store/slices/live-chat';
 import { searchReducer } from 'core/store/slices/search';
-import { accountReducer } from 'core/store/slices/account';
 import { cartReducer } from 'core/store/slices/cart';
 import { promotedOrganizationsReducer } from 'core/store/slices/promoted-organizations';
 import { promotedCategoriesReducer } from 'core/store/slices/promoted-categories';
@@ -21,9 +21,9 @@ import { instructionsReducer } from 'core/store/slices/instructions';
 import { packageReducer } from 'core/store/slices/package';
 
 const combinedReducer = combineReducers({
+  user: userReducer,
   search: searchReducer,
   liveChat: liveChatReducer,
-  account: accountReducer,
   cart: cartReducer,
   promotedOrganizations: promotedOrganizationsReducer,
   promotedCategories: promotedCategoriesReducer,
@@ -46,8 +46,9 @@ const reducer = (
       ...action.payload, // apply delta from hydration
     } as ReturnType<typeof combinedReducer>;
 
-    // preserve cart on client side navigation
+    // preserve some state on client side navigation
     nextState.cart = state.cart;
+    nextState.user = state.user;
 
     return nextState;
   } else {

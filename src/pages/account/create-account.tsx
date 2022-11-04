@@ -270,7 +270,7 @@ const CreateAccount: NextPageWithLayout = () => {
               <Col>
                 <div>
                   Already have an account?{' '}
-                  <Link href="/account/sign-in">Sign in</Link>
+                  <Link href="/account/sign-in/">Sign in</Link>
                 </div>
               </Col>
             </Row>

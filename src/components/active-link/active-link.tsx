@@ -11,7 +11,7 @@ export function ActiveLink({ children, href, ...props }) {
   const child = Children.only(children);
 
   // pages/index.tsx will be matched via href
-  // pages/about-us.tsx will be matched via href
+  // pages/for-individuals.tsx will be matched via href
   // pages/[slug].tsx will be matched via props.as
   const isActive = asPath === href || asPath === props.as;
 

@@ -29,7 +29,7 @@ import { CartItem } from 'components/cart/cart-item/cart-item';
 import { CartItemPlaceholder } from 'components/cart/cart-item/cart-item-placeholder/cart-item-placeholder';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { DonationOptions } from 'components/cart/donation-options/donation-options';
-import { PAGE_KEY } from 'core/constants';
+import { PAGE_KEY, REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { CartItem as CartItemType } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
@@ -225,7 +225,10 @@ const DonationCart: NextPageWithLayout = () => {
               <p className={styles.noItemsMessage}>
                 Your donation cart doesn&apos;t have any goods. Check the
                 requested goods on{' '}
-                <Link href={{ pathname: '/' }}>the homepage</Link>.
+                <Link href={`/#${REQUESTED_GOODS_CONTAINER_ID}`}>
+                  the homepage
+                </Link>
+                .
               </p>
             ) : null}
 

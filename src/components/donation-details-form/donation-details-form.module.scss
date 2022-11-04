@@ -12,6 +12,15 @@
     margin: 2rem 0;
   }
 
+  .populateFromProfileBtn {
+    display: flex;
+    align-items: center;
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+
   .formGroup {
     margin-bottom: 1.5rem;
   }

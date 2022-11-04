@@ -123,13 +123,13 @@ export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getAboutUsCrumb = (props: BreadcrumbItem = {}) =>
+export const getForIndividualsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
-    key: 'about-us',
-    label: 'About Us',
+    key: 'for-individuals',
+    label: 'For Individuals',
     href: {
-      pathname: '/about-us/',
+      pathname: '/for-individuals/',
     },
     ...props,
   });

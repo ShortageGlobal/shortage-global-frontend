@@ -1,11 +1,11 @@
 import styles from './donation-details-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useCallback, useState } from 'react';
+import { useMemo, useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
-import { Loader } from 'react-feather';
+import { Loader, User } from 'react-feather';
 import { useRouter } from 'next/router';
 import * as fbq from 'core/tracking/fpixel';
-import { useCart, isRequestCancel } from 'core/hooks';
+import { useUser, useCart, isRequestCancel } from 'core/hooks';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import { PAGE_KEY } from 'core/constants';
 import type { FormEvent } from 'react';
@@ -38,6 +38,7 @@ export function DonationDetailsForm({
   const router = useRouter();
 
   const { updateCart } = useCart();
+  const { profile } = useUser();
 
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
@@ -61,6 +62,23 @@ export function DonationDetailsForm({
   );
   const [zip, setZip] = useState(() => cart.zip || '');
   const [country, setCountry] = useState(() => cart.country || 'US');
+
+  const isPopulateFromProfileAvailable = useMemo(() => {
+    return (
+      profile &&
+      (profile?.firstName !== firstName ||
+        profile?.lastName !== lastName ||
+        profile?.email !== email ||
+        profile?.phoneNumber !== phoneNumber)
+    );
+  }, [profile, firstName, lastName, email, phoneNumber]);
+
+  const handlePopulateFromProfile = useCallback(() => {
+    setFirstName(profile?.firstName || firstName);
+    setLastName(profile?.lastName || lastName);
+    setEmail(profile?.email || email);
+    setPhoneNumber(profile?.phoneNumber || phoneNumber);
+  }, [profile, firstName, lastName, email, phoneNumber]);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -149,6 +167,18 @@ export function DonationDetailsForm({
           We need your personal information in case there are any issues with
           the delivery of the package.
         </p>
+
+        {profile ? (
+          <Button
+            variant="outline-dark"
+            className={styles.populateFromProfileBtn}
+            onClick={handlePopulateFromProfile}
+            disabled={!isPopulateFromProfileAvailable}
+          >
+            <User />
+            <span>Populate from profile</span>
+          </Button>
+        ) : null}
       </header>
 
       <Row>
