@@ -1,8 +1,6 @@
 import styles from 'styles/pages/donation-details.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useState, useCallback } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-import { Loader } from 'react-feather';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useUser, useCart } from 'core/hooks';
@@ -16,6 +14,7 @@ import {
 import { DonationDetailsForm } from 'components/donation-details-form/donation-details-form';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { CountryChoice } from 'core/api/types';
+import { LoadingMessage } from 'components/loading-message/loading-message';
 
 type DonationDetailsProps = {
   countries: CountryChoice[];
@@ -89,14 +88,9 @@ const DonationDetails: NextPageWithLayout = ({
             ) : null}
 
             {!isFormReady ? (
-              <div className={styles.loadingMessage}>
-                <Loader
-                  role="status"
-                  aria-hidden="true"
-                  className={animationStyles.rotate}
-                />
+              <LoadingMessage className={styles.loadingMessage}>
                 <span>Loading cart...</span>
-              </div>
+              </LoadingMessage>
             ) : null}
 
             {isFormReady ? (

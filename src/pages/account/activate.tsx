@@ -1,8 +1,6 @@
 import styles from 'styles/pages/account/activate.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
-import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { wrapper } from 'core/store';
@@ -14,6 +12,7 @@ import {
   getCreateAccountCrumb,
   getConfirmAccountCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import { LoadingMessage } from 'components/loading-message/loading-message';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ConfirmAccount: NextPageWithLayout = () => {
@@ -87,14 +86,9 @@ const ConfirmAccount: NextPageWithLayout = () => {
         <Row>
           <Col className={styles.content}>
             {isPending ? (
-              <div className={styles.loadingMessage}>
-                <Loader
-                  role="status"
-                  aria-hidden="true"
-                  className={animationStyles.rotate}
-                />
+              <LoadingMessage className={styles.loadingMessage}>
                 <span>Please wait...</span>
-              </div>
+              </LoadingMessage>
             ) : null}
 
             {isSuccessful ? (

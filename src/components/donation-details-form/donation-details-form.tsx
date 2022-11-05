@@ -3,6 +3,7 @@ import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import { Loader, User } from 'react-feather';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as fbq from 'core/tracking/fpixel';
 import { useUser, useCart, isRequestCancel } from 'core/hooks';
@@ -10,7 +11,6 @@ import { PhoneInput } from 'components/phone-input/phone-input';
 import { PAGE_KEY } from 'core/constants';
 import type { FormEvent } from 'react';
 import type { Cart, CountryChoice } from 'core/api/types';
-import Link from 'next/link';
 
 const ERROR_KEYS = Object.freeze({
   FIRST_NAME: 'first_name',

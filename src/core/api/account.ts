@@ -73,10 +73,49 @@ export async function confirmAccount({
   );
 }
 
+function flattenProfileResponse(data) {
+  return {
+    email: data.user.email,
+    firstName: data.user.first_name,
+    lastName: data.user.last_name,
+    phoneNumber: data.phone_number,
+  };
+}
+
 export async function fetchProfile({
   cancelToken = null,
 }: CancelTokenParams = {}) {
-  return axios.get(encodeURI(`${API_ROOT}/api/private/users/profile/`), {
-    cancelToken: cancelToken?.token,
-  });
+  const response = await axios.get(
+    encodeURI(`${API_ROOT}/api/private/users/profile/`),
+    {
+      cancelToken: cancelToken?.token,
+    }
+  );
+  response.data = flattenProfileResponse(response.data);
+  return response;
+}
+
+type UpdateProfileParams = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+} & CancelTokenParams;
+export async function updateProfile({
+  firstName,
+  lastName,
+  phoneNumber,
+  cancelToken = null,
+}: UpdateProfileParams) {
+  const response = await axios.put(
+    encodeURI(`${API_ROOT}/api/private/users/profile/`),
+    {
+      user: { first_name: firstName, last_name: lastName },
+      phone_number: phoneNumber,
+    },
+    {
+      cancelToken: cancelToken?.token,
+    }
+  );
+  response.data = flattenProfileResponse(response.data);
+  return response;
 }
