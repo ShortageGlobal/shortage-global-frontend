@@ -16,6 +16,7 @@ import {
 import { DonationDetailsForm } from 'components/donation-details-form/donation-details-form';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { CountryChoice } from 'core/api/types';
+import { LoadingMessage } from 'components/loading-message/loading-message';
 
 type DonationDetailsProps = {
   countries: CountryChoice[];
@@ -88,15 +89,10 @@ const DonationDetails: NextPageWithLayout = ({
               </Alert>
             ) : null}
 
-            {!isFormReady ? (
-              <div className={styles.loadingMessage}>
-                <Loader
-                  role="status"
-                  aria-hidden="true"
-                  className={animationStyles.rotate}
-                />
+            {!isFormReady || true ? (
+              <LoadingMessage className={styles.loadingMessage}>
                 <span>Loading cart...</span>
-              </div>
+              </LoadingMessage>
             ) : null}
 
             {isFormReady ? (

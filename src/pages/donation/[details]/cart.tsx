@@ -1,8 +1,7 @@
 import styles from 'styles/pages/donation-cart.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useCallback, useEffect, useState } from 'react';
 import { Container, Row, Col, Alert, Placeholder } from 'react-bootstrap';
-import { Info, Loader } from 'react-feather';
+import { Info } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -29,6 +28,7 @@ import { CartItem } from 'components/cart/cart-item/cart-item';
 import { CartItemPlaceholder } from 'components/cart/cart-item/cart-item-placeholder/cart-item-placeholder';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { DonationOptions } from 'components/cart/donation-options/donation-options';
+import { LoadingMessage } from 'components/loading-message/loading-message';
 import { PAGE_KEY, REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { CartItem as CartItemType } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -182,17 +182,12 @@ const DonationCart: NextPageWithLayout = () => {
             ) : null}
 
             {shouldRedirect ? (
-              <div className={styles.redirectingMessage}>
-                <Loader
-                  role="status"
-                  aria-hidden="true"
-                  className={animationStyles.rotate}
-                />
+              <LoadingMessage className={styles.redirectingMessage}>
                 <span>
                   Redirecting to{' '}
                   <Link
                     href={{
-                      pathname: '/donation/details',
+                      pathname: '/donation/details/',
                       query: {
                         showDonationDetailsAlert: true,
                         next: PAGE_KEY.DONATION_CART,
@@ -202,7 +197,7 @@ const DonationCart: NextPageWithLayout = () => {
                     Donation Details
                   </Link>
                 </span>
-              </div>
+              </LoadingMessage>
             ) : null}
 
             {shouldShowPlaceholder ? (

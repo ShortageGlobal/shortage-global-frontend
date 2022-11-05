@@ -1,11 +1,9 @@
 import styles from 'styles/pages/package-registration.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Loader } from 'react-feather';
 import * as fbq from 'core/tracking/fpixel';
 import { wrapper } from 'core/store';
 import { useAppSelector, useCart } from 'core/hooks';
@@ -23,6 +21,7 @@ import {
 import { PackageRegistrationForm } from 'components/package-registration-form/package-registration-form';
 import { PAGE_KEY } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
+import { LoadingMessage } from 'components/loading-message/loading-message';
 
 const PackageRegistrationPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -112,12 +111,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
             </h2>
 
             {isCartReady && !isDonationDetailsFilled ? (
-              <div className={styles.loadingMessage}>
-                <Loader
-                  role="status"
-                  aria-hidden="true"
-                  className={animationStyles.rotate}
-                />
+              <LoadingMessage className={styles.loadingMessage}>
                 <span>
                   Redirecting to{' '}
                   <Link
@@ -133,18 +127,13 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
                     Donation Details
                   </Link>
                 </span>
-              </div>
+              </LoadingMessage>
             ) : null}
 
             {shouldShowLoadingMessage ? (
-              <div className={styles.loadingMessage}>
-                <Loader
-                  role="status"
-                  aria-hidden="true"
-                  className={animationStyles.rotate}
-                />
+              <LoadingMessage className={styles.loadingMessage}>
                 <span>Loading data...</span>
-              </div>
+              </LoadingMessage>
             ) : null}
 
             {shouldShowNoItemsMessage ? (

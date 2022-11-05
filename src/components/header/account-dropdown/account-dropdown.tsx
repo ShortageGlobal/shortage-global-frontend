@@ -1,13 +1,13 @@
 import styles from './account-dropdown.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { forwardRef, useCallback } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
-import { User, Loader } from 'react-feather';
+import { User } from 'react-feather';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useUser } from 'core/hooks';
 import { getFullNameOrEmail } from 'core/helpers';
+import { LoadingMessage } from 'components/loading-message/loading-message';
 import type { MouseEvent, ReactNode } from 'react';
 
 type AccountMenuTogglerProps = {
@@ -75,14 +75,7 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
 
       <Dropdown.Menu align="end">
         {isSessionLoading ? (
-          <div className={styles.loadingItem}>
-            <Loader
-              role="status"
-              aria-hidden="true"
-              className={animationStyles.rotate}
-            />
-            <span>Loading...</span>
-          </div>
+          <LoadingMessage className={styles.loadingItem} />
         ) : null}
 
         {isAuthenticated ? (

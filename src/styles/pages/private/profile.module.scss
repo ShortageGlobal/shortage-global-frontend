@@ -3,13 +3,25 @@
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
+  }
+
+  .profileForm {
+    max-width: 650px;
+    margin-bottom: 3rem;
+  }
+
+  .formGroup {
+    margin-bottom: 1.5rem;
+  }
+
+  .confirmDetailsBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 
     > * + * {
       margin-left: 0.5rem;
-    }
-
-    .badge {
-      font-size: 0.7rem;
     }
   }
 }

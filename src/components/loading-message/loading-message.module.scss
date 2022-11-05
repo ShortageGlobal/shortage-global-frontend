@@ -1,0 +1,9 @@
+.loadingMessage {
+  display: flex;
+  align-items: center;
+  margin: 0;
+
+  > * + * {
+    margin-left: 0.5rem;
+  }
+}

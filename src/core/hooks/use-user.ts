@@ -36,13 +36,7 @@ export function useUser() {
 
       try {
         const response = await fetchProfileAxios({ cancelToken });
-        const profile = {
-          email: response.data.user.email,
-          firstName: response.data.user.first_name,
-          lastName: response.data.user.last_name,
-          phoneNumber: response.data.phone_number,
-        };
-        dispatch(setProfileAction(profile));
+        dispatch(setProfileAction(response.data));
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
           return;
@@ -53,6 +47,10 @@ export function useUser() {
     []
   );
 
+  const storeProfile = useCallback((newProfile) => {
+    dispatch(setProfileAction(newProfile));
+  }, []);
+
   return useMemo(() => {
     return {
       isAuthenticated,
@@ -62,6 +60,7 @@ export function useUser() {
       isProfileReady,
       profile,
       fetchAndStoreProfile,
+      storeProfile,
     };
   }, [
     isAuthenticated,
@@ -71,5 +70,6 @@ export function useUser() {
     isProfileReady,
     profile,
     fetchAndStoreProfile,
+    storeProfile,
   ]);
 }

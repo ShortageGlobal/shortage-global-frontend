@@ -36,16 +36,15 @@ const DonationsPage: NextPageWithLayout = () => {
         <Row>
           <Col>
             <h2 className={styles.header}>
-              <span>Donations</span>{' '}
-              <Badge bg="warning" className={styles.badge}>
-                BETA
-              </Badge>
+              <span>Donations</span>
             </h2>
           </Col>
         </Row>
         <Row>
           <Col>
-            <pre>TBD</pre>
+            <Badge bg="warning" className={styles.badge}>
+              TO BE DONE SOON
+            </Badge>
           </Col>
         </Row>
       </div>
