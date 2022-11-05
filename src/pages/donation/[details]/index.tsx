@@ -1,8 +1,6 @@
 import styles from 'styles/pages/donation-details.module.scss';
-import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useState, useCallback } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-import { Loader } from 'react-feather';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useUser, useCart } from 'core/hooks';
@@ -89,7 +87,7 @@ const DonationDetails: NextPageWithLayout = ({
               </Alert>
             ) : null}
 
-            {!isFormReady || true ? (
+            {!isFormReady ? (
               <LoadingMessage className={styles.loadingMessage}>
                 <span>Loading cart...</span>
               </LoadingMessage>
