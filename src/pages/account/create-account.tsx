@@ -100,6 +100,7 @@ const CreateAccount: NextPageWithLayout = () => {
         if (rejectionErrors) {
           setErrors(rejectionErrors);
         } else {
+          setErrors(null);
           showNotification({
             isFailure: true,
             message: 'Failed to create account',
