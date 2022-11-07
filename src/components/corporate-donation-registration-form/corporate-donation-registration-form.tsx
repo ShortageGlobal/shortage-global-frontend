@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import Link from 'next/link';
 import { registerCorporateDonation } from 'core/api';
-import { useCancelToken, isRequestCancel } from 'core/hooks';
+import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { CorporateDonationRegistrationSuccess } from 'components/corporate-donation-registration-form/registration-success/registration-success';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import type { FormEvent } from 'react';
@@ -60,6 +60,8 @@ type CorporateDonationRegistrationFormProps = {
 export function CorporateDonationRegistrationForm({
   countries,
 }: CorporateDonationRegistrationFormProps) {
+  const { showNotification } = useNotifications();
+
   const [isPending, setIsPending] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
@@ -130,7 +132,16 @@ export function CorporateDonationRegistrationForm({
         }
         setIsPending(false);
         setIsRegistered(false);
-        setErrors(rejection?.response?.data);
+        const rejectionErrors = rejection?.response?.data;
+        if (rejectionErrors) {
+          setErrors(rejection?.response?.data);
+        } else {
+          setErrors(null);
+          showNotification({
+            isFailure: true,
+            message: 'Failed to submit donor information',
+          });
+        }
       }
     },
     [
@@ -154,6 +165,7 @@ export function CorporateDonationRegistrationForm({
       url,
       photo,
       agreedToTermsOfUse,
+      showNotification,
     ]
   );
 

@@ -1,0 +1,11 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.notification {
+  color: $notification-color;
+  word-break: break-word;
+
+  .closeButton {
+    margin: auto 0.5rem auto auto;
+  }
+}

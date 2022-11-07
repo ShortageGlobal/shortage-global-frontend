@@ -1,0 +1,12 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.notifications {
+  z-index: 11;
+  margin-right: 0.5rem;
+  margin-top: calc($header-height + 0.5rem);
+
+  @include media-breakpoint-down(lg) {
+    margin-top: calc($header-height-lg + 0.5rem);
+  }
+}

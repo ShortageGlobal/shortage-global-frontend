@@ -3,6 +3,7 @@ import commonStyles from 'core/layouts/common.module.scss';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Header } from 'components/header/header';
 import { AuthenticationGuard } from 'components/authentication-guard/authentication-guard';
+import { Notifications } from 'components/notifications/notifications';
 import { AccountNav } from 'components/account-nav/account-nav';
 import { WeAreHereForYou } from 'components/we-are-here-for-you/we-are-here-for-you';
 import { Footer } from 'components/footer/footer';
@@ -32,6 +33,7 @@ export const accountLayout = (page: ReactElement) => (
             <Col md={9}>{page}</Col>
           </Row>
         </Container>
+        <Notifications />
       </AuthenticationGuard>
     </main>
     <WeAreHereForYou />

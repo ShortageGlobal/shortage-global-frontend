@@ -140,6 +140,7 @@ export function PackageRegistrationForm({
               item={item}
               onQuantityChange={handleItemQuantityChange}
               onRemove={handleItemRemove}
+              hidePrice
             />
           );
         })}

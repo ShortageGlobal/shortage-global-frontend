@@ -2,6 +2,7 @@ import type { CancelTokenSource } from 'axios';
 import {
   PRODUCT_CATEGORY_KEY,
   PRODUCT_CATEGORY_ALL_KEY,
+  NOTIFICATION_TYPE,
   PACKAGE_TYPE,
   PACKAGE_STATUS,
 } from 'core/constants';
@@ -25,10 +26,13 @@ export type Category =
   | typeof PRODUCT_CATEGORY_KEY[CategoryKey]
   | typeof PRODUCT_CATEGORY_ALL_KEY;
 
-export type PackageTypeKey = keyof typeof PACKAGE_TYPE;
+type NotificationTypeKey = keyof typeof NOTIFICATION_TYPE;
+export type NotificationType = typeof NOTIFICATION_TYPE[NotificationTypeKey];
+
+type PackageTypeKey = keyof typeof PACKAGE_TYPE;
 export type PackageType = typeof PACKAGE_TYPE[PackageTypeKey];
 
-export type PackageStatusKey = keyof typeof PACKAGE_STATUS;
+type PackageStatusKey = keyof typeof PACKAGE_STATUS;
 export type PackageStatus = typeof PACKAGE_STATUS[PackageStatusKey];
 
 export type CountryChoice = { display_name: string; value: string };
@@ -38,6 +42,12 @@ export type Profile = {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
+};
+
+export type Notification = {
+  key: number;
+  message: string;
+  type: NotificationType;
 };
 
 export type PaginationParams = {

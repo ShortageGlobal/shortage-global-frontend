@@ -7,7 +7,12 @@ import Head from 'next/head';
 import { accountLayout } from 'core/layouts';
 import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
 import { wrapper } from 'core/store';
-import { useUser, useCancelToken, isRequestCancel } from 'core/hooks';
+import {
+  useUser,
+  useNotifications,
+  useCancelToken,
+  isRequestCancel,
+} from 'core/hooks';
 import { updateProfile } from 'core/api';
 import {
   Breadcrumbs,
@@ -32,6 +37,7 @@ const ERROR_KEYS = Object.freeze({
 type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
 
 const ProfilePage: NextPageWithLayout = () => {
+  const { showNotification } = useNotifications();
   const { profile, isProfileReady, storeProfile } = useUser();
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
@@ -70,15 +76,28 @@ const ProfilePage: NextPageWithLayout = () => {
         storeProfile(response.data);
         setErrors(null);
         setIsSaving(false);
+        showNotification({
+          isSuccess: true,
+          message: 'Profile saved successfully',
+        });
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
           return;
         }
         setIsSaving(false);
-        setErrors(rejection?.response?.data);
+        const rejectionErrors = rejection?.response?.data;
+        if (rejectionErrors) {
+          setErrors(rejection?.response?.data);
+        } else {
+          setErrors(null);
+          showNotification({
+            isFailure: true,
+            message: 'Failed to update profile',
+          });
+        }
       }
     },
-    [firstName, lastName, phoneNumber]
+    [firstName, lastName, phoneNumber, showNotification]
   );
 
   const getIsValid = (key: ErrorKey) =>
