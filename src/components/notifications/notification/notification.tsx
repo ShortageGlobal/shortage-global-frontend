@@ -32,7 +32,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
   return (
     <Toast
       bg={bg}
-      autohide={autohide && false}
+      autohide={autohide}
       delay={3000}
       onClose={handleClose}
       className={classNames(styles.notification)}
