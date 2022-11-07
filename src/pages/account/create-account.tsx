@@ -48,7 +48,7 @@ const CreateAccount: NextPageWithLayout = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
   // redirect from create account page if authenticated
