@@ -18,7 +18,6 @@ export function Notification({ notification, onClose }: NotificationProps) {
     if (notification.type === NOTIFICATION_TYPE.FAILURE) {
       return 'danger';
     }
-    return 'primary'; // default
   }, [notification.type]);
 
   const autohide = useMemo(() => {
