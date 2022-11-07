@@ -1,7 +1,7 @@
 import styles from './notification.module.scss';
 import { useMemo, useCallback } from 'react';
 import classNames from 'classnames';
-import { Toast } from 'react-bootstrap';
+import { Toast, CloseButton } from 'react-bootstrap';
 import { NOTIFICATION_TYPE } from 'core/constants';
 import type { Notification } from 'core/api/types';
 
@@ -33,20 +33,18 @@ export function Notification({ notification, onClose }: NotificationProps) {
   return (
     <Toast
       bg={bg}
-      autohide={autohide}
+      autohide={autohide && false}
       delay={3000}
       onClose={handleClose}
       className={classNames(styles.notification)}
     >
       <div className="d-flex">
         <Toast.Body>{notification.message}</Toast.Body>
-        <button
-          type="button"
-          className="btn-close btn-close-white me-2 m-auto"
-          data-bs-dismiss="toast"
-          aria-label="Close"
+        <CloseButton
+          variant="white"
+          className={styles.closeButton}
           onClick={handleClose}
-        ></button>
+        />
       </div>
     </Toast>
   );
