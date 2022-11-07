@@ -48,7 +48,7 @@ const CreateAccount: NextPageWithLayout = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
   // redirect from create account page if authenticated
@@ -148,9 +148,14 @@ const CreateAccount: NextPageWithLayout = () => {
               <p>We&apos;re excited to see you join the Shortage community.</p>
 
               <p>
-                We sent you a confirmation email, it will be in your inbox
-                shortly. After confirmation you will be able to sign in to your
-                account.
+                We sent you <strong>a confirmation email</strong>, it will be in
+                your inbox shortly. After confirmation you will be able to sign
+                in to your account.
+              </p>
+
+              <p>
+                If you didn&apos;t receive the email, please check your Spam
+                folder.
               </p>
 
               <Button
