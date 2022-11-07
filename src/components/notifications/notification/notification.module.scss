@@ -1,0 +1,7 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.notification {
+  color: $notification-color;
+  word-break: break-word;
+}

@@ -23,7 +23,7 @@
     align-items: flex-start;
     position: relative;
 
-    &::before {
+    &.withPrice::before {
       content: '';
       display: block;
       position: absolute;

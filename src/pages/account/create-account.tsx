@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import { isRequestCancel } from 'core/hooks';
+import { useNotifications, isRequestCancel } from 'core/hooks';
 import { wrapper } from 'core/store';
 import { createAccount } from 'core/api';
 import {
@@ -34,6 +34,7 @@ const ERROR_KEYS = Object.freeze({
 type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
 
 const CreateAccount: NextPageWithLayout = () => {
+  const { showNotification } = useNotifications();
   const session = useSession();
   const router = useRouter();
 
@@ -95,14 +96,18 @@ const CreateAccount: NextPageWithLayout = () => {
         setIsPending(false);
         setIsRegistered(false);
 
-        if (rejection?.response?.data) {
-          setErrors(rejection?.response?.data);
+        const rejectionErrors = rejection?.response?.data;
+        if (rejectionErrors) {
+          setErrors(rejectionErrors);
         } else {
-          // TODO: show notification about failure
+          showNotification({
+            isFailure: true,
+            message: 'Failed to create account',
+          });
         }
       }
     },
-    [isPending, isAuthenticated, router]
+    [isPending, isAuthenticated, showNotification]
   );
 
   const handleDismiss = useCallback(() => {

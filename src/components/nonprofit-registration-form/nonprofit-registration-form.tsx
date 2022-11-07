@@ -4,7 +4,7 @@ import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import Link from 'next/link';
 import * as fbq from 'core/tracking/fpixel';
 import { registerNonprofit } from 'core/api';
-import { useCancelToken, isRequestCancel } from 'core/hooks';
+import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { NonprofitRegistrationSuccess } from 'components/nonprofit-registration-form/registration-success/registration-success';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import type { FormEvent } from 'react';
@@ -32,6 +32,8 @@ const ERROR_KEYS = Object.freeze({
 type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
 
 export function NonprofitRegistrationForm() {
+  const { showNotification } = useNotifications();
+
   const [isPending, setIsPending] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
@@ -82,7 +84,16 @@ export function NonprofitRegistrationForm() {
         }
         setIsPending(false);
         setIsRegistered(false);
-        setErrors(rejection?.response?.data);
+        const rejectionErrors = rejection?.response?.data;
+        if (rejectionErrors) {
+          setErrors(rejection?.response?.data);
+        } else {
+          setErrors(null);
+          showNotification({
+            isFailure: true,
+            message: 'Failed to submit organization information',
+          });
+        }
       }
     },
     [
@@ -95,6 +106,7 @@ export function NonprofitRegistrationForm() {
       url,
       einNumber,
       agreedToTermsOfUse,
+      showNotification,
     ]
   );
 

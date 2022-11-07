@@ -113,6 +113,11 @@ export const PACKAGE_STATUS = Object.freeze({
   DELIVERED: 'DELIVERED',
 });
 
+export const NOTIFICATION_TYPE = Object.freeze({
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE',
+});
+
 export const PACKAGE_STATUS_LIFECYCLE = Object.freeze({
   [PACKAGE_TYPE.SENT_BY_DONOR]: Object.freeze([
     Object.freeze([

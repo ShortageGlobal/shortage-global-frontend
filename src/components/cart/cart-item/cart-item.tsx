@@ -19,9 +19,15 @@ type CartItemProps = {
     quantity: number;
   }) => void;
   onRemove: ({ item }: { item: CartItem }) => void;
+  hidePrice?: boolean;
 };
 
-export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
+export function CartItem({
+  item,
+  onQuantityChange,
+  onRemove,
+  hidePrice = false,
+}: CartItemProps) {
   const [displayQuantity, setDisplayQuantity] = useState<number | string>(
     () => item.quantity
   );
@@ -85,16 +91,22 @@ export function CartItem({ item, onQuantityChange, onRemove }: CartItemProps) {
         </Link>
       </div>
 
-      <div className={styles.name}>
+      <div
+        className={classNames(styles.name, {
+          [styles.withPrice]: !hidePrice,
+        })}
+      >
         <Link
           href={productPageHref}
           className={classNames(styles.nameLink, 'text-truncate')}
         >
           {item.product.name}
         </Link>
-        <div className={styles.productPrice}>
-          {formatPrice(item.product.price)}
-        </div>
+        {!hidePrice ? (
+          <div className={styles.productPrice}>
+            {formatPrice(item.product.price)}
+          </div>
+        ) : null}
       </div>
 
       <Form.Group
