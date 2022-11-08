@@ -37,9 +37,11 @@ export function PhoneInput({
   return (
     <PhoneInput2
       containerClass={styles.reactTelInput}
+      enableSearch
       specialLabel=""
       country={'us'}
       value={value}
+      placeholder=""
       inputProps={inputProps}
       inputClass={classNames(
         {

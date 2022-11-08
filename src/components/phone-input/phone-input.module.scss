@@ -825,7 +825,7 @@
     position: absolute;
     z-index: $zindex-dropdown;
     min-width: $dropdown-min-width;
-    padding: $dropdown-padding-y $dropdown-padding-x;
+    padding: 0 $dropdown-padding-x;
     margin: 0; // Override default margin of ul
     @include font-size($dropdown-font-size);
     color: $dropdown-color;
@@ -863,7 +863,7 @@
   }
   .country-list .flag {
     margin-right: 7px;
-    margin-top: 2px;
+    margin-top: 4px;
   }
   .country-list .country-name {
     margin-right: 6px;
@@ -873,18 +873,19 @@
     position: sticky;
     top: 0;
     background-color: #fff;
-    padding: 10px 0 6px 10px;
+    padding: 0.5rem 0.5rem;
   }
   .country-list .search-emoji {
     display: none;
     font-size: 15px;
   }
   .country-list .search-box {
+    width: 100%;
     border: 1px solid #cacaca;
     border-radius: 3px;
     font-size: 15px;
     line-height: 15px;
-    margin-left: 6px;
+    margin-left: 0px;
     padding: 3px 8px 5px;
     outline: none;
   }
