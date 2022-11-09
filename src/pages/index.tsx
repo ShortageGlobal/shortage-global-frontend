@@ -10,8 +10,9 @@ import { setSearchQuery } from 'core/store/slices/search';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromoCampaign } from 'components/promo-campaign/promo-campaign';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
-// import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
+// import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
+import { PromoFeedback } from 'components/promo-feedback/promo-feedback';
 import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'core/constants';
 import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -30,6 +31,7 @@ const IndexPage: NextPageWithLayout = () => {
       <DonationSteps />
       <PromotedProducts />
       {/* <PromotedOrganizations /> */}
+      <PromoFeedback />
     </>
   );
 };
