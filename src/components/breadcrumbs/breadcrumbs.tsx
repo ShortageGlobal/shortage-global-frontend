@@ -165,13 +165,13 @@ export const getForCorporateCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getForNonprofitCrumb = (props: BreadcrumbItem = {}) =>
+export const getForNonprofitsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
-    key: 'for-nonprofit',
-    label: 'For Nonprofit',
+    key: 'for-nonprofits',
+    label: 'For Nonprofits',
     href: {
-      pathname: '/for-nonprofit/',
+      pathname: '/for-nonprofits/',
     },
     ...props,
   });
