@@ -103,8 +103,8 @@ export function Header() {
                 <Nav.Link>For Individuals</Nav.Link>
               </ActiveLink>
 
-              <ActiveLink href="/for-nonprofit/" passHref>
-                <Nav.Link>For Nonprofit</Nav.Link>
+              <ActiveLink href="/for-nonprofits/" passHref>
+                <Nav.Link>For Nonprofits</Nav.Link>
               </ActiveLink>
 
               <ActiveLink href="/for-corporate/" passHref>

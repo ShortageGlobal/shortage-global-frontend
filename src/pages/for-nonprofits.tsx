@@ -1,4 +1,4 @@
-import styles from 'styles/pages/for-nonprofit.module.scss';
+import styles from 'styles/pages/for-nonprofits.module.scss';
 import { useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import classNames from 'classnames';
@@ -9,14 +9,14 @@ import { wrapper } from 'core/store';
 import {
   Breadcrumbs,
   getHomeCrumb,
-  getForNonprofitCrumb,
+  getForNonprofitsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { NonprofitRegistrationForm } from 'components/nonprofit-registration-form/nonprofit-registration-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ForNonprofit: NextPageWithLayout = () => {
+const ForNonprofits: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getForNonprofitCrumb({ isActive: true })];
+    return [getHomeCrumb(), getForNonprofitsCrumb({ isActive: true })];
   }, []);
 
   return (
@@ -101,4 +101,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default ForNonprofit;
+export default ForNonprofits;
