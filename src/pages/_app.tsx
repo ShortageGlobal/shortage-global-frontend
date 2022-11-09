@@ -9,12 +9,10 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { wrapper } from 'core/store';
 import { commonLayout } from 'core/layouts';
-import * as gtag from 'core/tracking/gtag';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import {
   IS_STAGING,
-  GA_TRACKING_ID,
-  FB_PIXEL_ID,
+  GOOGLE_TAG_MANAGER_ID,
   CLIENT_SESSION_REFETCH_INTERVAL,
 } from 'core/constants';
 import type { ReactElement, ReactNode } from 'react';
@@ -36,31 +34,12 @@ function MyApp({
 }: AppPropsWithLayout) {
   const router = useRouter();
 
-  // Google Analytics events
+  // Let Google Tag Manager know about page change.
+  // As an alternative we can use History Change tag
   useEffect(() => {
-    const handleRouteChange = (url) => {
-      gtag.pageview(url);
-    };
-    router.events.on('routeChangeComplete', handleRouteChange);
-    router.events.on('hashChangeComplete', handleRouteChange);
+    router.events.on('routeChangeComplete', gtm.pageview);
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-      router.events.off('hashChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
-
-  // Facebook Pixel events
-  useEffect(() => {
-    // This pageview only triggers the first time (it's important for Pixel to have real information)
-    fbq.pageview();
-
-    const handleRouteChange = () => {
-      fbq.pageview();
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('routeChangeComplete', gtm.pageview);
     };
   }, [router.events]);
 
@@ -136,41 +115,17 @@ function MyApp({
         <link rel="manifest" href="/manifest.json" />
       </Head>
 
-      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      {/* Google Tag Manager - Global base code */}
       <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-      />
-      <Script
-        id="gtag-init"
+        id="gtag-base"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
-
-      {/* Global Site Code Pixel - Facebook Pixel */}
-      <Script
-        id="fb-pixel"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', ${FB_PIXEL_ID});
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer', '${GOOGLE_TAG_MANAGER_ID}');
           `,
         }}
       />
