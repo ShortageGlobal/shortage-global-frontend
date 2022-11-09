@@ -103,6 +103,10 @@ $promo-step-bg-color: $secondary-background;
 $promo-step-counter-bg-color: $primary;
 $promo-step-counter-color: $white;
 
+// Promo feedback
+$promo-feedback-bg-color: $secondary-background;
+$promo-feedback-photo-border-color: var(--bs-dark);
+
 // Category Selector
 $category-selector-subHeader-color: var(--bs-gray-500);
 $category-selector-color: var(--bs-body-color);
@@ -133,7 +137,7 @@ $instructions-modal-blockquote-background-color: var(--bs-gray-100);
 $instructions-modal-blockquote-border-color: $border-color;
 
 // Organization Details
-$organization-details-background-color: #f4f6f8;
+$organization-details-background-color: $secondary-background;
 
 // Offcanvas
 $offcanvas-padding-x: 3rem;
