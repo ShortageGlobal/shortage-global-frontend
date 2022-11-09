@@ -1,0 +1,60 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.promoFeedback {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: max-content;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  @include media-breakpoint-down(lg) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+  }
+
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
+  }
+
+  .feedback {
+    padding: 2rem;
+    text-align: center;
+    background-color: $promo-feedback-bg-color;
+
+    @include media-breakpoint-between(sm, md) {
+      padding: 1rem;
+    }
+  }
+
+  .imgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo {
+    margin: 0 0.5rem;
+    border-radius: 100%;
+    border: 1px solid $promo-feedback-photo-border-color;
+    object-fit: cover;
+  }
+
+  .name {
+    margin: 1rem 0 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .message {
+    margin: 1rem 0 0;
+    font-style: italic;
+  }
+}
