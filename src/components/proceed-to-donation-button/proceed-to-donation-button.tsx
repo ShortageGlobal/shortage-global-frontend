@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import { useCart } from 'core/hooks';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 
 type ProceedToDonationButtonProps = {
   className?: string;
@@ -24,7 +24,7 @@ export function ProceedToDonationButton({
 
   const handleButtonClick = useCallback(() => {
     setIsCartSidebarShown(false);
-    fbq.event('InitiateCheckout');
+    gtm.trackProceedToDonate();
   }, []);
 
   return (

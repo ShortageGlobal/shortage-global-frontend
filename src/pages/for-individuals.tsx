@@ -31,7 +31,7 @@ const team = [
   },
 ];
 
-const AboutUs: NextPageWithLayout = () => {
+const ForIndividuals: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getForIndividualsCrumb({ isActive: true })];
   }, []);
@@ -39,7 +39,7 @@ const AboutUs: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>About Us | Shortage</title>
+        <title>For Individuals | Shortage</title>
       </Head>
 
       <Container>
@@ -190,4 +190,4 @@ const AboutUs: NextPageWithLayout = () => {
   );
 };
 
-export default AboutUs;
+export default ForIndividuals;

@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { ShoppingCart, Loader } from 'react-feather';
 import { Container, Row, Col, Button, Placeholder } from 'react-bootstrap';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import { formatPrice } from 'core/helpers';
 import { isRequestCancel, useAppSelector, useCart } from 'core/hooks';
 import { wrapper } from 'core/store';
@@ -53,10 +53,10 @@ const ProductPage: NextPageWithLayout = () => {
 
   // track page view
   useEffect(() => {
-    fbq.event('ViewContent', {
-      content_type: 'product',
-      content_name: product.organization.slug,
-      content_ids: [product.slug],
+    gtm.trackProductView({
+      organizationSlug: product.organization.slug,
+      productSlug: product.slug,
+      productPrice: product.price,
     });
   }, []);
 

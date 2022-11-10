@@ -13,9 +13,11 @@ export const IS_BROWSER = typeof window !== 'undefined';
 export const LIVE_CHAT_LICENCE_ID =
   process.env.NEXT_PUBLIC_LIVE_CHAT_LICENCE_ID;
 
-// Google Tag Manager id
-export const GOOGLE_TAG_MANAGER_ID =
-  process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
+// Google Tag Manager
+export const GOOGLE_TAG_MANAGER_SCRIPT =
+  process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_SCRIPT;
+export const GOOGLE_TAG_MANAGER_NOSCRIPT_SRC =
+  process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_NOSCRIPT_SRC;
 
 // How long jwt token lives on the backend (django) before expiring (in seconds).
 // Make it a bit smaller than the real value to compensate networking lag.

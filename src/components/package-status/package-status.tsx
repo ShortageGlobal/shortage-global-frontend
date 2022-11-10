@@ -3,7 +3,7 @@ import { useMemo, useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import { useAppSelector, useCart } from 'core/hooks';
 import { selectOrganization } from 'core/store/slices/organization';
 import { selectPackage } from 'core/store/slices/package';
@@ -61,10 +61,6 @@ export function PackageStatus() {
       const cartItems = cart.items.filter((cartItem) =>
         cartItemIds.includes(cartItem.uuid)
       );
-      const cartItemsPriceSum = cartItems.reduce((result, cartItem) => {
-        result += cartItem.quantity * cartItem.product.price;
-        return result;
-      }, 0);
 
       // send request to remove cart items
       (async function () {
@@ -87,15 +83,17 @@ export function PackageStatus() {
         { shallow: true } // do not run getServerSideProps
       );
 
-      fbq.event('Purchase', {
-        content_type: 'product',
-        content_name: organization.slug,
-        contents: cartItems.map((cartItem) => ({
-          id: cartItem.product.slug,
+      gtm.trackPackageRegistraionSuccess({
+        organizationSlug: organization.slug,
+        items: cartItems.map((cartItem) => ({
+          productSlug: cartItem.product.slug,
+          productPrice: cartItem.product.price,
           quantity: cartItem.quantity,
         })),
-        value: cartItemsPriceSum,
-        currency: 'USD',
+        totalPrice: cartItems.reduce((result, cartItem) => {
+          result += cartItem.quantity * cartItem.product.price;
+          return result;
+        }, 0),
       });
     }
   }, [isCartReady, router.query?.dci]);
