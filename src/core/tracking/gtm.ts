@@ -124,7 +124,7 @@ export const trackClickDonateWhatIHave = ({
   });
 };
 
-// User clicked the "Proceed to donate" button
+// User opened a "Package Registration" page
 export const trackPackageRegistrationView = ({
   organizationSlug,
 }: {
