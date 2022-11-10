@@ -10,6 +10,7 @@ import {
   getHomeCrumb,
   getForIndividualsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import { SectionHeader } from 'components/section-header/section-header';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
@@ -31,7 +32,7 @@ const team = [
   },
 ];
 
-const AboutUs: NextPageWithLayout = () => {
+const ForIndividuals: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getForIndividualsCrumb({ isActive: true })];
   }, []);
@@ -39,7 +40,7 @@ const AboutUs: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>About Us | Shortage</title>
+        <title>For Individuals | Shortage</title>
       </Head>
 
       <Container>
@@ -147,7 +148,7 @@ const AboutUs: NextPageWithLayout = () => {
 
         <Row>
           <Col>
-            <h2 className={styles.header}>Our Team</h2>
+            <SectionHeader>Our Team</SectionHeader>
           </Col>
         </Row>
 
@@ -190,4 +191,4 @@ const AboutUs: NextPageWithLayout = () => {
   );
 };
 
-export default AboutUs;
+export default ForIndividuals;

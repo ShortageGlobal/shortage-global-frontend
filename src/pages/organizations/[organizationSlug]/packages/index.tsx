@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Container, Row, Col } from 'react-bootstrap';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import { wrapper } from 'core/store';
 import { useAppSelector, useCart } from 'core/hooks';
 import {
@@ -56,9 +56,8 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
   // track page view
   useEffect(() => {
-    fbq.event('ViewContent', {
-      content_category: 'package_registration',
-      content_name: organization.slug,
+    gtm.trackPackageRegistrationView({
+      organizationSlug: organization.slug,
     });
   }, []);
 

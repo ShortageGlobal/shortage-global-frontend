@@ -4,7 +4,7 @@ import { useCallback, useState, useMemo } from 'react';
 import { Button } from 'react-bootstrap';
 import { DollarSign, Loader, Package } from 'react-feather';
 import classNames from 'classnames';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import {
   useAppSelector,
   useCart,
@@ -37,11 +37,12 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   const handleFundDonation = useCallback(async () => {
     const cancelToken = getCreatePackageCancelToken();
     setIsPackageBeingCreated(true);
-    fbq.custom('ClickOrderItems', {
-      organization_slug: cartGroup.organizationSlug,
+    gtm.trackClickOrderItems({
+      organizationSlug: cartGroup.organizationSlug,
       items: cartGroup.items.map((item) => {
         return {
-          product: item.product.slug,
+          productSlug: item.product.slug,
+          productPrice: item.product.price,
           quantity: item.quantity,
         };
       }),
@@ -89,11 +90,12 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   }, []);
 
   const handleTangibleDonation = useCallback(() => {
-    fbq.custom('ClickDonateWhatIHave', {
-      organization_slug: cartGroup.organizationSlug,
+    gtm.trackClickDonateWhatIHave({
+      organizationSlug: cartGroup.organizationSlug,
       items: cartGroup.items.map((item) => {
         return {
-          product: item.product.slug,
+          productSlug: item.product.slug,
+          productPrice: item.product.price,
           quantity: item.quantity,
         };
       }),

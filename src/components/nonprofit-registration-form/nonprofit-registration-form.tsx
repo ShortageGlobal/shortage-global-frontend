@@ -2,7 +2,7 @@ import styles from './nonprofit-registration-form.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import Link from 'next/link';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import { registerNonprofit } from 'core/api';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { NonprofitRegistrationSuccess } from 'components/nonprofit-registration-form/registration-success/registration-success';
@@ -73,7 +73,7 @@ export function NonprofitRegistrationForm() {
           cancelToken,
         });
 
-        fbq.event('Lead', { content_name: 'Nonprofit registration' });
+        gtm.trackNonprofitRegistrationRequest();
 
         setIsPending(false);
         setIsRegistered(true);

@@ -1,7 +1,8 @@
 import styles from 'styles/pages/organization.module.scss';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import Head from 'next/head';
 import { Container, Row, Col } from 'react-bootstrap';
+import * as gtm from 'core/tracking/gtm';
 import { wrapper } from 'core/store';
 import { useAppSelector } from 'core/hooks';
 import {
@@ -39,6 +40,13 @@ const OrganizationPage: NextPageWithLayout = () => {
       }),
     ];
   }, [organization]);
+
+  // track page view
+  useEffect(() => {
+    gtm.trackOrganizationView({
+      organizationSlug: organization.slug,
+    });
+  }, []);
 
   return (
     <>

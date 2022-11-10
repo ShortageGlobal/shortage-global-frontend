@@ -5,7 +5,7 @@ import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import { Loader, User } from 'react-feather';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import { useUser, useCart, isRequestCancel } from 'core/hooks';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import { PAGE_KEY } from 'core/constants';
@@ -89,7 +89,7 @@ export function DonationDetailsForm({
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       setIsPending(true);
-      fbq.custom('SubmitDonationDetails');
+      gtm.trackSubmitDonationDetails();
 
       try {
         await updateCart({
@@ -113,14 +113,14 @@ export function DonationDetailsForm({
         switch (router.query.next) {
           case PAGE_KEY.PACKAGE_REGISTRATION: {
             router.push({
-              pathname: '/organizations/[organizationSlug]/packages',
+              pathname: '/organizations/[organizationSlug]/packages/',
               query: { organizationSlug: router.query.nextOrganizationSlug },
             });
             break;
           }
           case PAGE_KEY.DONATION_CART:
           default: {
-            router.push({ pathname: '/donation/details/cart' });
+            router.push({ pathname: '/donation/details/cart/' });
             break;
           }
         }

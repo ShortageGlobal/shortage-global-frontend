@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from 'react';
-import * as fbq from 'core/tracking/fpixel';
+import * as gtm from 'core/tracking/gtm';
 import { useAppDispatch, useAppSelector } from 'core/hooks';
 import {
   selectCart,
@@ -145,12 +145,11 @@ export function useCart() {
         quantity,
       });
       dispatch(setCartAction(cartResponse.data));
-      fbq.event('AddToCart', {
-        content_type: 'product',
-        content_name: organization_slug,
-        contents: [{ id: product_slug, quantity }],
-        value: product_price * quantity,
-        currency: 'USD',
+      gtm.trackAddToCart({
+        organizationSlug: organization_slug,
+        productSlug: product_slug,
+        productPrice: product_price,
+        quantity,
       });
     },
     [isCartReady, checkIsProductInCart, cart]
