@@ -12,7 +12,8 @@ import { commonLayout } from 'core/layouts';
 import * as gtm from 'core/tracking/gtm';
 import {
   IS_STAGING,
-  GOOGLE_TAG_MANAGER_SCRIPT,
+  GOOGLE_TAG_MANAGER_ID,
+  GOOGLE_TAG_MANAGER_SCRIPT_SRC_EXTRA,
   CLIENT_SESSION_REFETCH_INTERVAL,
 } from 'core/constants';
 import type { ReactElement, ReactNode } from 'react';
@@ -120,7 +121,22 @@ function MyApp({
         id="gtag-base"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: GOOGLE_TAG_MANAGER_SCRIPT,
+          __html: `
+            (function (w, d, s, l, i) {
+              w[l] = w[l] || [];
+              w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+              var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+              j.async = true;
+              j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' +
+                i +
+                dl +
+                '${GOOGLE_TAG_MANAGER_SCRIPT_SRC_EXTRA}';
+              f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', '${GOOGLE_TAG_MANAGER_ID}');
+          `,
         }}
       />
 
