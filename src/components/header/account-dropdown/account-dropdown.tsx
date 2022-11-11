@@ -9,7 +9,6 @@ import { useUser } from 'core/hooks';
 import { getFullNameOrEmail } from 'core/helpers';
 import { LoadingMessage } from 'components/loading-message/loading-message';
 import type { MouseEvent, ReactNode } from 'react';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 type AccountMenuTogglerProps = {
   children: ReactNode;
