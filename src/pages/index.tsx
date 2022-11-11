@@ -13,6 +13,7 @@ import { DonationSteps } from 'components/donation-steps/donation-steps';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
 // import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PromoFeedback } from 'components/promo-feedback/promo-feedback';
+import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'core/constants';
 import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -32,6 +33,7 @@ const IndexPage: NextPageWithLayout = () => {
       <PromotedProducts />
       {/* <PromotedOrganizations /> */}
       <PromoFeedback />
+      <PromoSocialMedia />
     </>
   );
 };

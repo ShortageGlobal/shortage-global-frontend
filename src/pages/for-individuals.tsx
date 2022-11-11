@@ -11,6 +11,7 @@ import {
   getForIndividualsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { SectionHeader } from 'components/section-header/section-header';
+import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
@@ -161,7 +162,7 @@ const ForIndividuals: NextPageWithLayout = () => {
           </Col>
         </Row>
 
-        <Row md={3} xs={2} xxs={1}>
+        <Row md={3} xs={2} xxs={1} className={styles.membersContainer}>
           {team.map((member) => {
             return (
               <Col key={member.name}>
@@ -185,6 +186,12 @@ const ForIndividuals: NextPageWithLayout = () => {
               </Col>
             );
           })}
+        </Row>
+
+        <Row>
+          <Col>
+            <PromoSocialMedia />
+          </Col>
         </Row>
       </Container>
     </>
