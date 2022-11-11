@@ -25,8 +25,8 @@ const IndexPage: NextPageWithLayout = () => {
       </Head>
       <PromoBanner />
       <PromoCampaign
-        text="Florida Emergency Response"
-        background="/images/promo-campaigns/florida_flood_banner.png"
+        text="JFCS toy and book drive"
+        background="/images/promo-campaigns/jfcs_banner.png"
       />
       <DonationSteps />
       <PromotedProducts />
