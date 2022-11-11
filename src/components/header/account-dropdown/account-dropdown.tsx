@@ -9,6 +9,7 @@ import { useUser } from 'core/hooks';
 import { getFullNameOrEmail } from 'core/helpers';
 import { LoadingMessage } from 'components/loading-message/loading-message';
 import type { MouseEvent, ReactNode } from 'react';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 type AccountMenuTogglerProps = {
   children: ReactNode;
@@ -89,6 +90,12 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
             <Link href="/private/profile/" passHref legacyBehavior>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
+
+            <Link href="/private/donations/" passHref legacyBehavior>
+              <Dropdown.Item>Donations</Dropdown.Item>
+            </Link>
+
+            <Dropdown.Divider />
 
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
           </>

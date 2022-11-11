@@ -98,9 +98,19 @@ export const PRODUCT_CATEGORY_LIST = Object.freeze([
   PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
 ]);
 
+export const NOTIFICATION_TYPE = Object.freeze({
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE',
+});
+
 export const PACKAGE_TYPE = Object.freeze({
   SENT_BY_DONOR: 'SENT_BY_DONOR',
   FUNDED_BY_DONOR: 'FUNDED_BY_DONOR',
+});
+
+export const PACKAGE_TYPE_DISPLAY_LABELS = Object.freeze({
+  [PACKAGE_TYPE.SENT_BY_DONOR]: 'Sent',
+  [PACKAGE_TYPE.FUNDED_BY_DONOR]: 'Funded',
 });
 
 // !IMPORTANT: the list of package statuses must be synchronized with backend
@@ -115,9 +125,31 @@ export const PACKAGE_STATUS = Object.freeze({
   DELIVERED: 'DELIVERED',
 });
 
-export const NOTIFICATION_TYPE = Object.freeze({
-  SUCCESS: 'SUCCESS',
-  FAILURE: 'FAILURE',
+export const PACKAGE_STATUS_DISPLAY_LABELS = Object.freeze({
+  [PACKAGE_STATUS.REGISTERED]: 'Registered',
+  [PACKAGE_STATUS.PAYMENT_CANCELED]: 'Payment Canceled',
+  [PACKAGE_STATUS.PAYMENT_FAILED]: 'Payment Failed',
+  [PACKAGE_STATUS.PAYMENT_PROCESSING]: 'Processing',
+  [PACKAGE_STATUS.PAYMENT_SUCCEEDED]: 'Processing', // same as PAYMENT_PROCESSING
+  [PACKAGE_STATUS.CONFIRMED]: 'Confirmed',
+  [PACKAGE_STATUS.ON_ITS_WAY]: 'On Its Way',
+  [PACKAGE_STATUS.DELIVERED]: 'Delivered',
+});
+
+export const PACKAGE_STATUS_GLYPHS = Object.freeze({
+  [PACKAGE_STATUS.REGISTERED]: '/images/package-status-glyphs/registered.svg',
+
+  [PACKAGE_STATUS.PAYMENT_CANCELED]:
+    '/images/package-status-glyphs/payment.svg',
+  [PACKAGE_STATUS.PAYMENT_FAILED]: '/images/package-status-glyphs/payment.svg',
+  [PACKAGE_STATUS.PAYMENT_PROCESSING]:
+    '/images/package-status-glyphs/payment.svg',
+  [PACKAGE_STATUS.PAYMENT_SUCCEEDED]:
+    '/images/package-status-glyphs/payment.svg',
+
+  [PACKAGE_STATUS.CONFIRMED]: '/images/package-status-glyphs/confirmed.svg',
+  [PACKAGE_STATUS.ON_ITS_WAY]: '/images/package-status-glyphs/on_its_way.svg',
+  [PACKAGE_STATUS.DELIVERED]: '/images/package-status-glyphs/delivered.svg',
 });
 
 export const PACKAGE_STATUS_LIFECYCLE = Object.freeze({
@@ -159,3 +191,7 @@ export const PAGE_KEY = Object.freeze({
   DONATION_CART: 'donation_cart',
   PACKAGE_REGISTRATION: 'package_registration',
 });
+
+// pagination
+export const PAGE_SIZES = [5, 10, 15, 20];
+export const DEFAULT_PAGE_SIZE = 10;

@@ -18,7 +18,8 @@ export function AccountNav() {
       case '/private/profile': {
         return KEY.profile;
       }
-      case '/private/donations': {
+      case '/private/donations':
+      case '/private/donations/[packageId]': {
         return KEY.donations;
       }
       default: {

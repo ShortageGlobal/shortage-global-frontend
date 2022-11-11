@@ -112,12 +112,29 @@ export const getProfileCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getDonationsCrumb = (props: BreadcrumbItem = {}) =>
+export const getAccountDonationsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
-    key: 'donations',
+    key: 'account-donations',
     label: 'Donations',
     href: '/private/donations/',
+    ...props,
+  });
+
+export const getAccountDonationDetailsCrumb = ({
+  packageId,
+  ...props
+}: {
+  packageId: Uuid;
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'account-donation-details',
+    label: 'Donation Details',
+    href: {
+      pathname: '/private/donations/[packageId]/',
+      query: { packageId },
+    },
     ...props,
   });
 

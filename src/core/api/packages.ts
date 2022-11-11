@@ -5,6 +5,9 @@ import type {
   PackageType,
   Package,
   PackageItem,
+  PaginatedResponse,
+  PaginationWithCancelTokenParams,
+  CancelTokenParams,
 } from 'core/api/types';
 
 export type CreatePackageParams = OrganizationSlugParams & {
@@ -92,5 +95,31 @@ export function fetchPackageStatus({
       `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/`
     ),
     { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export function fetchAccountPackages({
+  offset = 0,
+  limit = 15,
+  cancelToken = null,
+}: PaginationWithCancelTokenParams) {
+  return axios.get<PaginatedResponse<Package>>(
+    encodeURI(`${API_ROOT}/api/private/packages/`),
+    {
+      params: { offset, limit },
+      cancelToken: cancelToken?.token,
+    }
+  );
+}
+
+export function fetchAccountPackage({
+  packageId,
+  cancelToken = null,
+}: { packageId: Package['uuid'] } & CancelTokenParams) {
+  return axios.get<PaginatedResponse<Package>>(
+    encodeURI(`${API_ROOT}/api/private/packages/${packageId}/`),
+    {
+      cancelToken: cancelToken?.token,
+    }
   );
 }
