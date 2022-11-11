@@ -136,7 +136,7 @@ export const trackPackageRegistrationView = ({
   });
 };
 
-// User opened a "Package Status" page right after successful registration of a package
+// User opened a "Package Status" page right after successful registration of a package (either Funded or Sent)
 export const trackPackageRegistraionSuccess = ({
   organizationSlug,
   items,

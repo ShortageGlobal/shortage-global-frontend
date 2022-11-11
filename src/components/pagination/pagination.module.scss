@@ -1,0 +1,8 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

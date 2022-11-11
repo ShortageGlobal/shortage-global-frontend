@@ -141,6 +141,7 @@ export type Package = {
   photo?: string;
   checkout_url?: string;
   status: PackageStatus;
+  created_at?: string;
 };
 
 export type CreateCartItem = {
