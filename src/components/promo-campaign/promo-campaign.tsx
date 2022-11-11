@@ -2,7 +2,6 @@ import styles from './promo-campaign.module.scss';
 import classNames from 'classnames';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 type PromoCampaignProps = {
   text: string;
@@ -15,7 +14,10 @@ export function PromoCampaign({ background, text }: PromoCampaignProps) {
       <Row>
         <Col>
           <Link
-            href={`#${REQUESTED_GOODS_CONTAINER_ID}`}
+            href={{
+              pathname: '/organizations/[organizationSlug]/',
+              query: { organizationSlug: 'JFCS' },
+            }}
             className={styles.promoCampaign}
             style={{ backgroundImage: `url(${background})` }}
           >
@@ -24,10 +26,10 @@ export function PromoCampaign({ background, text }: PromoCampaignProps) {
             <span
               className={classNames(
                 'btn btn-outline-primary',
-                styles.checkRequestsButton
+                styles.actionButton
               )}
             >
-              Check requests
+              Make a Gift
             </span>
           </Link>
         </Col>

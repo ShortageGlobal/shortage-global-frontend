@@ -21,9 +21,8 @@
   }
 
   &:hover {
-    .checkRequestsButton {
-      color: $primary-campaign-action-hover-color;
-      background-color: $primary-campaign-action-hover-bg-color;
+    .actionButton {
+      transform: scale(1.1, 1.1);
     }
   }
 
@@ -36,14 +35,14 @@
     color: $promo-campaign-color;
   }
 
-  .checkRequestsButton {
+  .actionButton {
     flex-shrink: 0;
     padding: 0.5rem 2rem;
     margin-left: 2rem;
-    text-transform: capitalize;
-    color: $primary-campaign-action-color;
-    background-color: $primary-campaign-action-bg-color;
-    border-color: $primary-campaign-action-border-color;
+    color: $promo-campaign-action-color;
+    background-color: $promo-campaign-action-bg-color;
+    border-color: transparent;
+    transition: transform 150ms ease-in-out;
   }
 
   @include media-breakpoint-down(lg) {
@@ -56,7 +55,7 @@
   @include media-breakpoint-down(md) {
     flex-direction: column;
 
-    .checkRequestsButton {
+    .actionButton {
       margin-left: 0rem;
       margin-top: 1rem;
     }
