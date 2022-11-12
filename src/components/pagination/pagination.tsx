@@ -76,7 +76,7 @@ export function Pagination({
           return (
             <Dropdown.Item
               key={size}
-              active={size === pageSize}
+              disabled={size === pageSize}
               onClick={() => handlePageSizeChange(size)}
             >
               {size}

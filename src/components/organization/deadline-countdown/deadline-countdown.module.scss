@@ -1,0 +1,19 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.deadlineCountdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 42px;
+  width: 280px;
+  max-width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid $badge-border-color;
+
+  > * + * {
+    margin-left: 0.5rem;
+  }
+}
