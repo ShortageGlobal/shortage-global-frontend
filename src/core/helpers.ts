@@ -81,3 +81,26 @@ export function getFullNameOrEmail({ profile }: { profile: Profile }) {
   const fullName = `${profile.firstName} ${profile.lastName}`.trim();
   return fullName ? fullName : profile.email;
 }
+
+export function timeCountdown({ date }: { date: Date | string | number }) {
+  const future = Number(new Date(date));
+  const now = Date.now();
+  const diff = future - now;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const mins = Math.floor(diff / (1000 * 60));
+  const secs = Math.floor(diff / 1000);
+
+  const d = days;
+  const h = hours - days * 24;
+  const m = mins - hours * 60;
+  const s = secs - mins * 60;
+
+  return {
+    days: d,
+    hours: h,
+    minutes: m,
+    seconds: s,
+  };
+}

@@ -114,7 +114,7 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
               <Dropdown.Item
                 disabled={router.pathname.startsWith('/account/create-account')}
               >
-                Create account
+                Create new account
               </Dropdown.Item>
             </Link>
           </>

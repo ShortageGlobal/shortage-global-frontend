@@ -80,7 +80,7 @@ export const getCreateAccountCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
     key: 'register',
-    label: 'Create Account',
+    label: 'Create New Account',
     href: '/account/create-account/',
     ...props,
   });

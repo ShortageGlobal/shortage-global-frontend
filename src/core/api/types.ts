@@ -91,6 +91,7 @@ export type Organization = OrganizationPreview & {
   description?: string;
   url?: string;
   banner?: string;
+  deadline?: string;
 };
 
 export type Instruction = {

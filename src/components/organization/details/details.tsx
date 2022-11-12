@@ -7,6 +7,7 @@ import { ChevronsDown } from 'react-feather';
 import { useAppSelector } from 'core/hooks';
 import { selectOrganization } from 'core/store/slices/organization';
 import { stripProtocolFromUrl } from 'core/helpers';
+import { DeadlineCountdown } from 'components/organization/deadline-countdown/deadline-countdown';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 export function OrganizationDetails() {
@@ -18,6 +19,12 @@ export function OrganizationDetails() {
         <Col>
           <div className={styles.organizationDetails}>
             <div className={styles.textContent}>
+              {/* deadline countdown */}
+              {organization?.deadline &&
+              Date.now() < Number(new Date(organization.deadline)) ? (
+                <DeadlineCountdown deadline={organization.deadline} />
+              ) : null}
+
               {/* link */}
               {organization.url ? (
                 <div className={classNames(styles.link, 'text-truncate')}>

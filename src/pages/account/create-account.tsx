@@ -131,7 +131,7 @@ const CreateAccount: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Create Account | Shortage</title>
+        <title>Create New Account | Shortage</title>
       </Head>
 
       <Container>
@@ -178,7 +178,7 @@ const CreateAccount: NextPageWithLayout = () => {
         <Container className={styles.accountFormContainer}>
           <Row>
             <Col>
-              <h2 className={styles.header}>Create Account</h2>
+              <h2 className={styles.header}>Create New Account</h2>
             </Col>
           </Row>
           <Form onSubmit={handleFormSubmit} className={styles.form}>
