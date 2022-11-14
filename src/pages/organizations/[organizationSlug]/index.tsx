@@ -23,6 +23,7 @@ import {
 import { OrganizationDetails } from 'components/organization/details/details';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
 import { OrganizationProducts } from 'components/organization/products/products';
+import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'core/constants';
 import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -67,6 +68,8 @@ const OrganizationPage: NextPageWithLayout = () => {
       <DonationSteps />
 
       <OrganizationProducts />
+
+      <PromoSocialMedia />
     </>
   );
 };
