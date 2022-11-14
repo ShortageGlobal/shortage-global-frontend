@@ -30,13 +30,13 @@ export function Footer() {
             <ul className={styles.socialMediaLinks}>
               <li>
                 <a
-                  href="https://twitter.com/shortageglobal"
+                  href="https://www.linkedin.com/company/shortageglobal/"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <Image
-                    src="/images/social-media-glyphs/twitter.svg"
-                    alt="Shortage Twitter page"
+                    src="/images/social-media-glyphs/linkedin.svg"
+                    alt="Shortage LinkedIn page"
                     fill
                   />
                 </a>
@@ -69,13 +69,26 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.linkedin.com/company/shortageglobal/"
+                  href="https://twitter.com/shortageglobal"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <Image
-                    src="/images/social-media-glyphs/linkedin.svg"
-                    alt="Shortage LinkedIn page"
+                    src="/images/social-media-glyphs/twitter.svg"
+                    alt="Shortage Twitter page"
+                    fill
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.reddit.com/user/ShortageGlobal/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/social-media-glyphs/reddit.svg"
+                    alt="Shortage Reddit page"
                     fill
                   />
                 </a>
