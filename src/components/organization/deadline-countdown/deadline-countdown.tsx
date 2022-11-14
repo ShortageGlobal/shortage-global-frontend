@@ -1,15 +1,13 @@
 import styles from './deadline-countdown.module.scss';
 import { useState, useEffect, useMemo } from 'react';
 import { Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { timeCountdown } from 'core/helpers';
+import { timeCountdown, pluralize } from 'core/helpers';
 import type { Organization } from 'core/api/types';
 import { Calendar, CheckCircle } from 'react-feather';
 
 type DeadlineCountdownProps = {
   deadline: Organization['deadline'];
 };
-
-const pluralize = (label, count) => `${label}${count === 1 ? '' : 's'}`;
 
 export function DeadlineCountdown({ deadline }: DeadlineCountdownProps) {
   const [countdown, setCountdown] = useState(null);
@@ -42,21 +40,31 @@ export function DeadlineCountdown({ deadline }: DeadlineCountdownProps) {
     let timeLeft;
     if (countdown.days > 0) {
       // show days left only
-      timeLeft = `${countdown.days} ${pluralize('day', countdown.days)}`;
+      timeLeft = `${countdown.days} ${pluralize(
+        countdown.days,
+        'day',
+        'days'
+      )}`;
     } else if (countdown.hours > 0) {
       // show hours left only
-      timeLeft = `${countdown.hours} ${pluralize('hour', countdown.hours)}`;
+      timeLeft = `${countdown.hours} ${pluralize(
+        countdown.hours,
+        'hour',
+        'hours'
+      )}`;
     } else if (countdown.minutes > 0) {
       // show minutes left only
       timeLeft = `${countdown.minutes} ${pluralize(
+        countdown.minutes,
         'minute',
-        countdown.minutes
+        'minutes'
       )}`;
     } else {
       // show seconds left only
       timeLeft = `${countdown.seconds} ${pluralize(
+        countdown.seconds,
         'second',
-        countdown.seconds
+        'seconds'
       )}`;
     }
 

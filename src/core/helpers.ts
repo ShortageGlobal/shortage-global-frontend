@@ -6,6 +6,7 @@ import type {
   CartItem,
   Profile,
 } from 'core/api/types';
+import type { ReactNode } from 'react';
 
 // format axios error so it could be stored in redux state
 export function serizalizeAxiosError(rejection): AxiosSerializedError {
@@ -82,6 +83,7 @@ export function getFullNameOrEmail({ profile }: { profile: Profile }) {
   return fullName ? fullName : profile.email;
 }
 
+// get the number of days/hours/minutes/seconds between now and provided date
 export function timeCountdown({ date }: { date: Date | string | number }) {
   const future = Number(new Date(date));
   const now = Date.now();
@@ -103,4 +105,16 @@ export function timeCountdown({ date }: { date: Date | string | number }) {
     minutes: m,
     seconds: s,
   };
+}
+
+// get singular or plural label based on value
+export function pluralize(
+  value: number,
+  singular: string | ReactNode,
+  plural: ReactNode
+) {
+  if (value === 1) {
+    return singular;
+  }
+  return plural;
 }

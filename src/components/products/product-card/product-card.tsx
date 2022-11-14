@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import classNames from 'classnames';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
-import { formatPrice } from 'core/helpers';
+import { formatPrice, pluralize } from 'core/helpers';
 import type { ProductPreview, Slug } from 'core/api/types';
 
 type ProductCardProps = {
@@ -67,7 +67,8 @@ export function ProductCard({
 
           {/* requested amount */}
           <div className={classNames(styles.requestedAmount, 'text-truncate')}>
-            {product.requested_amount} items requested
+            {product.requested_amount}{' '}
+            {pluralize(product.requested_amount, 'item', 'items')} requested
           </div>
 
           {/* organization */}

@@ -12,6 +12,7 @@ import {
   isRequestCancel,
 } from 'core/hooks';
 import { selectInstructions } from 'core/store/slices/instructions';
+import { pluralize } from 'core/helpers';
 import { createPackage } from 'core/api';
 import { PACKAGE_TYPE } from 'core/constants';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
@@ -123,7 +124,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
             <DollarSign className={styles.buttonGlyph} />
           )}
           <span>
-            {cartGroup.items.length > 1 ? 'Order items' : 'Order item'}
+            {pluralize(cartGroup.items.length, 'Order item', 'Order items')}
           </span>
         </Button>
 

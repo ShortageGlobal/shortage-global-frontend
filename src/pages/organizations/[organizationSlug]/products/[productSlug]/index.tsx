@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ShoppingCart, Loader } from 'react-feather';
 import { Container, Row, Col, Button, Placeholder } from 'react-bootstrap';
 import * as gtm from 'core/tracking/gtm';
-import { formatPrice } from 'core/helpers';
+import { formatPrice, pluralize } from 'core/helpers';
 import { isRequestCancel, useAppSelector, useCart } from 'core/hooks';
 import { wrapper } from 'core/store';
 import { fetchProduct } from 'core/store/slices/product';
@@ -151,7 +151,8 @@ const ProductPage: NextPageWithLayout = () => {
             {/* Requested amount */}
             <div>
               <div className={styles.requestedAmount}>
-                {product.requested_amount} items
+                {product.requested_amount}{' '}
+                {pluralize(product.requested_amount, 'item', 'items')}
               </div>
               <div className="text-truncate">
                 requested by{' '}
