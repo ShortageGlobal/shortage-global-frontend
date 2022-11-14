@@ -11,12 +11,14 @@ type ProductCardProps = {
   product: ProductPreview;
   organizationSlug?: Slug;
   organizationName?: string;
+  organizationLogo?: Slug;
 };
 
 export function ProductCard({
   product,
   organizationSlug,
   organizationName,
+  organizationLogo,
 }: ProductCardProps) {
   return (
     <Card className={styles.productCard}>
@@ -49,6 +51,19 @@ export function ProductCard({
           <HighDemandBadge className={styles.highDemandBadge} />
         ) : null}
       </div>
+
+      {organizationLogo ? (
+        <div className={styles.organizationLogoOuter}>
+          <div className={styles.organizationLogoInner}>
+            <Image
+              src={organizationLogo}
+              alt=""
+              fill
+              className={styles.organizationLogo}
+            />
+          </div>
+        </div>
+      ) : null}
 
       <Card.Body className={styles.cardBody}>
         <Card.Title className={classNames(styles.cardTitle, 'text-truncate')}>

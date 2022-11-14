@@ -75,6 +75,7 @@ export function Products({
                   // only promoted products have "organization_slug" and "organization_name" property
                   const organizationSlug = getOrganizationSlug(product);
                   const organizationName = product.organization?.name || null;
+                  const organizationLogo = product.organization?.logo || null;
                   const key = `${organizationSlug}-${product.slug}`;
                   return (
                     <ProductCard
@@ -82,6 +83,7 @@ export function Products({
                       product={product}
                       organizationSlug={organizationSlug}
                       organizationName={organizationName}
+                      organizationLogo={organizationLogo}
                     />
                   );
                 })}
