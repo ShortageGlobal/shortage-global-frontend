@@ -40,6 +40,9 @@ export const PRODUCT_CATEGORY_KEY = Object.freeze({
   EDUCATION: 'EDUCATION',
   BABY_CARE: 'BABY_CARE',
   SAVE_ANIMALS: 'SAVE_ANIMALS',
+  HOUSEHOLD_ITEMS: 'HOUSEHOLD_ITEMS',
+  FOOD: 'FOOD',
+  TOYS: 'TOYS',
 });
 
 export const PRODUCT_CATEGORY_ALL_KEY = '_ALL_';
@@ -87,15 +90,40 @@ export const PRODUCT_CATEGORY_DETAILS = Object.freeze({
     img: '/images/categories/supply_category_animals_.svg',
     imgActive: '/images/categories/supply_category_animals_selected.svg',
   },
+  [PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS]: {
+    key: PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
+    queryFilter: PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
+    name: 'Household Items',
+    img: '/images/categories/supply_category_household_items_.svg',
+    imgActive:
+      '/images/categories/supply_category_household_items_selected.svg',
+  },
+  [PRODUCT_CATEGORY_KEY.FOOD]: {
+    key: PRODUCT_CATEGORY_KEY.FOOD,
+    queryFilter: PRODUCT_CATEGORY_KEY.FOOD,
+    name: 'Food',
+    img: '/images/categories/supply_category_food_.svg',
+    imgActive: '/images/categories/supply_category_food_selected.svg',
+  },
+  [PRODUCT_CATEGORY_KEY.TOYS]: {
+    key: PRODUCT_CATEGORY_KEY.TOYS,
+    queryFilter: PRODUCT_CATEGORY_KEY.TOYS,
+    name: 'Toys',
+    img: '/images/categories/supply_category_toys_.svg',
+    imgActive: '/images/categories/supply_category_toys_selected.svg',
+  },
 });
 
 export const PRODUCT_CATEGORY_LIST = Object.freeze([
   PRODUCT_CATEGORY_ALL_KEY,
-  PRODUCT_CATEGORY_KEY.VITAL_GOODS,
   PRODUCT_CATEGORY_KEY.HEALTHCARE,
+  PRODUCT_CATEGORY_KEY.FOOD,
   PRODUCT_CATEGORY_KEY.EDUCATION,
   PRODUCT_CATEGORY_KEY.BABY_CARE,
+  PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
   PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
+  PRODUCT_CATEGORY_KEY.TOYS,
+  PRODUCT_CATEGORY_KEY.VITAL_GOODS,
 ]);
 
 export const NOTIFICATION_TYPE = Object.freeze({
