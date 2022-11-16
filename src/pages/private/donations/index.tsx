@@ -62,9 +62,9 @@ const DonationsPage: NextPageWithLayout = () => {
           return;
         }
         setIsLoading(false);
-        let errorMessage = `Failed to load donations`;
-        if (rejection?.response?.data) {
-          errorMessage = `${errorMessage}. ${rejection?.response?.data}`;
+        let errorMessage = `Failed to load donations.`;
+        if (rejection?.response?.data?.details) {
+          errorMessage = `${errorMessage} ${rejection?.response?.data?.details}`;
         }
         showNotification({
           isFailure: true,
@@ -143,6 +143,7 @@ const DonationsPage: NextPageWithLayout = () => {
                       <th className={styles.dateColumn}>Date</th>
                       <th className={styles.typeColumn}>Type</th>
                       <th className={styles.statusColumn}>Status</th>
+                      <th className={styles.recipientColumn}>Recipient</th>
                       <th className={styles.actionsColumn}></th>
                     </tr>
                   </thead>
@@ -152,6 +153,9 @@ const DonationsPage: NextPageWithLayout = () => {
                     })}
                   >
                     {donations?.map((p) => {
+                      // all package items must belong to a single organization,
+                      // so just pick the first item
+                      const organization = p.items[0].product.organization;
                       return (
                         <tr
                           key={p.uuid}
@@ -161,12 +165,28 @@ const DonationsPage: NextPageWithLayout = () => {
                           <td className={styles.dateColumn}>
                             {new Date(p.created_at).toLocaleString()}
                           </td>
+
                           <td className={styles.typeColumn}>
                             {PACKAGE_TYPE_DISPLAY_LABELS[p.type]}
                           </td>
+
                           <td className={styles.statusColumn}>
                             {PACKAGE_STATUS_DISPLAY_LABELS[p.status]}
                           </td>
+
+                          <td className={styles.recipientColumn}>
+                            <Link
+                              className={styles.orgLink}
+                              href={{
+                                pathname: '/organizations/[organizationSlug]/',
+                                query: { organizationSlug: organization.slug },
+                              }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {organization.name}
+                            </Link>
+                          </td>
+
                           <td className={styles.actionsColumn}>
                             <Link
                               href={{

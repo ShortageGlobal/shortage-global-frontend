@@ -124,8 +124,13 @@ export type OnlineStore = {
   name: string;
 };
 
-export type PackageItem = {
+export type CreatePackageItemParams = {
   product: Slug;
+  quantity: number;
+};
+
+export type PackageItem = {
+  product: ProductBase;
   quantity: number;
 };
 
@@ -143,6 +148,7 @@ export type Package = {
   checkout_url?: string;
   status: PackageStatus;
   created_at?: string;
+  items?: PackageItem[];
 };
 
 export type CreateCartItem = {
