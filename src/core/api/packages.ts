@@ -4,7 +4,7 @@ import type {
   OrganizationSlugParams,
   PackageType,
   Package,
-  PackageItem,
+  CreatePackageItemParams,
   PaginatedResponse,
   PaginationWithCancelTokenParams,
   CancelTokenParams,
@@ -27,7 +27,7 @@ export type CreatePackageParams = OrganizationSlugParams & {
   trackingCode?: string;
   note?: string;
   photo?: File;
-  items: PackageItem[];
+  items: CreatePackageItemParams[];
 };
 export function createPackage({
   type,
@@ -116,7 +116,7 @@ export function fetchAccountPackage({
   packageId,
   cancelToken = null,
 }: { packageId: Package['uuid'] } & CancelTokenParams) {
-  return axios.get<PaginatedResponse<Package>>(
+  return axios.get<Package>(
     encodeURI(`${API_ROOT}/api/private/packages/${packageId}/`),
     {
       cancelToken: cancelToken?.token,

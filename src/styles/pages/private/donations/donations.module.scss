@@ -44,6 +44,16 @@
   .statusColumn {
   }
 
+  .recipientColumn {
+    max-width: 150px;
+
+    .orgLink {
+      max-width: 100%;
+      display: inline-block;
+      @include text-truncate();
+    }
+  }
+
   .actionsColumn {
     text-align: right;
   }
