@@ -163,7 +163,11 @@ const DonationsPage: NextPageWithLayout = () => {
                           onClick={() => handleRowClick(p.uuid)}
                         >
                           <td className={styles.dateColumn}>
-                            {new Date(p.created_at).toLocaleString()}
+                            {new Date(p.created_at).toLocaleString('en-us', {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
                           </td>
 
                           <td className={styles.typeColumn}>
