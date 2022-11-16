@@ -142,7 +142,7 @@ const ProductPage: NextPageWithLayout = () => {
                 </div>
                 <div>
                   <span className="text-muted">
-                    including all commissions and fees
+                    including Stripe fee and taxes
                   </span>
                 </div>
               </div>
