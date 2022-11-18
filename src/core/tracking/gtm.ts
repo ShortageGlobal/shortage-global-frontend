@@ -111,6 +111,7 @@ export const trackClickOrderItems = ({
   organizationSlug,
   organizationName,
   items,
+  totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
@@ -120,6 +121,7 @@ export const trackClickOrderItems = ({
     productName: Product['name'];
     quantity: CartItem['quantity'];
   }[];
+  totalPrice: number;
 }) => {
   window.dataLayer.push({
     event: 'clickOrderItems',
@@ -134,6 +136,7 @@ export const trackClickOrderItems = ({
         }),
       };
     }),
+    totalPrice,
   });
 };
 
@@ -142,6 +145,7 @@ export const trackClickDonateWhatIHave = ({
   organizationSlug,
   organizationName,
   items,
+  totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
@@ -151,6 +155,7 @@ export const trackClickDonateWhatIHave = ({
     productName: Product['name'];
     quantity: CartItem['quantity'];
   }[];
+  totalPrice: number;
 }) => {
   window.dataLayer.push({
     event: 'clickDonateWhatIHave',
@@ -165,6 +170,7 @@ export const trackClickDonateWhatIHave = ({
         }),
       };
     }),
+    totalPrice,
   });
 };
 

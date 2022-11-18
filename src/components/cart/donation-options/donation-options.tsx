@@ -49,6 +49,9 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           quantity: item.quantity,
         };
       }),
+      totalPrice: cartGroup.items.reduce((acc, item) => {
+        return acc + item.product.price;
+      }, 0),
     });
     try {
       const response = await createPackage({
@@ -104,6 +107,9 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           quantity: item.quantity,
         };
       }),
+      totalPrice: cartGroup.items.reduce((acc, item) => {
+        return acc + item.product.price;
+      }, 0),
     });
     handleShowInstructionsModal();
   }, [cartGroup]);
