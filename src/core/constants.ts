@@ -6,6 +6,7 @@ export const API_ROOT = `${API_PROTOCOL}//${API_HOSTNAME}${
   API_PORT ? `:${API_PORT}` : ''
 }`;
 
+export const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL;
 export const IS_STAGING = process.env.NEXT_PUBLIC_ENV === 'staging';
 export const IS_BROWSER = typeof window !== 'undefined';
 

@@ -9,6 +9,7 @@ import * as gtm from 'core/tracking/gtm';
 import { formatPrice, pluralize } from 'core/helpers';
 import { isRequestCancel, useAppSelector, useCart } from 'core/hooks';
 import { wrapper } from 'core/store';
+import { getProductId } from 'core/helpers';
 import { fetchProduct } from 'core/store/slices/product';
 import { selectProduct } from 'core/store/slices/product';
 import {
@@ -19,7 +20,9 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
+import { ROOT_URL, PRODUCT_CATEGORY_DETAILS } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
+import type { Product } from 'core/api/types';
 
 const ProductPage: NextPageWithLayout = () => {
   const { product } = useAppSelector(selectProduct);
@@ -107,6 +110,12 @@ const ProductPage: NextPageWithLayout = () => {
     <>
       <Head>
         <title>{product.name} | Shortage</title>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={addProductJsonLd(product)}
+          key="product-jsonld"
+        />
       </Head>
 
       <Container className={styles.product}>
@@ -287,3 +296,30 @@ export const getServerSideProps = wrapper.getServerSideProps(
 );
 
 export default ProductPage;
+
+function addProductJsonLd(product: Product) {
+  const id = getProductId({
+    organizationSlug: product.organization.slug,
+    productSlug: product.slug,
+  });
+  const url = `${ROOT_URL}/organizations/${product.organization.slug}/products/${product.slug}/`;
+  const category = PRODUCT_CATEGORY_DETAILS[product.category]?.name || '';
+  return {
+    __html: `{
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "@id": "${id}",
+      "identifier": "${id}",
+      "productID": "${id}",
+      "name": "${product.name}",
+      "image": "${product.photo}",
+      "category": "${category}",
+      "offers": {
+        "@type": "Offer",
+        "price": ${product.price},
+        "priceCurrency": "USD"
+      },
+      "url": "${url}"
+    }`,
+  };
+}

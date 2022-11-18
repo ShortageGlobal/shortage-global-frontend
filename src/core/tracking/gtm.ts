@@ -1,3 +1,4 @@
+import { getProductId } from 'core/helpers';
 import type { CartItem, Organization, Product } from 'core/api/types';
 
 type WindowWithDataLayer = Window & {
@@ -5,9 +6,6 @@ type WindowWithDataLayer = Window & {
 };
 
 declare const window: WindowWithDataLayer;
-
-const getProductId = ({ organizationSlug, productSlug }) =>
-  `${organizationSlug} / ${productSlug}`;
 
 // Another page is opened. Fired on routeChangeComplete
 export const trackPageView = (url: string) => {

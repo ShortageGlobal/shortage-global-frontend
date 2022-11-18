@@ -118,3 +118,8 @@ export function pluralize(
   }
   return plural;
 }
+
+// get unique product identifier based on the organization slug and product slug
+export function getProductId({ organizationSlug, productSlug }) {
+  return `${organizationSlug} / ${productSlug}`;
+}
