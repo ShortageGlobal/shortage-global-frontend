@@ -40,10 +40,12 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
     setIsPackageBeingCreated(true);
     gtm.trackClickOrderItems({
       organizationSlug: cartGroup.organizationSlug,
+      organizationName: cartGroup.organizationName,
       items: cartGroup.items.map((item) => {
         return {
           productSlug: item.product.slug,
           productPrice: item.product.price,
+          productName: item.product.name,
           quantity: item.quantity,
         };
       }),
@@ -93,10 +95,12 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   const handleTangibleDonation = useCallback(() => {
     gtm.trackClickDonateWhatIHave({
       organizationSlug: cartGroup.organizationSlug,
+      organizationName: cartGroup.organizationName,
       items: cartGroup.items.map((item) => {
         return {
           productSlug: item.product.slug,
           productPrice: item.product.price,
+          productName: item.product.name,
           quantity: item.quantity,
         };
       }),

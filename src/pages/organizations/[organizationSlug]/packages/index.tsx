@@ -58,6 +58,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
   useEffect(() => {
     gtm.trackPackageRegistrationView({
       organizationSlug: organization.slug,
+      organizationName: organization.name,
     });
   }, []);
 
