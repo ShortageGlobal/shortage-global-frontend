@@ -323,19 +323,3 @@ function addProductJsonLd(product: Product) {
     }`,
   };
 }
-
-[
-  {
-    '@context': 'https://schema.org/',
-    '@type': 'Product',
-    '@id': 'school / school-product',
-    identifier: 'school / school-product',
-    productID: 'school / school-product',
-    name: 'Something with a very very long name that never stops and takes a lot of space',
-    image:
-      'http://127.0.0.1:8080/media/thumbnails/photo/product/school-product/6c34ddd6-36f7-48fc-9517-e3e7d85a5610_product_large.jpeg',
-    category: 'Food',
-    offers: { '@type': 'Offer', price: 124, priceCurrency: 'USD' },
-    url: 'http://localhost:3000/organizations/school/products/school-product/',
-  },
-];
