@@ -137,10 +137,19 @@ export type PackageItem = {
 export type Package = {
   type: PackageType;
   uuid: Uuid;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
+
+  need_tax_deduction: boolean;
+  first_name?: string;
+  last_name?: string;
   phone_number?: string;
+  email?: string;
+  address_line1?: string;
+  address_line2?: string;
+  city?: string;
+  state_province_region?: string;
+  zip?: string;
+  country?: string;
+
   delivery_company: string;
   tracking_code: string;
   note?: string;

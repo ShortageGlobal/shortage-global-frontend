@@ -112,14 +112,22 @@ export function fetchAccountPackages({
   );
 }
 
+export type FetchAccountPackageParams = {
+  packageId: Package['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
 export function fetchAccountPackage({
   packageId,
+  accessToken = null,
   cancelToken = null,
-}: { packageId: Package['uuid'] } & CancelTokenParams) {
+}: FetchAccountPackageParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
   return axios.get<Package>(
     encodeURI(`${API_ROOT}/api/private/packages/${packageId}/`),
     {
       cancelToken: cancelToken?.token,
+      headers,
     }
   );
 }

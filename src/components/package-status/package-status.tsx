@@ -240,13 +240,16 @@ export function PackageStatus() {
                     <dl className={styles.packageDetails}>
                       <dt>Shipping Carrier</dt>
                       <dd>{packageState.package.delivery_company}</dd>
-                      <dt>Tracking number</dt>
+                      <dt>Tracking Number</dt>
                       <dd>{packageState.package.tracking_code}</dd>
                     </dl>
                   </>
                 ) : null}
 
-                <PackageStatusVisualization package={packageState.package} />
+                <PackageStatusVisualization
+                  package={packageState.package}
+                  className={styles.packageStatusVisualization}
+                />
               </Col>
             </Row>
           </Col>
