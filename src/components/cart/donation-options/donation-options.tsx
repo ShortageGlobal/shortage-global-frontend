@@ -50,7 +50,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
         };
       }),
       totalPrice: cartGroup.items.reduce((acc, item) => {
-        return acc + item.product.price;
+        return acc + item.product.price * item.quantity;
       }, 0),
     });
     try {
@@ -108,7 +108,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
         };
       }),
       totalPrice: cartGroup.items.reduce((acc, item) => {
-        return acc + item.product.price;
+        return acc + item.product.price * item.quantity;
       }, 0),
     });
     handleShowInstructionsModal();
