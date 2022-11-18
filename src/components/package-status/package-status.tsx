@@ -88,8 +88,8 @@ export function PackageStatus() {
         organizationName: organization.name,
         items: cartItems.map((cartItem) => ({
           productSlug: cartItem.product.slug,
-          productPrice: cartItem.product.price,
           productName: cartItem.product.name,
+          productPrice: cartItem.product.price,
           quantity: cartItem.quantity,
         })),
         totalPrice: cartItems.reduce((result, cartItem) => {

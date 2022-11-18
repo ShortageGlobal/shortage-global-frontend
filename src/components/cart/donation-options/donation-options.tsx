@@ -44,8 +44,8 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
       items: cartGroup.items.map((item) => {
         return {
           productSlug: item.product.slug,
-          productPrice: item.product.price,
           productName: item.product.name,
+          productPrice: item.product.price,
           quantity: item.quantity,
         };
       }),
@@ -99,8 +99,8 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
       items: cartGroup.items.map((item) => {
         return {
           productSlug: item.product.slug,
-          productPrice: item.product.price,
           productName: item.product.name,
+          productPrice: item.product.price,
           quantity: item.quantity,
         };
       }),
