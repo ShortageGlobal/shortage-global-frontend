@@ -119,10 +119,16 @@ export function useCart() {
   const addToCart = useCallback(
     async ({
       organization_slug,
+      organization_name,
       product_slug,
+      product_name,
       product_price,
       quantity,
-    }: CreateCartItem & { product_price: Product['price'] }) => {
+    }: CreateCartItem & {
+      organization_name: Organization['name'];
+      product_name: Product['name'];
+      product_price: Product['price'];
+    }) => {
       if (!isCartReady) {
         // the action should have been disabled, so do nothing
         return;
@@ -147,7 +153,9 @@ export function useCart() {
       dispatch(setCartAction(cartResponse.data));
       gtm.trackAddToCart({
         organizationSlug: organization_slug,
+        organizationName: organization_name,
         productSlug: product_slug,
+        productName: product_name,
         productPrice: product_price,
         quantity,
       });

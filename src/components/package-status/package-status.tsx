@@ -85,8 +85,10 @@ export function PackageStatus() {
 
       gtm.trackPackageRegistraionSuccess({
         organizationSlug: organization.slug,
+        organizationName: organization.name,
         items: cartItems.map((cartItem) => ({
           productSlug: cartItem.product.slug,
+          productName: cartItem.product.name,
           productPrice: cartItem.product.price,
           quantity: cartItem.quantity,
         })),

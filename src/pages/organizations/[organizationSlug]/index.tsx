@@ -46,6 +46,7 @@ const OrganizationPage: NextPageWithLayout = () => {
   useEffect(() => {
     gtm.trackOrganizationView({
       organizationSlug: organization.slug,
+      organizationName: organization.name,
     });
   }, []);
 

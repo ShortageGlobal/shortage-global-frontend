@@ -6,6 +6,9 @@ type WindowWithDataLayer = Window & {
 
 declare const window: WindowWithDataLayer;
 
+const getProductId = ({ organizationSlug, productSlug }) =>
+  `${organizationSlug} / ${productSlug}`;
+
 // Another page is opened. Fired on routeChangeComplete
 export const trackPageView = (url: string) => {
   window.dataLayer.push({
@@ -17,50 +20,67 @@ export const trackPageView = (url: string) => {
 // User opened an organization page
 export const trackOrganizationView = ({
   organizationSlug,
+  organizationName,
 }: {
   organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
 }) => {
   window.dataLayer.push({
     event: 'organizationView',
     organizationSlug,
+    organizationName,
   });
 };
 
 // User opened a product page
 export const trackProductView = ({
   organizationSlug,
+  organizationName,
   productSlug,
+  productName,
   productPrice,
 }: {
   organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
   productSlug: Product['slug'];
+  productName: Product['name'];
   productPrice: Product['price'];
 }) => {
   window.dataLayer.push({
     event: 'productView',
     organizationSlug,
+    organizationName,
     productSlug,
+    productName,
     productPrice,
+    productId: getProductId({ organizationSlug, productSlug }),
   });
 };
 
 // User added a product to a cart
 export const trackAddToCart = ({
   organizationSlug,
+  organizationName,
   productSlug,
+  productName,
   productPrice,
   quantity,
 }: {
   organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
   productSlug: Product['slug'];
+  productName: Product['name'];
   productPrice: Product['price'];
   quantity: CartItem['quantity'];
 }) => {
   window.dataLayer.push({
     event: 'addToCart',
     organizationSlug,
+    organizationName,
     productSlug,
+    productName,
     productPrice,
+    productId: getProductId({ organizationSlug, productSlug }),
     quantity,
   });
 };
@@ -89,63 +109,93 @@ export const trackSubmitDonationDetails = () => {
 // User clicked the "Order Items" button
 export const trackClickOrderItems = ({
   organizationSlug,
+  organizationName,
   items,
 }: {
   organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
   items: {
     productSlug: Product['slug'];
     productPrice: Product['price'];
+    productName: Product['name'];
     quantity: CartItem['quantity'];
   }[];
 }) => {
   window.dataLayer.push({
     event: 'clickOrderItems',
     organizationSlug,
-    items,
+    organizationName,
+    items: items.map((item) => {
+      return {
+        ...item,
+        productId: getProductId({
+          organizationSlug,
+          productSlug: item.productSlug,
+        }),
+      };
+    }),
   });
 };
 
 // User clicked the "Donate What I Have" button
 export const trackClickDonateWhatIHave = ({
   organizationSlug,
+  organizationName,
   items,
 }: {
   organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
   items: {
     productSlug: Product['slug'];
     productPrice: Product['price'];
+    productName: Product['name'];
     quantity: CartItem['quantity'];
   }[];
 }) => {
   window.dataLayer.push({
     event: 'clickDonateWhatIHave',
     organizationSlug,
-    items,
+    organizationName,
+    items: items.map((item) => {
+      return {
+        ...item,
+        productId: getProductId({
+          organizationSlug,
+          productSlug: item.productSlug,
+        }),
+      };
+    }),
   });
 };
 
 // User opened a "Package Registration" page
 export const trackPackageRegistrationView = ({
   organizationSlug,
+  organizationName,
 }: {
   organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
 }) => {
   window.dataLayer.push({
     event: 'packageRegistrationView',
     organizationSlug,
+    organizationName,
   });
 };
 
 // User opened a "Package Status" page right after successful registration of a package (either Funded or Sent)
 export const trackPackageRegistraionSuccess = ({
   organizationSlug,
+  organizationName,
   items,
   totalPrice,
 }: {
   organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
   items: {
     productSlug: Product['slug'];
     productPrice: Product['price'];
+    productName: Product['name'];
     quantity: CartItem['quantity'];
   }[];
   totalPrice: number;
@@ -153,7 +203,16 @@ export const trackPackageRegistraionSuccess = ({
   window.dataLayer.push({
     event: 'packageRegistraionSuccess',
     organizationSlug,
-    items,
+    organizationName,
+    items: items.map((item) => {
+      return {
+        ...item,
+        productId: getProductId({
+          organizationSlug,
+          productSlug: item.productSlug,
+        }),
+      };
+    }),
     totalPrice,
   });
 };

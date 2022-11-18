@@ -55,8 +55,10 @@ const ProductPage: NextPageWithLayout = () => {
   useEffect(() => {
     gtm.trackProductView({
       organizationSlug: product.organization.slug,
+      organizationName: product.organization.name,
       productSlug: product.slug,
       productPrice: product.price,
+      productName: product.name,
     });
   }, []);
 
@@ -80,8 +82,10 @@ const ProductPage: NextPageWithLayout = () => {
     try {
       await addToCart({
         organization_slug: product.organization.slug,
+        organization_name: product.organization.name,
         product_slug: product.slug,
         product_price: product.price,
+        product_name: product.name,
         quantity: 1,
       });
       setIsProductBeingAddedToCart(false);
