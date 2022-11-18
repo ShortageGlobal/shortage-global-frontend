@@ -11,17 +11,21 @@ import type { Package, PackageStatus } from 'core/api/types';
 
 type PackageStatusVizualizationProps = {
   package: Package;
+  className?: string;
 };
 
 export function PackageStatusVisualization({
   package: packageState,
+  className = '',
 }: PackageStatusVizualizationProps) {
   const lifecycle = PACKAGE_STATUS_LIFECYCLE[packageState.type];
 
   let activeLifecycleIndex = +Infinity;
 
   return (
-    <div className={styles.packageStatusVisualizationWrap}>
+    <div
+      className={classNames(styles.packageStatusVisualizationWrap, className)}
+    >
       <ul className={styles.packageStatusVisualization}>
         {lifecycle.map((steps, index) => {
           let step: PackageStatus;
