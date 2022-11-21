@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import * as gtm from 'core/tracking/gtm';
 import { useUser, useCart, isRequestCancel } from 'core/hooks';
 import { PhoneInput } from 'components/phone-input/phone-input';
+import { RegistrationEncouragement } from 'components/registration-encouragement/registration-encouragement';
 import { PAGE_KEY } from 'core/constants';
 import type { FormEvent } from 'react';
 import type { Cart, CountryChoice } from 'core/api/types';
@@ -40,7 +41,7 @@ export function DonationDetailsForm({
   const router = useRouter();
 
   const { updateCart } = useCart();
-  const { profile } = useUser();
+  const { profile, isUnauthenticated } = useUser();
 
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
@@ -166,6 +167,8 @@ export function DonationDetailsForm({
   return (
     <Form onSubmit={handleFormSubmit} className={styles.donationDetailsForm}>
       <h2 className={styles.header}>Donation Details</h2>
+
+      {isUnauthenticated ? <RegistrationEncouragement /> : null}
 
       <header className={styles.sectionHeader}>
         <h5>Personal Details</h5>

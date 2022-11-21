@@ -25,6 +25,13 @@ body {
   }
 }
 
+.btn-outline-primary {
+  &:hover,
+  &:active {
+    color: $white;
+  }
+}
+
 .modal-dialog {
   word-break: break-word;
 

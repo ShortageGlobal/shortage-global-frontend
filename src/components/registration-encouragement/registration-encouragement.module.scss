@@ -1,0 +1,24 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.registrationEncouragement {
+  .controls {
+    display: flex;
+    margin-bottom: 1rem;
+
+    .hint {
+      padding: 0 0.5rem;
+      display: flex;
+      align-items: center;
+      text-decoration: underline;
+    }
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .signInLink {
+    font-weight: 500;
+  }
+}
