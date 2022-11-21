@@ -1,5 +1,5 @@
 import styles from './account-dropdown.module.scss';
-import { forwardRef, useCallback } from 'react';
+import { forwardRef, useState, useCallback } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { User } from 'react-feather';
 import { signOut } from 'next-auth/react';
@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useUser } from 'core/hooks';
 import { getFullNameOrEmail } from 'core/helpers';
 import { LoadingMessage } from 'components/loading-message/loading-message';
+import { DonorProfileBenefits } from 'components/donor-profile-benefits/donor-profile-benefits';
 import type { MouseEvent, ReactNode } from 'react';
 
 type AccountMenuTogglerProps = {
@@ -43,6 +44,8 @@ type AccountDropdownProps = {
 export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
   const router = useRouter();
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const {
     isAuthenticated,
     isUnauthenticated,
@@ -51,21 +54,26 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
     profile,
   } = useUser();
 
+  const handleToggleDropdown = useCallback((nextShow: boolean) => {
+    setIsDropdownOpen(nextShow);
+  }, []);
+
   const handleSignIn = useCallback(() => {
+    handleToggleDropdown(false);
     router.push({
       pathname: '/account/sign-in/',
       query: {
         callbackUrl: router.asPath,
       },
     });
-  }, [router]);
+  }, [router, handleToggleDropdown]);
 
   const handleSignOut = useCallback(() => {
     signOut();
   }, [signOut]);
 
   return (
-    <Dropdown>
+    <Dropdown onToggle={handleToggleDropdown} show={isDropdownOpen}>
       <Dropdown.Toggle
         as={AccountMenuToggler}
         toggleClassName={toggleClassName}
@@ -102,21 +110,29 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
 
         {isUnauthenticated ? (
           <>
-            <Dropdown.Item
-              onClick={handleSignIn}
-              disabled={router.pathname.startsWith('/account/sign-in')}
-              as="button"
-            >
-              Sign in
-            </Dropdown.Item>
+            <div className={styles.customMenu}>
+              <DonorProfileBenefits className={styles.donorProfileBenefits} />
 
-            <Link href="/account/create-account/" passHref legacyBehavior>
-              <Dropdown.Item
-                disabled={router.pathname.startsWith('/account/create-account')}
-              >
-                Create new account
-              </Dropdown.Item>
-            </Link>
+              <div className={styles.actions}>
+                <Link href="/account/create-account/" passHref legacyBehavior>
+                  <Button
+                    disabled={router.pathname.startsWith(
+                      '/account/create-account'
+                    )}
+                    onClick={() => handleToggleDropdown(false)}
+                  >
+                    Register as a donor
+                  </Button>
+                </Link>
+
+                <Button
+                  onClick={handleSignIn}
+                  disabled={router.pathname.startsWith('/account/sign-in')}
+                >
+                  Sign in
+                </Button>
+              </div>
+            </div>
           </>
         ) : null}
       </Dropdown.Menu>

@@ -19,7 +19,8 @@ body {
   &:hover,
   &:active,
   &:focus,
-  &:disabled {
+  &:disabled,
+  &.disabled {
     color: $primary-button-color;
   }
 }
