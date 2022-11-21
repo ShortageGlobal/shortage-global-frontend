@@ -9,6 +9,7 @@ import { wrapper } from 'core/store';
 import {
   useAppDispatch,
   useAppSelector,
+  useUser,
   useCart,
   useCancelToken,
   isRequestCancel,
@@ -29,6 +30,7 @@ import { CartItemPlaceholder } from 'components/cart/cart-item/cart-item-placeho
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { DonationOptions } from 'components/cart/donation-options/donation-options';
 import { LoadingMessage } from 'components/loading-message/loading-message';
+import { RegistrationEncouragement } from 'components/registration-encouragement/registration-encouragement';
 import { PAGE_KEY, REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { CartItem as CartItemType } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -36,6 +38,8 @@ import type { NextPageWithLayout } from 'pages/_app';
 const DonationCart: NextPageWithLayout = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+  const { isSessionLoading, isUnauthenticated } = useUser();
 
   const {
     cart,
@@ -82,9 +86,12 @@ const DonationCart: NextPageWithLayout = () => {
 
   const shouldShowContent = useMemo(() => {
     return (
-      !shouldRedirect && instructions !== null && groupedCartItems.size > 0
+      !isSessionLoading &&
+      !shouldRedirect &&
+      instructions !== null &&
+      groupedCartItems.size > 0
     );
-  }, [shouldRedirect, instructions, groupedCartItems]);
+  }, [isSessionLoading, shouldRedirect, instructions, groupedCartItems]);
 
   const shouldShowNoItemsMessage = useMemo(() => {
     return (
@@ -229,6 +236,8 @@ const DonationCart: NextPageWithLayout = () => {
 
             {shouldShowContent ? (
               <>
+                {isUnauthenticated ? <RegistrationEncouragement /> : null}
+
                 <Alert variant="info">
                   <Alert.Heading className={styles.donationOptionsAlertHeading}>
                     <Info size={20} />
