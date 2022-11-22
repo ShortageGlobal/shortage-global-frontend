@@ -7,6 +7,7 @@ import {
 } from 'core/store/slices/promoted-categories';
 import { fetchPromotedProducts } from 'core/store/slices/promoted-products';
 import { setSearchQuery } from 'core/store/slices/search';
+import { StandWithUkraine } from 'components/stand-with-ukraine/stand-with-ukraine';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromoCampaign } from 'components/promo-campaign/promo-campaign';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
@@ -24,6 +25,8 @@ const IndexPage: NextPageWithLayout = () => {
       <Head>
         <title>Shortage | Donate tangible goods</title>
       </Head>
+
+      <StandWithUkraine />
       <PromoBanner />
       <PromoCampaign
         text="JFCS toy and book drive"
