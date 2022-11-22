@@ -14,8 +14,6 @@ export function StandWithUkraine() {
             pathname: '/organizations/[organizationSlug]/',
             query: { organizationSlug: 'nova_ukraine' },
           }}
-          target="_blank"
-          rel="noreferrer"
         >
           this page
         </Link>
