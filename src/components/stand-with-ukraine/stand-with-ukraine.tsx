@@ -15,7 +15,7 @@ export function StandWithUkraine() {
             query: { organizationSlug: 'nova_ukraine' },
           }}
         >
-          this page
+          the&nbsp;Nova&nbsp;Ukraine&apos;s&nbsp;page
         </Link>
         .
       </p>
