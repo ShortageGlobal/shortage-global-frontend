@@ -10,7 +10,10 @@ export function StandWithUkraine() {
         We stand with our friends and colleagues in Ukraine. To support Ukraine
         in their time of need visit{' '}
         <Link
-          href="https://shortageua.com/ua_nova_ukraine"
+          href={{
+            pathname: '/organizations/[organizationSlug]/',
+            query: { organizationSlug: 'nova_ukraine' },
+          }}
           target="_blank"
           rel="noreferrer"
         >
