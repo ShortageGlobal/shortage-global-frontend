@@ -109,7 +109,7 @@ const ProductPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{product.name} | Shortage</title>
+        <title>{`${product.name} | Shortage`}</title>
 
         <script
           type="application/ld+json"
