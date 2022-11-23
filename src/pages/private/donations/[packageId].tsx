@@ -8,7 +8,7 @@ import { FileText } from 'react-feather';
 import { accountLayout } from 'core/layouts';
 import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
 import { wrapper } from 'core/store';
-import { fetchAccountPackage, fetchPackageLogs } from 'core/api';
+import { fetchAccountPackage } from 'core/api';
 import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
 import {
   Breadcrumbs,
