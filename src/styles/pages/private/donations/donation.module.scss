@@ -18,6 +18,12 @@
     }
   }
 
+  .statusBody {
+    > * + * {
+      margin-top: 2rem;
+    }
+  }
+
   .packageItems {
     > * + * {
       margin-top: 1rem;
@@ -74,6 +80,17 @@
       dd {
         margin: 0;
       }
+    }
+  }
+
+  .downloadTaxDeductionReceiptBtn {
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    > * + * {
+      margin-left: 0.5rem;
     }
   }
 }

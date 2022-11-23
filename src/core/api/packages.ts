@@ -8,6 +8,7 @@ import type {
   PaginatedResponse,
   PaginationWithCancelTokenParams,
   CancelTokenParams,
+  PackageLog,
 } from 'core/api/types';
 
 export type CreatePackageParams = OrganizationSlugParams & {
@@ -93,6 +94,26 @@ export function fetchPackageStatus({
   return axios.get<Package>(
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type FetchPackageLogsParams = {
+  packageId: string;
+  accessToken?: string;
+} & OrganizationSlugParams;
+export function fetchPackageLogs({
+  organizationSlug,
+  packageId,
+  accessToken = null,
+  cancelToken = null,
+}: FetchPackageLogsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PackageLog[]>(
+    encodeURI(
+      `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/logs/`
     ),
     { cancelToken: cancelToken?.token, headers }
   );
