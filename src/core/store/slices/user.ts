@@ -7,15 +7,20 @@ export const userSlice = createSlice({
 
   initialState: {
     profile: null,
+    isAccessTokenReady: false,
     isProfileLoading: false,
   } as {
     profile?: Profile;
+    isAccessTokenReady: boolean;
     isProfileLoading: boolean;
   },
 
   reducers: {
     setIsProfileLoading: (state, action) => {
       state.isProfileLoading = action.payload;
+    },
+    setIsAccessTokenReady: (state, action) => {
+      state.isAccessTokenReady = action.payload;
     },
     setProfile: (state, action) => {
       state.isProfileLoading = false;
@@ -25,7 +30,8 @@ export const userSlice = createSlice({
 });
 
 // Actions
-export const { setIsProfileLoading, setProfile } = userSlice.actions;
+export const { setIsProfileLoading, setIsAccessTokenReady, setProfile } =
+  userSlice.actions;
 
 // Selectors
 export const selectUser = (state: AppState) => state.user;

@@ -26,7 +26,7 @@ import {
 import type { NextPageWithLayout } from 'pages/_app';
 import type { Package } from 'core/api/types';
 
-const DonationsPage: NextPageWithLayout = () => {
+const AccountDonationsPage: NextPageWithLayout = () => {
   const router = useRouter();
 
   const breadcrumbs = useMemo(() => {
@@ -223,7 +223,7 @@ const DonationsPage: NextPageWithLayout = () => {
   );
 };
 
-DonationsPage.getLayout = accountLayout;
+AccountDonationsPage.getLayout = accountLayout;
 
 export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   return {
@@ -231,4 +231,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default DonationsPage;
+export default AccountDonationsPage;

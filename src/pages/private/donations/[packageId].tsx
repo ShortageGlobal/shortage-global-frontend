@@ -1,13 +1,14 @@
 import styles from 'styles/pages/private/donations/donation.module.scss';
 import { useMemo } from 'react';
-import { Row, Col, Accordion } from 'react-bootstrap';
+import { Row, Col, Accordion, Button } from 'react-bootstrap';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FileText } from 'react-feather';
 import { accountLayout } from 'core/layouts';
 import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
 import { wrapper } from 'core/store';
-import { fetchAccountPackage } from 'core/api';
+import { fetchAccountPackage, fetchPackageLogs } from 'core/api';
 import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
 import {
   Breadcrumbs,
@@ -16,6 +17,7 @@ import {
   getAccountDonationDetailsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
+import { PackageLogs } from 'components/package-logs/package-logs';
 import { PACKAGE_TYPE } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { Package } from 'core/api/types';
@@ -27,13 +29,13 @@ const SECTION_KEY = Object.freeze({
   TAX_DEDUCTION: 'TAX_DEDUCTION',
 });
 
-type DonationDetailsPageProps = {
+type AccountDonationDetailsPageProps = {
   donation: Package;
 };
 
-const DonationDetailsPage: NextPageWithLayout = ({
+const AccountDonationDetailsPage: NextPageWithLayout = ({
   donation,
-}: DonationDetailsPageProps) => {
+}: AccountDonationDetailsPageProps) => {
   const breadcrumbs = useMemo(() => {
     return [
       getHomeCrumb(),
@@ -93,8 +95,8 @@ const DonationDetailsPage: NextPageWithLayout = ({
               >
                 <Accordion.Item eventKey={SECTION_KEY.STATUS}>
                   <Accordion.Header>Status</Accordion.Header>
-                  <Accordion.Body>
-                    <dl className="mb-4">
+                  <Accordion.Body className={styles.statusBody}>
+                    <dl>
                       <dt>Recipient</dt>
                       <dd>
                         <Link
@@ -108,10 +110,14 @@ const DonationDetailsPage: NextPageWithLayout = ({
                           {organization.name}
                         </Link>
                       </dd>
-                      <dt>Registered</dt>
-                      <dd>{new Date(donation.created_at).toLocaleString()}</dd>
                     </dl>
+
                     <PackageStatusVisualization package={donation} />
+
+                    <PackageLogs
+                      organizationSlug={organization.slug}
+                      donation={donation}
+                    />
                   </Accordion.Body>
                 </Accordion.Item>
 
@@ -289,6 +295,30 @@ const DonationDetailsPage: NextPageWithLayout = ({
                             </Col>
                           ) : null}
                         </Row>
+
+                        {donation.tax_deduction_receipt &&
+                        donation.need_tax_deduction ? (
+                          <Row>
+                            <Col>
+                              <dt>Tax deduction receipt</dt>
+                              <dd>
+                                <Button
+                                  size="lg"
+                                  href={donation.tax_deduction_receipt}
+                                  variant="outline-dark"
+                                  className={
+                                    styles.downloadTaxDeductionReceiptBtn
+                                  }
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  <FileText />
+                                  <span>See tax deduction receipt</span>
+                                </Button>
+                              </dd>
+                            </Col>
+                          </Row>
+                        ) : null}
                       </>
                     ) : null}
                   </Accordion.Body>
@@ -302,7 +332,7 @@ const DonationDetailsPage: NextPageWithLayout = ({
   );
 };
 
-DonationDetailsPage.getLayout = accountLayout;
+AccountDonationDetailsPage.getLayout = accountLayout;
 
 export const getServerSideProps = wrapper.getServerSideProps(
   () => async (context) => {
@@ -312,13 +342,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
       req: context.req,
     });
 
-    let response;
+    let donationResponse;
     try {
-      response = await fetchAccountPackage({
+      // fetch package
+      donationResponse = await fetchAccountPackage({
         packageId,
         accessToken,
       });
-      console.log(response);
     } catch (rejection) {
       if (rejection?.response?.status === 404) {
         return {
@@ -341,9 +371,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 
     return {
-      props: { donation: response.data },
+      props: { donation: donationResponse.data },
     };
   }
 );
 
-export default DonationDetailsPage;
+export default AccountDonationDetailsPage;

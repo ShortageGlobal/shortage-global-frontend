@@ -1,6 +1,6 @@
 import styles from './authentication-guard.module.scss';
 import axios from 'axios';
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import { Lock } from 'react-feather';
 import { useSession, signOut } from 'next-auth/react';
@@ -21,17 +21,20 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   const session = useSession();
   const router = useRouter();
 
-  const { isAuthenticated, isUnauthenticated, fetchAndStoreProfile } =
-    useUser();
-
-  const [isAccessTokenSet, setIsAccessTokenSet] = useState(false);
+  const {
+    isAccessTokenReady,
+    isAuthenticated,
+    isUnauthenticated,
+    setIsAccessTokenReady,
+    fetchAndStoreProfile,
+  } = useUser();
 
   // fetch profile data if user is authenticated
   useEffect(() => {
-    if (isAuthenticated && isAccessTokenSet) {
+    if (isAuthenticated && isAccessTokenReady) {
       fetchAndStoreProfile();
     }
-  }, [isAuthenticated, isAccessTokenSet]);
+  }, [isAuthenticated, isAccessTokenReady]);
 
   // set accessToken as Authorization header
   const accessToken = (session?.data as Session & { accessToken?: string })
@@ -39,10 +42,10 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   useEffect(() => {
     if (accessToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      setIsAccessTokenSet(true);
+      setIsAccessTokenReady(true);
     } else {
       delete axios.defaults.headers.common['Authorization'];
-      setIsAccessTokenSet(false);
+      setIsAccessTokenReady(false);
     }
   }, [accessToken]);
 
@@ -66,7 +69,7 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
 
   // show content if user is authenticated or page is public
   if (
-    (isAuthenticated && isAccessTokenSet) ||
+    (isAuthenticated && isAccessTokenReady) ||
     !router.pathname.startsWith('/private')
   ) {
     return <>{children}</>;

@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import { isRequestCancel, useAppDispatch, useAppSelector } from 'core/hooks';
 import {
   selectUser,
+  setIsAccessTokenReady as setIsAccessTokenReadyAction,
   setIsProfileLoading as setIsProfileLoadingAction,
   setProfile as setProfileAction,
 } from 'core/store/slices/user';
@@ -13,7 +14,8 @@ export function useUser() {
   const session = useSession();
   const dispatch = useAppDispatch();
 
-  const { profile, isProfileLoading } = useAppSelector(selectUser);
+  const { profile, isAccessTokenReady, isProfileLoading } =
+    useAppSelector(selectUser);
 
   const isAuthenticated = useMemo(
     () => session?.status === 'authenticated',
@@ -28,6 +30,10 @@ export function useUser() {
     [session?.status]
   );
   const isProfileReady = useMemo(() => !!profile?.email, [profile?.email]);
+
+  const setIsAccessTokenReady = useCallback((value: boolean) => {
+    dispatch(setIsAccessTokenReadyAction(value));
+  }, []);
 
   // fetch profile and store it in redux
   const fetchAndStoreProfile = useCallback(
@@ -53,22 +59,26 @@ export function useUser() {
 
   return useMemo(() => {
     return {
+      isAccessTokenReady,
       isAuthenticated,
       isUnauthenticated,
       isSessionLoading,
       isProfileLoading,
       isProfileReady,
       profile,
+      setIsAccessTokenReady,
       fetchAndStoreProfile,
       storeProfile,
     };
   }, [
+    isAccessTokenReady,
     isAuthenticated,
     isUnauthenticated,
     isSessionLoading,
     isProfileLoading,
     isProfileReady,
     profile,
+    setIsAccessTokenReady,
     fetchAndStoreProfile,
     storeProfile,
   ]);

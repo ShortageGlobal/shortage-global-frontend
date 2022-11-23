@@ -14,8 +14,9 @@ import {
   getPackageStatusCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
-import { PACKAGE_TYPE } from 'core/constants';
+import { PackageLogs } from 'components/package-logs/package-logs';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
+import { PACKAGE_TYPE } from 'core/constants';
 
 export function PackageStatus() {
   const router = useRouter();
@@ -251,6 +252,11 @@ export function PackageStatus() {
                 <PackageStatusVisualization
                   package={packageState.package}
                   className={styles.packageStatusVisualization}
+                />
+
+                <PackageLogs
+                  organizationSlug={organization.slug}
+                  donation={packageState.package}
                 />
               </Col>
             </Row>

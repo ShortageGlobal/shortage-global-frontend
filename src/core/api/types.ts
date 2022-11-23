@@ -134,6 +134,11 @@ export type PackageItem = {
   quantity: number;
 };
 
+export type PackageLog = {
+  status: PackageStatus;
+  created_at: string;
+};
+
 export type Package = {
   type: PackageType;
   uuid: Uuid;
@@ -149,6 +154,7 @@ export type Package = {
   state_province_region?: string;
   zip?: string;
   country?: string;
+  tax_deduction_receipt?: string;
 
   delivery_company: string;
   tracking_code: string;
