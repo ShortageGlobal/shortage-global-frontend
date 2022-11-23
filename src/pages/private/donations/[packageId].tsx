@@ -313,7 +313,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                                   rel="noreferrer"
                                 >
                                   <FileText />
-                                  <span>See tax deduction receipt</span>
+                                  <span>See the tax deduction receipt</span>
                                 </Button>
                               </dd>
                             </Col>
