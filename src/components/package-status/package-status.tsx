@@ -1,6 +1,7 @@
 import styles from './package-status.module.scss';
 import { useMemo, useState, useCallback, useEffect } from 'react';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
+import { FileText } from 'react-feather';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import * as gtm from 'core/tracking/gtm';
@@ -258,6 +259,26 @@ export function PackageStatus() {
                   organizationSlug={organization.slug}
                   donation={packageState.package}
                 />
+
+                {packageState.package.tax_deduction_receipt &&
+                packageState.package.need_tax_deduction ? (
+                  <dl className={styles.taxDeductionBlock}>
+                    <dt>Tax deduction receipt</dt>
+                    <dd>
+                      <Button
+                        size="lg"
+                        href={packageState.package.tax_deduction_receipt}
+                        variant="outline-dark"
+                        className={styles.seeTaxDeductionReceiptBtn}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FileText />
+                        <span>See the tax deduction receipt</span>
+                      </Button>
+                    </dd>
+                  </dl>
+                ) : null}
               </Col>
             </Row>
           </Col>

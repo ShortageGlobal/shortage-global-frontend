@@ -306,9 +306,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                                   size="lg"
                                   href={donation.tax_deduction_receipt}
                                   variant="outline-dark"
-                                  className={
-                                    styles.downloadTaxDeductionReceiptBtn
-                                  }
+                                  className={styles.seeTaxDeductionReceiptBtn}
                                   target="_blank"
                                   rel="noreferrer"
                                 >
