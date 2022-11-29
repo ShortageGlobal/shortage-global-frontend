@@ -22,19 +22,19 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   const router = useRouter();
 
   const {
-    isAccessTokenReady,
+    isAccessTokenSet,
     isAuthenticated,
     isUnauthenticated,
-    setIsAccessTokenReady,
+    setIsAccessTokenSet,
     fetchAndStoreProfile,
   } = useUser();
 
   // fetch profile data if user is authenticated
   useEffect(() => {
-    if (isAuthenticated && isAccessTokenReady) {
+    if (isAuthenticated && isAccessTokenSet) {
       fetchAndStoreProfile();
     }
-  }, [isAuthenticated, isAccessTokenReady]);
+  }, [isAuthenticated, isAccessTokenSet]);
 
   // set accessToken as Authorization header
   const accessToken = (session?.data as Session & { accessToken?: string })
@@ -42,10 +42,10 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   useEffect(() => {
     if (accessToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      setIsAccessTokenReady(true);
+      setIsAccessTokenSet(true);
     } else {
       delete axios.defaults.headers.common['Authorization'];
-      setIsAccessTokenReady(false);
+      setIsAccessTokenSet(false);
     }
   }, [accessToken]);
 
@@ -69,7 +69,7 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
 
   // show content if user is authenticated or page is public
   if (
-    (isAuthenticated && isAccessTokenReady) ||
+    (isAuthenticated && isAccessTokenSet) ||
     !router.pathname.startsWith('/private')
   ) {
     return <>{children}</>;

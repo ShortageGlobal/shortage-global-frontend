@@ -57,4 +57,27 @@
       margin-left: 0.5rem;
     }
   }
+
+  .organizationLink {
+    word-break: break-word;
+  }
+
+  .noteBlock {
+    margin-top: 3rem;
+
+    .noteTextarea {
+      height: 7rem;
+    }
+
+    .submitNoteBtn {
+      margin: 1rem 0rem 0rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > * + * {
+        margin-left: 0.5rem;
+      }
+    }
+  }
 }

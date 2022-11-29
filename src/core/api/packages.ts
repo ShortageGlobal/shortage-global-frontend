@@ -152,3 +152,26 @@ export function fetchAccountPackage({
     }
   );
 }
+
+export type UpdatePackageNoteParams = {
+  packageId: string;
+  note: string;
+  accessToken?: string;
+} & OrganizationSlugParams;
+export function updatePackageNote({
+  organizationSlug,
+  packageId,
+  note,
+  accessToken = null,
+  cancelToken = null,
+}: UpdatePackageNoteParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post(
+    encodeURI(
+      `${API_ROOT}/api/organizations/${organizationSlug}/packages/${packageId}/leave_note/`
+    ),
+    { note },
+    { cancelToken: cancelToken?.token, headers }
+  );
+}

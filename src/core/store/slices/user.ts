@@ -7,11 +7,11 @@ export const userSlice = createSlice({
 
   initialState: {
     profile: null,
-    isAccessTokenReady: false,
+    isAccessTokenSet: false,
     isProfileLoading: false,
   } as {
     profile?: Profile;
-    isAccessTokenReady: boolean;
+    isAccessTokenSet: boolean;
     isProfileLoading: boolean;
   },
 
@@ -19,8 +19,8 @@ export const userSlice = createSlice({
     setIsProfileLoading: (state, action) => {
       state.isProfileLoading = action.payload;
     },
-    setIsAccessTokenReady: (state, action) => {
-      state.isAccessTokenReady = action.payload;
+    setIsAccessTokenSet: (state, action) => {
+      state.isAccessTokenSet = action.payload;
     },
     setProfile: (state, action) => {
       state.isProfileLoading = false;
@@ -30,7 +30,7 @@ export const userSlice = createSlice({
 });
 
 // Actions
-export const { setIsProfileLoading, setIsAccessTokenReady, setProfile } =
+export const { setIsProfileLoading, setIsAccessTokenSet, setProfile } =
   userSlice.actions;
 
 // Selectors
