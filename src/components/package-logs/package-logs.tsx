@@ -33,10 +33,11 @@ export function PackageLogs({
 
   const getFetchLogsCancelToken = useCancelToken();
 
-  const { isAccessTokenReady } = useUser();
+  const { isAccessTokenSet, isAuthenticated, isUnauthenticated } = useUser();
 
   useEffect(() => {
-    if (!isAccessTokenReady) {
+    if (!(isUnauthenticated || (isAccessTokenSet && isAuthenticated))) {
+      // do not fetch log if access token hasn't been set yet for an authenticated user
       return;
     }
 
@@ -79,9 +80,8 @@ export function PackageLogs({
         });
       }
     }
-
     fetchData();
-  }, [isAccessTokenReady]);
+  }, [isAccessTokenSet, isAuthenticated, isUnauthenticated]);
 
   return (
     <div className={classNames(styles.packageLogs, className)}>

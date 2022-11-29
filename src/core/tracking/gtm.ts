@@ -1,5 +1,5 @@
 import { getProductId } from 'core/helpers';
-import type { CartItem, Organization, Product } from 'core/api/types';
+import type { CartItem, Organization, Package, Product } from 'core/api/types';
 
 type WindowWithDataLayer = Window & {
   dataLayer: Record<string, any>[];
@@ -189,11 +189,13 @@ export const trackPackageRegistrationView = ({
 
 // User opened a "Package Status" page right after successful registration of a package (either Funded or Sent)
 export const trackPackageRegistraionSuccess = ({
+  packageId,
   organizationSlug,
   organizationName,
   items,
   totalPrice,
 }: {
+  packageId: Package['uuid'];
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
   items: {
@@ -206,6 +208,7 @@ export const trackPackageRegistraionSuccess = ({
 }) => {
   window.dataLayer.push({
     event: 'packageRegistraionSuccess',
+    packageId,
     organizationSlug,
     organizationName,
     items: items.map((item) => {

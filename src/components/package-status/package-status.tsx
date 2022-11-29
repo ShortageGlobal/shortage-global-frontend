@@ -100,6 +100,7 @@ export function PackageStatus() {
       );
 
       gtm.trackPackageRegistraionSuccess({
+        packageId: packageState.package.uuid,
         organizationSlug: organization.slug,
         organizationName: organization.name,
         items: cartItems.map((cartItem) => ({
