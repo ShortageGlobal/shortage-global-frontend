@@ -5,7 +5,34 @@ type WindowWithDataLayer = Window & {
   dataLayer: Record<string, any>[];
 };
 
+type ProductItem = {
+  productSlug: Product['slug'];
+  productPrice: Product['price'];
+  productName: Product['name'];
+  quantity: CartItem['quantity'];
+  organizationSlug: Organization['slug'];
+};
+
 declare const window: WindowWithDataLayer;
+
+// For GoogleAnalytics we need items to be in a certain format.
+// We didn't figure out how to format arrays on the Google Tag Manager platform
+function formatProducts({ items }: { items: ProductItem[] }) {
+  return items.map((item) => {
+    return {
+      item_id: getProductId({
+        organizationSlug: item.organizationSlug,
+        productSlug: item.productSlug,
+      }),
+      item_name: item.productName,
+      quantity: item.quantity,
+      item_category: item.organizationSlug,
+      price: item.productPrice,
+      item_brand: 'Shortage',
+      currency: 'USD',
+    };
+  });
+}
 
 // Another page is opened. Fired on routeChangeComplete
 export const trackPageView = (url: string) => {
@@ -98,9 +125,17 @@ export const trackProceedToDonate = () => {
 };
 
 // User filled in and submitted Donation Details form
-export const trackSubmitDonationDetails = () => {
+export const trackSubmitDonationDetails = ({
+  items,
+  totalPrice,
+}: {
+  items: ProductItem[];
+  totalPrice: number;
+}) => {
   window.dataLayer.push({
     event: 'submitDonationDetails',
+    items: formatProducts({ items }),
+    totalPrice,
   });
 };
 
@@ -113,27 +148,14 @@ export const trackClickOrderItems = ({
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
-  items: {
-    productSlug: Product['slug'];
-    productPrice: Product['price'];
-    productName: Product['name'];
-    quantity: CartItem['quantity'];
-  }[];
+  items: ProductItem[];
   totalPrice: number;
 }) => {
   window.dataLayer.push({
     event: 'clickOrderItems',
     organizationSlug,
     organizationName,
-    items: items.map((item) => {
-      return {
-        ...item,
-        productId: getProductId({
-          organizationSlug,
-          productSlug: item.productSlug,
-        }),
-      };
-    }),
+    items: formatProducts({ items }),
     totalPrice,
   });
 };
@@ -147,27 +169,14 @@ export const trackClickDonateWhatIHave = ({
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
-  items: {
-    productSlug: Product['slug'];
-    productPrice: Product['price'];
-    productName: Product['name'];
-    quantity: CartItem['quantity'];
-  }[];
+  items: ProductItem[];
   totalPrice: number;
 }) => {
   window.dataLayer.push({
     event: 'clickDonateWhatIHave',
     organizationSlug,
     organizationName,
-    items: items.map((item) => {
-      return {
-        ...item,
-        productId: getProductId({
-          organizationSlug,
-          productSlug: item.productSlug,
-        }),
-      };
-    }),
+    items: formatProducts({ items }),
     totalPrice,
   });
 };
@@ -176,14 +185,20 @@ export const trackClickDonateWhatIHave = ({
 export const trackPackageRegistrationView = ({
   organizationSlug,
   organizationName,
+  items,
+  totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  items: ProductItem[];
+  totalPrice: number;
 }) => {
   window.dataLayer.push({
     event: 'packageRegistrationView',
     organizationSlug,
     organizationName,
+    items: formatProducts({ items }),
+    totalPrice,
   });
 };
 
@@ -198,12 +213,7 @@ export const trackPackageRegistraionSuccess = ({
   packageId: Package['uuid'];
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
-  items: {
-    productSlug: Product['slug'];
-    productPrice: Product['price'];
-    productName: Product['name'];
-    quantity: CartItem['quantity'];
-  }[];
+  items: ProductItem[];
   totalPrice: number;
 }) => {
   window.dataLayer.push({
@@ -211,15 +221,7 @@ export const trackPackageRegistraionSuccess = ({
     packageId,
     organizationSlug,
     organizationName,
-    items: items.map((item) => {
-      return {
-        ...item,
-        productId: getProductId({
-          organizationSlug,
-          productSlug: item.productSlug,
-        }),
-      };
-    }),
+    items: formatProducts({ items }),
     totalPrice,
   });
 };

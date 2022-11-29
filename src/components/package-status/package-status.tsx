@@ -4,7 +4,6 @@ import { useMemo, useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Alert, Button, Form } from 'react-bootstrap';
 import { FileText, Loader } from 'react-feather';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as gtm from 'core/tracking/gtm';
 import {
@@ -108,6 +107,7 @@ export function PackageStatus() {
           productName: cartItem.product.name,
           productPrice: cartItem.product.price,
           quantity: cartItem.quantity,
+          organizationSlug: cartItem.product.organization.slug,
         })),
         totalPrice: cartItems.reduce((result, cartItem) => {
           result += cartItem.quantity * cartItem.product.price;
@@ -368,19 +368,7 @@ export function PackageStatus() {
                     </dl>
                   ) : null}
                   <header className={styles.sectionHeader}>
-                    <h5>
-                      Want to say something to{' '}
-                      <Link
-                        href={{
-                          pathname: '/organizations/[organizationSlug]',
-                          query: { organizationSlug: organization.slug },
-                        }}
-                        className={styles.organizationLink}
-                      >
-                        {organization.name}
-                      </Link>
-                      ?
-                    </h5>
+                    <h5>Would you like to add a short note to your gift?</h5>
                   </header>
 
                   <Form onSubmit={handleSubmitNote}>
