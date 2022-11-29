@@ -194,13 +194,10 @@ export function PackageStatus() {
           })
         );
 
-        if (note.trim()) {
-          // show notification if saved note wasn't empty
-          showNotification({
-            isSuccess: true,
-            message: 'Note saved',
-          });
-        }
+        showNotification({
+          isSuccess: true,
+          message: 'Note saved',
+        });
 
         target.note.value = '';
         setIsNotePending(false);
