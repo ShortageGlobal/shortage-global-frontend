@@ -153,18 +153,18 @@ export function fetchAccountPackage({
   );
 }
 
-export type LeavePackageNoteParams = {
+export type UpdatePackageNoteParams = {
   packageId: string;
   note: string;
   accessToken?: string;
 } & OrganizationSlugParams;
-export function leavePackageNote({
+export function updatePackageNote({
   organizationSlug,
   packageId,
   note,
   accessToken = null,
   cancelToken = null,
-}: LeavePackageNoteParams) {
+}: UpdatePackageNoteParams) {
   const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 
   return axios.post(

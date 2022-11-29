@@ -17,7 +17,7 @@ import {
 } from 'core/hooks';
 import { selectOrganization } from 'core/store/slices/organization';
 import { fetchPackage, selectPackage } from 'core/store/slices/package';
-import { leavePackageNote } from 'core/api';
+import { updatePackageNote } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -179,7 +179,7 @@ export function PackageStatus() {
       try {
         gtm.trackPackageLeaveNote();
         // post a note
-        await leavePackageNote({
+        await updatePackageNote({
           organizationSlug: organization.slug,
           packageId: packageState.package.uuid,
           note,
