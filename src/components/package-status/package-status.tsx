@@ -1,13 +1,23 @@
 import styles from './package-status.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useState, useCallback, useEffect } from 'react';
-import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
-import { FileText } from 'react-feather';
+import { Container, Row, Col, Alert, Button, Form } from 'react-bootstrap';
+import { FileText, Loader } from 'react-feather';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as gtm from 'core/tracking/gtm';
-import { useAppSelector, useCart } from 'core/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useCart,
+  useNotifications,
+  useCancelToken,
+  isRequestCancel,
+} from 'core/hooks';
 import { selectOrganization } from 'core/store/slices/organization';
-import { selectPackage } from 'core/store/slices/package';
+import { fetchPackage, selectPackage } from 'core/store/slices/package';
+import { leavePackageNote } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -18,14 +28,18 @@ import { PackageStatusVisualization } from 'components/package-status-visualizat
 import { PackageLogs } from 'components/package-logs/package-logs';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
 import { PACKAGE_TYPE } from 'core/constants';
+import type { FormEvent } from 'react';
 
 export function PackageStatus() {
   const router = useRouter();
 
+  const dispatch = useAppDispatch();
   const { organization } = useAppSelector(selectOrganization);
   const packageState = useAppSelector(selectPackage);
+  const [isNotePending, setIsNotePending] = useState(false);
 
   const { isCartReady, cart, deleteFromCart } = useCart();
+  const { showNotification } = useNotifications();
 
   const breadcrumbs = useMemo(() => {
     return [
@@ -144,6 +158,69 @@ export function PackageStatus() {
     );
   }, [router]);
 
+  const getSubmitNoteCancelToken = useCancelToken();
+  const handleSubmitNote = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      if (isNotePending) {
+        return;
+      }
+
+      const target = e.target as typeof e.target & {
+        note: HTMLTextAreaElement;
+      };
+      const note = target.note.value;
+
+      setIsNotePending(true);
+      const cancelToken = getSubmitNoteCancelToken();
+
+      try {
+        gtm.trackPackageLeaveNote();
+        // post a note
+        await leavePackageNote({
+          organizationSlug: organization.slug,
+          packageId: packageState.package.uuid,
+          note,
+          cancelToken,
+        });
+
+        // refetch package
+        await dispatch(
+          fetchPackage({
+            organizationSlug: organization.slug,
+            packageId: packageState.package.uuid,
+          })
+        );
+
+        if (note.trim()) {
+          // show notification if saved note wasn't empty
+          showNotification({
+            isSuccess: true,
+            message: 'Note saved',
+          });
+        }
+
+        target.note.value = '';
+        setIsNotePending(false);
+      } catch (rejection) {
+        if (isRequestCancel(rejection)) {
+          return;
+        }
+        let errorMessage = `Failed to save a note.`;
+        if (rejection?.response?.data?.details) {
+          errorMessage = `${errorMessage} ${rejection?.response?.data?.details}`;
+        }
+        showNotification({
+          isFailure: true,
+          message: errorMessage,
+        });
+        setIsNotePending(false);
+      }
+    },
+    [isNotePending, organization, packageState]
+  );
+
   const otherCartItemsAction = hasOtherCartItems ? (
     <>
       <div>Also, there are other items in your cart. </div>
@@ -234,6 +311,7 @@ export function PackageStatus() {
               <Col>
                 <p className="text-center">Thank you for helping 💚</p>
 
+                {/* Tracking details */}
                 {packageState.package.delivery_company &&
                 packageState.package.tracking_code ? (
                   <>
@@ -250,16 +328,19 @@ export function PackageStatus() {
                   </>
                 ) : null}
 
+                {/* Status Visualization */}
                 <PackageStatusVisualization
                   package={packageState.package}
                   className={styles.packageStatusVisualization}
                 />
 
+                {/* Logs */}
                 <PackageLogs
                   organizationSlug={organization.slug}
                   donation={packageState.package}
                 />
 
+                {/* Tax Deduction */}
                 {packageState.package.tax_deduction_receipt &&
                 packageState.package.need_tax_deduction ? (
                   <dl className={styles.taxDeductionBlock}>
@@ -279,6 +360,61 @@ export function PackageStatus() {
                     </dd>
                   </dl>
                 ) : null}
+
+                {/* Note */}
+                <div className={styles.noteBlock}>
+                  {packageState.package.note ? (
+                    <dl className={styles.packageDetails}>
+                      <dt>Note from the donor</dt>
+                      <dd>{packageState.package.note}</dd>
+                    </dl>
+                  ) : null}
+                  <header className={styles.sectionHeader}>
+                    <h5>
+                      Want to say something to{' '}
+                      <Link
+                        href={{
+                          pathname: '/organizations/[organizationSlug]',
+                          query: { organizationSlug: organization.slug },
+                        }}
+                        className={styles.organizationLink}
+                      >
+                        {organization.name}
+                      </Link>
+                      ?
+                    </h5>
+                  </header>
+
+                  <Form onSubmit={handleSubmitNote}>
+                    <Form.Group controlId="note" className={styles.formGroup}>
+                      <Form.Control
+                        size="lg"
+                        as="textarea"
+                        name="note"
+                        placeholder="Leave a note"
+                        className={styles.noteTextarea}
+                        disabled={isNotePending}
+                      />
+                    </Form.Group>
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={isNotePending}
+                      variant="outline-dark"
+                      className={styles.submitNoteBtn}
+                    >
+                      {isNotePending ? (
+                        <Loader
+                          role="status"
+                          aria-hidden="true"
+                          className={animationStyles.rotate}
+                        />
+                      ) : null}
+                      <span>Submit</span>
+                    </Button>
+                  </Form>
+                </div>
               </Col>
             </Row>
           </Col>

@@ -220,3 +220,8 @@ export const trackPackageRegistraionSuccess = ({
     totalPrice,
   });
 };
+
+// User left a note for a package on the donation status page
+export const trackPackageLeaveNote = () => {
+  window.dataLayer.push({ event: 'packageLeaveNote' });
+};

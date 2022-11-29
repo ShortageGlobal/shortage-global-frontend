@@ -42,11 +42,10 @@ export function AuthenticationGuard({ children }: AuthenticationGuardProps) {
   useEffect(() => {
     if (accessToken) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      setIsAccessTokenReady(true);
     } else {
       delete axios.defaults.headers.common['Authorization'];
-      setIsAccessTokenReady(false);
     }
+    setIsAccessTokenReady(true);
   }, [accessToken]);
 
   // sign out if session.data.error is present

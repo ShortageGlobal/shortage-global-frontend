@@ -1,6 +1,8 @@
 import styles from './package-registration-form.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import { createPackage } from 'core/api';
 import { useCart, useCancelToken, isRequestCancel } from 'core/hooks';
@@ -28,7 +30,6 @@ export function PackageRegistrationForm({
   const [deliveryCompany, setDeliveryCompany] = useState('');
   const [trackingCode, setTrackingNumber] = useState('');
   const [photo /*, setPhoto */] = useState();
-  const [note, setNote] = useState('');
 
   const getCreatePackageCancelToken = useCancelToken();
 
@@ -91,7 +92,6 @@ export function PackageRegistrationForm({
           deliveryCompany,
           trackingCode,
           photo,
-          note,
           cancelToken,
         });
 
@@ -119,7 +119,6 @@ export function PackageRegistrationForm({
       deliveryCompany,
       trackingCode,
       photo,
-      note,
     ]
   );
 
@@ -201,19 +200,6 @@ export function PackageRegistrationForm({
       {/*</Col>*/}
       {/*</Row>*/}
 
-      <Row>
-        <Form.Group as={Col} controlId="note" className={styles.formGroup}>
-          <Form.Label>Notes</Form.Label>
-          <Form.Control
-            size="lg"
-            as="textarea"
-            placeholder="Type something here"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-          />
-        </Form.Group>
-      </Row>
-
       <header className={styles.sectionHeader}>
         <h5>Donation Details</h5>
       </header>
@@ -232,7 +218,14 @@ export function PackageRegistrationForm({
             disabled={isCreating}
             className={styles.confirmPackageDetailsBtn}
           >
-            Confirm package details
+            {isCreating ? (
+              <Loader
+                role="status"
+                aria-hidden="true"
+                className={animationStyles.rotate}
+              />
+            ) : null}
+            <span>Confirm package details</span>
           </Button>
         </Col>
       </Row>
