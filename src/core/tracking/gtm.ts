@@ -118,9 +118,17 @@ export const trackNonprofitRegistrationRequest = () => {
 };
 
 // User clicked the "Proceed to donate" button
-export const trackProceedToDonate = () => {
+export const trackProceedToDonate = ({
+  items,
+  totalPrice,
+}: {
+  items: ProductItem[];
+  totalPrice: number;
+}) => {
   window.dataLayer.push({
     event: 'proceedToDonate',
+    items: formatProducts({ items }),
+    totalPrice,
   });
 };
 

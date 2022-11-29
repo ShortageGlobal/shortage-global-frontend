@@ -14,7 +14,7 @@ type ProceedToDonationButtonProps = {
 export function ProceedToDonationButton({
   className = '',
 }: ProceedToDonationButtonProps) {
-  const { isDonationDetailsFilled, setIsCartSidebarShown } = useCart();
+  const { cart, isDonationDetailsFilled, setIsCartSidebarShown } = useCart();
 
   const donationHref = useMemo(() => {
     return isDonationDetailsFilled
@@ -24,8 +24,21 @@ export function ProceedToDonationButton({
 
   const handleButtonClick = useCallback(() => {
     setIsCartSidebarShown(false);
-    gtm.trackProceedToDonate();
-  }, []);
+    gtm.trackProceedToDonate({
+      items: cart.items.map((item) => {
+        return {
+          productSlug: item.product.slug,
+          productName: item.product.name,
+          productPrice: item.product.price,
+          quantity: item.quantity,
+          organizationSlug: item.product.organization.slug,
+        };
+      }),
+      totalPrice: cart.items.reduce((acc, item) => {
+        return acc + item.product.price * item.quantity;
+      }, 0),
+    });
+  }, [cart]);
 
   return (
     <Link href={donationHref} passHref legacyBehavior>
