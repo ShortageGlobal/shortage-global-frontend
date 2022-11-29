@@ -56,13 +56,13 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
   // track page view
   useEffect(() => {
-    if (!isCartReady) {
+    if (!organizationCartItems) {
       return;
     }
     gtm.trackPackageRegistrationView({
       organizationSlug: organization.slug,
       organizationName: organization.name,
-      items: cart.items.map((item) => {
+      items: organizationCartItems.map((item) => {
         return {
           productSlug: item.product.slug,
           productName: item.product.name,
@@ -75,7 +75,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
         return acc + item.product.price * item.quantity;
       }, 0),
     });
-  }, [isCartReady]);
+  }, [organizationCartItems]);
 
   const shouldRedirect = useMemo(() => {
     return isCartReady && !isDonationDetailsFilled;
