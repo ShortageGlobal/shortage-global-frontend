@@ -90,7 +90,20 @@ export function DonationDetailsForm({
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       setIsPending(true);
-      gtm.trackSubmitDonationDetails();
+      gtm.trackSubmitDonationDetails({
+        items: cart.items.map((item) => {
+          return {
+            productSlug: item.product.slug,
+            productName: item.product.name,
+            productPrice: item.product.price,
+            quantity: item.quantity,
+            organizationSlug: item.product.organization.slug,
+          };
+        }),
+        totalPrice: cart.items.reduce((acc, item) => {
+          return acc + item.product.price * item.quantity;
+        }, 0),
+      });
 
       try {
         await updateCart({
@@ -148,6 +161,7 @@ export function DonationDetailsForm({
       zip,
       country,
       router,
+      cart,
     ]
   );
 

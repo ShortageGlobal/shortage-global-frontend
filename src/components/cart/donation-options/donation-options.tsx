@@ -47,6 +47,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           productName: item.product.name,
           productPrice: item.product.price,
           quantity: item.quantity,
+          organizationSlug: item.product.organization.slug,
         };
       }),
       totalPrice: cartGroup.items.reduce((acc, item) => {
@@ -105,6 +106,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           productName: item.product.name,
           productPrice: item.product.price,
           quantity: item.quantity,
+          organizationSlug: item.product.organization.slug,
         };
       }),
       totalPrice: cartGroup.items.reduce((acc, item) => {
