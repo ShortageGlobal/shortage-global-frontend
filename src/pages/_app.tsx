@@ -85,20 +85,35 @@ function MyApp({
     <>
       <Head>
         {/* for sharing  */}
-        <meta property="og:url" content="https://shortage.global" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Shortage | Donate tangible goods" />
+        <meta property="og:site_name" key="og:site_name" content="Shortage" />
+        <meta
+          property="og:url"
+          key="og:url"
+          content="https://shortage.global"
+        />
+        <meta property="og:type" key="og:type" content="website" />
+        <meta
+          property="og:title"
+          key="og:title"
+          content="Shortage | Donate tangible goods"
+        />
         <meta
           property="og:description"
+          key="og:description"
           content="A place for you to donate goods directly to the charities that need it most"
         />
         <meta
           property="og:image"
+          key="og:image"
           content="https://shortage.global/social_media_sharing_baner.png"
         />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" key="og:image:width" content="1200" />
+        <meta property="og:image:height" key="og:image:height" content="630" />
+        <meta
+          property="og:image:type"
+          key="og:image:type"
+          content="image/png"
+        />
 
         <title>Shortage | Donate tangible goods</title>
         <link rel="icon" href={faviconHref} />
