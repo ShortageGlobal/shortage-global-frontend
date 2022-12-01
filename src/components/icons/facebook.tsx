@@ -1,4 +1,4 @@
-export function Facebook({ size = 24 }: { size?: number } = {}) {
+export function Facebook({ size = 24 }: { size?: number | string } = {}) {
   return (
     <svg
       width={size}

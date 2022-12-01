@@ -1,4 +1,4 @@
-export function LinkedIn({ size = 24 }: { size?: number } = {}) {
+export function LinkedIn({ size = 24 }: { size?: number | string } = {}) {
   return (
     <svg
       width={size}

@@ -1,4 +1,4 @@
-export function Twitter({ size = 24 }: { size?: number } = {}) {
+export function Twitter({ size = 24 }: { size?: number | string } = {}) {
   return (
     <svg
       width={size}
