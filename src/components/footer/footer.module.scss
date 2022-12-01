@@ -42,12 +42,9 @@
       }
 
       :global(a) {
-        position: relative;
-        display: block;
+        display: flex;
         opacity: 0.75;
         transition: opacity 150ms ease-in-out;
-        width: 16px;
-        height: 16px;
 
         &:hover {
           opacity: 1;

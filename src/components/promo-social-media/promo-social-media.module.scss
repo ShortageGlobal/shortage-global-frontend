@@ -12,12 +12,8 @@
   }
 
   :global(a) {
-    $size: 2rem;
-    position: relative;
-    display: block;
+    display: flex;
     transition: opacity 150ms ease-in-out;
-    width: $size;
-    height: $size;
 
     &:hover {
       opacity: 1;

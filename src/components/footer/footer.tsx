@@ -1,9 +1,15 @@
 import styles from './footer.module.scss';
 import classNames from 'classnames';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Col, Container, Row } from 'react-bootstrap';
 import { LogoImage } from 'components/logo-image/logo-image';
+import {
+  Facebook,
+  Instagram,
+  LinkedIn,
+  Reddit,
+  Twitter,
+} from 'components/icons';
 
 export function Footer() {
   return (
@@ -33,12 +39,9 @@ export function Footer() {
                   href="https://www.linkedin.com/company/shortageglobal/"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Shortage LinkedIn page"
                 >
-                  <Image
-                    src="/images/social-media-glyphs/linkedin.svg"
-                    alt="Shortage LinkedIn page"
-                    fill
-                  />
+                  <LinkedIn size={16} />
                 </a>
               </li>
               <li>
@@ -46,12 +49,9 @@ export function Footer() {
                   href="https://www.facebook.com/shortage.global/"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Shortage Facebook page"
                 >
-                  <Image
-                    src="/images/social-media-glyphs/facebook.svg"
-                    alt="Shortage Facebook page"
-                    fill
-                  />
+                  <Facebook size={16} />
                 </a>
               </li>
               <li>
@@ -59,12 +59,9 @@ export function Footer() {
                   href="https://www.instagram.com/shortage.global/"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Shortage Instagram page"
                 >
-                  <Image
-                    src="/images/social-media-glyphs/instagram.svg"
-                    alt="Shortage Instagram page"
-                    fill
-                  />
+                  <Instagram size={16} />
                 </a>
               </li>
               <li>
@@ -72,12 +69,9 @@ export function Footer() {
                   href="https://twitter.com/shortageglobal"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Shortage Twitter page"
                 >
-                  <Image
-                    src="/images/social-media-glyphs/twitter.svg"
-                    alt="Shortage Twitter page"
-                    fill
-                  />
+                  <Twitter size={16} />
                 </a>
               </li>
               <li>
@@ -85,12 +79,9 @@ export function Footer() {
                   href="https://www.reddit.com/user/ShortageGlobal/"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Shortage Reddit page"
                 >
-                  <Image
-                    src="/images/social-media-glyphs/reddit.svg"
-                    alt="Shortage Reddit page"
-                    fill
-                  />
+                  <Reddit size={16} />
                 </a>
               </li>
             </ul>

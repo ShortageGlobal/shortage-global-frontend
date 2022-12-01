@@ -143,7 +143,7 @@ export function CartSidebar() {
                 className={styles.checkGoodsButton}
                 onClick={handleSidebarHide}
               >
-                <span>Check Out Our Top Requests</span>
+                <span>Check out our top requests</span>
               </Button>
             </Link>
           </>

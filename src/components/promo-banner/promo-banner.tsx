@@ -30,7 +30,7 @@ export function PromoBanner() {
                 legacyBehavior
               >
                 <Button size="lg" className={styles.checkGoodsButton}>
-                  <span>Check Out Our Top Requests</span>
+                  <span>Check out our top requests</span>
                   <ChevronsDown />
                 </Button>
               </Link>
