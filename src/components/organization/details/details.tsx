@@ -1,4 +1,5 @@
 import styles from './details.module.scss';
+import { useMemo } from 'react';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,10 +9,19 @@ import { useAppSelector } from 'core/hooks';
 import { selectOrganization } from 'core/store/slices/organization';
 import { stripProtocolFromUrl } from 'core/helpers';
 import { DeadlineCountdown } from 'components/organization/deadline-countdown/deadline-countdown';
-import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
+import { ShareButton } from 'components/share/share-button';
+import { ROOT_URL, REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
 export function OrganizationDetails() {
   const { organization } = useAppSelector(selectOrganization);
+
+  const shareUrl = useMemo(() => {
+    return `${ROOT_URL}/organizations/${organization.slug}/`;
+  }, [organization.slug]);
+
+  const shareText = useMemo(() => {
+    return `Make an in-kind gift to ${organization.name}`;
+  }, [organization.name]);
 
   return (
     <Container>
@@ -46,18 +56,22 @@ export function OrganizationDetails() {
                 ></div>
               ) : null}
 
-              <h5 className={styles.sectionHeader}>Ready to donate?</h5>
+              <h5 className={styles.sectionHeader}>Ready to help?</h5>
 
-              <Link
-                href={`#${REQUESTED_GOODS_CONTAINER_ID}`}
-                passHref
-                legacyBehavior
-              >
-                <Button size="lg" className={styles.checkGoodsButton}>
-                  <span>Check Out Our Top Requests</span>
-                  <ChevronsDown />
-                </Button>
-              </Link>
+              <div className={styles.actions}>
+                <Link
+                  href={`#${REQUESTED_GOODS_CONTAINER_ID}`}
+                  passHref
+                  legacyBehavior
+                >
+                  <Button size="lg" className={styles.checkGoodsButton}>
+                    <span>Check out our top requests</span>
+                    <ChevronsDown />
+                  </Button>
+                </Link>
+
+                <ShareButton url={shareUrl} text={shareText} />
+              </div>
             </div>
 
             {/* logo as link */}

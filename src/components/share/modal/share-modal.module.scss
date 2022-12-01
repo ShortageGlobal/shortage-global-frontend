@@ -1,0 +1,61 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.shareModal {
+  .shareModalBody {
+    > * + * {
+      margin-top: 2rem;
+    }
+  }
+
+  .socialLinks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 1rem;
+    justify-content: space-between;
+
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration-color: var(--bs-dark);
+
+      > * + * {
+        margin-top: 0.5rem;
+        color: var(--bs-dark);
+      }
+    }
+  }
+
+  .copyLinkGroup {
+    display: flex;
+    align-items: flex-end;
+
+    .copyBtn {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+
+      > * + * {
+        margin-left: 0.5rem;
+      }
+    }
+
+    > * + * {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.copySuccessTooltip {
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    margin-left: 0.25rem;
+  }
+}

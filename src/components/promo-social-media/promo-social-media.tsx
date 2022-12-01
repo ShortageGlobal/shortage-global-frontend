@@ -1,7 +1,13 @@
 import styles from './promo-social-media.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
-import Image from 'next/image';
 import { SectionHeader } from 'components/section-header/section-header';
+import {
+  Facebook,
+  Instagram,
+  LinkedIn,
+  Reddit,
+  Twitter,
+} from 'components/icons';
 
 export function PromoSocialMedia() {
   return (
@@ -20,12 +26,9 @@ export function PromoSocialMedia() {
                 href="https://www.linkedin.com/company/shortageglobal/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Shortage LinkedIn page"
               >
-                <Image
-                  src="/images/social-media-glyphs/linkedin.svg"
-                  alt="Shortage LinkedIn page"
-                  fill
-                />
+                <LinkedIn size="2rem" />
               </a>
             </li>
             <li>
@@ -33,12 +36,9 @@ export function PromoSocialMedia() {
                 href="https://www.facebook.com/shortage.global/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Shortage Facebook page"
               >
-                <Image
-                  src="/images/social-media-glyphs/facebook.svg"
-                  alt="Shortage Facebook page"
-                  fill
-                />
+                <Facebook size="2rem" />
               </a>
             </li>
             <li>
@@ -46,12 +46,9 @@ export function PromoSocialMedia() {
                 href="https://www.instagram.com/shortage.global/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Shortage Instagram page"
               >
-                <Image
-                  src="/images/social-media-glyphs/instagram.svg"
-                  alt="Shortage Instagram page"
-                  fill
-                />
+                <Instagram size="2rem" />
               </a>
             </li>
             <li>
@@ -59,12 +56,9 @@ export function PromoSocialMedia() {
                 href="https://twitter.com/shortageglobal"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Shortage Twitter page"
               >
-                <Image
-                  src="/images/social-media-glyphs/twitter.svg"
-                  alt="Shortage Twitter page"
-                  fill
-                />
+                <Twitter size="2rem" />
               </a>
             </li>
             <li>
@@ -72,12 +66,9 @@ export function PromoSocialMedia() {
                 href="https://www.reddit.com/user/ShortageGlobal/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Shortage Reddit page"
               >
-                <Image
-                  src="/images/social-media-glyphs/reddit.svg"
-                  alt="Shortage Reddit page"
-                  fill
-                />
+                <Reddit size="2rem" />
               </a>
             </li>
           </ul>
