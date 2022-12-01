@@ -7,7 +7,7 @@ export function Reddit({ size = 24 }: { size?: number | string } = {}) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1218_887)">
+      <g clipPath="url(#clip0_1218_887)">
         <path d="M6 9.50002L5.5 9.49902V9.50002H6Z" fill="black" />
         <path d="M10.5 9.50002H11L10.5 9.49902V9.50002Z" fill="black" />
         <path

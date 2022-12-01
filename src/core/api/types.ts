@@ -89,6 +89,7 @@ export type OrganizationPreview = {
 
 export type Organization = OrganizationPreview & {
   description?: string;
+  meta_description?: string;
   url?: string;
   banner?: string;
   deadline?: string;
