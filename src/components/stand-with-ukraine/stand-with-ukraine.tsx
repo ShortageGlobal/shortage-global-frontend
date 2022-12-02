@@ -1,11 +1,19 @@
 import styles from './stand-with-ukraine.module.scss';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export function StandWithUkraine() {
   return (
     <div className={styles.standWithUkraine}>
-      <Image src="/images/ukraine.svg" alt="Ukraine" width={30} height={20} />
+      {/* Ukrainian flag */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="20"
+        className={styles.flag}
+      >
+        <rect width="30" height="20" fill="#005BBB" />
+        <rect width="30" height="10" y="10" fill="#FFD500" />
+      </svg>
       <p>
         We stand with our friends and colleagues in Ukraine. To support Ukraine
         in their time of need visit{' '}

@@ -1,10 +1,15 @@
 import styles from './promo-banner.module.scss';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronsDown } from 'react-feather';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
+import {
+  GlisterLeft,
+  GlisterLeftShort,
+  GlisterRight,
+  GlisterRightShort,
+} from 'components/icons';
 
 export function PromoBanner() {
   return (
@@ -36,37 +41,21 @@ export function PromoBanner() {
               </Link>
 
               <div className={classNames(styles.image, styles.glisterLeft)}>
-                <Image
-                  alt=""
-                  src="/images/promo-banner/glister-left.svg"
-                  fill
-                />
+                <GlisterLeft />
               </div>
               <div className={classNames(styles.image, styles.glisterRight)}>
-                <Image
-                  alt=""
-                  src="/images/promo-banner/glister-right.svg"
-                  fill
-                />
+                <GlisterRight />
               </div>
 
               <div
                 className={classNames(styles.image, styles.glisterLeftShort)}
               >
-                <Image
-                  alt=""
-                  src="/images/promo-banner/glister_left_short.svg"
-                  fill
-                />
+                <GlisterLeftShort />
               </div>
               <div
                 className={classNames(styles.image, styles.glisterRightShort)}
               >
-                <Image
-                  alt=""
-                  src="/images/promo-banner/glister_right_short.svg"
-                  fill
-                />
+                <GlisterRightShort />
               </div>
             </div>
           </Col>

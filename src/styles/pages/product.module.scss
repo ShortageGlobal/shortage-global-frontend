@@ -3,16 +3,23 @@
 
 .product {
   .photoContainer {
-    @include media-breakpoint-down(md) {
-      margin-bottom: 2rem;
+    text-align: center;
+
+    .photo {
+      max-height: 500px;
+      max-width: 100%;
     }
 
     @include media-breakpoint-up(md) {
       padding-right: 2rem;
     }
 
-    .photo {
-      width: 100%;
+    @include media-breakpoint-down(md) {
+      margin-bottom: 2rem;
+
+      .photo {
+        max-height: 250px;
+      }
     }
   }
 

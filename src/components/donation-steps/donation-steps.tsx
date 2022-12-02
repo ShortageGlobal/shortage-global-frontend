@@ -1,6 +1,11 @@
 import styles from './donation-steps.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
-import Image from 'next/image';
+import {
+  ChooseItems,
+  GetTaxDeduction,
+  PurchaseSend,
+  ShareYourImpact,
+} from 'components/icons';
 
 export function DonationSteps() {
   return (
@@ -11,13 +16,7 @@ export function DonationSteps() {
             <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>1</div>
-                <div className={styles.glyph}>
-                  <Image
-                    alt=""
-                    src="/images/donation-steps/choose-items.svg"
-                    fill
-                  />
-                </div>
+                <ChooseItems size="5rem" />
               </div>
               <div className={styles.title}>Select Item(s)</div>
               <div className={styles.text}>
@@ -28,13 +27,7 @@ export function DonationSteps() {
             <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>2</div>
-                <div className={styles.glyph}>
-                  <Image
-                    alt=""
-                    src="/images/donation-steps/purchase-send.svg"
-                    fill
-                  />
-                </div>
+                <PurchaseSend size="4.5rem" />
               </div>
               <div className={styles.title}>Purchase & Send</div>
               <div className={styles.text}>
@@ -46,13 +39,7 @@ export function DonationSteps() {
             <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>3</div>
-                <div className={styles.glyph}>
-                  <Image
-                    alt=""
-                    src="/images/donation-steps/get-tax-deduction.svg"
-                    fill
-                  />
-                </div>
+                <GetTaxDeduction size="5rem" />
               </div>
               <div className={styles.title}>Get a Tax Deduction</div>
               <div className={styles.text}>
@@ -63,13 +50,7 @@ export function DonationSteps() {
             <li className={styles.donationStep}>
               <div className={styles.graphics}>
                 <div className={styles.number}>4</div>
-                <div className={styles.glyph}>
-                  <Image
-                    alt=""
-                    src="/images/donation-steps/share-your-impact.svg"
-                    fill
-                  />
-                </div>
+                <ShareYourImpact size="5rem" />
               </div>
               <div className={styles.title}>Share Your Impact</div>
               <div className={styles.text}>

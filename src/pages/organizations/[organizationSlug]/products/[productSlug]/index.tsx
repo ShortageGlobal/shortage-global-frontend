@@ -20,7 +20,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
-import { ROOT_URL, PRODUCT_CATEGORY_DETAILS } from 'core/constants';
+import { ROOT_URL, PRODUCT_CATEGORY_LABELS } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { Product } from 'core/api/types';
 
@@ -303,7 +303,7 @@ function addProductJsonLd(product: Product) {
     productSlug: product.slug,
   });
   const url = `${ROOT_URL}/organizations/${product.organization.slug}/products/${product.slug}/`;
-  const category = PRODUCT_CATEGORY_DETAILS[product.category]?.name || '';
+  const category = PRODUCT_CATEGORY_LABELS[product.category] || '';
   return {
     __html: `{
       "@context": "https://schema.org/",

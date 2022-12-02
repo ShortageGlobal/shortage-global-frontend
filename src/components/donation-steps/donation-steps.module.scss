@@ -32,6 +32,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 1rem;
+      height: 5rem;
     }
 
     .number {
@@ -47,12 +48,6 @@
       border-radius: 100%;
       background-color: $promo-step-counter-bg-color;
       color: $promo-step-counter-color;
-    }
-
-    .glyph {
-      position: relative;
-      width: 80px;
-      height: 80px;
     }
 
     .title {
@@ -75,12 +70,6 @@
       .number {
         width: 2.5rem;
         height: 2.5rem;
-      }
-
-      .glyph {
-        position: relative;
-        width: 40px;
-        height: 40px;
       }
     }
 

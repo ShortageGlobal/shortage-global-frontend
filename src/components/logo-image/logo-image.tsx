@@ -1,10 +1,6 @@
-import Image from 'next/image';
+import { Shortage, ShortageStaging } from 'components/icons';
 import { IS_STAGING } from 'core/constants';
 
 export function LogoImage() {
-  const src = IS_STAGING
-    ? '/images/logo/Shortage_staging.svg'
-    : '/images/logo/Shortage.svg';
-
-  return <Image src={src} alt="Shortage" fill priority />;
+  return IS_STAGING ? <ShortageStaging /> : <Shortage />;
 }
