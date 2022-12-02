@@ -48,71 +48,16 @@ export const PRODUCT_CATEGORY_KEY = Object.freeze({
 
 export const PRODUCT_CATEGORY_ALL_KEY = '_ALL_';
 
-export const PRODUCT_CATEGORY_DETAILS = Object.freeze({
-  [PRODUCT_CATEGORY_ALL_KEY]: {
-    key: PRODUCT_CATEGORY_ALL_KEY,
-    queryFilter: '',
-    name: 'All',
-    img: '/images/categories/supply_category_all_.svg',
-    imgActive: '/images/categories/supply_category_all_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.VITAL_GOODS]: {
-    key: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
-    queryFilter: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
-    name: 'Vital Goods',
-    img: '/images/categories/supply_category_vital_.svg',
-    imgActive: '/images/categories/supply_category_vital_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.HEALTHCARE]: {
-    key: PRODUCT_CATEGORY_KEY.HEALTHCARE,
-    queryFilter: PRODUCT_CATEGORY_KEY.HEALTHCARE,
-    name: 'Healthcare',
-    img: '/images/categories/supply_category_health_.svg',
-    imgActive: '/images/categories/supply_category_health_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.EDUCATION]: {
-    key: PRODUCT_CATEGORY_KEY.EDUCATION,
-    queryFilter: PRODUCT_CATEGORY_KEY.EDUCATION,
-    name: 'Education',
-    img: '/images/categories/supply_category_education_.svg',
-    imgActive: '/images/categories/supply_category_education_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.BABY_CARE]: {
-    key: PRODUCT_CATEGORY_KEY.BABY_CARE,
-    queryFilter: PRODUCT_CATEGORY_KEY.BABY_CARE,
-    name: 'Baby Care',
-    img: '/images/categories/supply_category_baby_.svg',
-    imgActive: '/images/categories/supply_category_baby_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: {
-    key: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
-    queryFilter: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
-    name: 'Save Animals',
-    img: '/images/categories/supply_category_animals_.svg',
-    imgActive: '/images/categories/supply_category_animals_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS]: {
-    key: PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
-    queryFilter: PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
-    name: 'Household Items',
-    img: '/images/categories/supply_category_household_items_.svg',
-    imgActive:
-      '/images/categories/supply_category_household_items_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.FOOD]: {
-    key: PRODUCT_CATEGORY_KEY.FOOD,
-    queryFilter: PRODUCT_CATEGORY_KEY.FOOD,
-    name: 'Food',
-    img: '/images/categories/supply_category_food_.svg',
-    imgActive: '/images/categories/supply_category_food_selected.svg',
-  },
-  [PRODUCT_CATEGORY_KEY.TOYS]: {
-    key: PRODUCT_CATEGORY_KEY.TOYS,
-    queryFilter: PRODUCT_CATEGORY_KEY.TOYS,
-    name: 'Toys',
-    img: '/images/categories/supply_category_toys_.svg',
-    imgActive: '/images/categories/supply_category_toys_selected.svg',
-  },
+export const PRODUCT_CATEGORY_LABELS = Object.freeze({
+  [PRODUCT_CATEGORY_ALL_KEY]: 'All',
+  [PRODUCT_CATEGORY_KEY.VITAL_GOODS]: 'Vital Goods',
+  [PRODUCT_CATEGORY_KEY.HEALTHCARE]: 'Healthcare',
+  [PRODUCT_CATEGORY_KEY.EDUCATION]: 'Education',
+  [PRODUCT_CATEGORY_KEY.BABY_CARE]: 'Baby Care',
+  [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: 'Save Animals',
+  [PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS]: 'Household Items',
+  [PRODUCT_CATEGORY_KEY.FOOD]: 'Food',
+  [PRODUCT_CATEGORY_KEY.TOYS]: 'Toys',
 });
 
 export const PRODUCT_CATEGORY_LIST = Object.freeze([

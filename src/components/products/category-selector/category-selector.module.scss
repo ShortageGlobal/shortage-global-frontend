@@ -37,16 +37,6 @@
       text-decoration: none;
     }
 
-    .categoryLinkImage {
-      position: relative;
-      width: 60px;
-      height: 60px;
-    }
-
-    .hidden {
-      visibility: hidden;
-    }
-
     @include media-breakpoint-down(md) {
       margin: 1rem 0rem 0;
     }
