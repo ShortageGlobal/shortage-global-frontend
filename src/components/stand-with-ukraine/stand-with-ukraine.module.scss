@@ -9,6 +9,10 @@
   background-color: #ceddff;
   line-height: 1.3rem;
 
+  .flag {
+    flex-shrink: 0;
+  }
+
   > * {
     margin: 0;
   }

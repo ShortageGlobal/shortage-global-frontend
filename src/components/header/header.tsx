@@ -68,10 +68,8 @@ export function Header() {
       >
         {/* <GlobalNotification /> */}
         <Container className={styles.container}>
-          <Link href="/" passHref legacyBehavior>
-            <Navbar.Brand className={styles.navbarBrand}>
-              <LogoImage />
-            </Navbar.Brand>
+          <Link href="/" className={styles.logo}>
+            <LogoImage />
           </Link>
 
           <div className={styles.controlsBar}>

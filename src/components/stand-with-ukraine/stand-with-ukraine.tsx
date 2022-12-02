@@ -5,7 +5,12 @@ export function StandWithUkraine() {
   return (
     <div className={styles.standWithUkraine}>
       {/* Ukrainian flag */}
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="20"
+        className={styles.flag}
+      >
         <rect width="30" height="20" fill="#005BBB" />
         <rect width="30" height="10" y="10" fill="#FFD500" />
       </svg>

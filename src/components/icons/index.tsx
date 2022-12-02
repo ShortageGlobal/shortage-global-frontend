@@ -3,6 +3,9 @@ export * from './donation-steps/get-tax-deduction';
 export * from './donation-steps/purchase-send';
 export * from './donation-steps/share-your-impact';
 
+export * from './logo/shortage';
+export * from './logo/shortage-staging';
+
 export * from './product-categories/all-category';
 export * from './product-categories/baby-care';
 export * from './product-categories/education';
