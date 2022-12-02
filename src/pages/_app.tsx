@@ -7,8 +7,7 @@ import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
-import localFont from '@next/font/local';
-import classNames from 'classnames';
+import { Jost } from '@next/font/google';
 import { wrapper } from 'core/store';
 import { commonLayout } from 'core/layouts';
 import * as gtm from 'core/tracking/gtm';
@@ -23,30 +22,8 @@ import type { Session } from 'next-auth';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 
-const jostFont = localFont({
-  src: [
-    {
-      path: '../fonts/jost/Jost-400-Book.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/jost/Jost-400-BookItalic.woff2',
-      weight: '400',
-      style: 'italic',
-    },
-    {
-      path: '../fonts/jost/Jost-500-Medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/jost/Jost-600-Semi.woff2',
-      weight: '600',
-      style: 'bold',
-    },
-  ],
-});
+// import font
+const jost = Jost({ subsets: ['latin'] });
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -158,6 +135,13 @@ function MyApp({
         <link rel="manifest" href="/manifest.json" />
       </Head>
 
+      {/* define font variable */}
+      <style jsx global>{`
+        :root {
+          --jost-font: ${jost.style.fontFamily};
+        }
+      `}</style>
+
       {/* Google Tag Manager - Global base code */}
       <Script
         id="gtag-base"
@@ -191,11 +175,7 @@ function MyApp({
             breakpoints={['xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
             minBreakpoint="xxs"
           >
-            <div
-              className={classNames('jost-font-container', jostFont.className)}
-            >
-              {getLayout(<Component {...pageProps} />)}
-            </div>
+            {getLayout(<Component {...pageProps} />)}
           </ThemeProvider>
         </SessionProvider>
       </SSRProvider>

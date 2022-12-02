@@ -19,8 +19,10 @@ $grid-breakpoints: (
 @import 'bootstrap/scss/variables';
 
 // Base
+$font-family-base: var(--jost-font), $font-family-sans-serif;
 $link-decoration: none;
 $link-hover-decoration: underline;
+$dt-font-weight: 500;
 $primary-button-color: $white;
 $secondary-background: #f4f6f8;
 

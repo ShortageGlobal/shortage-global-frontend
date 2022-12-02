@@ -72,7 +72,7 @@
 
     .nameLink {
       color: $cart-item-product-name-link-color;
-      font-weight: 700;
+      font-weight: 600;
       @include text-truncate();
     }
 
