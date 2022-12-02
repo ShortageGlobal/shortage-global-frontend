@@ -13,6 +13,11 @@ export * from './product-categories/save-animals';
 export * from './product-categories/toys';
 export * from './product-categories/vital-goods';
 
+export * from './promo-banner/glister-left';
+export * from './promo-banner/glister-left-short';
+export * from './promo-banner/glister-right';
+export * from './promo-banner/glister-right-short';
+
 export * from './social-media/email';
 export * from './social-media/facebook';
 export * from './social-media/instagram';
