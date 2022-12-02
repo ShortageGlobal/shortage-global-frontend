@@ -1,6 +1,5 @@
 import styles from './donation-steps.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
-import Image from 'next/image';
 import {
   ChooseItems,
   GetTaxDeduction,
