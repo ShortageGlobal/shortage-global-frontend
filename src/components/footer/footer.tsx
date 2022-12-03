@@ -21,7 +21,7 @@ export function Footer() {
       <Container>
         <Row>
           <Col md="6" className={styles.leftColumn}>
-            <Link href="/" className={styles.logo}>
+            <Link href="/" className={styles.logo} aria-label="Shortage">
               <LogoImage />
             </Link>
 

@@ -3,7 +3,7 @@ import { GOOGLE_TAG_MANAGER_NOSCRIPT_SRC } from 'core/constants';
 
 export default function Document() {
   return (
-    <Html>
+    <Html lang="en">
       <Head />
       <body>
         {/* Google Tag Manager (noscript) */}

@@ -72,11 +72,18 @@ const OrganizationPage: NextPageWithLayout = () => {
         <meta property="og:url" key="og:url" content={metaUrl} />
         <meta property="og:title" key="og:title" content={metaTitle} />
         {metaDescription ? (
-          <meta
-            property="og:description"
-            key="og:description"
-            content={metaDescription}
-          />
+          <>
+            <meta
+              property="og:description"
+              key="og:description"
+              content={metaDescription}
+            />
+            <meta
+              property="description"
+              key="description"
+              content={metaDescription}
+            />
+          </>
         ) : null}
         {metaImage ? (
           <>

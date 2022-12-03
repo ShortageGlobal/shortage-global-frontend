@@ -30,6 +30,7 @@ const AccountMenuToggler = forwardRef<
         onClick(e);
       }}
       className={toggleClassName}
+      aria-label="Toggle account menu"
     >
       {children}
     </Button>
