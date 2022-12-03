@@ -68,7 +68,7 @@ export function Header() {
       >
         {/* <GlobalNotification /> */}
         <Container className={styles.container}>
-          <Link href="/" className={styles.logo}>
+          <Link href="/" className={styles.logo} aria-label="Shortage">
             <LogoImage />
           </Link>
 
@@ -79,6 +79,7 @@ export function Header() {
               variant=""
               className={styles.navbarToggle}
               onClick={() => setIsNavbarExpanded(!isNavbarExpanded)}
+              aria-label="Toggle menu"
             >
               {isNavbarExpanded ? <X /> : <Menu />}
             </Button>

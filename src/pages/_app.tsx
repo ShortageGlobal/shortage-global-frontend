@@ -88,6 +88,12 @@ function MyApp({
   return (
     <>
       <Head>
+        <meta
+          property="description"
+          key="description"
+          content="A place for you to donate goods directly to the charities that need it most"
+        />
+
         {/* for sharing  */}
         <meta property="og:site_name" key="og:site_name" content="Shortage" />
         <meta
