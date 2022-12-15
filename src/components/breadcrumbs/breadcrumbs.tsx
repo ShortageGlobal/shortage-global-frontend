@@ -2,6 +2,7 @@ import styles from './breadcrumbs.module.scss';
 import classNames from 'classnames';
 import { Home } from 'react-feather';
 import Link, { LinkProps } from 'next/link';
+import { truncateString } from 'core/helpers';
 import type { Slug, Uuid } from 'core/api/types';
 import type { ReactNode } from 'react';
 
@@ -22,6 +23,10 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
     <nav aria-label="breadcrumb">
       <ol className={classNames('breadcrumb', styles.breadcrumb)}>
         {items.map((item) => {
+          const label =
+            typeof item.label === 'string'
+              ? truncateString({ value: item.label, maxLength: 50 })
+              : item.label;
           return (
             <li
               key={item.key}
@@ -35,10 +40,10 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               {...(item.isActive ? { 'aria-current': 'page' } : {})}
             >
               {item.isActive ? (
-                <span>{item.label}</span>
+                <span>{label}</span>
               ) : (
                 <Link href={item.href} className={styles.link}>
-                  {item.label}
+                  {label}
                 </Link>
               )}
             </li>

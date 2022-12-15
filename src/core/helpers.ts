@@ -7,6 +7,7 @@ import type {
   Profile,
 } from 'core/api/types';
 import type { ReactNode } from 'react';
+import { kMaxLength } from 'buffer';
 
 // format axios error so it could be stored in redux state
 export function serizalizeAxiosError(rejection): AxiosSerializedError {
@@ -137,4 +138,19 @@ export function formatDateForHumans({
     year: 'numeric',
     day: 'numeric',
   });
+}
+
+// Transform this: 'Long string'
+// Into this: 'Long s...'
+export function truncateString({
+  value,
+  maxLength = 50,
+}: {
+  value: string;
+  maxLength?: number;
+}) {
+  if (value.length <= maxLength) {
+    return value;
+  }
+  return `${value.slice(0, maxLength).trim()}…`;
 }

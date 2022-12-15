@@ -27,9 +27,9 @@ import {
 import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
 import { PackageLogs } from 'components/package-logs/package-logs';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
+import { BlogPostCard } from 'components/blog-posts/blog-post-card/blog-post-card';
 import { PACKAGE_TYPE } from 'core/constants';
 import type { FormEvent } from 'react';
-import { BlogPostCard } from 'components/blog-post-card/blog-post-card';
 
 export function PackageStatus() {
   const router = useRouter();

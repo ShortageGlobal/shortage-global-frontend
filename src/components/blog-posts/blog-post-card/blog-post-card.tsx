@@ -1,15 +1,19 @@
 import styles from './blog-post-card.module.scss';
+import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import classNames from 'classnames';
-import { formatDateForHumans } from 'core/helpers';
+import { formatDateForHumans, truncateString } from 'core/helpers';
 import type { BlogPostPreview } from 'core/api/types';
 
 type BlogPostCardProps = {
   blogPost: BlogPostPreview;
+  isVertical?: boolean;
 };
 
-export function BlogPostCard({ blogPost }: BlogPostCardProps) {
+export function BlogPostCard({
+  blogPost,
+  isVertical = false,
+}: BlogPostCardProps) {
   return (
     <Link
       href={{
@@ -20,7 +24,9 @@ export function BlogPostCard({ blogPost }: BlogPostCardProps) {
           blogPostSlug: blogPost.slug,
         },
       }}
-      className={styles.blogPostCard}
+      className={classNames(styles.blogPostCard, {
+        [styles.vertical]: isVertical,
+      })}
     >
       {/* photo */}
       {blogPost.image ? (
@@ -35,7 +41,11 @@ export function BlogPostCard({ blogPost }: BlogPostCardProps) {
       ) : null}
 
       <div className={styles.content}>
-        <div className={classNames(styles.title)}>{blogPost.title}</div>
+        <div className={classNames(styles.title)}>
+          {isVertical
+            ? truncateString({ value: blogPost.title, maxLength: 50 })
+            : blogPost.title}
+        </div>
 
         <div className={styles.text}>
           <div className={styles.detailKey}>updated on</div>

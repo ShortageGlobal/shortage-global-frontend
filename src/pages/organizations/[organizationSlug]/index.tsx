@@ -14,6 +14,10 @@ import {
   setCurrentCategory,
 } from 'core/store/slices/categories';
 import { fetchProducts } from 'core/store/slices/products';
+import {
+  fetchOrganizationBlogPosts,
+  selectOrganizationBlogPosts,
+} from 'core/store/slices/organization-blog-posts';
 import { setSearchQuery } from 'core/store/slices/search';
 import {
   Breadcrumbs,
@@ -23,17 +27,20 @@ import {
 import { OrganizationDetails } from 'components/organization/details/details';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
 import { OrganizationProducts } from 'components/organization/products/products';
+import { OrganizationBlogPosts } from 'components/organization/blog-posts/blog-posts';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import {
   ROOT_URL,
   PRODUCT_CATEGORY_ALL_KEY,
   PRODUCTS_PAGE_SIZE,
+  BLOG_POSTS_PAGE_SIZE,
 } from 'core/constants';
 import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const OrganizationPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
+  const { organizationBlogPosts } = useAppSelector(selectOrganizationBlogPosts);
 
   const { metaUrl, metaTitle, metaDescription, metaImage } = useMemo(() => {
     return {
@@ -116,6 +123,8 @@ const OrganizationPage: NextPageWithLayout = () => {
 
       <OrganizationProducts />
 
+      {organizationBlogPosts?.length > 0 ? <OrganizationBlogPosts /> : null}
+
       <PromoSocialMedia />
     </>
   );
@@ -128,6 +137,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await Promise.all([
       store.dispatch(fetchOrganization({ organizationSlug })),
       store.dispatch(fetchCategories({ organizationSlug })),
+      store.dispatch(
+        fetchOrganizationBlogPosts({
+          organizationSlug,
+          limit: BLOG_POSTS_PAGE_SIZE,
+        })
+      ),
     ]);
 
     const { organization } = store.getState();

@@ -17,6 +17,7 @@ import { promotedProductsReducer } from 'core/store/slices/promoted-products';
 import { organizationReducer } from 'core/store/slices/organization';
 import { categoriesReducer } from 'core/store/slices/categories';
 import { productsReducer } from 'core/store/slices/products';
+import { organizationBlogPostsReducer } from 'core/store/slices/organization-blog-posts';
 import { productReducer } from 'core/store/slices/product';
 import { instructionsReducer } from 'core/store/slices/instructions';
 import { packageReducer } from 'core/store/slices/package';
@@ -34,6 +35,7 @@ const combinedReducer = combineReducers({
   organization: organizationReducer,
   categories: categoriesReducer,
   products: productsReducer,
+  organizationBlogPosts: organizationBlogPostsReducer,
   product: productReducer,
   instructions: instructionsReducer,
   package: packageReducer,
