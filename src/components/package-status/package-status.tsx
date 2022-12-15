@@ -40,8 +40,6 @@ export function PackageStatus() {
   const packageBlogPosts = useAppSelector(selectPackageBlogPosts);
   const [isNotePending, setIsNotePending] = useState(false);
 
-  console.log(packageBlogPosts);
-
   const { isCartReady, cart, deleteFromCart } = useCart();
   const { showNotification } = useNotifications();
 

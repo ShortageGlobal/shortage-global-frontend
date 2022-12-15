@@ -1,0 +1,81 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.blogPostCard {
+  display: flex;
+  padding: 2rem;
+  color: $card-color;
+  border: 1px solid $border-color;
+
+  &:hover {
+    color: $card-color;
+    background-color: $card-bg;
+    text-decoration: none;
+
+    .title {
+      text-decoration: underline;
+    }
+  }
+
+  .imageWrap {
+    $width: 533px;
+    $height: 400px;
+
+    grid-area: image;
+    position: relative;
+    width: $width / 3;
+    height: $height / 3;
+    flex-shrink: 0;
+    margin-right: 2rem;
+
+    .image {
+      object-fit: cover;
+      border: 1px solid $card-image-border-color;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .title {
+    grid-area: title;
+    font-size: 1.5rem;
+    word-break: break-word;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+
+  .text {
+    .detailKey {
+      color: $card-secondary-color;
+    }
+
+    .detailValue {
+      font-size: 1.1rem;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: 1rem;
+
+    .title {
+      font-size: 1.25rem;
+    }
+
+    .imageWrap {
+      margin-right: 1rem;
+    }
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+
+    .imageWrap {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  }
+}
