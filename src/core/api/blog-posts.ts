@@ -26,19 +26,14 @@ export function fetchPackageBlogPosts({
   );
 }
 
-export type FetchOrganizationBlogPostsParams = {
-  accessToken?: string;
-} & OrganizationSlugParams;
+export type FetchOrganizationBlogPostsParams = OrganizationSlugParams;
 export function fetchOrganizationBlogPosts({
   organizationSlug,
-  accessToken = null,
   cancelToken = null,
 }: FetchOrganizationBlogPostsParams) {
-  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
-
   return axios.get<BlogPostPreview[]>(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/blog_posts/`),
-    { cancelToken: cancelToken?.token, headers }
+    { cancelToken: cancelToken?.token }
   );
 }
 
