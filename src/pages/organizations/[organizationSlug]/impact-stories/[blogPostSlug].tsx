@@ -1,6 +1,6 @@
 import styles from 'styles/pages/organization-blog-post.module.scss';
 import { useMemo } from 'react';
-import { Container, Row, Col, Alert, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
 import Image from 'next/image';
 import { wrapper } from 'core/store';
