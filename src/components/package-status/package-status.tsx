@@ -16,6 +16,7 @@ import {
 } from 'core/hooks';
 import { selectOrganization } from 'core/store/slices/organization';
 import { fetchPackage, selectPackage } from 'core/store/slices/package';
+import { selectPackageBlogPosts } from 'core/store/slices/package-blog-posts';
 import { updatePackageNote } from 'core/api';
 import {
   Breadcrumbs,
@@ -28,6 +29,7 @@ import { PackageLogs } from 'components/package-logs/package-logs';
 import { ProceedToDonationButton } from 'components/proceed-to-donation-button/proceed-to-donation-button';
 import { PACKAGE_TYPE } from 'core/constants';
 import type { FormEvent } from 'react';
+import { BlogPostCard } from 'components/blog-post-card/blog-post-card';
 
 export function PackageStatus() {
   const router = useRouter();
@@ -35,6 +37,7 @@ export function PackageStatus() {
   const dispatch = useAppDispatch();
   const { organization } = useAppSelector(selectOrganization);
   const packageState = useAppSelector(selectPackage);
+  const packageBlogPosts = useAppSelector(selectPackageBlogPosts);
   const [isNotePending, setIsNotePending] = useState(false);
 
   const { isCartReady, cart, deleteFromCart } = useCart();
@@ -401,6 +404,26 @@ export function PackageStatus() {
                     </Button>
                   </Form>
                 </div>
+
+                {/* My Impact */}
+                {packageBlogPosts.packageBlogPosts?.length > 0 ? (
+                  <div className={styles.myImpactBlock}>
+                    <header className={styles.sectionHeader}>
+                      <h5>My Impact</h5>
+                    </header>
+
+                    <div className={styles.blogPosts}>
+                      {packageBlogPosts.packageBlogPosts.map((blogPost) => {
+                        return (
+                          <BlogPostCard
+                            key={blogPost.slug}
+                            blogPost={blogPost}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
               </Col>
             </Row>
           </Col>

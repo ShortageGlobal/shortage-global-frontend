@@ -10,6 +10,7 @@ import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account
 import { wrapper } from 'core/store';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { fetchAccountPackages } from 'core/api';
+import { formatDateForHumans } from 'core/helpers';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -163,10 +164,9 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                           onClick={() => handleRowClick(p.uuid)}
                         >
                           <td className={styles.dateColumn}>
-                            {new Date(p.created_at).toLocaleString('en-us', {
-                              month: 'short',
-                              day: 'numeric',
-                              year: 'numeric',
+                            {formatDateForHumans({
+                              date: p.created_at,
+                              isMonthShort: true,
                             })}
                           </td>
 

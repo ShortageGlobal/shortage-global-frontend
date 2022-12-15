@@ -123,3 +123,18 @@ export function pluralize(
 export function getProductId({ organizationSlug, productSlug }) {
   return `${organizationSlug} / ${productSlug}`;
 }
+
+// Return format: "December 14, 2022"
+export function formatDateForHumans({
+  date,
+  isMonthShort = false, // "Dec" or "December"
+}: {
+  date: Date | string;
+  isMonthShort?: boolean;
+}) {
+  return new Date(date).toLocaleString('en-us', {
+    month: isMonthShort ? 'short' : 'long',
+    year: 'numeric',
+    day: 'numeric',
+  });
+}

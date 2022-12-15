@@ -167,5 +167,5 @@ export const PAGE_KEY = Object.freeze({
 });
 
 // pagination
-export const PAGE_SIZES = [5, 10, 15, 20];
-export const DEFAULT_PAGE_SIZE = 10;
+export const PAGE_SIZES = [15, 30, 45];
+export const DEFAULT_PAGE_SIZE = 15;

@@ -20,6 +20,7 @@ import { productsReducer } from 'core/store/slices/products';
 import { productReducer } from 'core/store/slices/product';
 import { instructionsReducer } from 'core/store/slices/instructions';
 import { packageReducer } from 'core/store/slices/package';
+import { packageBlogPostsReducer } from 'core/store/slices/package-blog-posts';
 
 const combinedReducer = combineReducers({
   user: userReducer,
@@ -36,6 +37,7 @@ const combinedReducer = combineReducers({
   product: productReducer,
   instructions: instructionsReducer,
   package: packageReducer,
+  packageBlogPosts: packageBlogPostsReducer,
 });
 
 const reducer = (
