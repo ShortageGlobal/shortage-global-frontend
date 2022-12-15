@@ -2,6 +2,8 @@ import axios from 'axios';
 import { API_ROOT } from 'core/constants';
 import type {
   OrganizationSlugParams,
+  PaginationParams,
+  PaginatedResponse,
   BlogPost,
   BlogPostPreview,
 } from 'core/api/types';
@@ -26,14 +28,17 @@ export function fetchPackageBlogPosts({
   );
 }
 
-export type FetchOrganizationBlogPostsParams = OrganizationSlugParams;
+export type FetchOrganizationBlogPostsParams = OrganizationSlugParams &
+  PaginationParams;
 export function fetchOrganizationBlogPosts({
   organizationSlug,
+  limit = null,
+  offset = null,
   cancelToken = null,
 }: FetchOrganizationBlogPostsParams) {
-  return axios.get<BlogPostPreview[]>(
+  return axios.get<PaginatedResponse<BlogPostPreview>>(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/blog_posts/`),
-    { cancelToken: cancelToken?.token }
+    { params: { limit, offset }, cancelToken: cancelToken?.token }
   );
 }
 

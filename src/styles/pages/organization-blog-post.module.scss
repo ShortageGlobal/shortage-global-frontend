@@ -22,6 +22,11 @@
       max-width: 100%;
       height: auto;
     }
+
+    @include media-breakpoint-up(md) {
+      margin-left: -3rem;
+      margin-right: -3rem;
+    }
   }
 
   .content {

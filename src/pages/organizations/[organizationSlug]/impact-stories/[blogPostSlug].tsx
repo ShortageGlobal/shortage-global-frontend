@@ -112,6 +112,7 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
                   width="1244"
                   height="700"
                   alt=""
+                  priority
                 />
               </div>
             ) : null}

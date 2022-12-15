@@ -157,6 +157,8 @@ export const REQUESTED_GOODS_CONTAINER_ID = 'most-requested-items';
 
 export const PRODUCTS_PAGE_SIZE = 15;
 
+export const BLOG_POSTS_PAGE_SIZE = 15;
+
 // local storage keys
 export const CART_ID_KEY = 'cart-id';
 

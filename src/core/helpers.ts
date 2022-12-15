@@ -138,3 +138,18 @@ export function formatDateForHumans({
     day: 'numeric',
   });
 }
+
+// Transform this: 'Long string'
+// Into this: 'Long s...'
+export function truncateString({
+  value,
+  maxLength = 50,
+}: {
+  value: string;
+  maxLength?: number;
+}) {
+  if (value.length <= maxLength) {
+    return value;
+  }
+  return `${value.slice(0, maxLength).trim()}…`;
+}
