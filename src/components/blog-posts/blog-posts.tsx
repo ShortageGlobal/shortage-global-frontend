@@ -20,7 +20,7 @@ export function BlogPosts({
 }: BlogPostsProps) {
   return (
     <div className={styles.blogPosts}>
-      {/* Header and Category Selector */}
+      {/* Header */}
       <Container>
         <Row>
           <Col>
