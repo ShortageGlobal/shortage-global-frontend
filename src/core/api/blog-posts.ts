@@ -41,7 +41,7 @@ export type FetchOrganizationBlogPostParams = {
   accessToken?: string;
   blogPostSlug: BlogPost['slug'];
 } & OrganizationSlugParams;
-export function FetchOrganizationBlogPostParams({
+export function fetchOrganizationBlogPost({
   organizationSlug,
   blogPostSlug,
   accessToken = null,

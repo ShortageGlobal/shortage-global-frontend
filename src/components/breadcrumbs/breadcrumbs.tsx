@@ -290,3 +290,25 @@ export const getProductCrumb = ({
     },
     ...props,
   });
+
+export const getOrganizationBlogPostCrumb = ({
+  organizationSlug,
+  blogPostSlug,
+  blogPostTitle,
+  ...props
+}: {
+  organizationSlug: Slug;
+  blogPostSlug: Slug;
+  blogPostTitle: string;
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'organization-blog-post-crumb',
+    label: blogPostTitle,
+    href: {
+      pathname:
+        '/organizations/[organizationSlug]/impact-stories/[blogPostSlug]/',
+      query: { organizationSlug, blogPostSlug },
+    },
+    ...props,
+  });
