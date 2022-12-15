@@ -7,7 +7,6 @@ import type {
   Profile,
 } from 'core/api/types';
 import type { ReactNode } from 'react';
-import { kMaxLength } from 'buffer';
 
 // format axios error so it could be stored in redux state
 export function serizalizeAxiosError(rejection): AxiosSerializedError {
