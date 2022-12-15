@@ -80,4 +80,10 @@
       }
     }
   }
+
+  .blogPosts {
+    > * + * {
+      margin-top: 1rem;
+    }
+  }
 }

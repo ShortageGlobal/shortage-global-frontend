@@ -121,12 +121,12 @@ $category-selector-color-active: $primary;
 // Card
 $card-bg: $secondary-background;
 $card-border-width: 0px;
+$card-color: var(--bs-body-color);
+$card-image-border-color: var(--bs-dark);
+$card-secondary-color: $text-muted;
 
 // Product Card
-$product-card-image-border-color: var(--bs-dark);
 $product-card-image-background-color: var(--bs-body-bg);
-$product-card-color: var(--bs-body-color);
-$product-card-secondary-color: $text-muted;
 $product-card-organization-link-color: $primary;
 
 // Badge

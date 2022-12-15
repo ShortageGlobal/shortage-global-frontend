@@ -197,3 +197,17 @@ export type Cart = {
   zip?: string;
   country?: string;
 };
+
+export type BlogPostPreview = {
+  title: string;
+  slug: Slug;
+  image?: string;
+  created_at: string;
+  updated_at: string;
+  organization: OrganizationPreview;
+};
+
+export type BlogPost = BlogPostPreview & {
+  content: string;
+  meta_description?: string;
+};
