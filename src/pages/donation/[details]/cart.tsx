@@ -248,11 +248,12 @@ const DonationCart: NextPageWithLayout = () => {
                     <ol className={styles.donationOptionsAlertList}>
                       <li>
                         <b>Order items</b> - we will buy the selected goods on
-                        your behalf.
+                        your behalf and send them directly to the nonprofit you
+                        chose.
                       </li>
                       <li>
                         <b>Donate what you have</b> - we will provide delivery
-                        instructions.
+                        instructions so you could send the gift yourself.
                       </li>
                     </ol>
                   </div>
