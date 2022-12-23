@@ -1,5 +1,6 @@
 import './interceptors';
 
+export * from './sitemap';
 export * from './account';
 export * from './cart';
 export * from './promoted';
