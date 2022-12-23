@@ -9,7 +9,7 @@ import {
 import { ROOT_URL } from 'core/constants';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // Method to source urls from cms
+  // fetch slugs
   const [{ data: organizations }, { data: products }, { data: blogPosts }] =
     await Promise.all([
       fetchOrganizationSlugs(),
