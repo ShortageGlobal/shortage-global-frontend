@@ -1,21 +1,23 @@
 import Head from 'next/head';
 import { wrapper } from 'core/store';
-import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
+// import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
 import {
   fetchPromotedCategories,
   setCurrentCategory,
 } from 'core/store/slices/promoted-categories';
 import { fetchPromotedProducts } from 'core/store/slices/promoted-products';
+import { fetchPromotedBlogPosts } from 'core/store/slices/promoted-blog-posts';
 import { setSearchQuery } from 'core/store/slices/search';
 import { StandWithUkraine } from 'components/stand-with-ukraine/stand-with-ukraine';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
 import { PromoCampaign } from 'components/promo-campaign/promo-campaign';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
+import { PromotedBlogPosts } from 'components/promoted-blog-posts/promoted-blog-posts';
 // import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PromoFeedback } from 'components/promo-feedback/promo-feedback';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
-import { PRODUCT_CATEGORY_ALL_KEY, PRODUCTS_PAGE_SIZE } from 'core/constants';
+import { PRODUCT_CATEGORY_ALL_KEY, BLOG_POSTS_PAGE_SIZE } from 'core/constants';
 import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
@@ -36,6 +38,7 @@ const IndexPage: NextPageWithLayout = () => {
       <PromotedProducts />
       {/* <PromotedOrganizations /> */}
       <PromoFeedback />
+      <PromotedBlogPosts />
       <PromoSocialMedia />
     </>
   );
@@ -45,8 +48,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     // fetch organizations and categories
     await Promise.all([
-      store.dispatch(fetchPromotedOrganizations()),
+      // store.dispatch(fetchPromotedOrganizations()),
       store.dispatch(fetchPromotedCategories()),
+      store.dispatch(fetchPromotedBlogPosts({ limit: BLOG_POSTS_PAGE_SIZE })),
     ]);
 
     // try to extract category from query parameters
@@ -69,7 +73,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       fetchPromotedProducts({
         category: currentCategory,
         search,
-        limit: PRODUCTS_PAGE_SIZE,
+        limit: BLOG_POSTS_PAGE_SIZE,
       })
     );
 

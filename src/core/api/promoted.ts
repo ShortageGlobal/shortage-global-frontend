@@ -7,6 +7,7 @@ import type {
   PaginatedResponse,
   OrganizationPreview,
   ProductPreview,
+  BlogPostPreview,
 } from 'core/api/types';
 
 export function fetchPromotedOrganizations({
@@ -17,10 +18,7 @@ export function fetchPromotedOrganizations({
   return axios.get<PaginatedResponse<OrganizationPreview>>(
     encodeURI(`${API_ROOT}/api/promoted/organizations/`),
     {
-      params: {
-        limit,
-        offset,
-      },
+      params: { limit, offset },
       cancelToken: cancelToken?.token,
     }
   );
@@ -57,6 +55,21 @@ export function fetchPromotedProducts({
         limit,
         offset,
       },
+      cancelToken: cancelToken?.token,
+    }
+  );
+}
+
+export type FetchPromotedBlogPostsParams = PaginationWithCancelTokenParams;
+export function fetchPromotedBlogPosts({
+  limit = null,
+  offset = null,
+  cancelToken = null,
+}: FetchPromotedBlogPostsParams = {}) {
+  return axios.get<PaginatedResponse<BlogPostPreview>>(
+    encodeURI(`${API_ROOT}/api/promoted/blog_posts/`),
+    {
+      params: { limit, offset },
       cancelToken: cancelToken?.token,
     }
   );
