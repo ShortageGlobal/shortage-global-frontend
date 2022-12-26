@@ -6,8 +6,8 @@ import {
   selectPromotedBlogPosts,
   setIsLoading,
 } from 'core/store/slices/promoted-blog-posts';
-import { BLOG_POSTS_PAGE_SIZE } from 'core/constants';
 import { BlogPosts } from 'components/blog-posts/blog-posts';
+import { BLOG_POSTS_PAGE_SIZE } from 'core/constants';
 
 export function PromotedBlogPosts() {
   const dispatch = useAppDispatch();
