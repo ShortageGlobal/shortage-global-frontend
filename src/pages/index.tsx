@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useAppSelector } from 'core/hooks';
 import { wrapper } from 'core/store';
 // import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
 import {
@@ -6,7 +7,10 @@ import {
   setCurrentCategory,
 } from 'core/store/slices/promoted-categories';
 import { fetchPromotedProducts } from 'core/store/slices/promoted-products';
-import { fetchPromotedBlogPosts } from 'core/store/slices/promoted-blog-posts';
+import {
+  fetchPromotedBlogPosts,
+  selectPromotedBlogPosts,
+} from 'core/store/slices/promoted-blog-posts';
 import { setSearchQuery } from 'core/store/slices/search';
 import { StandWithUkraine } from 'components/stand-with-ukraine/stand-with-ukraine';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
@@ -22,6 +26,8 @@ import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const IndexPage: NextPageWithLayout = () => {
+  const { promotedBlogPosts } = useAppSelector(selectPromotedBlogPosts);
+
   return (
     <>
       <Head>
@@ -38,7 +44,7 @@ const IndexPage: NextPageWithLayout = () => {
       <PromotedProducts />
       {/* <PromotedOrganizations /> */}
       <PromoFeedback />
-      <PromotedBlogPosts />
+      {promotedBlogPosts?.length > 0 ? <PromotedBlogPosts /> : null}
       <PromoSocialMedia />
     </>
   );
