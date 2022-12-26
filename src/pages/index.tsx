@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { wrapper } from 'core/store';
-import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
+// import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
 import {
   fetchPromotedCategories,
   setCurrentCategory,
