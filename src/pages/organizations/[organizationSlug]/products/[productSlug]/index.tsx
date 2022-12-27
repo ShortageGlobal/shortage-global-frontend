@@ -181,7 +181,10 @@ const ProductPage: NextPageWithLayout = () => {
             </div>
 
             <div className={styles.orderSection}>
-              <h5>Order and deliver in a few clicks</h5>
+              <h5>
+                Order and deliver in a few clicks to the{' '}
+                {product.organization.name}&apos;s warehouse
+              </h5>
 
               {/* Placeholder */}
               {!isCartReady ? (
