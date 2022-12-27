@@ -48,6 +48,7 @@
     max-width: 150px;
 
     .orgLink {
+      margin-top: 4px; // dirty hack to compensate difference in vertical position of inline-block element
       max-width: 100%;
       display: inline-block;
       @include text-truncate();

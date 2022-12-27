@@ -165,6 +165,7 @@ export type Package = {
   status: PackageStatus;
   created_at?: string;
   items?: PackageItem[];
+  organization?: OrganizationPreview;
 };
 
 export type CreateCartItem = {

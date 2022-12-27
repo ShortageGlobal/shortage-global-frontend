@@ -37,7 +37,7 @@ export function PackageStatus() {
   const dispatch = useAppDispatch();
   const { organization } = useAppSelector(selectOrganization);
   const packageState = useAppSelector(selectPackage);
-  const packageBlogPosts = useAppSelector(selectPackageBlogPosts);
+  const { packageBlogPosts } = useAppSelector(selectPackageBlogPosts);
   const [isNotePending, setIsNotePending] = useState(false);
 
   const { isCartReady, cart, deleteFromCart } = useCart();
@@ -336,10 +336,7 @@ export function PackageStatus() {
                 />
 
                 {/* Logs */}
-                <PackageLogs
-                  organizationSlug={organization.slug}
-                  donation={packageState.package}
-                />
+                <PackageLogs donation={packageState.package} />
 
                 {/* Tax Deduction */}
                 {packageState.package.tax_deduction_receipt &&
@@ -406,14 +403,14 @@ export function PackageStatus() {
                 </div>
 
                 {/* My Impact */}
-                {packageBlogPosts.packageBlogPosts?.length > 0 ? (
+                {packageBlogPosts?.length > 0 ? (
                   <div className={styles.myImpactBlock}>
                     <header className={styles.sectionHeader}>
                       <h5>My Impact</h5>
                     </header>
 
                     <div className={styles.blogPosts}>
-                      {packageBlogPosts.packageBlogPosts.map((blogPost) => {
+                      {packageBlogPosts.map((blogPost) => {
                         return (
                           <BlogPostCard
                             key={blogPost.slug}
