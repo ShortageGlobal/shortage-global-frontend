@@ -106,7 +106,6 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                             organizationSlug: donation.organization.slug,
                           },
                         }}
-                        onClick={(e) => e.stopPropagation()}
                       >
                         {donation.organization?.logo ? (
                           <Image
