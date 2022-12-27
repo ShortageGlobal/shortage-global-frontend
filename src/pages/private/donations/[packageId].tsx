@@ -140,7 +140,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                         pathname:
                           '/organizations/[organizationSlug]/products/[productSlug]',
                         query: {
-                          organizationSlug: item.product.organization.slug,
+                          organizationSlug: donation.organization.slug,
                           productSlug: item.product.slug,
                         },
                       };
