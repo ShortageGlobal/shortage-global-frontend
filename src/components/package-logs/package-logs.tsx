@@ -10,11 +10,10 @@ import {
 } from 'core/hooks';
 import { fetchPackageLogs } from 'core/api';
 import { PACKAGE_STATUS, PACKAGE_STATUS_DISPLAY_LABELS } from 'core/constants';
-import type { Organization, Package, PackageLog } from 'core/api/types';
+import type { Package, PackageLog } from 'core/api/types';
 
 type PackageLogsProps = {
   donation: Package;
-  organizationSlug: Organization['slug'];
   className?: string;
 };
 
@@ -22,11 +21,7 @@ type PackageLogsProps = {
     A list of package log pairs: DATA - STATUS.
     Note, dates rendered on server cause hydration errors due to different time zones.
 */
-export function PackageLogs({
-  donation,
-  organizationSlug,
-  className = '',
-}: PackageLogsProps) {
+export function PackageLogs({ donation, className = '' }: PackageLogsProps) {
   const [logs, setLogs] = useState<PackageLog[]>(null);
   const [isPending, setIsPending] = useState(true);
   const { showNotification } = useNotifications();
@@ -48,7 +43,7 @@ export function PackageLogs({
       try {
         const response = await fetchPackageLogs({
           packageId: donation.uuid,
-          organizationSlug,
+          organizationSlug: donation.organization.slug,
           cancelToken,
         });
 

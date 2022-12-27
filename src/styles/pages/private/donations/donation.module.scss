@@ -18,6 +18,36 @@
     }
   }
 
+  .orgLinkWrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .orgLink {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .organizationImg {
+        margin-right: 1rem;
+        object-fit: contain;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+
+      .orgLink {
+        flex-direction: column;
+
+        .organizationImg {
+          margin-right: 0rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
   .statusBody {
     > * + * {
       margin-top: 2rem;
@@ -60,13 +90,13 @@
       grid-area: price;
     }
 
-    .photoLink {
+    .productLink {
       position: relative;
       display: block;
       height: 100%;
     }
 
-    .photoImg {
+    .productImg {
       object-fit: contain;
     }
 
@@ -91,6 +121,12 @@
 
     > * + * {
       margin-left: 0.5rem;
+    }
+  }
+
+  .blogPosts {
+    > * + * {
+      margin-top: 1.25rem;
     }
   }
 }

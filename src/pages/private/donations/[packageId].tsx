@@ -9,7 +9,12 @@ import { accountLayout } from 'core/layouts';
 import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
 import { wrapper } from 'core/store';
 import { fetchAccountPackage } from 'core/api';
+import { useAppSelector } from 'core/hooks';
 import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
+import {
+  fetchPackageBlogPosts,
+  selectPackageBlogPosts,
+} from 'core/store/slices/package-blog-posts';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -18,15 +23,18 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
 import { PackageLogs } from 'components/package-logs/package-logs';
+import { BlogPostCard } from 'components/blog-posts/blog-post-card/blog-post-card';
 import { PACKAGE_TYPE } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { Package } from 'core/api/types';
 
 const SECTION_KEY = Object.freeze({
+  RECIPIENT: 'RECIPIENT',
   STATUS: 'STATUS',
   ITEMS: 'ITEMS',
   TRACKING: 'TRACKING',
   TAX_DEDUCTION: 'TAX_DEDUCTION',
+  IMPACT_STORIES: 'IMPACT_STORIES',
 });
 
 type AccountDonationDetailsPageProps = {
@@ -47,14 +55,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
     ];
   }, []);
 
-  const organization = useMemo(() => {
-    if (!donation) {
-      return null;
-    }
-    // all package items must belong to a single organization,
-    // so just pick the first item
-    return donation.items[0].product.organization;
-  }, [donation?.items]);
+  const { packageBlogPosts } = useAppSelector(selectPackageBlogPosts);
 
   const totalPrice = useMemo(() => {
     if (!donation) {
@@ -93,31 +94,40 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                 alwaysOpen
                 className={styles.reviewDonationDetails}
               >
+                <Accordion.Item eventKey={SECTION_KEY.RECIPIENT}>
+                  <Accordion.Header>Recipient</Accordion.Header>
+                  <Accordion.Body className={styles.statusBody}>
+                    <div className={styles.orgLinkWrap}>
+                      <Link
+                        className={styles.orgLink}
+                        href={{
+                          pathname: '/organizations/[organizationSlug]/',
+                          query: {
+                            organizationSlug: donation.organization.slug,
+                          },
+                        }}
+                      >
+                        {donation.organization?.logo ? (
+                          <Image
+                            src={donation.organization.logo}
+                            alt=""
+                            className={styles.organizationImg}
+                            width={150}
+                            height={50}
+                          />
+                        ) : null}
+                        <span>{donation.organization.name}</span>
+                      </Link>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+
                 <Accordion.Item eventKey={SECTION_KEY.STATUS}>
                   <Accordion.Header>Status</Accordion.Header>
                   <Accordion.Body className={styles.statusBody}>
-                    <dl>
-                      <dt>Recipient</dt>
-                      <dd>
-                        <Link
-                          className={styles.orgLink}
-                          href={{
-                            pathname: '/organizations/[organizationSlug]/',
-                            query: { organizationSlug: organization.slug },
-                          }}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {organization.name}
-                        </Link>
-                      </dd>
-                    </dl>
-
                     <PackageStatusVisualization package={donation} />
 
-                    <PackageLogs
-                      organizationSlug={organization.slug}
-                      donation={donation}
-                    />
+                    <PackageLogs donation={donation} />
                   </Accordion.Body>
                 </Accordion.Item>
 
@@ -129,7 +139,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                         pathname:
                           '/organizations/[organizationSlug]/products/[productSlug]',
                         query: {
-                          organizationSlug: item.product.organization.slug,
+                          organizationSlug: donation.organization.slug,
                           productSlug: item.product.slug,
                         },
                       };
@@ -143,14 +153,14 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                             <Link
                               href={productPageHref}
                               aria-label="Visit product page"
-                              className={styles.photoLink}
+                              className={styles.productLink}
                             >
                               {item.product.photo ? (
                                 <Image
                                   src={item.product.photo}
                                   alt={item.product.name}
                                   fill
-                                  className={styles.photoImg}
+                                  className={styles.productImg}
                                 />
                               ) : null}
                             </Link>
@@ -321,6 +331,29 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                     ) : null}
                   </Accordion.Body>
                 </Accordion.Item>
+
+                <Accordion.Item eventKey={SECTION_KEY.IMPACT_STORIES}>
+                  <Accordion.Header>Impact Stories</Accordion.Header>
+                  <Accordion.Body>
+                    {packageBlogPosts?.length > 0 ? (
+                      <div className={styles.blogPosts}>
+                        {packageBlogPosts.map((blogPost) => {
+                          return (
+                            <BlogPostCard
+                              key={blogPost.slug}
+                              blogPost={blogPost}
+                            />
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div>
+                        There are no published impact stories associated with
+                        this donation yet.
+                      </div>
+                    )}
+                  </Accordion.Body>
+                </Accordion.Item>
               </Accordion>
             ) : null}
           </Col>
@@ -333,7 +366,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
 AccountDonationDetailsPage.getLayout = accountLayout;
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  () => async (context) => {
+  (store) => async (context) => {
     const packageId = context.params.packageId as string;
 
     const accessToken = await extractAccessTokenFromSession({
@@ -347,6 +380,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
         packageId,
         accessToken,
       });
+
+      await store.dispatch(
+        fetchPackageBlogPosts({
+          organizationSlug: donationResponse.data.organization.slug,
+          packageId,
+          accessToken,
+        })
+      );
     } catch (rejection) {
       if (rejection?.response?.status === 404) {
         return {

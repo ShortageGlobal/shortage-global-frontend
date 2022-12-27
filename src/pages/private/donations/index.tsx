@@ -156,7 +156,6 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                     {donations?.map((p) => {
                       // all package items must belong to a single organization,
                       // so just pick the first item
-                      const organization = p.items[0].product.organization;
                       return (
                         <tr
                           key={p.uuid}
@@ -183,11 +182,13 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                               className={styles.orgLink}
                               href={{
                                 pathname: '/organizations/[organizationSlug]/',
-                                query: { organizationSlug: organization.slug },
+                                query: {
+                                  organizationSlug: p.organization.slug,
+                                },
                               }}
                               onClick={(e) => e.stopPropagation()}
                             >
-                              {organization.name}
+                              {p.organization.name}
                             </Link>
                           </td>
 
