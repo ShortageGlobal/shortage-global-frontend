@@ -8,6 +8,7 @@ import Link from 'next/link';
 const KEY = {
   profile: 'profile',
   donations: 'donations',
+  myImpact: 'myImpact',
 };
 
 export function AccountNav() {
@@ -21,6 +22,9 @@ export function AccountNav() {
       case '/private/donations':
       case '/private/donations/[packageId]': {
         return KEY.donations;
+      }
+      case '/private/my-impact': {
+        return KEY.myImpact;
       }
       default: {
         return null;
@@ -38,6 +42,9 @@ export function AccountNav() {
       </Nav.Link>
       <Nav.Link as={Link} eventKey={KEY.donations} href="/private/donations/">
         Donations
+      </Nav.Link>
+      <Nav.Link as={Link} eventKey={KEY.myImpact} href="/private/my-impact/">
+        My Impact
       </Nav.Link>
     </Nav>
   );

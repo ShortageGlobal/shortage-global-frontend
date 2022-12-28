@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_ROOT } from 'core/constants';
 import type {
+  CancelTokenParams,
   OrganizationSlugParams,
   PaginationParams,
   PaginatedResponse,
@@ -58,6 +59,21 @@ export function fetchOrganizationBlogPost({
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/blog_posts/${blogPostSlug}/`
     ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type FetchAccountPackageBlogPostsParams = {
+  accessToken?: string;
+} & CancelTokenParams;
+export function fetchAccountPackageBlogPosts({
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountPackageBlogPostsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<BlogPostPreview[]>(
+    encodeURI(`${API_ROOT}/api/private/package_blog_posts/`),
     { cancelToken: cancelToken?.token, headers }
   );
 }

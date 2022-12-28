@@ -103,6 +103,10 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
               <Dropdown.Item>Donations</Dropdown.Item>
             </Link>
 
+            <Link href="/private/my-impact/" passHref legacyBehavior>
+              <Dropdown.Item>My Impact</Dropdown.Item>
+            </Link>
+
             <Dropdown.Divider />
 
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>

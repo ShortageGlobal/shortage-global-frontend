@@ -126,6 +126,15 @@ export const getAccountDonationsCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getMyImpactCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'my-impact',
+    label: 'My Impact',
+    href: '/private/my-impact/',
+    ...props,
+  });
+
 export const getAccountDonationDetailsCrumb = ({
   packageId,
   ...props
