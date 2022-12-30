@@ -91,26 +91,26 @@ function MyApp({
         <meta
           property="description"
           key="description"
-          content="A place for you to donate goods directly to the charities that need it most"
+          content="Shortage is a peer-to-peer donation marketplace. It is a whole ecosystem around in-kind donations - a network of medium and small nonprofit partners, online stores, producers of goods, and post companies. Individuals can buy requested GOODS through the platform or send what they already have directly to charities they trust. The platform allows sending an automated receipt for the tax deduction, uploading photos/videos of the delivery and its use, and encouraging donors to share these photos on social media."
         />
 
         {/* for sharing  */}
         <meta property="og:site_name" key="og:site_name" content="Shortage" />
+        <meta property="og:type" key="og:type" content="website" />
         <meta
           property="og:url"
           key="og:url"
           content="https://shortage.global"
         />
-        <meta property="og:type" key="og:type" content="website" />
         <meta
           property="og:title"
           key="og:title"
-          content="Shortage | Donate tangible goods"
+          content="Join Shortage and make in-kind donations to nonprofit organizations you trust"
         />
         <meta
           property="og:description"
           key="og:description"
-          content="A place for you to donate goods directly to the charities that need it most"
+          content="Shortage is a peer-to-peer donation marketplace. It is a whole ecosystem around in-kind donations - a network of medium and small nonprofit partners, online stores, producers of goods, and post companies. Individuals can buy requested GOODS through the platform or send what they already have directly to charities they trust. The platform allows sending an automated receipt for the tax deduction, uploading photos/videos of the delivery and its use, and encouraging donors to share these photos on social media."
         />
         <meta
           property="og:image"
@@ -125,7 +125,10 @@ function MyApp({
           content="image/png"
         />
 
-        <title>Shortage | Donate tangible goods</title>
+        <title>
+          Join Shortage and make in-kind donations to nonprofit organizations
+          you trust.
+        </title>
         <link rel="icon" href={faviconHref} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
