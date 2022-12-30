@@ -2,6 +2,8 @@
 @import 'styles/_variables';
 
 .nonProfitRegistrationForm {
+  scroll-margin-top: calc(80px + 2rem);
+
   .header {
     margin-bottom: 2rem;
     text-align: center;

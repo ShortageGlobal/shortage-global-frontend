@@ -31,7 +31,7 @@
 
       .highlightedHeader {
         text-decoration: underline;
-        text-decoration-color: $for-corporate-highlighted-header-underline-color;
+        text-decoration-color: $for-corporate-highlighted-underline-color;
       }
 
       @include media-breakpoint-down(xl) {

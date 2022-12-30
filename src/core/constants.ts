@@ -154,6 +154,9 @@ export const PACKAGE_STATUS_LIFECYCLE = Object.freeze({
 
 // used for scrolling
 export const REQUESTED_GOODS_CONTAINER_ID = 'most-requested-items';
+export const NONPROFIT_REGISTRATION_FORM_ID = 'nonprofit-registration-form';
+export const NONPROFIT_REGISTRATION_EMAIL_INPUT_ID =
+  'nonprofit-registration-email-input';
 
 export const PRODUCTS_PAGE_SIZE = 15;
 

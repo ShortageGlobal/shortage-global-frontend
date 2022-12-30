@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useAppSelector } from 'core/hooks';
 import { selectPromotedOrganizations } from 'core/store/slices/promoted-organizations';
-import { SectionHeader } from 'components/section-header/section-header';
 
 export function PromotedOrganizations() {
   const { organizations } = useAppSelector(selectPromotedOrganizations);
@@ -14,7 +13,6 @@ export function PromotedOrganizations() {
       <Row>
         <Col>
           <div className={styles.promotedOrganizations}>
-            <SectionHeader>Our nonprofit partners</SectionHeader>
             <ul className={styles.organizationsList}>
               {organizations
                 .filter((organization) => organization.logo)
