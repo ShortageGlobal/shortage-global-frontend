@@ -41,7 +41,26 @@ const ForIndividuals: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>For Individuals | Shortage</title>
+        <title>
+          Join Shortage and start making a positive impact in your community
+          today
+        </title>
+
+        <meta
+          property="og:title"
+          key="og:title"
+          content="Join Shortage and start making a positive impact in your community today"
+        />
+        <meta
+          property="description"
+          key="description"
+          content="On Shortage, individuals can purchase needed items through the platform or donate items they already have to trusted charities. The platform also provides features such as automated tax receipts for donations and encourages donors to share their impact on social media."
+        />
+        <meta
+          property="og:description"
+          key="og:description"
+          content="On Shortage, individuals can purchase needed items through the platform or donate items they already have to trusted charities. The platform also provides features such as automated tax receipts for donations and encourages donors to share their impact on social media."
+        />
       </Head>
 
       <Container>

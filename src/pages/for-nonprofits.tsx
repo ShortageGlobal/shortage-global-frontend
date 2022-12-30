@@ -34,7 +34,25 @@ const ForNonprofits: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>For Nonprofit | Shortage</title>
+        <title>
+          Join Shortage and save time on managing in-kind donation campaigns
+        </title>
+
+        <meta
+          property="og:title"
+          key="og:title"
+          content="Join Shortage and save time on managing in-kind donation campaigns"
+        />
+        <meta
+          property="description"
+          key="description"
+          content="As a nonprofit organization on Shortage, you can easily connect with donors and receive in-kind donations through our peer-to-peer marketplace. We provide a platform for individuals and businesses to browse and purchase items that your organization needs, or donate items they already have. Our platform also offers features such as automated tax receipts for donations and the ability to upload photos and videos of the delivery and use of donated items. Join Shortage and start making a positive impact in your community today."
+        />
+        <meta
+          property="og:description"
+          key="og:description"
+          content="As a nonprofit organization on Shortage, you can easily connect with donors and receive in-kind donations through our peer-to-peer marketplace. We provide a platform for individuals and businesses to browse and purchase items that your organization needs, or donate items they already have. Our platform also offers features such as automated tax receipts for donations and the ability to upload photos and videos of the delivery and use of donated items. Join Shortage and start making a positive impact in your community today."
+        />
       </Head>
 
       <Container>
@@ -88,7 +106,14 @@ const ForNonprofits: NextPageWithLayout = () => {
           <Row>
             <Col md={5}>
               <div className={styles.textWrap}>
-                <div className={styles.sectionHeader}>Save your time</div>
+                <div
+                  className={classNames(
+                    styles.sectionHeader,
+                    styles.highlightedHeader
+                  )}
+                >
+                  Save your time
+                </div>
                 <div className={styles.sectionText}>
                   Please fill out the form, and we&apos;ll get back to you right
                   away
@@ -103,10 +128,14 @@ const ForNonprofits: NextPageWithLayout = () => {
           </Row>
         </div>
 
+        <h2 className={classNames(styles.benefitsHeader, 'text-center')}>
+          The Benefits
+        </h2>
+
         <div className={classNames(styles.section, styles.sectionGrey)}>
           <Row>
             <div className={classNames(styles.sectionHeader, 'text-center')}>
-              The benefits
+              Your own unique page
             </div>
             <Col md={7}>
               <div className={styles.textWrap}>
@@ -140,8 +169,7 @@ const ForNonprofits: NextPageWithLayout = () => {
         <div className={styles.section}>
           <Row>
             <div className={classNames(styles.sectionHeader, 'text-center')}>
-              Our platform assists you in managing{' '}
-              <span className="text-nowrap">in-kind</span> donations
+              Manage donations
             </div>
             <Col
               md={{ span: 5, order: 1 }}
@@ -243,12 +271,22 @@ const ForNonprofits: NextPageWithLayout = () => {
         <div className={classNames(styles.section, styles.partnersSection)}>
           <Row>
             <div className={classNames(styles.sectionHeader, 'text-center')}>
-              Our nonprofit partners
+              Meet some of our nonprofit partners
             </div>
             <Col>
               <PromotedOrganizations />
             </Col>
           </Row>
+        </div>
+
+        <div className={styles.bookDemoWrap}>
+          <Button
+            size="lg"
+            className={styles.bookDemo}
+            onClick={handleBookDemo}
+          >
+            Book a demo
+          </Button>
         </div>
       </Container>
     </>

@@ -27,7 +27,26 @@ const ForCorporate: NextPageWithLayout = ({ countries }: ForCorporateProps) => {
   return (
     <>
       <Head>
-        <title>For Corporate | Shortage</title>
+        <title>
+          Join Shortage as a corporate supporter and help cover the requests of
+          nonprofit organizations in goods
+        </title>
+
+        <meta
+          property="og:title"
+          key="og:title"
+          content="Join Shortage as a corporate supporter and help cover the requests of nonprofit organizations in goods"
+        />
+        <meta
+          property="description"
+          key="description"
+          content="As a corporate supporter on Shortage, you can make a positive impact in your community by connecting with nonprofit organizations and supporting them through in-kind donations. Our peer-to-peer marketplace makes it easy for you to browse and purchase items that nonprofit organizations need, or donate items you already have."
+        />
+        <meta
+          property="og:description"
+          key="og:description"
+          content="As a corporate supporter on Shortage, you can make a positive impact in your community by connecting with nonprofit organizations and supporting them through in-kind donations. Our peer-to-peer marketplace makes it easy for you to browse and purchase items that nonprofit organizations need, or donate items you already have."
+        />
       </Head>
 
       <Container>
