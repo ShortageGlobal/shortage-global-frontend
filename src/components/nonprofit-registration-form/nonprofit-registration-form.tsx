@@ -204,10 +204,10 @@ export function NonprofitRegistrationForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            isValid={getIsValid(ERROR_KEYS.email)}
-            isInvalid={getIsInvalid(ERROR_KEYS.email)}
+            isValid={getIsValid(ERROR_KEYS[INPUT_ID.email])}
+            isInvalid={getIsInvalid(ERROR_KEYS[INPUT_ID.email])}
           />
-          {getErrorsFeedback(ERROR_KEYS.email)}
+          {getErrorsFeedback(ERROR_KEYS[INPUT_ID.email])}
         </Form.Group>
 
         <Form.Group
