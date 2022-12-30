@@ -7,12 +7,16 @@ import { registerNonprofit } from 'core/api';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { NonprofitRegistrationSuccess } from 'components/nonprofit-registration-form/registration-success/registration-success';
 import { PhoneInput } from 'components/phone-input/phone-input';
+import {
+  NONPROFIT_REGISTRATION_FORM_ID,
+  NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
+} from 'core/constants';
 import type { FormEvent } from 'react';
 
 const INPUT_ID = Object.freeze({
   firstName: 'firstName',
   lastName: 'lastName',
-  email: 'email',
+  email: NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
   phoneNumber: 'phoneNumber',
   organizationName: 'organizationName',
   url: 'url',
@@ -144,19 +148,10 @@ export function NonprofitRegistrationForm() {
 
   return (
     <Form
+      id={NONPROFIT_REGISTRATION_FORM_ID}
       onSubmit={handleFormSubmit}
       className={styles.nonProfitRegistrationForm}
     >
-      <Row>
-        <Col>
-          <h2 className={styles.header}>Organization Information</h2>
-        </Col>
-      </Row>
-
-      <header className={styles.sectionHeader}>
-        <h5>Responsible Person</h5>
-      </header>
-
       <Row>
         <Form.Group
           as={Col}
@@ -209,10 +204,10 @@ export function NonprofitRegistrationForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            isValid={getIsValid(ERROR_KEYS.email)}
-            isInvalid={getIsInvalid(ERROR_KEYS.email)}
+            isValid={getIsValid(ERROR_KEYS[INPUT_ID.email])}
+            isInvalid={getIsInvalid(ERROR_KEYS[INPUT_ID.email])}
           />
-          {getErrorsFeedback(ERROR_KEYS.email)}
+          {getErrorsFeedback(ERROR_KEYS[INPUT_ID.email])}
         </Form.Group>
 
         <Form.Group

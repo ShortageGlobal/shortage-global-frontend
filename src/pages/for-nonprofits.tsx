@@ -1,22 +1,34 @@
 import styles from 'styles/pages/for-nonprofits.module.scss';
-import { useMemo } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useMemo, useCallback } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Head from 'next/head';
-import Link from 'next/link';
 import Image from 'next/image';
 import { wrapper } from 'core/store';
+import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getForNonprofitsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { NonprofitRegistrationForm } from 'components/nonprofit-registration-form/nonprofit-registration-form';
+import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
+import {
+  NONPROFIT_REGISTRATION_FORM_ID,
+  NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
+} from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ForNonprofits: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getForNonprofitsCrumb({ isActive: true })];
+  }, []);
+
+  const handleBookDemo = useCallback(() => {
+    document.getElementById(NONPROFIT_REGISTRATION_FORM_ID)?.scrollIntoView();
+    document
+      .getElementById(NONPROFIT_REGISTRATION_EMAIL_INPUT_ID)
+      ?.focus({ preventScroll: true });
   }, []);
 
   return (
@@ -39,30 +51,19 @@ const ForNonprofits: NextPageWithLayout = () => {
             <div className={styles.banner}>
               <h2 className={styles.header}>
                 Increase your{' '}
-                <span className={styles.highlightedHeader}>
-                  tangible <br />
-                  goods
-                </span>{' '}
+                <span className={styles.highlighted}>in-kind</span>
+                <br />
                 donations
               </h2>
 
-              <div className={styles.bannerText}>
-                <p>
-                  <span className={styles.textOnWhite}>
-                    We will create your unique page (
-                    <Link href="/organizations/meira_academy/">
-                      {/* TODO: Hardcoded href! */}
-                      check an example here
-                    </Link>
-                    ) with a list of requested goods and guarantee delivery of
-                    donated goods directly from your donors to your
-                    office/warehouse.
-                  </span>
-                </p>
-                <p className={styles.pleaseCompleteFormMessage}>
-                  Please complete the form below and we&apos;ll get back to you
-                  right away.
-                </p>
+              <div className={styles.bookDemoWrap}>
+                <Button
+                  size="lg"
+                  className={styles.bookDemo}
+                  onClick={handleBookDemo}
+                >
+                  Book a demo
+                </Button>
               </div>
 
               <div className={classNames(styles.image, styles.womanLeft)}>
@@ -82,23 +83,187 @@ const ForNonprofits: NextPageWithLayout = () => {
             </div>
           </Col>
         </Row>
-      </Container>
 
-      <Container>
-        <Row>
-          <Col className={styles.donorRegistration}>
-            <NonprofitRegistrationForm />
-          </Col>
-        </Row>
+        <div className={styles.section}>
+          <Row>
+            <Col md={5}>
+              <div className={styles.textWrap}>
+                <div className={styles.sectionHeader}>Save your time</div>
+                <div className={styles.sectionText}>
+                  Please fill out the form, and we&apos;ll get back to you right
+                  away
+                </div>
+              </div>
+            </Col>
+            <Col md={7}>
+              <div className={styles.formWrap}>
+                <NonprofitRegistrationForm />
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className={classNames(styles.section, styles.sectionGrey)}>
+          <Row>
+            <div className={classNames(styles.sectionHeader, 'text-center')}>
+              The benefits
+            </div>
+            <Col md={7}>
+              <div className={styles.textWrap}>
+                <div className={styles.sectionText}>
+                  <div>
+                    As a registered non-profit organization, you are eligible to
+                    receive a personal web page with a wishlist of needed items
+                    and a delivery address.
+                  </div>
+
+                  <div>
+                    You can also add a &ldquo;Donate via Shortage&rdquo; button
+                    to your website and share the link on social media,
+                    newsletters, and emails to reach potential donors.
+                  </div>
+                </div>
+              </div>
+            </Col>
+            <Col md={5} className={styles.illustrationCol}>
+              <Image
+                className={styles.illustration}
+                src="/images/for-nonprofits/frame_heart_palms.svg"
+                alt=""
+                width="212"
+                height="198"
+              />
+            </Col>
+          </Row>
+        </div>
+
+        <div className={styles.section}>
+          <Row>
+            <div className={classNames(styles.sectionHeader, 'text-center')}>
+              Our platform assists you in managing{' '}
+              <span className="text-nowrap">in-kind</span> donations
+            </div>
+            <Col
+              md={{ span: 5, order: 1 }}
+              xxs={{ order: 3 }}
+              className={styles.illustrationCol}
+            >
+              <Image
+                className={styles.illustration}
+                src="/images/for-nonprofits/manage_donations.svg"
+                alt=""
+                width="327"
+                height="181"
+              />
+            </Col>
+            <Col md={{ span: 7, order: 2 }}>
+              <div className={styles.textWrap}>
+                <div className={styles.sectionText}>
+                  <div>
+                    Our platform allows you to gather and save donor data for
+                    future campaigns, as opposed to Amazon gift lists which do
+                    not provide this information.
+                  </div>
+                  <div>
+                    Our technology automatically generates tax deduction
+                    receipts/emails and sends them to donors to make the
+                    donation process more convenient and efficient.
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className={classNames(styles.section, styles.sectionGrey)}>
+          <Row>
+            <div className={classNames(styles.sectionHeader, 'text-center')}>
+              Going viral on social media
+            </div>
+            <Col md={7}>
+              <div className={styles.textWrap}>
+                <div className={styles.sectionText}>
+                  <div>
+                    We enable and encourage donors to share their impact on
+                    social media.
+                  </div>
+
+                  <div>
+                    By using our platform, you can not only streamline the
+                    donation process, but also tap into the power of social
+                    media to engage new donors.
+                  </div>
+                </div>
+              </div>
+            </Col>
+            <Col md={5} className={styles.illustrationCol}>
+              <Image
+                className={styles.illustration}
+                src="/images/for-nonprofits/sharing_social.svg"
+                alt=""
+                width="250"
+                height="250"
+              />
+            </Col>
+          </Row>
+        </div>
+
+        <div className={styles.section}>
+          <Row>
+            <div className={classNames(styles.sectionHeader, 'text-center')}>
+              Our impact
+            </div>
+            <Col
+              md={{ span: 5, order: 1 }}
+              xxs={{ order: 3 }}
+              className={styles.illustrationCol}
+            >
+              <Image
+                className={styles.illustration}
+                src="/images/for-nonprofits/delivered_packages.svg"
+                alt=""
+                width={250}
+                height={250}
+              />
+            </Col>
+            <Col md={{ span: 7, order: 2 }}>
+              <div className={styles.textWrap}>
+                <div className={styles.sectionText}>
+                  <div>
+                    In a 6 month span, our team has already delivered more than{' '}
+                    <span className={styles.highlighted}>30,000 items</span> to
+                    trusted nonprofits.
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className={classNames(styles.section, styles.partnersSection)}>
+          <Row>
+            <div className={classNames(styles.sectionHeader, 'text-center')}>
+              Our nonprofit partners
+            </div>
+            <Col>
+              <PromotedOrganizations />
+            </Col>
+          </Row>
+        </div>
       </Container>
     </>
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
-  return {
-    props: {},
-  };
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    // fetch partners
+    await Promise.all([store.dispatch(fetchPromotedOrganizations())]);
+
+    return {
+      props: {},
+    };
+  }
+);
 
 export default ForNonprofits;
