@@ -127,7 +127,7 @@ function MyApp({
 
         <title>
           Join Shortage and make in-kind donations to nonprofit organizations
-          you trust.
+          you trust
         </title>
         <link rel="icon" href={faviconHref} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
