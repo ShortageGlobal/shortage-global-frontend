@@ -15,6 +15,7 @@ export * from './product-categories/household-items';
 export * from './product-categories/save-animals';
 export * from './product-categories/toys';
 export * from './product-categories/vital-goods';
+export * from './product-categories/hygiene';
 
 export * from './promo-banner/glister-left';
 export * from './promo-banner/glister-left-short';

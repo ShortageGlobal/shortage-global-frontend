@@ -13,6 +13,7 @@ import {
   HouseholdItems,
   Food,
   Toys,
+  Hygiene,
 } from 'components/icons';
 import {
   PRODUCT_CATEGORY_KEY,
@@ -75,6 +76,12 @@ const PRODUCT_CATEGORY_DETAILS = Object.freeze({
     queryFilter: PRODUCT_CATEGORY_KEY.TOYS,
     name: 'Toys',
     GlyphComponent: Toys,
+  },
+  [PRODUCT_CATEGORY_KEY.HYGIENE]: {
+    key: PRODUCT_CATEGORY_KEY.HYGIENE,
+    queryFilter: PRODUCT_CATEGORY_KEY.HYGIENE,
+    name: 'Hygiene',
+    GlyphComponent: Hygiene,
   },
 });
 
