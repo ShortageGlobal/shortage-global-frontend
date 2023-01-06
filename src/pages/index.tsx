@@ -37,8 +37,8 @@ const IndexPage: NextPageWithLayout = () => {
       <StandWithUkraine />
       <PromoBanner />
       <PromoCampaign
-        text="Become a Santa, make a gift"
-        background="/images/promo-campaigns/christmas_banner.png"
+        text="JFCS toy and book drive"
+        background="/images/promo-campaigns/jfcs_banner.png"
       />
       <DonationSteps />
       <PromotedProducts />
