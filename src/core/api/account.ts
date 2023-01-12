@@ -119,3 +119,25 @@ export async function updateProfile({
   response.data = flattenProfileResponse(response.data);
   return response;
 }
+
+type UpdateProfilePasswordParams = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+} & CancelTokenParams;
+export async function updateProfilePassword({
+  oldPassword,
+  newPassword,
+  confirmPassword,
+  cancelToken = null,
+}: UpdateProfilePasswordParams) {
+  return axios.put(
+    encodeURI(`${API_ROOT}/api/private/users/change_password/`),
+    {
+      old_password: oldPassword,
+      new_password: newPassword,
+      confirm_password: confirmPassword,
+    },
+    { cancelToken: cancelToken?.token }
+  );
+}
