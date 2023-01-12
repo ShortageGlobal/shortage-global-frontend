@@ -117,6 +117,15 @@ export const getProfileCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getChangePasswordCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'change-password',
+    label: 'Change Password',
+    href: '/private/change-password/',
+    ...props,
+  });
+
 export const getAccountDonationsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,

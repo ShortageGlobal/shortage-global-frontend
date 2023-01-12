@@ -9,6 +9,7 @@ const KEY = {
   profile: 'profile',
   donations: 'donations',
   myImpact: 'myImpact',
+  changePassword: 'changePassword',
 };
 
 export function AccountNav() {
@@ -25,6 +26,9 @@ export function AccountNav() {
       }
       case '/private/my-impact': {
         return KEY.myImpact;
+      }
+      case '/private/change-password': {
+        return KEY.changePassword;
       }
       default: {
         return null;
@@ -45,6 +49,13 @@ export function AccountNav() {
       </Nav.Link>
       <Nav.Link as={Link} eventKey={KEY.myImpact} href="/private/my-impact/">
         My Impact
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.changePassword}
+        href="/private/change-password/"
+      >
+        Change Password
       </Nav.Link>
     </Nav>
   );
