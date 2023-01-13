@@ -75,7 +75,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 2rem 1rem 1rem;
+      margin: 2rem 1rem 0rem;
       padding: 0.5rem 2rem;
       line-height: 1.1;
       min-height: 48px;
@@ -286,6 +286,81 @@
       .principleText {
         font-size: 1rem;
       }
+    }
+  }
+
+  .storyIllustration {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+
+    .package {
+      $width: 86px;
+      $height: 86px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(sm) {
+        width: $width * 0.65;
+        height: $height * 0.65;
+      }
+    }
+
+    .truck {
+      $width: 123px;
+      $height: 75px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(sm) {
+        width: $width * 0.65;
+        height: $height * 0.65;
+      }
+    }
+
+    .secondTruck {
+      $width: 123px;
+      $height: 75px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(md) {
+        @include visually-hidden;
+      }
+    }
+
+    .tent {
+      $width: 121px;
+      $height: 97px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(sm) {
+        width: $width * 0.65;
+        height: $height * 0.65;
+      }
+    }
+  }
+
+  .ourStoryHighlight {
+    margin: 0 auto 2rem;
+    text-align: center;
+
+    > * {
+      display: inline-flex;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: $primary;
+      background-color: $secondary-background;
     }
   }
 

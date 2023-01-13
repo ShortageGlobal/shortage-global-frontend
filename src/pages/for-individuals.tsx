@@ -264,6 +264,66 @@ const ForIndividuals: NextPageWithLayout = () => {
         <Row>
           <Col>
             <SectionHeader className={styles.sectionHeader}>
+              Our Story
+            </SectionHeader>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <div className={styles.storyIllustration}>
+              <div className={styles.package}>
+                <Image alt="" src="/images/our-story/package.svg" fill />
+              </div>
+              <div className={styles.truck}>
+                <Image alt="" src="/images/our-story/truck.svg" fill />
+              </div>
+              <div className={styles.secondTruck}>
+                <Image alt="" src="/images/our-story/truck.svg" fill />
+              </div>
+              <div className={styles.tent}>
+                <Image alt="" src="/images/our-story/tent.svg" fill />
+              </div>
+            </div>
+            <div className={styles.ourStoryHighlight}>
+              <span>$300,000 worth of goods sent to Ukraine in 2022</span>
+            </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <p>
+              For the Shortage team, the platform is a personal mission that
+              began as{' '}
+              <a href="https://shortageua.com" target="_blank" rel="noreferrer">
+                shortageua.com
+              </a>
+              , an initiative founded by Ukrainian marketing and tech
+              professionals. The team utilized their professional skills to
+              provide essential supplies to Ukraine after the start of the war
+              in February 2022.
+            </p>
+
+            <p>
+              The platform was launched with a volunteer team just one month
+              later and has since helped to organize logistics for informal
+              networks and enable people from around the world to easily donate
+              tangible goods to Ukraine. To date, individuals from all over the
+              globe have sent over $300,000 worth of goods to Ukraine.
+            </p>
+
+            <p>
+              We received a ton of positive feedback from donors, which
+              motivated the initial team to start work on a product that could
+              be scaled beyond helping Ukrainian families.
+            </p>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionHeader className={styles.sectionHeader}>
               Our Team
             </SectionHeader>
           </Col>
