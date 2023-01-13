@@ -85,6 +85,20 @@ const ForIndividuals: NextPageWithLayout = () => {
                 </span>
               </h2>
 
+              <p className={styles.bannerText}>
+                Over 25,000 items delivered to charities in the past 6 months
+              </p>
+
+              <Link
+                href={`/#${REQUESTED_GOODS_CONTAINER_ID}`}
+                passHref
+                legacyBehavior
+              >
+                <Button size="lg" className={styles.checkGoodsButton}>
+                  <span>Check out our top requests</span>
+                </Button>
+              </Link>
+
               <div
                 className={classNames(styles.image, styles.imageBoyLooksRight)}
               >
