@@ -10,6 +10,13 @@ import {
   getHomeCrumb,
   getForIndividualsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import {
+  Convenience,
+  DirectImpact,
+  Efficiency,
+  TaxBenefits,
+  Transparency,
+} from 'components/icons';
 import { SectionHeader } from 'components/section-header/section-header';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
@@ -156,33 +163,104 @@ const ForIndividuals: NextPageWithLayout = () => {
               Our platform provides you a receipt for a tax deduction and a
               photo/video from the nonprofit that you can share on social media.
             </p>
-
-            <p className={styles.accentedText}>
-              Over <span className={styles.highlighted}>25,000 items</span>{' '}
-              delivered to charities in the past 6 months
-            </p>
-          </Col>
-        </Row>
-
-        <h4>Ready to donate?</h4>
-
-        <Row>
-          <Col className="text-center">
-            <Link
-              href={`/#${REQUESTED_GOODS_CONTAINER_ID}`}
-              passHref
-              legacyBehavior
-            >
-              <Button size="lg" className={styles.checkGoodsButton}>
-                <span>Check out our top requests</span>
-              </Button>
-            </Link>
           </Col>
         </Row>
 
         <Row>
           <Col>
-            <SectionHeader>Our Team</SectionHeader>
+            <SectionHeader className={styles.sectionHeader}>
+              Our Principles
+            </SectionHeader>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <div className={styles.ourPrinciples}>
+              <div
+                className={classNames(
+                  styles.transparencyPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <Transparency size={70} />
+                <div className={styles.principleHeader}>Transparency</div>
+                <div className={styles.principleText}>
+                  The platform allows donors to track the progress of their
+                  donations and see when they are delivered to the nonprofit.
+                  This can help to increase trust and confidence in the donation
+                  process.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.directImpactPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <DirectImpact size={70} />
+                <div className={styles.principleHeader}>Direct Impact</div>
+                <div className={styles.principleText}>
+                  By using the platform, donors can directly impact the
+                  nonprofit organizations and communities that they care about,
+                  and see the impact of their donations first-hand.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.efficiencyPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <Efficiency size={70} />
+                <div className={styles.principleHeader}>Efficiency</div>
+                <div className={styles.principleText}>
+                  The platform streamlines the donation process, making it
+                  easier for nonprofit organizations to receive and manage
+                  donations, which can help them to focus on their core missions
+                  and goals.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.conveniencePrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <Convenience size={70} />
+                <div className={styles.principleHeader}>Convenience</div>
+                <div className={styles.principleText}>
+                  The Shortage platform allows donors to easily browse and
+                  select items that they would like to donate, as well as choose
+                  the nonprofit organization that they would like to support.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.taxBenefitsPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <TaxBenefits size={70} />
+                <div className={styles.principleHeader}>Tax Benefits</div>
+                <div className={styles.principleText}>
+                  The platform generates tax-deductible receipts for donors,
+                  which can help them to save money on their taxes.
+                </div>
+              </div>
+            </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionHeader className={styles.sectionHeader}>
+              Our Team
+            </SectionHeader>
           </Col>
         </Row>
 

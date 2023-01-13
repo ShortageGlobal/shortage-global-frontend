@@ -210,10 +210,9 @@
 }
 
 .aboutPlatform {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto 1rem;
-  font-size: 1rem;
-  text-align: center;
+  font-size: 1.3rem;
 
   @include media-breakpoint-down(lg) {
     font-size: 1.1rem;
@@ -223,32 +222,70 @@
     padding: 0 4rem;
   }
 
-  .checkGoodsButton {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 2rem;
-    margin: 1rem auto 3rem;
-    line-height: 1.1;
+  .sectionHeader {
+    margin: 3rem 0 2rem;
   }
 
-  .header {
-    margin: 2rem 0;
+  .ourPrinciples {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 1rem;
+    grid-auto-flow: row;
+    grid-template-areas:
+      'transparency transparency directImpact directImpact efficiency efficiency'
+      'convenience convenience convenience taxBenefits taxBenefits taxBenefits';
 
-    @include media-breakpoint-down(sm) {
-      text-align: center;
+    @include media-breakpoint-down(md) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, auto);
+      grid-template-areas:
+        'transparency directImpact'
+        'efficiency convenience'
+        'taxBenefits taxBenefits';
     }
-  }
 
-  .accentedText {
-    margin: 2rem 0;
-    font-size: 1.2rem;
-    text-align: center;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, auto);
+      grid-template-areas:
+        'transparency'
+        'directImpact'
+        'efficiency'
+        'convenience'
+        'taxBenefits';
+    }
 
-    .highlighted {
-      text-decoration: underline;
-      text-decoration-color: $for-individuals-highlighted-header-underline-color;
-      text-decoration-thickness: 3px;
+    .transparencyPrinciple {
+      grid-area: transparency;
+    }
+    .directImpactPrinciple {
+      grid-area: directImpact;
+    }
+    .efficiencyPrinciple {
+      grid-area: efficiency;
+    }
+    .conveniencePrinciple {
+      grid-area: convenience;
+    }
+    .taxBenefitsPrinciple {
+      grid-area: taxBenefits;
+    }
+
+    .principleContainer {
+      padding: 1rem;
+      text-align: center;
+      background-color: $secondary-background;
+
+      .principleHeader {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      .principleText {
+        font-size: 1rem;
+      }
     }
   }
 
