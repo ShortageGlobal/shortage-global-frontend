@@ -69,7 +69,7 @@ const ResetPasswordPage: NextPageWithLayout = ({
 
   const getResetPasswordCancelToken = useCancelToken();
 
-  // redirect from sign in page if authenticated
+  // redirect from the "Reset Password" page if authenticated
   useEffect(() => {
     if (session?.status === 'authenticated') {
       const callbackUrl = router?.query?.callbackUrl || '/';
