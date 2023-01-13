@@ -38,6 +38,11 @@ const team = [
     url: 'https://www.linkedin.com/in/alina-volokh/',
     image: '/images/team/Alina_Fedorenko.jpg',
   },
+  {
+    name: 'Sonia Mehrmand, Partnership Lead',
+    url: 'https://www.linkedin.com/in/sonia-mehrmand-6084a259/',
+    image: '/images/team/Sonia_Mehrmand.jpeg',
+  },
 ];
 
 const ForIndividuals: NextPageWithLayout = () => {
@@ -273,7 +278,7 @@ const ForIndividuals: NextPageWithLayout = () => {
           </Col>
         </Row>
 
-        <Row md={3} xs={2} xxs={1} className={styles.membersContainer}>
+        <Row md={4} xs={2} xxs={1} className={styles.membersContainer}>
           {team.map((member) => {
             return (
               <Col key={member.name}>
@@ -287,6 +292,7 @@ const ForIndividuals: NextPageWithLayout = () => {
                   <div className={styles.memberBody}>
                     <div className={styles.memberName}>{member.name}</div>
                     <Image
+                      className={styles.linkedinGlyph}
                       src="/images/team/LinkedIn_Logo.svg"
                       width={24}
                       height={24}
