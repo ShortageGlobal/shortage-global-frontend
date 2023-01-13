@@ -24,7 +24,7 @@ export const authOptions = {
         } catch (rejection) {
           throw new Error(
             rejection?.response?.data?.detail ||
-              'Authorization failed. Try again and contact support if the problem persists'
+              'Authorization failed. Try again and contact support if the problem persists.'
           );
         }
         return {

@@ -108,6 +108,15 @@ export const getForgotPasswordCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getResetPasswordCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'reset-password',
+    label: 'Reset Password',
+    href: '/account/reset-password/',
+    ...props,
+  });
+
 export const getProfileCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
