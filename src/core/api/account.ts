@@ -57,6 +57,64 @@ export async function createAccount({
   );
 }
 
+export type RequestPasswordResetParams = CancelTokenParams & {
+  email: string;
+};
+export async function requestPasswordReset({
+  email,
+  cancelToken = null,
+}: RequestPasswordResetParams) {
+  return axios.post(
+    encodeURI(`${API_ROOT}/api/users/reset_password/`),
+    { email },
+    { cancelToken: cancelToken?.token }
+  );
+}
+
+export type CheckPasswordResetTokenParams = CancelTokenParams & {
+  uid: string;
+  token: string;
+};
+export async function checkPasswordResetToken({
+  uid,
+  token,
+  cancelToken = null,
+}: CheckPasswordResetTokenParams) {
+  return axios.post(
+    encodeURI(`${API_ROOT}/api/users/check_reset_password_token/`),
+    {
+      uid,
+      token,
+    },
+    { cancelToken: cancelToken?.token }
+  );
+}
+
+export type ConfirmPasswordResetParams = CancelTokenParams & {
+  newPassword: string;
+  confirmPassword: string;
+  uid: string;
+  token: string;
+};
+export async function confirmPasswordReset({
+  newPassword,
+  confirmPassword,
+  uid,
+  token,
+  cancelToken = null,
+}: ConfirmPasswordResetParams) {
+  return axios.post(
+    encodeURI(`${API_ROOT}/api/users/confirm_reset_password/`),
+    {
+      new_password: newPassword,
+      confirm_password: confirmPassword,
+      uid,
+      token,
+    },
+    { cancelToken: cancelToken?.token }
+  );
+}
+
 export type ConfirmAccountParams = CancelTokenParams & {
   uid: string;
   token: string;

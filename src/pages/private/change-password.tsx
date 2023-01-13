@@ -34,7 +34,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
-  const getUpdateChangePasswordCancelToken = useCancelToken();
+  const getUpdateProfilePasswordCancelToken = useCancelToken();
 
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getChangePasswordCrumb({ isActive: true })];
@@ -50,7 +50,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
 
       setIsSaving(true);
 
-      const cancelToken = getUpdateChangePasswordCancelToken();
+      const cancelToken = getUpdateProfilePasswordCancelToken();
 
       const target = e.target as HTMLFormElement & {
         oldPassword: HTMLInputElement;
@@ -142,6 +142,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
                     size="lg"
                     type="password"
                     placeholder=""
+                    required
                     isValid={getIsValid(ERROR_KEYS.oldPassword)}
                     isInvalid={getIsInvalid(ERROR_KEYS.oldPassword)}
                   />
@@ -161,6 +162,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
                     size="lg"
                     type="password"
                     placeholder=""
+                    required
                     isValid={getIsValid(ERROR_KEYS.newPassword)}
                     isInvalid={getIsInvalid(ERROR_KEYS.newPassword)}
                   />
@@ -178,6 +180,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
                     size="lg"
                     type="password"
                     placeholder=""
+                    required
                     isValid={getIsValid(ERROR_KEYS.confirmPassword)}
                     isInvalid={getIsInvalid(ERROR_KEYS.confirmPassword)}
                   />

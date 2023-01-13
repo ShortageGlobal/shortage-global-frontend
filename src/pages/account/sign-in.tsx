@@ -26,7 +26,7 @@ import type { FormEvent } from 'react';
 import type { NextPageWithLayout } from 'pages/_app';
 import { isRequestCancel } from 'core/hooks';
 
-const SignIn: NextPageWithLayout = () => {
+const SignInPage: NextPageWithLayout = () => {
   const session = useSession();
   const router = useRouter();
 
@@ -85,7 +85,7 @@ const SignIn: NextPageWithLayout = () => {
           return;
         }
         setErrorMessage(
-          'Operation failed. Try again and contact support if the problem persists'
+          'Operation failed. Try again and contact support if the problem persists.'
         );
         setIsPending(false);
       }
@@ -193,6 +193,15 @@ const SignIn: NextPageWithLayout = () => {
               </div>
             </Col>
           </Row>
+
+          <Row>
+            <Col>
+              <div className="mt-3">
+                Forgot your password?{' '}
+                <Link href="/account/forgot-password/">Reset password</Link>
+              </div>
+            </Col>
+          </Row>
         </Form>
       </Container>
     </>
@@ -205,4 +214,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default SignIn;
+export default SignInPage;
