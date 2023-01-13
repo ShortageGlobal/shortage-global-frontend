@@ -34,7 +34,7 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // redirect from sign in page if authenticated
+  // redirect from the "Forgot Password" page if authenticated
   useEffect(() => {
     if (session?.status === 'authenticated') {
       const callbackUrl = router?.query?.callbackUrl || '/';
