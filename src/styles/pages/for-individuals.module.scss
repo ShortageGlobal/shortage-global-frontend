@@ -4,7 +4,7 @@
 .forIndividualsBanner {
   .banner {
     position: relative;
-    padding: 3.5rem 1rem;
+    padding: 1rem;
     margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
@@ -13,7 +13,11 @@
     text-align: center;
 
     @include media-breakpoint-down(md) {
-      padding: 8rem 1rem;
+      padding: 1rem 3rem;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 1rem 4rem;
     }
 
     .header {
@@ -43,6 +47,40 @@
       }
     }
 
+    .bannerText {
+      font-size: 1.2rem;
+      max-width: 635px;
+      margin-bottom: 0;
+
+      @include media-breakpoint-down(xl) {
+        max-width: 470px;
+      }
+
+      @include media-breakpoint-down(lg) {
+        max-width: 350px;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 1rem;
+        max-width: 315px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        max-width: 280px;
+      }
+    }
+
+    .checkGoodsButton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 1rem 0rem;
+      padding: 0.5rem 2rem;
+      line-height: 1.1;
+      min-height: 48px;
+    }
+
     .image {
       position: absolute;
     }
@@ -57,19 +95,23 @@
       right: calc(50% + 492px);
 
       @include media-breakpoint-down(xl) {
-        right: calc(50% + 380px);
+        right: calc(50% + 360px);
       }
 
       @include media-breakpoint-down(lg) {
-        right: calc(50% + 320px);
+        right: calc(50% + 300px);
       }
 
       @include media-breakpoint-down(md) {
         width: $width * 0.7;
         height: $height * 0.7;
-        top: unset;
-        bottom: 2rem;
-        right: calc(50% + 42px);
+        top: 2rem;
+        right: calc(50% + 225px);
+      }
+
+      @include media-breakpoint-down(sm) {
+        left: 0rem;
+        right: unset;
       }
     }
 
@@ -83,19 +125,24 @@
       right: calc(50% + 382px);
 
       @include media-breakpoint-down(xl) {
-        right: calc(50% + 290px);
+        top: 8.5rem;
+        right: calc(50% + 260px);
       }
 
       @include media-breakpoint-down(lg) {
-        top: 5rem;
-        right: calc(50% + 214px);
+        top: 6rem;
+        right: calc(50% + 200px);
       }
 
       @include media-breakpoint-down(md) {
         width: $width * 0.7;
         height: $height * 0.7;
-        top: 0.6rem;
-        right: calc(50% + 32px);
+        top: 8rem;
+        right: calc(50% + 162px);
+      }
+
+      @include media-breakpoint-down(sm) {
+        @include visually-hidden;
       }
     }
 
@@ -113,14 +160,19 @@
       }
 
       @include media-breakpoint-down(lg) {
-        left: calc(50% + 310px);
+        left: calc(50% + 300px);
       }
 
       @include media-breakpoint-down(md) {
         width: $width * 0.7;
         height: $height * 0.7;
-        top: 0.5rem;
-        left: calc(50% + 40px);
+        top: 2rem;
+        left: calc(50% + 220px);
+      }
+
+      @include media-breakpoint-down(sm) {
+        right: 0rem;
+        left: unset;
       }
     }
 
@@ -134,6 +186,7 @@
       left: calc(50% + 363px);
 
       @include media-breakpoint-down(xl) {
+        top: 9rem;
         left: calc(50% + 275px);
       }
 
@@ -145,19 +198,21 @@
       @include media-breakpoint-down(md) {
         width: $width * 0.7;
         height: $height * 0.7;
-        top: unset;
-        bottom: 1.5rem;
-        left: calc(50% + 27px);
+        top: 8.5rem;
+        left: calc(50% + 165px);
+      }
+
+      @include media-breakpoint-down(sm) {
+        @include visually-hidden;
       }
     }
   }
 }
 
 .aboutPlatform {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto 1rem;
-  font-size: 1rem;
-  text-align: center;
+  font-size: 1.3rem;
 
   @include media-breakpoint-down(lg) {
     font-size: 1.1rem;
@@ -167,32 +222,145 @@
     padding: 0 4rem;
   }
 
-  .checkGoodsButton {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 2rem;
-    margin: 1rem auto 3rem;
-    line-height: 1.1;
+  .sectionHeader {
+    margin: 3rem 0 2rem;
   }
 
-  .header {
-    margin: 2rem 0;
+  .ourPrinciples {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 1rem;
+    grid-auto-flow: row;
+    grid-template-areas:
+      'transparency transparency directImpact directImpact efficiency efficiency'
+      'convenience convenience convenience taxBenefits taxBenefits taxBenefits';
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, auto);
+      grid-template-areas:
+        'transparency directImpact'
+        'efficiency convenience'
+        'taxBenefits taxBenefits';
+    }
+
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, auto);
+      grid-template-areas:
+        'transparency'
+        'directImpact'
+        'efficiency'
+        'convenience'
+        'taxBenefits';
+    }
+
+    .transparencyPrinciple {
+      grid-area: transparency;
+    }
+    .directImpactPrinciple {
+      grid-area: directImpact;
+    }
+    .efficiencyPrinciple {
+      grid-area: efficiency;
+    }
+    .conveniencePrinciple {
+      grid-area: convenience;
+    }
+    .taxBenefitsPrinciple {
+      grid-area: taxBenefits;
+    }
+
+    .principleContainer {
+      padding: 1rem;
       text-align: center;
+      background-color: $secondary-background;
+
+      .principleHeader {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      .principleText {
+        font-size: 1rem;
+      }
     }
   }
 
-  .accentedText {
-    margin: 2rem 0;
-    font-size: 1.2rem;
+  .storyIllustration {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+
+    .package {
+      $width: 86px;
+      $height: 86px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(sm) {
+        width: $width * 0.65;
+        height: $height * 0.65;
+      }
+    }
+
+    .truck {
+      $width: 123px;
+      $height: 75px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(sm) {
+        width: $width * 0.65;
+        height: $height * 0.65;
+      }
+    }
+
+    .secondTruck {
+      $width: 123px;
+      $height: 75px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(md) {
+        @include visually-hidden;
+      }
+    }
+
+    .tent {
+      $width: 121px;
+      $height: 97px;
+
+      position: relative;
+      width: $width;
+      height: $height;
+
+      @include media-breakpoint-down(sm) {
+        width: $width * 0.65;
+        height: $height * 0.65;
+      }
+    }
+  }
+
+  .ourStoryHighlight {
+    margin: 0 auto 2rem;
     text-align: center;
 
-    .highlighted {
-      text-decoration: underline;
-      text-decoration-color: $for-individuals-highlighted-header-underline-color;
-      text-decoration-thickness: 3px;
+    > * {
+      display: inline-flex;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: $primary;
+      background-color: $secondary-background;
     }
   }
 
@@ -233,6 +401,10 @@
 
     .memberName {
       line-height: 1;
+    }
+
+    .linkedinGlyph {
+      margin-left: 0.5rem;
     }
   }
 }

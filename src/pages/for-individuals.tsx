@@ -10,6 +10,13 @@ import {
   getHomeCrumb,
   getForIndividualsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
+import {
+  Convenience,
+  DirectImpact,
+  Efficiency,
+  TaxBenefits,
+  Transparency,
+} from 'components/icons';
 import { SectionHeader } from 'components/section-header/section-header';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
@@ -30,6 +37,11 @@ const team = [
     name: 'Alina Fedorenko, COO',
     url: 'https://www.linkedin.com/in/alina-volokh/',
     image: '/images/team/Alina_Fedorenko.jpg',
+  },
+  {
+    name: 'Sonia Mehrmand, Partnership Lead',
+    url: 'https://www.linkedin.com/in/sonia-mehrmand-6084a259/',
+    image: '/images/team/Sonia_Mehrmand.jpeg',
   },
 ];
 
@@ -84,6 +96,20 @@ const ForIndividuals: NextPageWithLayout = () => {
                   the joy of giving
                 </span>
               </h2>
+
+              <p className={styles.bannerText}>
+                Over 25,000 items delivered to charities in the past 6 months
+              </p>
+
+              <Link
+                href={`/#${REQUESTED_GOODS_CONTAINER_ID}`}
+                passHref
+                legacyBehavior
+              >
+                <Button size="lg" className={styles.checkGoodsButton}>
+                  <span>Check out our top requests</span>
+                </Button>
+              </Link>
 
               <div
                 className={classNames(styles.image, styles.imageBoyLooksRight)}
@@ -142,33 +168,164 @@ const ForIndividuals: NextPageWithLayout = () => {
               Our platform provides you a receipt for a tax deduction and a
               photo/video from the nonprofit that you can share on social media.
             </p>
-
-            <p className={styles.accentedText}>
-              Over <span className={styles.highlighted}>25,000 items</span>{' '}
-              delivered to charities in the past 6 months
-            </p>
-          </Col>
-        </Row>
-
-        <h4>Ready to donate?</h4>
-
-        <Row>
-          <Col className="text-center">
-            <Link
-              href={`/#${REQUESTED_GOODS_CONTAINER_ID}`}
-              passHref
-              legacyBehavior
-            >
-              <Button size="lg" className={styles.checkGoodsButton}>
-                <span>Check out our top requests</span>
-              </Button>
-            </Link>
           </Col>
         </Row>
 
         <Row>
           <Col>
-            <SectionHeader>Our Team</SectionHeader>
+            <SectionHeader className={styles.sectionHeader}>
+              Our Principles
+            </SectionHeader>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <div className={styles.ourPrinciples}>
+              <div
+                className={classNames(
+                  styles.transparencyPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <Transparency size={70} />
+                <div className={styles.principleHeader}>Transparency</div>
+                <div className={styles.principleText}>
+                  The platform allows donors to track the progress of their
+                  donations and see when they are delivered to the nonprofit.
+                  This can help to increase trust and confidence in the donation
+                  process.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.directImpactPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <DirectImpact size={70} />
+                <div className={styles.principleHeader}>Direct Impact</div>
+                <div className={styles.principleText}>
+                  By using the platform, donors can directly impact the
+                  nonprofit organizations and communities that they care about,
+                  and see the impact of their donations first-hand.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.efficiencyPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <Efficiency size={70} />
+                <div className={styles.principleHeader}>Efficiency</div>
+                <div className={styles.principleText}>
+                  The platform streamlines the donation process, making it
+                  easier for nonprofit organizations to receive and manage
+                  donations, which can help them to focus on their core missions
+                  and goals.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.conveniencePrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <Convenience size={70} />
+                <div className={styles.principleHeader}>Convenience</div>
+                <div className={styles.principleText}>
+                  The Shortage platform allows donors to easily browse and
+                  select items that they would like to donate, as well as choose
+                  the nonprofit organization that they would like to support.
+                </div>
+              </div>
+
+              <div
+                className={classNames(
+                  styles.taxBenefitsPrinciple,
+                  styles.principleContainer
+                )}
+              >
+                <TaxBenefits size={70} />
+                <div className={styles.principleHeader}>Tax Benefits</div>
+                <div className={styles.principleText}>
+                  The platform generates tax-deductible receipts for donors,
+                  which can help them to save money on their taxes.
+                </div>
+              </div>
+            </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionHeader className={styles.sectionHeader}>
+              Our Story
+            </SectionHeader>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <div className={styles.storyIllustration}>
+              <div className={styles.package}>
+                <Image alt="" src="/images/our-story/package.svg" fill />
+              </div>
+              <div className={styles.truck}>
+                <Image alt="" src="/images/our-story/truck.svg" fill />
+              </div>
+              <div className={styles.secondTruck}>
+                <Image alt="" src="/images/our-story/truck.svg" fill />
+              </div>
+              <div className={styles.tent}>
+                <Image alt="" src="/images/our-story/tent.svg" fill />
+              </div>
+            </div>
+            <div className={styles.ourStoryHighlight}>
+              <span>$300,000 worth of goods sent to Ukraine in 2022</span>
+            </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <p>
+              For the Shortage team, the platform is a personal mission that
+              began as{' '}
+              <a href="https://shortageua.com" target="_blank" rel="noreferrer">
+                shortageua.com
+              </a>
+              , an initiative founded by Ukrainian marketing and tech
+              professionals. The team utilized their professional skills to
+              provide essential supplies to Ukraine after the start of the war
+              in February 2022.
+            </p>
+
+            <p>
+              The platform was launched with a volunteer team just one month
+              later and has since helped to organize logistics for informal
+              networks and enable people from around the world to easily donate
+              tangible goods to Ukraine. To date, individuals from all over the
+              globe have sent over $300,000 worth of goods to Ukraine.
+            </p>
+
+            <p>
+              We received a ton of positive feedback from donors, which
+              motivated the initial team to start work on a product that could
+              be scaled beyond helping Ukrainian families.
+            </p>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionHeader className={styles.sectionHeader}>
+              Our Team
+            </SectionHeader>
           </Col>
         </Row>
 
@@ -181,7 +338,7 @@ const ForIndividuals: NextPageWithLayout = () => {
           </Col>
         </Row>
 
-        <Row md={3} xs={2} xxs={1} className={styles.membersContainer}>
+        <Row md={4} xs={2} xxs={1} className={styles.membersContainer}>
           {team.map((member) => {
             return (
               <Col key={member.name}>
@@ -195,6 +352,7 @@ const ForIndividuals: NextPageWithLayout = () => {
                   <div className={styles.memberBody}>
                     <div className={styles.memberName}>{member.name}</div>
                     <Image
+                      className={styles.linkedinGlyph}
                       src="/images/team/LinkedIn_Logo.svg"
                       width={24}
                       height={24}

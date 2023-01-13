@@ -6,6 +6,12 @@ export * from './donation-steps/share-your-impact';
 export * from './logo/shortage';
 export * from './logo/shortage-staging';
 
+export * from './our-principles/convenience';
+export * from './our-principles/directImpact';
+export * from './our-principles/efficiency';
+export * from './our-principles/tax-benefits';
+export * from './our-principles/transparency';
+
 export * from './product-categories/all-category';
 export * from './product-categories/baby-care';
 export * from './product-categories/education';
