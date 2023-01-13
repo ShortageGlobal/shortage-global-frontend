@@ -17,7 +17,7 @@ import type { FormEvent } from 'react';
 import type { NextPageWithLayout } from 'pages/_app';
 import { isRequestCancel } from 'core/hooks';
 
-const SignIn: NextPageWithLayout = () => {
+const ForgotPasswordPage: NextPageWithLayout = () => {
   const session = useSession();
   const router = useRouter();
 
@@ -189,4 +189,4 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   };
 });
 
-export default SignIn;
+export default ForgotPasswordPage;
