@@ -18,6 +18,7 @@ import {
   Transparency,
 } from 'components/icons';
 import { SectionHeader } from 'components/section-header/section-header';
+import { HowItWorks } from 'components/how-it-works/how-it-works';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -258,6 +259,20 @@ const ForIndividuals: NextPageWithLayout = () => {
                 </div>
               </div>
             </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionHeader className={styles.sectionHeader}>
+              How It Works
+            </SectionHeader>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <HowItWorks />
           </Col>
         </Row>
 
