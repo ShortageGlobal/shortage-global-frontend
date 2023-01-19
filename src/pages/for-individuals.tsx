@@ -98,7 +98,7 @@ const ForIndividuals: NextPageWithLayout = () => {
               </h2>
 
               <p className={styles.bannerText}>
-                Over 25,000 items delivered to charities in the past 6 months
+                Over 30,000 items delivered to charities
               </p>
 
               <Link
@@ -286,7 +286,7 @@ const ForIndividuals: NextPageWithLayout = () => {
               </div>
             </div>
             <div className={styles.ourStoryHighlight}>
-              <span>$300,000 worth of goods sent to Ukraine in 2022</span>
+              <span>30,000 goods sent to Ukraine in 2022</span>
             </div>
           </Col>
         </Row>
@@ -310,7 +310,7 @@ const ForIndividuals: NextPageWithLayout = () => {
               later and has since helped to organize logistics for informal
               networks and enable people from around the world to easily donate
               tangible goods to Ukraine. To date, individuals from all over the
-              globe have sent over $300,000 worth of goods to Ukraine.
+              globe have sent over 30,000 needed supplies to Ukraine.
             </p>
 
             <p>

@@ -6,6 +6,7 @@ import type {
   Category,
   PaginatedResponse,
   OrganizationPreview,
+  ExternalOrganizationPreview,
   ProductPreview,
   BlogPostPreview,
 } from 'core/api/types';
@@ -21,6 +22,16 @@ export function fetchPromotedOrganizations({
       params: { limit, offset },
       cancelToken: cancelToken?.token,
     }
+  );
+}
+
+export type FetchPromotedExternalOrganizationsParams = CancelTokenParams;
+export function fetchPromotedExternalOrganizations({
+  cancelToken = null,
+}: FetchPromotedExternalOrganizationsParams = {}) {
+  return axios.get<ExternalOrganizationPreview[]>(
+    encodeURI(`${API_ROOT}/api/promoted/external_organizations/`),
+    { cancelToken: cancelToken?.token }
   );
 }
 

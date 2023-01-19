@@ -6,6 +6,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { wrapper } from 'core/store';
 import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
+import { fetchPromotedExternalOrganizations } from 'core/store/slices/promoted-external-organizations';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -271,7 +272,7 @@ const ForNonprofits: NextPageWithLayout = () => {
         <div className={classNames(styles.section, styles.partnersSection)}>
           <Row>
             <div className={classNames(styles.sectionHeader, 'text-center')}>
-              Meet some of our nonprofit partners
+              Meet some of our partners
             </div>
             <Col>
               <PromotedOrganizations />
@@ -296,7 +297,10 @@ const ForNonprofits: NextPageWithLayout = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
     // fetch partners
-    await Promise.all([store.dispatch(fetchPromotedOrganizations())]);
+    await Promise.all([
+      store.dispatch(fetchPromotedOrganizations()),
+      store.dispatch(fetchPromotedExternalOrganizations()),
+    ]);
 
     return {
       props: {},
