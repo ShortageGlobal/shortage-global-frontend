@@ -1,0 +1,79 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.howItWorks {
+  max-width: 850px;
+  margin: 0 auto;
+
+  .indicators {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    > * {
+      margin: 0 2rem 1rem;
+      border-bottom: 2px solid transparent;
+
+      &.active {
+        border-bottom: 2px solid $primary;
+      }
+    }
+  }
+
+  .carouselItem {
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 40%;
+    grid-template-rows: auto 1fr;
+    gap: 1rem 3rem;
+    grid-auto-flow: row;
+    grid-template-areas:
+      'title image'
+      'text image';
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        'title'
+        'text'
+        'image';
+    }
+
+    .title {
+      grid-area: title;
+      color: $primary;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    .text {
+      grid-area: text;
+      font-size: 1.1rem;
+    }
+
+    .imageContainer {
+      grid-area: image;
+      position: relative;
+      width: 338px;
+      height: 269px;
+      max-width: 100%;
+
+      .image {
+        object-fit: contain;
+        object-position: top;
+      }
+
+      @media (max-width: 700px) {
+        width: 100%;
+        max-height: 160px;
+
+        .image {
+          padding-top: 0.5rem;
+        }
+      }
+    }
+  }
+}
