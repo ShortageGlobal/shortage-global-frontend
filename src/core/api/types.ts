@@ -84,7 +84,13 @@ export type PaginatedResponse<Result> = {
 export type OrganizationPreview = {
   name: string;
   slug: Slug;
-  logo?: string;
+  logo: string;
+};
+
+export type ExternalOrganizationPreview = {
+  name: string;
+  url: string;
+  logo: string;
 };
 
 export type Organization = OrganizationPreview & {

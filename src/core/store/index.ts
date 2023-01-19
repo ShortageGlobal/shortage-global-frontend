@@ -12,6 +12,7 @@ import { searchReducer } from 'core/store/slices/search';
 import { notificationsReducer } from 'core/store/slices/notifications';
 import { cartReducer } from 'core/store/slices/cart';
 import { promotedOrganizationsReducer } from 'core/store/slices/promoted-organizations';
+import { promotedExternalOrganizationsReducer } from 'core/store/slices/promoted-external-organizations';
 import { promotedCategoriesReducer } from 'core/store/slices/promoted-categories';
 import { promotedProductsReducer } from 'core/store/slices/promoted-products';
 import { promotedBlogPostsReducer } from 'core/store/slices/promoted-blog-posts';
@@ -31,6 +32,7 @@ const combinedReducer = combineReducers({
   notifications: notificationsReducer,
   cart: cartReducer,
   promotedOrganizations: promotedOrganizationsReducer,
+  promotedExternalOrganizations: promotedExternalOrganizationsReducer,
   promotedCategories: promotedCategoriesReducer,
   promotedProducts: promotedProductsReducer,
   promotedBlogPosts: promotedBlogPostsReducer,
