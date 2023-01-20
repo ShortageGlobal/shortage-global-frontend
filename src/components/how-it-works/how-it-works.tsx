@@ -34,7 +34,7 @@ const steps = [
     text: (
       <span>
         Our moderators manage and send the donations directly to the nonprofit’s
-        office/warehouse.
+        office/warehouse
       </span>
     ),
     img: '/images/how-it-works/step_3.svg',
