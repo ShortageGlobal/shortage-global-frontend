@@ -17,8 +17,7 @@ export function BlogPostCard({
   return (
     <Link
       href={{
-        pathname:
-          '/organizations/[organizationSlug]/impact-stories/[blogPostSlug]',
+        pathname: '/[organizationSlug]/impact-stories/[blogPostSlug]',
         query: {
           organizationSlug: blogPost.organization.slug,
           blogPostSlug: blogPost.slug,

@@ -46,7 +46,7 @@ export function InstructionsModal({
       <Modal.Footer>
         <Link
           href={{
-            pathname: '/organizations/[organizationSlug]/packages',
+            pathname: '/[organizationSlug]/packages/',
             query: { organizationSlug },
           }}
           passHref

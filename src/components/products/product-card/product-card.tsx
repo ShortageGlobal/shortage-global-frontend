@@ -28,7 +28,7 @@ export function ProductCard({
       */}
       <Link
         href={{
-          pathname: '/organizations/[organizationSlug]/products/[productSlug]',
+          pathname: '/[organizationSlug]/products/[productSlug]/',
           query: { organizationSlug, productSlug: product.slug },
         }}
         className={styles.productLinkOverlay}
@@ -92,7 +92,7 @@ export function ProductCard({
               by{' '}
               <Link
                 href={{
-                  pathname: '/organizations/[organizationSlug]',
+                  pathname: '/[organizationSlug]/',
                   query: { organizationSlug },
                 }}
                 className={styles.organizationLink}

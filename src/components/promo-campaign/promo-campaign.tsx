@@ -15,7 +15,7 @@ export function PromoCampaign({ background, text }: PromoCampaignProps) {
         <Col>
           <Link
             href={{
-              pathname: '/organizations/[organizationSlug]/',
+              pathname: '/[organizationSlug]/',
               query: { organizationSlug: 'JFCS' },
             }}
             className={styles.promoCampaign}

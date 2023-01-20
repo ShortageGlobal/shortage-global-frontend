@@ -39,7 +39,7 @@ export function CartItem({
 
   const productPageHref = useMemo(() => {
     return {
-      pathname: '/organizations/[organizationSlug]/products/[productSlug]',
+      pathname: '/[organizationSlug]/products/[productSlug]',
       query: {
         organizationSlug: item.product.organization.slug,
         productSlug: item.product.slug,

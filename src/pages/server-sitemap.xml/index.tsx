@@ -22,19 +22,19 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const fields = [
     ...organizations.map(({ slug }) => {
       return {
-        loc: `${ROOT_URL}/organizations/${slug}/`,
+        loc: `${ROOT_URL}/${slug}/`,
         lastmod,
       };
     }),
     ...products.map(({ slug, organization }) => {
       return {
-        loc: `${ROOT_URL}/organizations/${organization.slug}/products/${slug}/`,
+        loc: `${ROOT_URL}/${organization.slug}/products/${slug}/`,
         lastmod,
       };
     }),
     ...blogPosts.map(({ slug, organization }) => {
       return {
-        loc: `${ROOT_URL}/organizations/${organization.slug}/impact-stories/${slug}/`,
+        loc: `${ROOT_URL}/${organization.slug}/impact-stories/${slug}/`,
         lastmod,
       };
     }),

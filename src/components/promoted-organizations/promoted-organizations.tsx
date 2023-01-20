@@ -25,7 +25,7 @@ export function PromotedOrganizations() {
                     <li key={organization.slug}>
                       <Link
                         href={{
-                          pathname: '/organizations/[organizationSlug]',
+                          pathname: '/[organizationSlug]/',
                           query: { organizationSlug: organization.slug },
                         }}
                         className={styles.organizationLink}
