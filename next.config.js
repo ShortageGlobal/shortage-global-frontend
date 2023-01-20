@@ -5,7 +5,7 @@ module.exports = {
   },
   async redirects() {
     return [
-      // At first nonprofit pages were under `/organizations` folder.
+      // At first, nonprofit pages were under `/organizations` folder.
       // It has been decided to shorten the length of the nonprofits' pages.
       // But we need to support the old address pattern for backward compatibility
       {
