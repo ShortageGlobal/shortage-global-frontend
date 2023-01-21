@@ -25,7 +25,7 @@ export function Header() {
   const { isRootRoute, isOrganizationRoute } = useMemo(() => {
     return {
       isRootRoute: router.route === '/',
-      isOrganizationRoute: router.route === '/organizations/[organizationSlug]',
+      isOrganizationRoute: router.route === '/[organizationSlug]',
     };
   }, [router]);
 

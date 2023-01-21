@@ -96,7 +96,7 @@ export function PackageRegistrationForm({
         });
 
         router.push({
-          pathname: '/organizations/[organizationSlug]/packages/[packageId]',
+          pathname: '/[organizationSlug]/packages/[packageId]/',
           query: {
             organizationSlug: organization.slug,
             packageId: response.data.uuid,

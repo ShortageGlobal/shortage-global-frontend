@@ -157,7 +157,7 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
                 organization. Check the requested goods on{' '}
                 <Link
                   href={{
-                    pathname: '/organizations/[organizationSlug]',
+                    pathname: '/[organizationSlug]/',
                     query: { organizationSlug: organization.slug },
                   }}
                 >

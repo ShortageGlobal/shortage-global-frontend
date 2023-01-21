@@ -127,7 +127,7 @@ export function DonationDetailsForm({
         switch (router.query.next) {
           case PAGE_KEY.PACKAGE_REGISTRATION: {
             router.push({
-              pathname: '/organizations/[organizationSlug]/packages/',
+              pathname: '/[organizationSlug]/packages/',
               query: { organizationSlug: router.query.nextOrganizationSlug },
             });
             break;

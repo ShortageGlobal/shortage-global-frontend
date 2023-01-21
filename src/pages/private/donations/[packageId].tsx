@@ -101,7 +101,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                       <Link
                         className={styles.orgLink}
                         href={{
-                          pathname: '/organizations/[organizationSlug]/',
+                          pathname: '/[organizationSlug]/',
                           query: {
                             organizationSlug: donation.organization.slug,
                           },
@@ -136,8 +136,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                   <Accordion.Body className={styles.packageItems}>
                     {donation.items.map((item) => {
                       const productPageHref = {
-                        pathname:
-                          '/organizations/[organizationSlug]/products/[productSlug]',
+                        pathname: '/[organizationSlug]/products/[productSlug]/',
                         query: {
                           organizationSlug: donation.organization.slug,
                           productSlug: item.product.slug,

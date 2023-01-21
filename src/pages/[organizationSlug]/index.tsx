@@ -44,7 +44,7 @@ const OrganizationPage: NextPageWithLayout = () => {
 
   const { metaUrl, metaTitle, metaDescription, metaImage } = useMemo(() => {
     return {
-      metaUrl: `${ROOT_URL}/organizations/${organization.slug}/`,
+      metaUrl: `${ROOT_URL}/${organization.slug}/`,
       metaTitle: `Make an in-kind gift to ${organization.name}`,
       metaDescription: organization.meta_description?.trim()
         ? organization.meta_description.trim()

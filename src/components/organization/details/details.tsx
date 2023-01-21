@@ -16,7 +16,7 @@ export function OrganizationDetails() {
   const { organization } = useAppSelector(selectOrganization);
 
   const shareUrl = useMemo(() => {
-    return `${ROOT_URL}/organizations/${organization.slug}/`;
+    return `${ROOT_URL}/${organization.slug}/`;
   }, [organization.slug]);
 
   const shareText = useMemo(() => {

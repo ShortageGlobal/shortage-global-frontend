@@ -171,7 +171,7 @@ const ProductPage: NextPageWithLayout = () => {
                 requested by{' '}
                 <Link
                   href={{
-                    pathname: '/organizations/[organizationSlug]',
+                    pathname: '/[organizationSlug]/',
                     query: { organizationSlug: product.organization.slug },
                   }}
                 >
@@ -305,7 +305,7 @@ function addProductJsonLd(product: Product) {
     organizationSlug: product.organization.slug,
     productSlug: product.slug,
   });
-  const url = `${ROOT_URL}/organizations/${product.organization.slug}/products/${product.slug}/`;
+  const url = `${ROOT_URL}/${product.organization.slug}/products/${product.slug}/`;
   const category = PRODUCT_CATEGORY_LABELS[product.category] || '';
   return {
     __html: `{

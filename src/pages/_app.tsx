@@ -83,7 +83,9 @@ function MyApp({
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || commonLayout;
 
-  const faviconHref = IS_STAGING ? '/favicon_staging.png' : '/favicon.png';
+  const faviconHref = IS_STAGING
+    ? '/images/favicon_staging.png'
+    : '/favicon.png';
 
   return (
     <>
@@ -115,7 +117,7 @@ function MyApp({
         <meta
           property="og:image"
           key="og:image"
-          content="https://shortage.global/social_media_sharing_baner.png"
+          content="https://shortage.global/images/social_media_sharing_baner.png"
         />
         <meta property="og:image:width" key="og:image:width" content="1200" />
         <meta property="og:image:height" key="og:image:height" content="630" />

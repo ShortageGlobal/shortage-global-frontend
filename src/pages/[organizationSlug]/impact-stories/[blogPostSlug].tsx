@@ -40,7 +40,7 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
 
   const { metaUrl, metaTitle, metaDescription, metaImage } = useMemo(() => {
     return {
-      metaUrl: `${ROOT_URL}/organizations/${blogPost.organization.slug}/impact-stories/${blogPost.slug}/`,
+      metaUrl: `${ROOT_URL}/${blogPost.organization.slug}/impact-stories/${blogPost.slug}/`,
       metaTitle: blogPost.title,
       metaDescription: blogPost.meta_description?.trim()
         ? blogPost.meta_description.trim()

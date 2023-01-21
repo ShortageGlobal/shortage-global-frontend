@@ -158,7 +158,7 @@ export function CartSidebar() {
                   For{' '}
                   <Link
                     href={{
-                      pathname: '/organizations/[organizationSlug]',
+                      pathname: '/[organizationSlug]/',
                       query: { organizationSlug },
                     }}
                   >

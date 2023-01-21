@@ -181,7 +181,7 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                             <Link
                               className={styles.orgLink}
                               href={{
-                                pathname: '/organizations/[organizationSlug]/',
+                                pathname: '/[organizationSlug]/',
                                 query: {
                                   organizationSlug: p.organization.slug,
                                 },

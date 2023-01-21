@@ -260,7 +260,7 @@ export const getOrganizationCrumb = ({
     key: 'organization-crumb',
     label: organizationName,
     href: {
-      pathname: '/organizations/[organizationSlug]/',
+      pathname: '/[organizationSlug]/',
       query: { organizationSlug },
     },
     ...props,
@@ -277,7 +277,7 @@ export const getPackageRegistrationCrumb = ({
     key: 'package-registration',
     label: 'Package Registration',
     href: {
-      pathname: '/organizations/[organizationSlug]/packages/',
+      pathname: '/[organizationSlug]/packages/',
       query: { organizationSlug },
     },
     ...props,
@@ -296,7 +296,7 @@ export const getPackageStatusCrumb = ({
     key: 'package-status',
     label: 'Package Status',
     href: {
-      pathname: '/organizations/[organizationSlug]/packages/[packageId]/',
+      pathname: '/[organizationSlug]/packages/[packageId]/',
       query: { organizationSlug, packageId },
     },
     ...props,
@@ -317,7 +317,7 @@ export const getProductCrumb = ({
     key: 'product-crumb',
     label: productName,
     href: {
-      pathname: '/organizations/[organizationSlug]/products/[productSlug]/',
+      pathname: '/[organizationSlug]/products/[productSlug]/',
       query: { organizationSlug, productSlug },
     },
     ...props,
@@ -338,8 +338,7 @@ export const getOrganizationBlogPostCrumb = ({
     key: 'organization-blog-post-crumb',
     label: blogPostTitle,
     href: {
-      pathname:
-        '/organizations/[organizationSlug]/impact-stories/[blogPostSlug]/',
+      pathname: '/[organizationSlug]/impact-stories/[blogPostSlug]/',
       query: { organizationSlug, blogPostSlug },
     },
     ...props,

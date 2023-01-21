@@ -19,7 +19,7 @@ export function StandWithUkraine() {
         in their time of need visit{' '}
         <Link
           href={{
-            pathname: '/organizations/[organizationSlug]/',
+            pathname: '/[organizationSlug]/',
             query: { organizationSlug: 'nova_ukraine' },
           }}
         >
