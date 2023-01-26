@@ -14,11 +14,13 @@ import {
   Food,
   Toys,
   Hygiene,
+  Clothes,
 } from 'components/icons';
 import {
   PRODUCT_CATEGORY_KEY,
   PRODUCT_CATEGORY_ALL_KEY,
   PRODUCT_CATEGORY_LIST,
+  PRODUCT_CATEGORY_LABELS,
 } from 'core/constants';
 import type { Category } from 'core/api/types';
 
@@ -32,56 +34,62 @@ const PRODUCT_CATEGORY_DETAILS = Object.freeze({
   [PRODUCT_CATEGORY_KEY.VITAL_GOODS]: {
     key: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
     queryFilter: PRODUCT_CATEGORY_KEY.VITAL_GOODS,
-    name: 'Vital Goods',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.VITAL_GOODS],
     GlyphComponent: VitalGoods,
   },
   [PRODUCT_CATEGORY_KEY.HEALTHCARE]: {
     key: PRODUCT_CATEGORY_KEY.HEALTHCARE,
     queryFilter: PRODUCT_CATEGORY_KEY.HEALTHCARE,
-    name: 'Healthcare',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.HEALTHCARE],
     GlyphComponent: Healthcare,
   },
   [PRODUCT_CATEGORY_KEY.EDUCATION]: {
     key: PRODUCT_CATEGORY_KEY.EDUCATION,
     queryFilter: PRODUCT_CATEGORY_KEY.EDUCATION,
-    name: 'Education',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.EDUCATION],
     GlyphComponent: Education,
   },
   [PRODUCT_CATEGORY_KEY.BABY_CARE]: {
     key: PRODUCT_CATEGORY_KEY.BABY_CARE,
     queryFilter: PRODUCT_CATEGORY_KEY.BABY_CARE,
-    name: 'Baby Care',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.BABY_CARE],
     GlyphComponent: BabyCare,
   },
   [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: {
     key: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
     queryFilter: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
-    name: 'Save Animals',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.SAVE_ANIMALS],
     GlyphComponent: SaveAnimals,
   },
   [PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS]: {
     key: PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
     queryFilter: PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
-    name: 'Household Items',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS],
     GlyphComponent: HouseholdItems,
   },
   [PRODUCT_CATEGORY_KEY.FOOD]: {
     key: PRODUCT_CATEGORY_KEY.FOOD,
     queryFilter: PRODUCT_CATEGORY_KEY.FOOD,
-    name: 'Food',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.FOOD],
     GlyphComponent: Food,
   },
   [PRODUCT_CATEGORY_KEY.TOYS]: {
     key: PRODUCT_CATEGORY_KEY.TOYS,
     queryFilter: PRODUCT_CATEGORY_KEY.TOYS,
-    name: 'Toys',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.TOYS],
     GlyphComponent: Toys,
   },
   [PRODUCT_CATEGORY_KEY.HYGIENE]: {
     key: PRODUCT_CATEGORY_KEY.HYGIENE,
     queryFilter: PRODUCT_CATEGORY_KEY.HYGIENE,
-    name: 'Hygiene',
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.HYGIENE],
     GlyphComponent: Hygiene,
+  },
+  [PRODUCT_CATEGORY_KEY.CLOTHES]: {
+    key: PRODUCT_CATEGORY_KEY.CLOTHES,
+    queryFilter: PRODUCT_CATEGORY_KEY.CLOTHES,
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.CLOTHES],
+    GlyphComponent: Clothes,
   },
 });
 

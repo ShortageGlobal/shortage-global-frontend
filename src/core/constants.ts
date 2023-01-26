@@ -45,6 +45,7 @@ export const PRODUCT_CATEGORY_KEY = Object.freeze({
   FOOD: 'FOOD',
   TOYS: 'TOYS',
   HYGIENE: 'HYGIENE',
+  CLOTHES: 'CLOTHES',
 });
 
 export const PRODUCT_CATEGORY_ALL_KEY = '_ALL_';
@@ -60,6 +61,7 @@ export const PRODUCT_CATEGORY_LABELS = Object.freeze({
   [PRODUCT_CATEGORY_KEY.FOOD]: 'Food',
   [PRODUCT_CATEGORY_KEY.TOYS]: 'Toys',
   [PRODUCT_CATEGORY_KEY.HYGIENE]: 'Hygiene',
+  [PRODUCT_CATEGORY_KEY.CLOTHES]: 'Clothes',
 });
 
 export const PRODUCT_CATEGORY_LIST = Object.freeze([
@@ -73,6 +75,7 @@ export const PRODUCT_CATEGORY_LIST = Object.freeze([
   PRODUCT_CATEGORY_KEY.TOYS,
   PRODUCT_CATEGORY_KEY.VITAL_GOODS,
   PRODUCT_CATEGORY_KEY.HYGIENE,
+  PRODUCT_CATEGORY_KEY.CLOTHES,
 ]);
 
 export const NOTIFICATION_TYPE = Object.freeze({
