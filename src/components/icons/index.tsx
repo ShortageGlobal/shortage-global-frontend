@@ -14,6 +14,7 @@ export * from './our-principles/transparency';
 
 export * from './product-categories/all-category';
 export * from './product-categories/baby-care';
+export * from './product-categories/clothes';
 export * from './product-categories/education';
 export * from './product-categories/food';
 export * from './product-categories/healthcare';
