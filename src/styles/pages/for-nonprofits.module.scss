@@ -16,7 +16,14 @@
     margin: 1rem;
 
     .bookDemo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 0.5rem 2rem;
+
+      > * + * {
+        margin-left: 0.5rem;
+      }
     }
 
     @include media-breakpoint-down(md) {
