@@ -1,9 +1,10 @@
 import styles from 'styles/pages/for-nonprofits.module.scss';
-import { useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
+import { Calendar } from 'react-feather';
 import { wrapper } from 'core/store';
 import { fetchPromotedOrganizations } from 'core/store/slices/promoted-organizations';
 import { fetchPromotedExternalOrganizations } from 'core/store/slices/promoted-external-organizations';
@@ -14,22 +15,29 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { NonprofitRegistrationForm } from 'components/nonprofit-registration-form/nonprofit-registration-form';
 import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
-import {
-  NONPROFIT_REGISTRATION_FORM_ID,
-  NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
-} from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
+
+const BookDemoButton = () => {
+  const calendlyUrl = 'https://calendly.com/sonia-shortage/shortage-demo';
+  return (
+    <div className={styles.bookDemoWrap}>
+      <Button
+        size="lg"
+        className={styles.bookDemo}
+        href={calendlyUrl}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Calendar />
+        <span>Book a demo</span>
+      </Button>
+    </div>
+  );
+};
 
 const ForNonprofits: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [getHomeCrumb(), getForNonprofitsCrumb({ isActive: true })];
-  }, []);
-
-  const handleBookDemo = useCallback(() => {
-    document.getElementById(NONPROFIT_REGISTRATION_FORM_ID)?.scrollIntoView();
-    document
-      .getElementById(NONPROFIT_REGISTRATION_EMAIL_INPUT_ID)
-      ?.focus({ preventScroll: true });
   }, []);
 
   return (
@@ -75,15 +83,7 @@ const ForNonprofits: NextPageWithLayout = () => {
                 donations
               </h2>
 
-              <div className={styles.bookDemoWrap}>
-                <Button
-                  size="lg"
-                  className={styles.bookDemo}
-                  onClick={handleBookDemo}
-                >
-                  Book a demo
-                </Button>
-              </div>
+              <BookDemoButton />
 
               <div className={classNames(styles.image, styles.womanLeft)}>
                 <Image
@@ -280,15 +280,7 @@ const ForNonprofits: NextPageWithLayout = () => {
           </Row>
         </div>
 
-        <div className={styles.bookDemoWrap}>
-          <Button
-            size="lg"
-            className={styles.bookDemo}
-            onClick={handleBookDemo}
-          >
-            Book a demo
-          </Button>
-        </div>
+        <BookDemoButton />
       </Container>
     </>
   );
