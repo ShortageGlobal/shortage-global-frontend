@@ -1,4 +1,4 @@
-import styles from './account-dropdown.module.scss';
+import styles from 'components/header/account-dropdown.module.scss';
 import { forwardRef, useState, useCallback } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { User } from 'react-feather';
