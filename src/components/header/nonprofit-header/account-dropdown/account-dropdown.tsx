@@ -1,4 +1,4 @@
-import styles from './account-dropdown.module.scss';
+import styles from 'components/header/account-dropdown.module.scss';
 import { forwardRef, useState, useCallback } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { User } from 'react-feather';
@@ -95,17 +95,9 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
               </Dropdown.Header>
             ) : null}
 
-            <Link href="/private/profile/" passHref legacyBehavior>
+            {/* <Link href="/private/profile/" passHref legacyBehavior>
               <Dropdown.Item>Profile</Dropdown.Item>
-            </Link>
-
-            <Link href="/private/donations/" passHref legacyBehavior>
-              <Dropdown.Item>Donations</Dropdown.Item>
-            </Link>
-
-            <Link href="/private/my-impact/" passHref legacyBehavior>
-              <Dropdown.Item>My Impact</Dropdown.Item>
-            </Link>
+            </Link> */}
 
             <Dropdown.Divider />
 

@@ -1,4 +1,5 @@
-import styles from './header.module.scss';
+import styles from 'components/header/header.module.scss';
+import donorStyles from 'components/header/donor-header/donor-header.module.scss';
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { Menu, X } from 'react-feather';
@@ -9,11 +10,11 @@ import { useAppSelector, useScrollPosition } from 'core/hooks';
 import { selectSearch } from 'core/store/slices/search';
 import { LogoImage } from 'components/logo-image/logo-image';
 import { ActiveLink } from 'components/active-link/active-link';
-import { SearchProducts } from 'components/header/search/search';
-import { AccountDropdown } from 'components/header/account-dropdown/account-dropdown';
+import { SearchProducts } from 'components/header/donor-header/search/search';
+import { AccountDropdown } from 'components/header/donor-header/account-dropdown/account-dropdown';
 import { CartButton } from 'components/cart/cart-button/cart-button';
 
-export function Header() {
+export function DonorHeader() {
   const router = useRouter();
 
   const { searchQuery, isSearchInputFocused } = useAppSelector(selectSearch);
@@ -54,25 +55,31 @@ export function Header() {
   }, []);
 
   return (
-    <header className={styles.header}>
+    <header className={classNames(styles.header, donorStyles.header)}>
       <Navbar
         expand="lg"
         fixed="top"
         expanded={isNavbarExpanded}
         onToggle={handleNavbarToggle}
-        className={classNames(styles.navbar, {
-          [styles.navbarWithBorder]: showNavbarBorder,
-          [styles.withSearchExpanded]:
+        className={classNames(styles.navbar, donorStyles.navbar, {
+          [donorStyles.navbarWithBorder]: showNavbarBorder,
+          [donorStyles.withSearchExpanded]:
             isSearchInputFocused || searchQuery?.length > 0,
         })}
       >
         {/* <GlobalNotification /> */}
         <Container className={styles.container}>
-          <Link href="/" className={styles.logo} aria-label="Shortage">
+          <Link
+            href="/"
+            className={classNames(styles.logo, donorStyles.logo)}
+            aria-label="Shortage"
+          >
             <LogoImage />
           </Link>
 
-          <div className={styles.controlsBar}>
+          <div
+            className={classNames(styles.controlsBar, donorStyles.controlsBar)}
+          >
             {shouldShowSearchField ? <SearchProducts /> : null}
 
             <Button

@@ -158,6 +158,8 @@ export const PACKAGE_STATUS_LIFECYCLE = Object.freeze({
   ]),
 });
 
+export const BREADCRUMBS_PORTAL_ID = 'breadcrumbs-portal';
+
 // used for scrolling
 export const REQUESTED_GOODS_CONTAINER_ID = 'most-requested-items';
 export const NONPROFIT_REGISTRATION_FORM_ID = 'nonprofit-registration-form';

@@ -1,5 +1,5 @@
 import 'styles/globals.scss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import NProgress from 'nprogress';
@@ -9,7 +9,7 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { Jost } from '@next/font/google';
 import { wrapper } from 'core/store';
-import { commonLayout } from 'core/layouts';
+import { commonDonorLayout, commonNonprofitLayout } from 'core/layouts';
 import * as gtm from 'core/tracking/gtm';
 import {
   IS_STAGING,
@@ -80,8 +80,18 @@ function MyApp({
     };
   }, [router]);
 
-  // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || commonLayout;
+  const getLayout = useMemo(() => {
+    // Use the layout defined at the page level, if available
+    if (Component.getLayout) {
+      return Component.getLayout;
+    }
+    // use common nonprofit layout
+    if (router.pathname.startsWith('/private/manage-nonprofit')) {
+      return commonNonprofitLayout;
+    }
+    // use donor layout by default
+    return commonDonorLayout;
+  }, [router, Component.getLayout]);
 
   const faviconHref = IS_STAGING
     ? '/images/favicon_staging.png'

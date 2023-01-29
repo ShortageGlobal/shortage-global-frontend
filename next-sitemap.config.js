@@ -5,7 +5,9 @@ module.exports = {
   generateRobotsTxt: true,
   exclude: ['/server-sitemap.xml', '/private/*', '/account/*', '/api/*'],
   robotsTxtOptions: {
-    policies: [{ userAgent: '*', allow: '/', disallow: '/*?*' }],
+    policies: [
+      { userAgent: '*', allow: '/', disallow: ['/*?*', '/private/*'] },
+    ],
     additionalSitemaps: [`${ROOT_URL}/server-sitemap.xml`],
   },
 };

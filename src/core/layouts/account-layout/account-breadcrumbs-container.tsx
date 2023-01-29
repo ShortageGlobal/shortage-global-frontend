@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { BREADCRUMBS_PORTAL_ID } from 'core/layouts/account-layout/account-layout';
+import { BREADCRUMBS_PORTAL_ID } from 'core/constants';
 
 export function AccountBreadcrumbsContainer({ children }) {
   const ref = useRef<HTMLElement>();
