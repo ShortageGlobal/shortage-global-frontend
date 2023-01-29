@@ -5,8 +5,8 @@ import { Menu, X } from 'react-feather';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { LogoImage } from 'components/logo-image/logo-image';
-import { ActiveLink } from 'components/active-link/active-link';
-import { AccountDropdown } from 'components/header/donor-header/account-dropdown/account-dropdown';
+// import { ActiveLink } from 'components/active-link/active-link';
+import { AccountDropdown } from 'components/header/nonprofit-header/account-dropdown/account-dropdown';
 
 export function NonprofitHeader() {
   const router = useRouter();
@@ -62,17 +62,9 @@ export function NonprofitHeader() {
             <div className={styles.navbarCollapsedTopPlaceholder} />
 
             <Nav>
-              <ActiveLink href="/for-individuals/" passHref>
+              {/* <ActiveLink href="/for-individuals/" passHref>
                 <Nav.Link>For Individuals</Nav.Link>
-              </ActiveLink>
-
-              <ActiveLink href="/for-nonprofits/" passHref>
-                <Nav.Link>For Nonprofits</Nav.Link>
-              </ActiveLink>
-
-              <ActiveLink href="/for-corporate/" passHref>
-                <Nav.Link>For Corporate</Nav.Link>
-              </ActiveLink>
+              </ActiveLink> */}
             </Nav>
           </Navbar.Collapse>
 
