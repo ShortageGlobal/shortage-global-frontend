@@ -1,0 +1,25 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables.scss';
+
+.header {
+  .navbar {
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 150ms ease-out;
+
+    &.navbarWithBorder {
+      border-bottom: 1px solid $header-border-bottom-color;
+    }
+
+    &.withSearchExpanded {
+      @media (max-width: 500px) {
+        .logo {
+          opacity: 0;
+        }
+
+        .controlsBar {
+          flex: 1;
+        }
+      }
+    }
+  }
+}

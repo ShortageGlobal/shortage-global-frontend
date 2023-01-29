@@ -6,12 +6,7 @@
     display: flex;
     flex-direction: column;
     background-color: $header-background;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom 150ms ease-out;
-
-    &.navbarWithBorder {
-      border-bottom: 1px solid $header-border-bottom-color;
-    }
+    border-bottom: 1px solid $header-border-bottom-color;
 
     .container {
       position: relative;
@@ -67,29 +62,6 @@
         display: none;
       }
     }
-
-    &.withSearchExpanded {
-      @media (max-width: 500px) {
-        .logo {
-          opacity: 0;
-        }
-
-        .controlsBar {
-          flex: 1;
-        }
-      }
-    }
-  }
-
-  .shortageUaLink {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .control {
-    display: inline-flex;
-    align-items: center;
   }
 
   .headerControlCollapsedNav {
