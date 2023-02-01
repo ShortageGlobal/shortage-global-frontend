@@ -77,11 +77,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
       blogPostsResponse = await fetchAccountPackageBlogPosts({ accessToken });
     } catch (rejection) {
       if (rejection?.response?.status === 401) {
+        const callbackUrl = encodeURIComponent(context.resolvedUrl);
         return {
           redirect: {
-            destination: `/account/sign-in/?callbackUrl=${encodeURIComponent(
-              context.resolvedUrl
-            )}`,
+            destination: `/account/sign-in/?callbackUrl=${callbackUrl}`,
             permanent: false,
           },
         };

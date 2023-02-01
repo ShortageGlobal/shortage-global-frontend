@@ -64,11 +64,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
       packageState.error?.status === 401 ||
       packageBlogPosts.error?.status === 401
     ) {
+      const callbackUrl = encodeURIComponent(context.resolvedUrl);
       return {
         redirect: {
-          destination: `/account/sign-in/?callbackUrl=${encodeURIComponent(
-            context.resolvedUrl
-          )}`,
+          destination: `/account/sign-in/?callbackUrl=${callbackUrl}`,
           permanent: false,
         },
       };

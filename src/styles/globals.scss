@@ -20,14 +20,16 @@ body {
   &:active,
   &:focus,
   &:disabled,
-  &.disabled {
+  &.disabled,
+  &.dropdown-toggle.show {
     color: $primary-button-color;
   }
 }
 
 .btn-outline-primary {
   &:hover,
-  &:active {
+  &:active,
+  &.dropdown-toggle.show {
     color: $white;
   }
 }

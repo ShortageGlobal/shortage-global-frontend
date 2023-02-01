@@ -23,17 +23,17 @@ export type JWTToken = string;
 
 type CategoryKey = keyof typeof PRODUCT_CATEGORY_KEY;
 export type Category =
-  | typeof PRODUCT_CATEGORY_KEY[CategoryKey]
+  | (typeof PRODUCT_CATEGORY_KEY)[CategoryKey]
   | typeof PRODUCT_CATEGORY_ALL_KEY;
 
 type NotificationTypeKey = keyof typeof NOTIFICATION_TYPE;
-export type NotificationType = typeof NOTIFICATION_TYPE[NotificationTypeKey];
+export type NotificationType = (typeof NOTIFICATION_TYPE)[NotificationTypeKey];
 
 type PackageTypeKey = keyof typeof PACKAGE_TYPE;
-export type PackageType = typeof PACKAGE_TYPE[PackageTypeKey];
+export type PackageType = (typeof PACKAGE_TYPE)[PackageTypeKey];
 
 type PackageStatusKey = keyof typeof PACKAGE_STATUS;
-export type PackageStatus = typeof PACKAGE_STATUS[PackageStatusKey];
+export type PackageStatus = (typeof PACKAGE_STATUS)[PackageStatusKey];
 
 export type CountryChoice = { display_name: string; value: string };
 
@@ -99,6 +99,14 @@ export type Organization = OrganizationPreview & {
   url?: string;
   banner?: string;
   deadline?: string;
+};
+
+export type AccountOrganization = Organization & {
+  ein_number?: string;
+  is_verified: boolean;
+  is_draft: boolean;
+  updated_at?: '2023-01-30T03:58:29.873224Z';
+  created_at?: '2023-01-16T22:50:42.834009Z';
 };
 
 export type Instruction = {
