@@ -142,7 +142,10 @@ export function RegisterNonprofitForm() {
                   Address of your page
                 </Form.Label>
                 <InputGroup>
-                  <InputGroup.Text id="slug-address">
+                  <InputGroup.Text
+                    id="slug-address"
+                    className={styles.addressDomain}
+                  >
                     {ROOT_URL}/
                   </InputGroup.Text>
                   <Form.Control

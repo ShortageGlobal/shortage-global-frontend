@@ -37,7 +37,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     if (accountOrganization.error?.status === 404) {
       return {
-        notFound: true,
+        redirect: {
+          destination: '/private/manage-nonprofit/',
+          permanent: false,
+        },
       };
     }
 
