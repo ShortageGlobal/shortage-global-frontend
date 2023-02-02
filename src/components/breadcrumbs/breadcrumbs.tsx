@@ -343,3 +343,42 @@ export const getOrganizationBlogPostCrumb = ({
     },
     ...props,
   });
+
+export const getManageNonprofitRootCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-crumb',
+    label: 'Manage Nonprofit',
+    href: {
+      pathname: '/private/manage-nonprofit/',
+    },
+    ...props,
+  });
+
+export const getRegisterNonprofitCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'register-nonprofit-crumb',
+    label: 'Register',
+    href: {
+      pathname: '/private/manage-nonprofit/register/',
+    },
+    ...props,
+  });
+
+export const getManageNonprofitCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: Slug;
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'register-nonprofit-crumb',
+    label: 'Register',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });

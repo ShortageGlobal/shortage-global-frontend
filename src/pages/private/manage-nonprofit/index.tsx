@@ -1,9 +1,15 @@
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { useMemo } from 'react';
+import { Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import Head from 'next/head';
 import Link from 'next/link';
 import { wrapper } from 'core/store';
 import { extractAccessTokenFromSession } from 'core/helpers';
 import { fetchAccountOrganizations } from 'core/api';
+import {
+  Breadcrumbs,
+  getHomeCrumb,
+  getManageNonprofitRootCrumb,
+} from 'components/breadcrumbs/breadcrumbs';
 import type { AccountOrganization } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
@@ -14,11 +20,23 @@ type ChooseNonprofitPageProps = {
 const ChooseNonprofitPage: NextPageWithLayout = ({
   organizations,
 }: ChooseNonprofitPageProps) => {
+  const breadcrumbs = useMemo(() => {
+    return [getHomeCrumb(), getManageNonprofitRootCrumb({ isActive: true })];
+  }, []);
+
   return (
     <>
       <Head>
         <title>Choose a nonprofit | Shortage</title>
       </Head>
+
+      <Container>
+        <Row>
+          <Col>
+            <Breadcrumbs items={breadcrumbs} />
+          </Col>
+        </Row>
+      </Container>
 
       <div className="d-flex flex-grow-1 align-items-center justify-content-center m-5">
         <DropdownButton
