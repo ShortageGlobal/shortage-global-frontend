@@ -1,0 +1,33 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.registerNonprofitForm {
+  max-width: 650px;
+  width: 100%;
+  margin: 3rem auto;
+
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .formRow {
+    margin-bottom: 1.5rem;
+  }
+
+  .confirmDetailsBtn {
+    margin: 2rem 0rem 0rem;
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+}

@@ -37,11 +37,7 @@ export function NonprofitHeader() {
         className={styles.navbar}
       >
         <Container className={styles.container}>
-          <Link
-            href="/private/manage-nonprofit/"
-            className={styles.logo}
-            aria-label="Shortage"
-          >
+          <Link href="/" className={styles.logo} aria-label="Shortage">
             <LogoImage />
           </Link>
 

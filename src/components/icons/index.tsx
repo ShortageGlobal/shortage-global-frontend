@@ -6,6 +6,8 @@ export * from './donation-steps/share-your-impact';
 export * from './logo/shortage';
 export * from './logo/shortage-staging';
 
+export * from './misc/image-upload';
+
 export * from './our-principles/convenience';
 export * from './our-principles/directImpact';
 export * from './our-principles/efficiency';

@@ -33,3 +33,19 @@ export async function fetchAccountOrganization({
     { cancelToken: cancelToken?.token, headers }
   );
 }
+
+export type RegisterAccountOrganizationParams = {
+  name: AccountOrganization['name'];
+  slug: AccountOrganization['slug'];
+} & CancelTokenParams;
+export async function registerAccountOrganization({
+  name,
+  slug,
+  cancelToken = null,
+}: RegisterAccountOrganizationParams) {
+  return axios.post<AccountOrganization>(
+    encodeURI(`${API_ROOT}/api/private/organizations/`),
+    { name, slug },
+    { cancelToken: cancelToken?.token }
+  );
+}
