@@ -12,12 +12,10 @@ import type { FormEvent } from 'react';
 const INPUT_ID = Object.freeze({
   name: 'name',
   slug: 'slug',
-  logo: 'logo',
 });
 const ERROR_KEYS = Object.freeze({
   [INPUT_ID.name]: 'name',
   [INPUT_ID.slug]: 'slug',
-  [INPUT_ID.logo]: 'logo',
 });
 type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
