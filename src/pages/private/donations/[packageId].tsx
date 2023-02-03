@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FileText } from 'react-feather';
 import { accountLayout } from 'core/layouts';
-import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import { wrapper } from 'core/store';
 import { fetchAccountPackage } from 'core/api';
 import { useAppSelector } from 'core/hooks';
@@ -73,9 +73,9 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
         <title>Account Donation Details | Shortage</title>
       </Head>
 
-      <AccountBreadcrumbsContainer>
+      <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
-      </AccountBreadcrumbsContainer>
+      </BreadcrumbsPortal>
 
       <div className={styles.donation}>
         <Row>

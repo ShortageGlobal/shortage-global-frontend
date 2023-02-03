@@ -8,7 +8,7 @@ import { fetchAccountOrganizations } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
-  getManageNonprofitRootCrumb,
+  getManageNonprofitCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import type { AccountOrganization } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -21,7 +21,7 @@ const ChooseNonprofitPage: NextPageWithLayout = ({
   organizations,
 }: ChooseNonprofitPageProps) => {
   const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getManageNonprofitRootCrumb({ isActive: true })];
+    return [getHomeCrumb(), getManageNonprofitCrumb({ isActive: true })];
   }, []);
 
   return (
@@ -49,7 +49,7 @@ const ChooseNonprofitPage: NextPageWithLayout = ({
             return (
               <Link
                 key={organization.slug}
-                href={`/private/manage-nonprofit/${organization.slug}/`}
+                href={`/private/manage-nonprofit/${organization.slug}/details/`}
                 passHref
                 legacyBehavior
               >
@@ -100,7 +100,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (organizations?.length === 1) {
       return {
         redirect: {
-          destination: `/private/manage-nonprofit/${organizations[0].slug}/`,
+          destination: `/private/manage-nonprofit/${organizations[0].slug}/details/`,
           permanent: false,
         },
       };

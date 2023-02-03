@@ -1,7 +1,8 @@
 import styles from './register-nonprofit-form.module.scss';
+import animationStyles from 'styles/animations.module.scss';
 import { useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
-import { ArrowRightCircle } from 'react-feather';
+import { Loader, ArrowRightCircle } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { registerAccountOrganization } from 'core/api';
@@ -65,9 +66,9 @@ export function RegisterNonprofitForm() {
 
         setErrors(null);
 
-        // redirect to a page editing screen
+        // redirect to the organization management page
         router.push({
-          pathname: '/private/manage-nonprofit/[organizationSlug]/',
+          pathname: '/private/manage-nonprofit/[organizationSlug]/details/',
           query: { organizationSlug: slug },
         });
       } catch (rejection) {
@@ -175,7 +176,15 @@ export function RegisterNonprofitForm() {
                   className={styles.confirmDetailsBtn}
                 >
                   <span>Continue</span>
-                  <ArrowRightCircle />
+                  {isSaving ? (
+                    <Loader
+                      role="status"
+                      aria-hidden="true"
+                      className={animationStyles.rotate}
+                    />
+                  ) : (
+                    <ArrowRightCircle aria-hidden="true" />
+                  )}
                 </Button>
               </Col>
             </Row>

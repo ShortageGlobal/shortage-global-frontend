@@ -3,32 +3,26 @@ import { useMemo } from 'react';
 import { Nav } from 'react-bootstrap';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import { useAppSelector } from 'core/hooks';
+import { selectAccountOrganization } from 'core/store/slices/account-organization';
 import Link from 'next/link';
 
 const KEY = {
-  profile: 'profile',
-  donations: 'donations',
-  myImpact: 'myImpact',
-  changePassword: 'changePassword',
+  details: 'details',
+  page: 'page',
 };
 
 export function ManageNonprofitNav() {
   const router = useRouter();
+  const { organization } = useAppSelector(selectAccountOrganization);
 
   const activeKey = useMemo(() => {
     switch (router.pathname) {
-      case '/private/profile': {
-        return KEY.profile;
+      case '/private/manage-nonprofit/[organizationSlug]/details': {
+        return KEY.details;
       }
-      case '/private/donations':
-      case '/private/donations/[packageId]': {
-        return KEY.donations;
-      }
-      case '/private/my-impact': {
-        return KEY.myImpact;
-      }
-      case '/private/change-password': {
-        return KEY.changePassword;
+      case '/private/manage-nonprofit/[organizationSlug]/page': {
+        return KEY.page;
       }
       default: {
         return null;
@@ -38,24 +32,25 @@ export function ManageNonprofitNav() {
 
   return (
     <Nav
-      className={classNames('flex-row flex-md-column', styles.accountNav)}
+      className={classNames(
+        'flex-row flex-md-column',
+        styles.manageNonprofitNav
+      )}
       activeKey={activeKey}
     >
-      <Nav.Link as={Link} eventKey={KEY.profile} href="/private/profile/">
-        Profile
-      </Nav.Link>
-      <Nav.Link as={Link} eventKey={KEY.donations} href="/private/donations/">
-        Donations
-      </Nav.Link>
-      <Nav.Link as={Link} eventKey={KEY.myImpact} href="/private/my-impact/">
-        My Impact
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.details}
+        href={`/private/manage-nonprofit/${organization.slug}/details/`}
+      >
+        Details
       </Nav.Link>
       <Nav.Link
         as={Link}
-        eventKey={KEY.changePassword}
-        href="/private/change-password/"
+        eventKey={KEY.page}
+        href={`/private/manage-nonprofit/${organization.slug}/page/`}
       >
-        Change Password
+        Nonprofit Page
       </Nav.Link>
     </Nav>
   );

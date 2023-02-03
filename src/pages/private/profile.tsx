@@ -5,7 +5,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import Head from 'next/head';
 import { accountLayout } from 'core/layouts';
-import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import { wrapper } from 'core/store';
 import {
   useUser,
@@ -34,7 +34,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.lastName]: 'last_name',
   [INPUT_ID.phoneNumber]: 'phone_number',
 });
-type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
+type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
 const ProfilePage: NextPageWithLayout = () => {
   const { showNotification } = useNotifications();
@@ -119,9 +119,9 @@ const ProfilePage: NextPageWithLayout = () => {
         <title>Profile | Shortage</title>
       </Head>
 
-      <AccountBreadcrumbsContainer>
+      <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
-      </AccountBreadcrumbsContainer>
+      </BreadcrumbsPortal>
 
       <div className={styles.profile}>
         <Row>

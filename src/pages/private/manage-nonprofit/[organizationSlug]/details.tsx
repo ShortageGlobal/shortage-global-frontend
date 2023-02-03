@@ -1,4 +1,6 @@
+import { useMemo } from 'react';
 import Head from 'next/head';
+import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
 import { useAppSelector } from 'core/hooks';
 import { extractAccessTokenFromSession } from 'core/helpers';
@@ -6,18 +8,45 @@ import {
   fetchAccountOrganization,
   selectAccountOrganization,
 } from 'core/store/slices/account-organization';
-
+import {
+  Breadcrumbs,
+  getHomeCrumb,
+  getManageNonprofitCrumb,
+  getManageNonprofitRootCrumb,
+  getManageNonprofitDetailsCrumb,
+} from 'components/breadcrumbs/breadcrumbs';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ManageNonprofitOrganizationPage: NextPageWithLayout = () => {
+const NonprofitDetailsPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
+
+  const breadcrumbs = useMemo(() => {
+    return [
+      getHomeCrumb(),
+      getManageNonprofitCrumb(),
+      getManageNonprofitRootCrumb({
+        organizationSlug: organization.slug,
+        organizationName: organization.name,
+      }),
+      getManageNonprofitDetailsCrumb({
+        isActive: true,
+        organizationSlug: organization.slug,
+      }),
+    ];
+  }, [organization]);
+
   return (
     <>
       <Head>
-        <title>{`Manage ${organization.name} | Shortage`}</title>
+        <title>{`${organization.name} Details | Shortage`}</title>
       </Head>
 
-      <div>TBD {organization.name}</div>
+      <BreadcrumbsPortal>
+        <Breadcrumbs items={breadcrumbs} />
+      </BreadcrumbsPortal>
+
+      <div>TBD {organization.name} details</div>
     </>
   );
 };
@@ -60,4 +89,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default ManageNonprofitOrganizationPage;
+NonprofitDetailsPage.getLayout = manageNonprofitLayout;
+
+export default NonprofitDetailsPage;

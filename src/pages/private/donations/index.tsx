@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { accountLayout } from 'core/layouts';
-import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import { wrapper } from 'core/store';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { fetchAccountPackages } from 'core/api';
@@ -94,9 +94,9 @@ const AccountDonationsPage: NextPageWithLayout = () => {
         <title>Account Donations | Shortage</title>
       </Head>
 
-      <AccountBreadcrumbsContainer>
+      <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
-      </AccountBreadcrumbsContainer>
+      </BreadcrumbsPortal>
 
       <div className={styles.donations}>
         <Row>

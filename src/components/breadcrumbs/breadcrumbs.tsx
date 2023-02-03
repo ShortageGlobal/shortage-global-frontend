@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Home } from 'react-feather';
 import Link, { LinkProps } from 'next/link';
 import { truncateString } from 'core/helpers';
-import type { Slug, Uuid } from 'core/api/types';
+import type { Organization, Slug, Uuid } from 'core/api/types';
 import type { ReactNode } from 'react';
 
 type BreadcrumbItem = {
@@ -252,8 +252,8 @@ export const getOrganizationCrumb = ({
   organizationName,
   ...props
 }: {
-  organizationSlug: Slug;
-  organizationName: string;
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -270,7 +270,7 @@ export const getPackageRegistrationCrumb = ({
   organizationSlug,
   ...props
 }: {
-  organizationSlug: Slug;
+  organizationSlug: Organization['slug'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -288,7 +288,7 @@ export const getPackageStatusCrumb = ({
   packageId,
   ...props
 }: {
-  organizationSlug: Slug;
+  organizationSlug: Organization['slug'];
   packageId: Uuid;
 } & BreadcrumbItem) =>
   Object.freeze({
@@ -308,7 +308,7 @@ export const getProductCrumb = ({
   productName,
   ...props
 }: {
-  organizationSlug: Slug;
+  organizationSlug: Organization['slug'];
   productSlug: Slug;
   productName: string;
 } & BreadcrumbItem) =>
@@ -329,7 +329,7 @@ export const getOrganizationBlogPostCrumb = ({
   blogPostTitle,
   ...props
 }: {
-  organizationSlug: Slug;
+  organizationSlug: Organization['slug'];
   blogPostSlug: Slug;
   blogPostTitle: string;
 } & BreadcrumbItem) =>
@@ -344,7 +344,7 @@ export const getOrganizationBlogPostCrumb = ({
     ...props,
   });
 
-export const getManageNonprofitRootCrumb = (props: BreadcrumbItem = {}) =>
+export const getManageNonprofitCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
     key: 'manage-nonprofit-crumb',
@@ -355,10 +355,10 @@ export const getManageNonprofitRootCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getRegisterNonprofitCrumb = (props: BreadcrumbItem = {}) =>
+export const getManageNonprofitRegisterCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
-    key: 'register-nonprofit-crumb',
+    key: 'manage-nonprofit-register-crumb',
     label: 'Register',
     href: {
       pathname: '/private/manage-nonprofit/register/',
@@ -366,18 +366,54 @@ export const getRegisterNonprofitCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
-export const getManageNonprofitCrumb = ({
+export const getManageNonprofitRootCrumb = ({
   organizationSlug,
+  organizationName,
   ...props
 }: {
-  organizationSlug: Slug;
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
-    key: 'register-nonprofit-crumb',
-    label: 'Register',
+    key: 'manage-nonprofit-root-crumb',
+    label: organizationName,
     href: {
-      pathname: '/private/manage-nonprofit/[organizationSlug]/',
+      pathname: '/private/manage-nonprofit/[organizationSlug]/details/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageNonprofitDetailsCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-details-crumb',
+    label: 'Details',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/details/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageNonprofitPageCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-page-crumb',
+    label: 'Nonprofit Page',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/page/',
       query: { organizationSlug },
     },
     ...props,

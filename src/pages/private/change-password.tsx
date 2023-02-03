@@ -5,7 +5,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import Head from 'next/head';
 import { accountLayout } from 'core/layouts';
-import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import { wrapper } from 'core/store';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { updateProfilePassword } from 'core/api';
@@ -27,7 +27,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.newPassword]: 'new_password',
   [INPUT_ID.confirmPassword]: 'confirm_password',
 });
-type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
+type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
 const ChangePasswordPage: NextPageWithLayout = () => {
   const { showNotification } = useNotifications();
@@ -111,9 +111,9 @@ const ChangePasswordPage: NextPageWithLayout = () => {
         <title>ChangePassword | Shortage</title>
       </Head>
 
-      <AccountBreadcrumbsContainer>
+      <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
-      </AccountBreadcrumbsContainer>
+      </BreadcrumbsPortal>
 
       <div className={styles.changePassword}>
         <Row>
