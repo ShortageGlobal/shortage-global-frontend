@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { BREADCRUMBS_PORTAL_ID } from 'core/constants';
 
-export function AccountBreadcrumbsContainer({ children }) {
+export function BreadcrumbsPortal({ children }) {
   const ref = useRef<HTMLElement>();
   const [mounted, setMounted] = useState(false);
 

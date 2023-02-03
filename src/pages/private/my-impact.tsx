@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
 import { accountLayout } from 'core/layouts';
-import { AccountBreadcrumbsContainer } from 'core/layouts/account-layout/account-breadcrumbs-container';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import { wrapper } from 'core/store';
 import { extractAccessTokenFromSession } from 'core/helpers';
 import { fetchAccountPackageBlogPosts } from 'core/api';
@@ -31,9 +31,9 @@ const MyImpactPage: NextPageWithLayout = ({ blogPosts }: MyImpactPageProps) => {
         <title>My Impact | Shortage</title>
       </Head>
 
-      <AccountBreadcrumbsContainer>
+      <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
-      </AccountBreadcrumbsContainer>
+      </BreadcrumbsPortal>
 
       <div className={styles.myImpact}>
         <Row>

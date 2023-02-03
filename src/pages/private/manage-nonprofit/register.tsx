@@ -7,8 +7,8 @@ import { fetchAccountOrganizations } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
-  getManageNonprofitRootCrumb,
-  getRegisterNonprofitCrumb,
+  getManageNonprofitCrumb,
+  getManageNonprofitRegisterCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { RegisterNonprofitForm } from 'components/manage-nonprofit/register-nonprofit-form/register-nonprofit-form';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -17,8 +17,8 @@ const RegisterNonprofitPage: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
     return [
       getHomeCrumb(),
-      getManageNonprofitRootCrumb(),
-      getRegisterNonprofitCrumb({ isActive: true }),
+      getManageNonprofitCrumb(),
+      getManageNonprofitRegisterCrumb({ isActive: true }),
     ];
   }, []);
 
