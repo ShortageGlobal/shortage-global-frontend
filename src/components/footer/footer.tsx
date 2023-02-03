@@ -25,7 +25,7 @@ export function Footer() {
               <LogoImage />
             </Link>
 
-            <div>440 N Barranca Ave #7074 Covina, CA 91723</div>
+            <div>251 Little Falls Drive Wilmington, DE, US 19808</div>
 
             <div>
               &copy; {new Date().getFullYear()} All rights reserved. Shortage
