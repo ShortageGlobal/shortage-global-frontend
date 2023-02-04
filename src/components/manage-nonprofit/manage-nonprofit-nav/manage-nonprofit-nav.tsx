@@ -41,14 +41,14 @@ export function ManageNonprofitNav() {
       <Nav.Link
         as={Link}
         eventKey={KEY.details}
-        href={`/private/manage-nonprofit/${organization?.slug}/details/`}
+        href={`/private/manage-nonprofit/${organization.slug}/details/`}
       >
         Details
       </Nav.Link>
       <Nav.Link
         as={Link}
         eventKey={KEY.page}
-        href={`/private/manage-nonprofit/${organization?.slug}/page/`}
+        href={`/private/manage-nonprofit/${organization.slug}/page/`}
       >
         Nonprofit Page
       </Nav.Link>
