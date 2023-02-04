@@ -22,9 +22,6 @@ const NonprofitDetailsPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
-    if (!organization) {
-      return [];
-    }
     return [
       getHomeCrumb(),
       getManageNonprofitCrumb(),
@@ -38,10 +35,6 @@ const NonprofitDetailsPage: NextPageWithLayout = () => {
       }),
     ];
   }, [organization]);
-
-  if (!organization) {
-    return null;
-  }
 
   return (
     <>
