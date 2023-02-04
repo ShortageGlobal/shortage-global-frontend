@@ -1,66 +1,11 @@
-import { useMemo } from 'react';
-import { Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
-import Head from 'next/head';
-import Link from 'next/link';
 import { wrapper } from 'core/store';
 import { extractAccessTokenFromSession } from 'core/helpers';
 import { fetchAccountOrganizations } from 'core/api';
-import {
-  Breadcrumbs,
-  getHomeCrumb,
-  getManageNonprofitCrumb,
-} from 'components/breadcrumbs/breadcrumbs';
-import type { AccountOrganization } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
-type ChooseNonprofitPageProps = {
-  organizations: AccountOrganization[];
-};
-
-const ChooseNonprofitPage: NextPageWithLayout = ({
-  organizations,
-}: ChooseNonprofitPageProps) => {
-  const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getManageNonprofitCrumb({ isActive: true })];
-  }, []);
-
-  return (
-    <>
-      <Head>
-        <title>Choose a nonprofit | Shortage</title>
-      </Head>
-
-      <Container>
-        <Row>
-          <Col>
-            <Breadcrumbs items={breadcrumbs} />
-          </Col>
-        </Row>
-      </Container>
-
-      <div className="d-flex flex-grow-1 align-items-center justify-content-center m-5">
-        <DropdownButton
-          size="lg"
-          variant="primary"
-          title="Select a nonprofit"
-          drop="down-centered"
-        >
-          {organizations.map((organization) => {
-            return (
-              <Link
-                key={organization.slug}
-                href={`/private/manage-nonprofit/${organization.slug}/details/`}
-                passHref
-                legacyBehavior
-              >
-                <Dropdown.Item>{organization.name}</Dropdown.Item>
-              </Link>
-            );
-          })}
-        </DropdownButton>
-      </div>
-    </>
-  );
+// redirect based on the user's organizations
+const ManageNonprofitRedirectorPage: NextPageWithLayout = () => {
+  return null;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -95,33 +40,35 @@ export const getServerSideProps = wrapper.getServerSideProps(
       throw rejection;
     }
 
-    // redirect to the only user's organization,
-    // as we normally allow only one organization per account
-    if (organizations?.length === 1) {
+    // redirect to the organization chooser
+    // will be usefull for admin accounts that can own more than one organization
+    if (organizations?.length > 1) {
       return {
         redirect: {
-          destination: `/private/manage-nonprofit/${organizations[0].slug}/details/`,
+          destination: `/private/manage-nonprofit/choose/`,
           permanent: false,
         },
       };
     }
 
-    // redirect to the organization creation page
-    if (organizations?.length === 0) {
+    // redirect to the only user's organization,
+    // as we normally allow only one organization per account
+    if (organizations?.length === 1) {
       return {
         redirect: {
-          destination: `/private/manage-nonprofit/register/`,
+          destination: `/private/manage-nonprofit/${organizations[0].slug}/`,
           permanent: false,
         },
       };
     }
 
     return {
-      props: {
-        organizations,
+      redirect: {
+        destination: `/private/manage-nonprofit/register/`,
+        permanent: false,
       },
     };
   }
 );
 
-export default ChooseNonprofitPage;
+export default ManageNonprofitRedirectorPage;
