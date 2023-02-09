@@ -21,7 +21,11 @@ export function ImageUploadInput({
   isInvalid,
 }: ImageUploadInputProps) {
   return (
-    <ImageUploading value={value} onChange={onChange}>
+    <ImageUploading
+      value={value}
+      onChange={onChange}
+      acceptType={['png', 'jpg', 'webp']}
+    >
       {({
         imageList,
         onImageUpload,

@@ -57,6 +57,7 @@ export type UpdateAccountOrganizationParams = {
   logo?: File | string;
   banner?: File | string;
   url?: AccountOrganization['url'];
+  metaDescription?: AccountOrganization['meta_description'];
   einNumber?: AccountOrganization['ein_number'];
 } & CancelTokenParams;
 export async function updateAccountOrganization({
@@ -66,12 +67,21 @@ export async function updateAccountOrganization({
   logo,
   banner,
   url,
+  metaDescription,
   einNumber,
   cancelToken = null,
 }: UpdateAccountOrganizationParams) {
   return axios.patch<AccountOrganization>(
     encodeURI(`${API_ROOT}/api/private/organizations/${originalSlug}/`),
-    { name, slug, logo, banner, url, ein_number: einNumber },
+    {
+      name,
+      slug,
+      logo,
+      banner,
+      url,
+      meta_description: metaDescription,
+      ein_number: einNumber,
+    },
     {
       cancelToken: cancelToken?.token,
       headers: {
