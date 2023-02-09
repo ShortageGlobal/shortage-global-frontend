@@ -1,4 +1,6 @@
+import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
 import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
@@ -8,17 +10,18 @@ import {
   fetchAccountOrganization,
   selectAccountOrganization,
 } from 'core/store/slices/account-organization';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageNonprofitDetailsCrumb,
+  getManageNonprofitTaxDeductionCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
+import { TaxDeductionForm } from 'components/manage-nonprofit/tax-deduction-form/tax-deduction-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const NonprofitDetailsPage: NextPageWithLayout = () => {
+const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -29,7 +32,7 @@ const NonprofitDetailsPage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageNonprofitDetailsCrumb({
+      getManageNonprofitTaxDeductionCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -39,14 +42,20 @@ const NonprofitDetailsPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} Details | Shortage`}</title>
+        <title>{`${organization.name} Tax Deduction | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <div>TBD {organization.name} details</div>
+      <Row>
+        <Col>
+          <h2 className={commonStyles.header}>Tax Deduction</h2>
+        </Col>
+      </Row>
+
+      <TaxDeductionForm />
     </>
   );
 };
@@ -89,6 +98,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-NonprofitDetailsPage.getLayout = manageNonprofitLayout;
+NonprofitTaxDeductionPage.getLayout = manageNonprofitLayout;
 
-export default NonprofitDetailsPage;
+export default NonprofitTaxDeductionPage;

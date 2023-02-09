@@ -1,4 +1,4 @@
-import styles from 'styles/pages/private/change-password.module.scss';
+import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useMemo, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
@@ -115,102 +115,100 @@ const ChangePasswordPage: NextPageWithLayout = () => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <div className={styles.changePassword}>
-        <Row>
-          <Col>
-            <h2 className={styles.header}>Change Password</h2>
-          </Col>
-        </Row>
+      <Row>
+        <Col>
+          <h2 className={commonStyles.header}>Change Password</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col>
-            <Form
-              className={styles.changePasswordForm}
-              autoComplete="off"
-              onSubmit={handleFormSubmit}
-            >
-              <Row>
-                <Form.Group
-                  as={Col}
-                  sm={6}
-                  controlId={INPUT_ID.oldPassword}
-                  className={styles.formGroup}
+      <Row>
+        <Col>
+          <Form
+            className={commonStyles.form}
+            autoComplete="off"
+            onSubmit={handleFormSubmit}
+          >
+            <Row>
+              <Form.Group
+                as={Col}
+                sm={6}
+                controlId={INPUT_ID.oldPassword}
+                className={commonStyles.formGroup}
+              >
+                <Form.Label>Old Password</Form.Label>
+                <Form.Control
+                  autoFocus
+                  size="lg"
+                  type="password"
+                  placeholder=""
+                  required
+                  isValid={getIsValid(ERROR_KEYS.oldPassword)}
+                  isInvalid={getIsInvalid(ERROR_KEYS.oldPassword)}
+                />
+                {getErrorsFeedback(ERROR_KEYS.oldPassword)}
+              </Form.Group>
+            </Row>
+
+            <Row>
+              <Form.Group
+                as={Col}
+                sm={6}
+                controlId={INPUT_ID.newPassword}
+                className={commonStyles.formGroup}
+              >
+                <Form.Label>New Password</Form.Label>
+                <Form.Control
+                  size="lg"
+                  type="password"
+                  placeholder=""
+                  required
+                  isValid={getIsValid(ERROR_KEYS.newPassword)}
+                  isInvalid={getIsInvalid(ERROR_KEYS.newPassword)}
+                />
+                {getErrorsFeedback(ERROR_KEYS.newPassword)}
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                sm={6}
+                controlId={INPUT_ID.confirmPassword}
+                className={commonStyles.formGroup}
+              >
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  size="lg"
+                  type="password"
+                  placeholder=""
+                  required
+                  isValid={getIsValid(ERROR_KEYS.confirmPassword)}
+                  isInvalid={getIsInvalid(ERROR_KEYS.confirmPassword)}
+                />
+                {getErrorsFeedback(ERROR_KEYS.confirmPassword)}
+              </Form.Group>
+            </Row>
+
+            <Row>
+              <Col>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isSaving}
+                  className={commonStyles.submitBtn}
                 >
-                  <Form.Label>Old Password</Form.Label>
-                  <Form.Control
-                    autoFocus
-                    size="lg"
-                    type="password"
-                    placeholder=""
-                    required
-                    isValid={getIsValid(ERROR_KEYS.oldPassword)}
-                    isInvalid={getIsInvalid(ERROR_KEYS.oldPassword)}
-                  />
-                  {getErrorsFeedback(ERROR_KEYS.oldPassword)}
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group
-                  as={Col}
-                  sm={6}
-                  controlId={INPUT_ID.newPassword}
-                  className={styles.formGroup}
-                >
-                  <Form.Label>New Password</Form.Label>
-                  <Form.Control
-                    size="lg"
-                    type="password"
-                    placeholder=""
-                    required
-                    isValid={getIsValid(ERROR_KEYS.newPassword)}
-                    isInvalid={getIsInvalid(ERROR_KEYS.newPassword)}
-                  />
-                  {getErrorsFeedback(ERROR_KEYS.newPassword)}
-                </Form.Group>
-
-                <Form.Group
-                  as={Col}
-                  sm={6}
-                  controlId={INPUT_ID.confirmPassword}
-                  className={styles.formGroup}
-                >
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control
-                    size="lg"
-                    type="password"
-                    placeholder=""
-                    required
-                    isValid={getIsValid(ERROR_KEYS.confirmPassword)}
-                    isInvalid={getIsInvalid(ERROR_KEYS.confirmPassword)}
-                  />
-                  {getErrorsFeedback(ERROR_KEYS.confirmPassword)}
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Col>
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={isSaving}
-                    className={styles.confirmPasswordBtn}
-                  >
-                    {isSaving ? (
-                      <Loader
-                        role="status"
-                        aria-hidden="true"
-                        className={animationStyles.rotate}
-                      />
-                    ) : null}
-                    <span>Save</span>
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          </Col>
-        </Row>
-      </div>
+                  {isSaving ? (
+                    <Loader
+                      role="status"
+                      aria-hidden="true"
+                      className={animationStyles.rotate}
+                    />
+                  ) : null}
+                  <span>Save</span>
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Col>
+      </Row>
     </>
   );
 };

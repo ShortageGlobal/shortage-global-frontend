@@ -1,3 +1,4 @@
+import commonStyles from 'styles/pages/private/common.module.scss';
 import styles from 'styles/pages/private/donations/donations.module.scss';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
@@ -101,7 +102,7 @@ const AccountDonationsPage: NextPageWithLayout = () => {
       <div className={styles.donations}>
         <Row>
           <Col>
-            <h2 className={styles.header}>
+            <h2 className={commonStyles.header}>
               <span>Donations</span>
 
               {donations?.length > 0 ? (

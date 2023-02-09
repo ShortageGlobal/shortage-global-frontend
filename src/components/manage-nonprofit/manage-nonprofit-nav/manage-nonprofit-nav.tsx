@@ -8,8 +8,8 @@ import { selectAccountOrganization } from 'core/store/slices/account-organizatio
 import Link from 'next/link';
 
 const KEY = {
-  details: 'details',
   page: 'page',
+  taxDeduction: 'taxDeduction',
 };
 
 export function ManageNonprofitNav() {
@@ -18,11 +18,11 @@ export function ManageNonprofitNav() {
 
   const activeKey = useMemo(() => {
     switch (router.pathname) {
-      case '/private/manage-nonprofit/[organizationSlug]/details': {
-        return KEY.details;
-      }
       case '/private/manage-nonprofit/[organizationSlug]/page': {
         return KEY.page;
+      }
+      case '/private/manage-nonprofit/[organizationSlug]/tax-deduction': {
+        return KEY.taxDeduction;
       }
       default: {
         return null;
@@ -40,17 +40,17 @@ export function ManageNonprofitNav() {
     >
       <Nav.Link
         as={Link}
-        eventKey={KEY.details}
-        href={`/private/manage-nonprofit/${organization.slug}/details/`}
-      >
-        Details
-      </Nav.Link>
-      <Nav.Link
-        as={Link}
         eventKey={KEY.page}
         href={`/private/manage-nonprofit/${organization.slug}/page/`}
       >
         Nonprofit Page
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.taxDeduction}
+        href={`/private/manage-nonprofit/${organization.slug}/tax-deduction/`}
+      >
+        Tax Deduction
       </Nav.Link>
     </Nav>
   );

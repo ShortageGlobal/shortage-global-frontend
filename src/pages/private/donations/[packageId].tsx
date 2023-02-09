@@ -1,3 +1,4 @@
+import commonStyles from 'styles/pages/private/common.module.scss';
 import styles from 'styles/pages/private/donations/donation.module.scss';
 import { useMemo } from 'react';
 import { Row, Col, Accordion, Button } from 'react-bootstrap';
@@ -80,7 +81,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
       <div className={styles.donation}>
         <Row>
           <Col>
-            <h2 className={styles.header}>
+            <h2 className={commonStyles.header}>
               <span>Donation Details</span>
             </h2>
           </Col>

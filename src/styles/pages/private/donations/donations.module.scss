@@ -2,14 +2,6 @@
 @import 'styles/_variables';
 
 .donations {
-  .header {
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 40px; // prevent jumping during initial load
-  }
-
   .paginationContainer {
     display: flex;
     align-items: center;

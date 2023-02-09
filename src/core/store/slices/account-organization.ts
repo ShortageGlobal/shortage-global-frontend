@@ -20,7 +20,11 @@ export const accountOrganizationSlice = createSlice({
     error?: AxiosSerializedError;
   },
 
-  reducers: {},
+  reducers: {
+    patchOrganization: (state, action) => {
+      state.organization = { ...state.organization, ...action.payload };
+    },
+  },
 
   extraReducers(builder) {
     builder
@@ -38,6 +42,9 @@ export const accountOrganizationSlice = createSlice({
       });
   },
 });
+
+// Actions
+export const { patchOrganization } = accountOrganizationSlice.actions;
 
 // Selectors
 export const selectAccountOrganization = (state: AppState) =>

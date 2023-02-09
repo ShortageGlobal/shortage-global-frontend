@@ -23,6 +23,7 @@
     width: $size;
     height: $size;
     border: 1px dashed $border-color;
+    padding: 0.5rem;
 
     &.dragging {
       border-color: $primary;

@@ -1,4 +1,6 @@
+import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
 import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
@@ -8,6 +10,7 @@ import {
   fetchAccountOrganization,
   selectAccountOrganization,
 } from 'core/store/slices/account-organization';
+import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -15,10 +18,10 @@ import {
   getManageNonprofitRootCrumb,
   getManageNonprofitPageCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
+import { NonprofitPageForm } from 'components/manage-nonprofit/nonprofit-page-form/nonprofit-page-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const NonprofitDetailsPage: NextPageWithLayout = () => {
+const NonprofitPagePage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -46,7 +49,13 @@ const NonprofitDetailsPage: NextPageWithLayout = () => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <div>TBD {organization.name} page</div>
+      <Row>
+        <Col>
+          <h2 className={commonStyles.header}>Nonprofit Page</h2>
+        </Col>
+      </Row>
+
+      <NonprofitPageForm />
     </>
   );
 };
@@ -89,6 +98,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-NonprofitDetailsPage.getLayout = manageNonprofitLayout;
+NonprofitPagePage.getLayout = manageNonprofitLayout;
 
-export default NonprofitDetailsPage;
+export default NonprofitPagePage;

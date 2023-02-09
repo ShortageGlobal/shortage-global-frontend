@@ -10,11 +10,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
   () => async (context) => {
     const organizationSlug = context.params.organizationSlug as string;
 
-    // Redirect to Details page.
+    // Redirect to Nonprofit Page page.
     // There were problems with redux store hydration if I used `next.config.js` redirects.
     return {
       redirect: {
-        destination: `/private/manage-nonprofit/${organizationSlug}/details/`,
+        destination: `/private/manage-nonprofit/${organizationSlug}/page/`,
         permanent: false,
       },
     };

@@ -2,7 +2,7 @@ import styles from './image-upload-input.module.scss';
 import ImageUploading from 'react-images-uploading';
 import classNames from 'classnames';
 import { Button } from 'react-bootstrap';
-import { Trash2 } from 'react-feather';
+import { Trash2, Upload } from 'react-feather';
 import { ImageUpload } from 'components/icons';
 import type {
   ImageListType,
@@ -65,7 +65,8 @@ export function ImageUploadInput({
                 onClick={onImageUpload}
                 className={styles.control}
               >
-                Upload image
+                <Upload />
+                <span>Upload image</span>
               </Button>
             ) : null}
 

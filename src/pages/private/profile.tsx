@@ -1,4 +1,4 @@
-import styles from 'styles/pages/private/profile.module.scss';
+import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useEffect, useCallback, useMemo, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
@@ -123,123 +123,121 @@ const ProfilePage: NextPageWithLayout = () => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <div className={styles.profile}>
+      <Row>
+        <Col>
+          <h2 className={commonStyles.header}>Profile</h2>
+        </Col>
+      </Row>
+
+      {!isProfileReady ? (
         <Row>
           <Col>
-            <h2 className={styles.header}>Profile</h2>
+            <LoadingMessage />
           </Col>
         </Row>
+      ) : null}
 
-        {!isProfileReady ? (
-          <Row>
-            <Col>
-              <LoadingMessage />
-            </Col>
-          </Row>
-        ) : null}
+      {isProfileReady ? (
+        <Row>
+          <Col>
+            <Form className={commonStyles.form} onSubmit={handleFormSubmit}>
+              <Row>
+                <Form.Group
+                  as={Col}
+                  xs={6}
+                  controlId={INPUT_ID.firstName}
+                  className={commonStyles.formGroup}
+                >
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    size="lg"
+                    type="text"
+                    autoFocus
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    isValid={getIsValid(ERROR_KEYS.firstName)}
+                    isInvalid={getIsInvalid(ERROR_KEYS.firstName)}
+                  />
+                  {getErrorsFeedback(ERROR_KEYS.firstName)}
+                </Form.Group>
 
-        {isProfileReady ? (
-          <Row>
-            <Col>
-              <Form className={styles.profileForm} onSubmit={handleFormSubmit}>
-                <Row>
-                  <Form.Group
-                    as={Col}
-                    xs={6}
-                    controlId={INPUT_ID.firstName}
-                    className={styles.formGroup}
+                <Form.Group
+                  as={Col}
+                  xs={6}
+                  controlId={INPUT_ID.lastName}
+                  className={commonStyles.formGroup}
+                >
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
+                    size="lg"
+                    type="text"
+                    placeholder=""
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    isValid={getIsValid(ERROR_KEYS.lastName)}
+                    isInvalid={getIsInvalid(ERROR_KEYS.lastName)}
+                  />
+                  {getErrorsFeedback(ERROR_KEYS.lastName)}
+                </Form.Group>
+
+                <Form.Group
+                  as={Col}
+                  xs={6}
+                  controlId={'email'}
+                  className={commonStyles.formGroup}
+                >
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    size="lg"
+                    type="email"
+                    placeholder=""
+                    readOnly
+                    value={profile?.email || ''}
+                  />
+                </Form.Group>
+
+                <Form.Group
+                  as={Col}
+                  xs={6}
+                  controlId={INPUT_ID.phoneNumber}
+                  className={commonStyles.formGroup}
+                >
+                  <Form.Label>Phone Number</Form.Label>
+                  <PhoneInput
+                    value={phoneNumber}
+                    inputProps={{ id: INPUT_ID.phoneNumber }}
+                    inputClass="form-control-lg"
+                    isValid={getIsValid(ERROR_KEYS.phoneNumber)}
+                    isInvalid={getIsInvalid(ERROR_KEYS.phoneNumber)}
+                    onChange={(phone) => setPhoneNumber(phone)}
+                  />
+                  {getErrorsFeedback(ERROR_KEYS.phoneNumber)}
+                </Form.Group>
+              </Row>
+
+              <Row>
+                <Col>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={isSaving}
+                    className={commonStyles.submitBtn}
                   >
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control
-                      size="lg"
-                      type="text"
-                      autoFocus
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      isValid={getIsValid(ERROR_KEYS.firstName)}
-                      isInvalid={getIsInvalid(ERROR_KEYS.firstName)}
-                    />
-                    {getErrorsFeedback(ERROR_KEYS.firstName)}
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Col}
-                    xs={6}
-                    controlId={INPUT_ID.lastName}
-                    className={styles.formGroup}
-                  >
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control
-                      size="lg"
-                      type="text"
-                      placeholder=""
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      isValid={getIsValid(ERROR_KEYS.lastName)}
-                      isInvalid={getIsInvalid(ERROR_KEYS.lastName)}
-                    />
-                    {getErrorsFeedback(ERROR_KEYS.lastName)}
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Col}
-                    xs={6}
-                    controlId={'email'}
-                    className={styles.formGroup}
-                  >
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                      size="lg"
-                      type="email"
-                      placeholder=""
-                      readOnly
-                      value={profile?.email || ''}
-                    />
-                  </Form.Group>
-
-                  <Form.Group
-                    as={Col}
-                    xs={6}
-                    controlId={INPUT_ID.phoneNumber}
-                    className={styles.formGroup}
-                  >
-                    <Form.Label>Phone Number</Form.Label>
-                    <PhoneInput
-                      value={phoneNumber}
-                      inputProps={{ id: INPUT_ID.phoneNumber }}
-                      inputClass="form-control-lg"
-                      isValid={getIsValid(ERROR_KEYS.phoneNumber)}
-                      isInvalid={getIsInvalid(ERROR_KEYS.phoneNumber)}
-                      onChange={(phone) => setPhoneNumber(phone)}
-                    />
-                    {getErrorsFeedback(ERROR_KEYS.phoneNumber)}
-                  </Form.Group>
-                </Row>
-
-                <Row>
-                  <Col>
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={isSaving}
-                      className={styles.confirmDetailsBtn}
-                    >
-                      {isSaving ? (
-                        <Loader
-                          role="status"
-                          aria-hidden="true"
-                          className={animationStyles.rotate}
-                        />
-                      ) : null}
-                      <span>Save profile</span>
-                    </Button>
-                  </Col>
-                </Row>
-              </Form>
-            </Col>
-          </Row>
-        ) : null}
-      </div>
+                    {isSaving ? (
+                      <Loader
+                        role="status"
+                        aria-hidden="true"
+                        className={animationStyles.rotate}
+                      />
+                    ) : null}
+                    <span>Save profile</span>
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
+      ) : null}
     </>
   );
 };
