@@ -28,6 +28,7 @@ const INPUT_ID = Object.freeze({
   logo: 'logo',
   banner: 'banner',
   url: 'url',
+  metaDescription: 'metaDescription',
 });
 const ERROR_KEYS = Object.freeze({
   [INPUT_ID.name]: 'name',
@@ -35,6 +36,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.logo]: 'logo',
   [INPUT_ID.banner]: 'banner',
   [INPUT_ID.url]: 'url',
+  [INPUT_ID.metaDescription]: 'meta_description',
 });
 type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
@@ -53,6 +55,7 @@ export function NonprofitPageForm() {
   const [logo, setLogo] = useState<ImageListType>([]);
   const [banner, setBanner] = useState<ImageListType>([]);
   const [url, setUrl] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
 
   // store organization in state
   useEffect(() => {
@@ -61,6 +64,7 @@ export function NonprofitPageForm() {
     setLogo(organization?.logo ? [{ dataURL: organization.logo }] : []);
     setBanner(organization?.banner ? [{ dataURL: organization.banner }] : []);
     setUrl(organization?.url || '');
+    setMetaDescription(organization?.meta_description || '');
   }, [organization]);
 
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
@@ -85,6 +89,7 @@ export function NonprofitPageForm() {
           logo: logo?.length ? logo[0]?.file || null : '',
           banner: banner?.length ? banner[0]?.file || null : '',
           url,
+          metaDescription,
           cancelToken,
         });
 
@@ -124,7 +129,7 @@ export function NonprofitPageForm() {
 
       setIsSaving(false);
     },
-    [organization, isSaving, name, slug, logo, banner, url]
+    [organization, isSaving, name, slug, logo, banner, url, metaDescription]
   );
 
   const getIsValid = (key: ErrorKey) =>
@@ -225,6 +230,9 @@ export function NonprofitPageForm() {
                 onChange={(image) => setBanner(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.banner)}
               />
+              <Form.Text as="div" id="metaDescriptionHelpBlock">
+                {`A cover photo for your organization page. Optional.`}
+              </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.banner)}
             </Form.Group>
           </Row>
@@ -240,7 +248,6 @@ export function NonprofitPageForm() {
               <Form.Control
                 size="lg"
                 type="text"
-                required
                 autoComplete="off"
                 placeholder="https://example.com"
                 value={url}
@@ -248,7 +255,37 @@ export function NonprofitPageForm() {
                 isValid={getIsValid(ERROR_KEYS.url)}
                 isInvalid={getIsInvalid(ERROR_KEYS.url)}
               />
+              <Form.Text as="div" id="metaDescriptionHelpBlock">
+                {`The link to your organization's website outside of Shortage. Optional.`}
+              </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.url)}
+            </Form.Group>
+          </Row>
+
+          {/* Meta description */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.metaDescription}
+              className={commonStyles.formGroup}
+            >
+              <Form.Label>Meta description</Form.Label>
+              <Form.Control
+                as="textarea"
+                size="lg"
+                type="text"
+                autoComplete="off"
+                placeholder=""
+                value={url}
+                onChange={(e) => setMetaDescription(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.metaDescription)}
+                isInvalid={getIsInvalid(ERROR_KEYS.metaDescription)}
+                aria-describedby="metaDescriptionHelpBlock"
+              />
+              <Form.Text as="div" id="metaDescriptionHelpBlock">
+                {`This value will be used as content of <meta property="description" /> tag. It is useful for SEO. Optional.`}
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.metaDescription)}
             </Form.Group>
           </Row>
 
