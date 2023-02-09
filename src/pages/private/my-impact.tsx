@@ -1,3 +1,4 @@
+import commonStyles from 'styles/pages/private/common.module.scss';
 import styles from 'styles/pages/private/my-impact.module.scss';
 import { useMemo } from 'react';
 import { Row, Col } from 'react-bootstrap';
@@ -35,30 +36,28 @@ const MyImpactPage: NextPageWithLayout = ({ blogPosts }: MyImpactPageProps) => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <div className={styles.myImpact}>
-        <Row>
-          <Col>
-            <h2 className={styles.header}>My Impact</h2>
-          </Col>
-        </Row>
+      <Row>
+        <Col>
+          <h2 className={commonStyles.header}>My Impact</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col>
-            {blogPosts?.length > 0 ? (
-              <div className={styles.blogPostsList}>
-                {blogPosts.map((blogPost) => {
-                  const key = `${blogPost.organization.slug}-${blogPost.slug}`;
-                  return <BlogPostCard key={key} blogPost={blogPost} />;
-                })}
-              </div>
-            ) : (
-              <div>
-                There are no impact stories associated with your donations yet.
-              </div>
-            )}
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <Col>
+          {blogPosts?.length > 0 ? (
+            <div className={styles.blogPostsList}>
+              {blogPosts.map((blogPost) => {
+                const key = `${blogPost.organization.slug}-${blogPost.slug}`;
+                return <BlogPostCard key={key} blogPost={blogPost} />;
+              })}
+            </div>
+          ) : (
+            <div>
+              There are no impact stories associated with your donations yet.
+            </div>
+          )}
+        </Col>
+      </Row>
     </>
   );
 };

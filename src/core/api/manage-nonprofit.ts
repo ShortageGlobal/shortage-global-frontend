@@ -49,3 +49,34 @@ export async function registerAccountOrganization({
     { cancelToken: cancelToken?.token }
   );
 }
+
+export type UpdateAccountOrganizationParams = {
+  originalSlug: AccountOrganization['slug'];
+  name?: AccountOrganization['name'];
+  slug?: AccountOrganization['slug'];
+  logo?: File | string;
+  banner?: File | string;
+  url?: AccountOrganization['url'];
+  einNumber?: AccountOrganization['ein_number'];
+} & CancelTokenParams;
+export async function updateAccountOrganization({
+  originalSlug,
+  name,
+  slug,
+  logo,
+  banner,
+  url,
+  einNumber,
+  cancelToken = null,
+}: UpdateAccountOrganizationParams) {
+  return axios.patch<AccountOrganization>(
+    encodeURI(`${API_ROOT}/api/private/organizations/${originalSlug}/`),
+    { name, slug, logo, banner, url, ein_number: einNumber },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}

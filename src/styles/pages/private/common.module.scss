@@ -1,0 +1,29 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  min-height: 40px; // prevent jumping during initial load
+}
+
+.form {
+  max-width: 650px;
+  margin-bottom: 3rem;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.submitBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+
+  > * + * {
+    margin-left: 0.5rem;
+  }
+}

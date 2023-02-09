@@ -20,11 +20,6 @@ export function Notification({ notification, onClose }: NotificationProps) {
     }
   }, [notification.type]);
 
-  const autohide = useMemo(() => {
-    // do not autohide if failure
-    return notification.type !== NOTIFICATION_TYPE.FAILURE;
-  }, [notification.type]);
-
   const handleClose = useCallback(() => {
     return onClose(notification.key);
   }, [notification.key]);
@@ -32,7 +27,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
   return (
     <Toast
       bg={bg}
-      autohide={autohide}
+      autohide
       delay={3000}
       onClose={handleClose}
       className={classNames(styles.notification)}

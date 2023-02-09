@@ -1,16 +1,8 @@
 @import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
-.myImpact {
-  .header {
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .blogPostsList {
-    > * + * {
-      margin-top: 1rem;
-    }
+.blogPostsList {
+  > * + * {
+    margin-top: 1rem;
   }
 }

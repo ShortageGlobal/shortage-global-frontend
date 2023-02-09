@@ -396,23 +396,6 @@ export const getManageNonprofitRootCrumb = ({
     ...props,
   });
 
-export const getManageNonprofitDetailsCrumb = ({
-  organizationSlug,
-  ...props
-}: {
-  organizationSlug: Organization['slug'];
-} & BreadcrumbItem) =>
-  Object.freeze({
-    ...defaultCrumb,
-    key: 'manage-nonprofit-details-crumb',
-    label: 'Details',
-    href: {
-      pathname: '/private/manage-nonprofit/[organizationSlug]/details/',
-      query: { organizationSlug },
-    },
-    ...props,
-  });
-
 export const getManageNonprofitPageCrumb = ({
   organizationSlug,
   ...props
@@ -425,6 +408,23 @@ export const getManageNonprofitPageCrumb = ({
     label: 'Nonprofit Page',
     href: {
       pathname: '/private/manage-nonprofit/[organizationSlug]/page/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageNonprofitTaxDeductionCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-tax-deduction-crumb',
+    label: 'Tax Deduction',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/tax-deduction/',
       query: { organizationSlug },
     },
     ...props,

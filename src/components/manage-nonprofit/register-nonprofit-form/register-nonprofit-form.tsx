@@ -68,7 +68,7 @@ export function RegisterNonprofitForm() {
 
         // redirect to the organization management page
         router.push({
-          pathname: '/private/manage-nonprofit/[organizationSlug]/details/',
+          pathname: '/private/manage-nonprofit/[organizationSlug]/page/',
           query: { organizationSlug: slug },
         });
       } catch (rejection) {
@@ -114,7 +114,7 @@ export function RegisterNonprofitForm() {
           >
             <Row>
               <Col>
-                <h2 className={styles.header}>Register Nonprofit</h2>
+                <h2 className={styles.header}>Register a Nonprofit</h2>
               </Col>
             </Row>
 
