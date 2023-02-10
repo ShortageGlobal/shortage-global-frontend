@@ -13,9 +13,11 @@
     "@livechat/widget-react": "^1.2.1",
     "@next/font": "^13.0.5",
     "@reduxjs/toolkit": "^1.3.6",
+    "@tinymce/tinymce-react": "^4.3.0",
     "axios": "^1.1.2",
     "bootstrap": "5.1.3",
     "classnames": "^2.3.1",
+    "copy-webpack-plugin": "^11.0.0",
     "next": "^13.0.5",
     "next-auth": "^4.17.0",
     "next-redux-wrapper": "^7.0.5",
@@ -28,6 +30,7 @@
     "react-phone-input-2": "^2.15.1",
     "react-redux": "^7.2.0",
     "sharp": "^0.30.7",
+    "tinymce": "^6.3.1",
     "use-debounce": "^8.0.3"
   },
   "devDependencies": {

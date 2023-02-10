@@ -2,6 +2,40 @@ import axios from 'axios';
 import { API_ROOT } from 'core/constants';
 import type { CancelTokenParams, AccountOrganization } from 'core/api/types';
 
+type UploadImageParams = {
+  file: File;
+  accessToken?: string;
+} & CancelTokenParams;
+export async function uploadImage({
+  file,
+  accessToken = null,
+  cancelToken = null,
+}: UploadImageParams) {
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+
+  return axios
+    .post(
+      encodeURI(`${API_ROOT}/api/private/upload_image/`),
+      { file },
+      { cancelToken: cancelToken?.token, headers }
+    )
+    .then((response) => {
+      let location = response.data.location;
+
+      if (!location.startsWith('http')) {
+        // On production, the absolute path to S3 is returned.
+        // On development, the relative path is returned, e.g. "/media/...".
+        // We need an absolute path to fetch and preview the image.
+        location = `${API_ROOT}${location}`;
+      }
+
+      return location;
+    });
+}
+
 type FetchAccountOrganizationsParams = {
   accessToken?: string;
 } & CancelTokenParams;
@@ -57,6 +91,7 @@ export type UpdateAccountOrganizationParams = {
   logo?: File | string;
   banner?: File | string;
   url?: AccountOrganization['url'];
+  description?: AccountOrganization['description'];
   metaDescription?: AccountOrganization['meta_description'];
   einNumber?: AccountOrganization['ein_number'];
 } & CancelTokenParams;
@@ -67,6 +102,7 @@ export async function updateAccountOrganization({
   logo,
   banner,
   url,
+  description,
   metaDescription,
   einNumber,
   cancelToken = null,
@@ -79,6 +115,7 @@ export async function updateAccountOrganization({
       logo,
       banner,
       url,
+      description,
       meta_description: metaDescription,
       ein_number: einNumber,
     },
