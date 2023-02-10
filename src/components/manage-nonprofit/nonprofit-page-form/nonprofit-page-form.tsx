@@ -18,6 +18,7 @@ import {
 } from 'core/store/slices/account-organization';
 import { updateAccountOrganization } from 'core/api';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
+import { HtmlEditor } from 'components/html-editor/html-editor';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
 import type { ImageListType } from 'react-images-uploading';
@@ -55,6 +56,7 @@ export function NonprofitPageForm() {
   const [logo, setLogo] = useState<ImageListType>([]);
   const [banner, setBanner] = useState<ImageListType>([]);
   const [url, setUrl] = useState('');
+  const [description, setDescription] = useState(null);
   const [metaDescription, setMetaDescription] = useState('');
 
   // store organization in state
@@ -64,6 +66,7 @@ export function NonprofitPageForm() {
     setLogo(organization?.logo ? [{ dataURL: organization.logo }] : []);
     setBanner(organization?.banner ? [{ dataURL: organization.banner }] : []);
     setUrl(organization?.url || '');
+    setDescription(organization?.description || '');
     setMetaDescription(organization?.meta_description || '');
   }, [organization]);
 
@@ -89,6 +92,7 @@ export function NonprofitPageForm() {
           logo: logo?.length ? logo[0]?.file || null : '',
           banner: banner?.length ? banner[0]?.file || null : '',
           url,
+          description,
           metaDescription,
           cancelToken,
         });
@@ -129,7 +133,17 @@ export function NonprofitPageForm() {
 
       setIsSaving(false);
     },
-    [organization, isSaving, name, slug, logo, banner, url, metaDescription]
+    [
+      organization,
+      isSaving,
+      name,
+      slug,
+      logo,
+      banner,
+      url,
+      description,
+      metaDescription,
+    ]
   );
 
   const getIsValid = (key: ErrorKey) =>
@@ -230,7 +244,7 @@ export function NonprofitPageForm() {
                 onChange={(image) => setBanner(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.banner)}
               />
-              <Form.Text as="div" id="metaDescriptionHelpBlock">
+              <Form.Text as="div">
                 {`A cover photo for your organization page. Optional.`}
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.banner)}
@@ -254,10 +268,27 @@ export function NonprofitPageForm() {
                 onChange={(e) => setUrl(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.url)}
                 isInvalid={getIsInvalid(ERROR_KEYS.url)}
+                aria-describedby="websiteHelpBlock"
               />
-              <Form.Text as="div" id="metaDescriptionHelpBlock">
+              <Form.Text as="div" id="websiteHelpBlock">
                 {`The link to your organization's website outside of Shortage. Optional.`}
               </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.url)}
+            </Form.Group>
+          </Row>
+
+          {/* Description */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.url}
+              className={commonStyles.formGroup}
+            >
+              <Form.Label>Description</Form.Label>
+              <HtmlEditor
+                value={description}
+                onChange={(newValue) => setDescription(newValue)}
+              />
               {getErrorsFeedback(ERROR_KEYS.url)}
             </Form.Group>
           </Row>
@@ -276,7 +307,7 @@ export function NonprofitPageForm() {
                 type="text"
                 autoComplete="off"
                 placeholder=""
-                value={url}
+                value={metaDescription}
                 onChange={(e) => setMetaDescription(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.metaDescription)}
                 isInvalid={getIsInvalid(ERROR_KEYS.metaDescription)}

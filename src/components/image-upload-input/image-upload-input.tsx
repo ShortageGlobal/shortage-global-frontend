@@ -24,7 +24,7 @@ export function ImageUploadInput({
     <ImageUploading
       value={value}
       onChange={onChange}
-      acceptType={['png', 'jpg', 'webp']}
+      acceptType={['png', 'jpg', 'webp', 'jpeg']}
     >
       {({
         imageList,

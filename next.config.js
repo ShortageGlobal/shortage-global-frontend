@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   trailingSlash: true,
   images: {
@@ -14,5 +18,21 @@ module.exports = {
         permanent: true,
       },
     ];
+  },
+
+  // Self-host TinyMCE
+  // See: https://iiiyu.com/2022/08/28/self-hosted-tinymce-6-x-in-nextjs-12-x-javascript-version/
+  webpack: (config) => {
+    config.plugins.push(
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.join(__dirname, 'node_modules/tinymce'),
+            to: path.join(__dirname, 'public/tinymce'),
+          },
+        ],
+      })
+    );
+    return config;
   },
 };
