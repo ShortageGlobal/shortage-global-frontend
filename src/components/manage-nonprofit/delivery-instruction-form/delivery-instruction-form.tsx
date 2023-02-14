@@ -104,7 +104,6 @@ export function DeliveryInstructionForm() {
           message: 'Delivery instruction details saved successfully',
         });
       } catch (rejection) {
-        console.log(rejection);
         if (isRequestCancel(rejection)) {
           return;
         }
