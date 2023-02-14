@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { API_ROOT } from 'core/constants';
-import type { CancelTokenParams, AccountOrganization } from 'core/api/types';
+import type {
+  CancelTokenParams,
+  AccountOrganization,
+  AccountDeliveryInstruction,
+} from 'core/api/types';
 
 type UploadImageParams = {
   file: File;
@@ -85,7 +89,7 @@ export async function registerAccountOrganization({
 }
 
 export type UpdateAccountOrganizationParams = {
-  originalSlug: AccountOrganization['slug'];
+  organizationSlug: AccountOrganization['slug'];
   name?: AccountOrganization['name'];
   slug?: AccountOrganization['slug'];
   logo?: File | string;
@@ -96,7 +100,7 @@ export type UpdateAccountOrganizationParams = {
   einNumber?: AccountOrganization['ein_number'];
 } & CancelTokenParams;
 export async function updateAccountOrganization({
-  originalSlug,
+  organizationSlug,
   name,
   slug,
   logo,
@@ -108,7 +112,7 @@ export async function updateAccountOrganization({
   cancelToken = null,
 }: UpdateAccountOrganizationParams) {
   return axios.patch<AccountOrganization>(
-    encodeURI(`${API_ROOT}/api/private/organizations/${originalSlug}/`),
+    encodeURI(`${API_ROOT}/api/private/organizations/${organizationSlug}/`),
     {
       name,
       slug,
@@ -125,5 +129,66 @@ export async function updateAccountOrganization({
         'Content-Type': 'multipart/form-data',
       },
     }
+  );
+}
+
+export type FetchAccountDeliveryInstructionsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchAccountDeliveryInstructions({
+  organizationSlug,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountDeliveryInstructionsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<AccountDeliveryInstruction[]>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/instructions/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type CreateAccountDeliveryInstructionsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  name: AccountDeliveryInstruction['name'];
+  description: AccountDeliveryInstruction['description'];
+} & CancelTokenParams;
+export async function createAccountDeliveryInstruction({
+  organizationSlug,
+  name,
+  description,
+  cancelToken = null,
+}: CreateAccountDeliveryInstructionsParams) {
+  return axios.post<AccountDeliveryInstruction>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/instructions/`
+    ),
+    { name, description },
+    { cancelToken: cancelToken?.token }
+  );
+}
+
+export type UpdateAccountDeliveryInstructionsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  id: AccountDeliveryInstruction['id'];
+  name: AccountDeliveryInstruction['name'];
+  description: AccountDeliveryInstruction['description'];
+} & CancelTokenParams;
+export async function updateAccountDeliveryInstruction({
+  organizationSlug,
+  id,
+  name,
+  description,
+  cancelToken = null,
+}: UpdateAccountDeliveryInstructionsParams) {
+  return axios.put<AccountDeliveryInstruction>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/instructions/${id}/`
+    ),
+    { name, description },
+    { cancelToken: cancelToken?.token }
   );
 }

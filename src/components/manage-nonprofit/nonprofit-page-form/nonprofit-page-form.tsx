@@ -86,7 +86,7 @@ export function NonprofitPageForm() {
 
       try {
         const response = await updateAccountOrganization({
-          originalSlug: organization.slug,
+          organizationSlug: organization.slug,
           name,
           slug,
           logo: logo?.length ? logo[0]?.file || null : '',

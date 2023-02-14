@@ -17,7 +17,6 @@ import { promotedCategoriesReducer } from 'core/store/slices/promoted-categories
 import { promotedProductsReducer } from 'core/store/slices/promoted-products';
 import { promotedBlogPostsReducer } from 'core/store/slices/promoted-blog-posts';
 import { organizationReducer } from 'core/store/slices/organization';
-import { accountOrganizationReducer } from 'core/store/slices/account-organization';
 import { categoriesReducer } from 'core/store/slices/categories';
 import { productsReducer } from 'core/store/slices/products';
 import { organizationBlogPostsReducer } from 'core/store/slices/organization-blog-posts';
@@ -25,6 +24,8 @@ import { productReducer } from 'core/store/slices/product';
 import { instructionsReducer } from 'core/store/slices/instructions';
 import { packageReducer } from 'core/store/slices/package';
 import { packageBlogPostsReducer } from 'core/store/slices/package-blog-posts';
+import { accountOrganizationReducer } from 'core/store/slices/account-organization';
+import { accountDeliveryInstructionsReducer } from 'core/store/slices/account-delivery-instruction';
 
 const combinedReducer = combineReducers({
   user: userReducer,
@@ -38,7 +39,6 @@ const combinedReducer = combineReducers({
   promotedProducts: promotedProductsReducer,
   promotedBlogPosts: promotedBlogPostsReducer,
   organization: organizationReducer,
-  accountOrganization: accountOrganizationReducer,
   categories: categoriesReducer,
   products: productsReducer,
   organizationBlogPosts: organizationBlogPostsReducer,
@@ -46,6 +46,8 @@ const combinedReducer = combineReducers({
   instructions: instructionsReducer,
   package: packageReducer,
   packageBlogPosts: packageBlogPostsReducer,
+  accountOrganization: accountOrganizationReducer,
+  accountDeliveryInstructions: accountDeliveryInstructionsReducer,
 });
 
 const reducer = (

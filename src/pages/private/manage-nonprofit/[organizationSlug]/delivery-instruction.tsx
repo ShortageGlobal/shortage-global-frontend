@@ -10,18 +10,19 @@ import {
   fetchAccountOrganization,
   selectAccountOrganization,
 } from 'core/store/slices/account-organization';
+import { fetchAccountDeliveryInstructions } from 'core/store/slices/account-delivery-instruction';
 import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageNonprofitTaxDeductionCrumb,
+  getManageNonprofitDeliveryInstructionCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { TaxDeductionForm } from 'components/manage-nonprofit/tax-deduction-form/tax-deduction-form';
+import { DeliveryInstructionForm } from 'components/manage-nonprofit/delivery-instruction-form/delivery-instruction-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
+const NonprofitDeliveryInstructionPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -32,7 +33,7 @@ const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageNonprofitTaxDeductionCrumb({
+      getManageNonprofitDeliveryInstructionCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -42,7 +43,7 @@ const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Tax Deduction | Shortage`}</title>
+        <title>{`${organization.name} — Delivery Instruction | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
@@ -51,11 +52,11 @@ const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
 
       <Row>
         <Col>
-          <h2 className={commonStyles.header}>Tax Deduction</h2>
+          <h2 className={commonStyles.header}>Delivery Instruction</h2>
         </Col>
       </Row>
 
-      <TaxDeductionForm />
+      <DeliveryInstructionForm />
     </>
   );
 };
@@ -67,9 +68,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
     const organizationSlug = context.params.organizationSlug as string;
 
-    await store.dispatch(
-      fetchAccountOrganization({ organizationSlug, accessToken })
-    );
+    await Promise.all([
+      store.dispatch(
+        fetchAccountOrganization({ organizationSlug, accessToken })
+      ),
+      store.dispatch(
+        fetchAccountDeliveryInstructions({ organizationSlug, accessToken })
+      ),
+    ]);
 
     const { accountOrganization } = store.getState();
 
@@ -98,6 +104,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-NonprofitTaxDeductionPage.getLayout = manageNonprofitLayout;
+NonprofitDeliveryInstructionPage.getLayout = manageNonprofitLayout;
 
-export default NonprofitTaxDeductionPage;
+export default NonprofitDeliveryInstructionPage;

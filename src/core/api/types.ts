@@ -109,6 +109,12 @@ export type AccountOrganization = Organization & {
   created_at?: '2023-01-16T22:50:42.834009Z';
 };
 
+export type AccountDeliveryInstruction = {
+  id: number;
+  name: string;
+  description: string;
+};
+
 export type Instruction = {
   name: string;
   description: string;
