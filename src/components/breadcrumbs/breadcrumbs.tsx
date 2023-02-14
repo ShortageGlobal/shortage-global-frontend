@@ -429,3 +429,21 @@ export const getManageNonprofitTaxDeductionCrumb = ({
     },
     ...props,
   });
+
+export const getManageNonprofitDeliveryInstructionCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-delivery-instruction-crumb',
+    label: 'Delivery Instruction',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/delivery-instruction/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
