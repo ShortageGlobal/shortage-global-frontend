@@ -28,6 +28,7 @@ const INPUT_ID = Object.freeze({
   slug: 'slug',
   logo: 'logo',
   banner: 'banner',
+  deadline: 'deadline',
   url: 'url',
   metaDescription: 'metaDescription',
 });
@@ -36,6 +37,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.slug]: 'slug',
   [INPUT_ID.logo]: 'logo',
   [INPUT_ID.banner]: 'banner',
+  [INPUT_ID.deadline]: 'deadline',
   [INPUT_ID.url]: 'url',
   [INPUT_ID.metaDescription]: 'meta_description',
 });
@@ -56,6 +58,7 @@ export function NonprofitPageForm() {
   const [logo, setLogo] = useState<ImageListType>([]);
   const [banner, setBanner] = useState<ImageListType>([]);
   const [url, setUrl] = useState('');
+  const [deadline, setDeadline] = useState('');
   const [description, setDescription] = useState(null);
   const [metaDescription, setMetaDescription] = useState('');
 
@@ -66,6 +69,11 @@ export function NonprofitPageForm() {
     setLogo(organization?.logo ? [{ dataURL: organization.logo }] : []);
     setBanner(organization?.banner ? [{ dataURL: organization.banner }] : []);
     setUrl(organization?.url || '');
+    setDeadline(
+      organization?.deadline
+        ? new Date(organization.deadline).toLocaleString('sv')
+        : ''
+    );
     setDescription(organization?.description || '');
     setMetaDescription(organization?.meta_description || '');
   }, [organization]);
@@ -92,6 +100,7 @@ export function NonprofitPageForm() {
           logo: logo?.length ? logo[0]?.file || null : '',
           banner: banner?.length ? banner[0]?.file || null : '',
           url,
+          deadline: new Date(deadline).toISOString(),
           description,
           metaDescription,
           cancelToken,
@@ -141,6 +150,7 @@ export function NonprofitPageForm() {
       logo,
       banner,
       url,
+      deadline,
       description,
       metaDescription,
     ]
@@ -274,6 +284,31 @@ export function NonprofitPageForm() {
                 {`The link to your organization's website outside of Shortage. Optional.`}
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.url)}
+            </Form.Group>
+          </Row>
+
+          {/* Deadline */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.deadline}
+              className={commonStyles.formGroup}
+            >
+              <Form.Label>Deadline</Form.Label>
+              <Form.Control
+                size="lg"
+                type="datetime-local"
+                autoComplete="off"
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.deadline)}
+                isInvalid={getIsInvalid(ERROR_KEYS.deadline)}
+                aria-describedby="deadlineHelpBlock"
+              />
+              <Form.Text as="div" id="deadlineHelpBlock">
+                {`The countdown to this time and date will be shown on your page. The time you see is local. Optional.`}
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.deadline)}
             </Form.Group>
           </Row>
 

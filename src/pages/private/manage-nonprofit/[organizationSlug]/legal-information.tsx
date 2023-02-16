@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
 import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
+import { fetchCorporateDonationOptions } from 'core/api';
 import { useAppSelector } from 'core/hooks';
 import { extractAccessTokenFromSession } from 'core/helpers';
 import {
@@ -16,12 +17,19 @@ import {
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageNonprofitTaxDeductionCrumb,
+  getManageNonprofitLegalInformationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { TaxDeductionForm } from 'components/manage-nonprofit/tax-deduction-form/tax-deduction-form';
+import { LegalInformationForm } from 'components/manage-nonprofit/legal-information/legal-information-form';
 import type { NextPageWithLayout } from 'pages/_app';
+import type { CountryChoice } from 'core/api/types';
 
-const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
+type NonprofitLegalInformationPageProps = {
+  countries: CountryChoice[];
+};
+
+const NonprofitLegalInformationPage: NextPageWithLayout = ({
+  countries,
+}: NonprofitLegalInformationPageProps) => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -32,7 +40,7 @@ const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageNonprofitTaxDeductionCrumb({
+      getManageNonprofitLegalInformationCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -42,7 +50,7 @@ const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Tax Deduction | Shortage`}</title>
+        <title>{`${organization.name} — Legal Information | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
@@ -51,11 +59,11 @@ const NonprofitTaxDeductionPage: NextPageWithLayout = () => {
 
       <Row>
         <Col>
-          <h2 className={commonStyles.header}>Tax Deduction</h2>
+          <h2 className={commonStyles.header}>Legal Information</h2>
         </Col>
       </Row>
 
-      <TaxDeductionForm />
+      <LegalInformationForm countries={countries} />
     </>
   );
 };
@@ -67,9 +75,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
     const organizationSlug = context.params.organizationSlug as string;
 
-    await store.dispatch(
-      fetchAccountOrganization({ organizationSlug, accessToken })
-    );
+    const [countriesResponse] = await Promise.all([
+      fetchCorporateDonationOptions(),
+      store.dispatch(
+        fetchAccountOrganization({ organizationSlug, accessToken })
+      ),
+    ]);
+    const countries = countriesResponse.data.actions.POST.country.choices;
 
     const { accountOrganization } = store.getState();
 
@@ -93,11 +105,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 
     return {
-      props: {},
+      props: { countries },
     };
   }
 );
 
-NonprofitTaxDeductionPage.getLayout = manageNonprofitLayout;
+NonprofitLegalInformationPage.getLayout = manageNonprofitLayout;
 
-export default NonprofitTaxDeductionPage;
+export default NonprofitLegalInformationPage;
