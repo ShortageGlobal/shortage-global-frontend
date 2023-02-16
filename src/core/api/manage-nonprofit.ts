@@ -101,7 +101,19 @@ export type UpdateAccountOrganizationParams = {
   url?: AccountOrganization['url'];
   description?: AccountOrganization['description'];
   metaDescription?: AccountOrganization['meta_description'];
+  deadline?: AccountOrganization['deadline'];
   einNumber?: AccountOrganization['ein_number'];
+  addressLine1?: AccountOrganization['address_line1'];
+  addressLine2?: AccountOrganization['address_line2'];
+  city?: AccountOrganization['city'];
+  stateProvinceRegion?: AccountOrganization['state_province_region'];
+  zip?: AccountOrganization['zip'];
+  country?: AccountOrganization['country'];
+  representativeFirstName?: AccountOrganization['representative_first_name'];
+  representativeLastName?: AccountOrganization['representative_last_name'];
+  representativeEmail?: AccountOrganization['representative_email'];
+  representativePhoneNumber?: AccountOrganization['representative_phone_number'];
+  representativeSignature?: File | string;
 } & CancelTokenParams;
 export async function updateAccountOrganization({
   organizationSlug,
@@ -112,12 +124,25 @@ export async function updateAccountOrganization({
   url,
   description,
   metaDescription,
+  deadline,
   einNumber,
+  addressLine1,
+  addressLine2,
+  city,
+  stateProvinceRegion,
+  zip,
+  country,
+  representativeFirstName,
+  representativeLastName,
+  representativeEmail,
+  representativePhoneNumber,
+  representativeSignature,
   cancelToken = null,
 }: UpdateAccountOrganizationParams) {
   return axios.patch<AccountOrganization>(
     encodeURI(`${API_ROOT}/api/private/organizations/${organizationSlug}/`),
     {
+      // nonprofit page
       name,
       slug,
       logo,
@@ -125,7 +150,21 @@ export async function updateAccountOrganization({
       url,
       description,
       meta_description: metaDescription,
+      deadline,
+
+      // tax deduction
       ein_number: einNumber,
+      address_line1: addressLine1,
+      address_line2: addressLine2,
+      city,
+      state_province_region: stateProvinceRegion,
+      zip,
+      country,
+      representative_first_name: representativeFirstName,
+      representative_last_name: representativeLastName,
+      representative_email: representativeEmail,
+      representative_phone_number: representativePhoneNumber,
+      representative_signature: representativeSignature,
     },
     {
       cancelToken: cancelToken?.token,

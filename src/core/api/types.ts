@@ -103,6 +103,17 @@ export type Organization = OrganizationPreview & {
 
 export type AccountOrganization = Organization & {
   ein_number?: string;
+  address_line1?: string;
+  address_line2?: string;
+  city?: string;
+  state_province_region?: string;
+  zip?: string;
+  country?: string;
+  representative_first_name?: string;
+  representative_last_name?: string;
+  representative_email?: string;
+  representative_phone_number?: string;
+  representative_signature?: string;
   is_verified: boolean;
   is_draft: boolean;
   updated_at?: '2023-01-30T03:58:29.873224Z';

@@ -413,7 +413,7 @@ export const getManageNonprofitPageCrumb = ({
     ...props,
   });
 
-export const getManageNonprofitTaxDeductionCrumb = ({
+export const getManageNonprofitLegalInformationCrumb = ({
   organizationSlug,
   ...props
 }: {
@@ -421,10 +421,11 @@ export const getManageNonprofitTaxDeductionCrumb = ({
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
-    key: 'manage-nonprofit-tax-deduction-crumb',
-    label: 'Tax Deduction',
+    key: 'manage-nonprofit-legal-information-crumb',
+    label: 'Legal Information',
     href: {
-      pathname: '/private/manage-nonprofit/[organizationSlug]/tax-deduction/',
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/legal-information/',
       query: { organizationSlug },
     },
     ...props,

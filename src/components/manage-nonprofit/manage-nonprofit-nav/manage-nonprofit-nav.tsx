@@ -29,7 +29,7 @@ export function ManageNonprofitNav() {
       case '/private/manage-nonprofit/[organizationSlug]/delivery-instruction': {
         return KEY.deliveryInstruction;
       }
-      case '/private/manage-nonprofit/[organizationSlug]/tax-deduction': {
+      case '/private/manage-nonprofit/[organizationSlug]/legal-information': {
         return KEY.taxDeduction;
       }
       default: {
@@ -70,9 +70,9 @@ export function ManageNonprofitNav() {
       <Nav.Link
         as={Link}
         eventKey={KEY.taxDeduction}
-        href={`/private/manage-nonprofit/${organization.slug}/tax-deduction/`}
+        href={`/private/manage-nonprofit/${organization.slug}/legal-information/`}
       >
-        Tax Deduction
+        Legal Information
       </Nav.Link>
     </Nav>
   );
