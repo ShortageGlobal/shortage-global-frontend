@@ -16,12 +16,12 @@ import {
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageNonprofitPageCrumb,
+  getManageRequestedGoodsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { NonprofitPageForm } from 'components/manage-nonprofit/nonprofit-page-form/nonprofit-page-form';
+import { ProductsList } from 'components/manage-nonprofit/products/products-list';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const NonprofitPagePage: NextPageWithLayout = () => {
+const RequestedGoodsPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -32,7 +32,7 @@ const NonprofitPagePage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageNonprofitPageCrumb({
+      getManageRequestedGoodsCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -42,20 +42,18 @@ const NonprofitPagePage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Nonprofit Page | Shortage`}</title>
+        <title>{`${organization.name} — Requested Goods | Shortage`}</title>
       </Head>
-
       <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
-
       <Row>
         <Col>
-          <h2 className={commonStyles.header}>Nonprofit Page</h2>
+          <h2 className={commonStyles.header}>Requested Goods</h2>
         </Col>
       </Row>
 
-      <NonprofitPageForm />
+      <ProductsList />
     </>
   );
 };
@@ -98,6 +96,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-NonprofitPagePage.getLayout = manageNonprofitLayout;
+RequestedGoodsPage.getLayout = manageNonprofitLayout;
 
-export default NonprofitPagePage;
+export default RequestedGoodsPage;

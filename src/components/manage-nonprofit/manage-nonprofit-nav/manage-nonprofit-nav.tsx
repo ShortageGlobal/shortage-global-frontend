@@ -9,8 +9,9 @@ import Link from 'next/link';
 
 const KEY = {
   page: 'page',
-  taxDeduction: 'taxDeduction',
+  requestedGoods: 'requestedGoods',
   deliveryInstruction: 'deliveryInstruction',
+  taxDeduction: 'taxDeduction',
 };
 
 export function ManageNonprofitNav() {
@@ -22,11 +23,14 @@ export function ManageNonprofitNav() {
       case '/private/manage-nonprofit/[organizationSlug]/page': {
         return KEY.page;
       }
-      case '/private/manage-nonprofit/[organizationSlug]/tax-deduction': {
-        return KEY.taxDeduction;
+      case '/private/manage-nonprofit/[organizationSlug]/requested-goods': {
+        return KEY.requestedGoods;
       }
       case '/private/manage-nonprofit/[organizationSlug]/delivery-instruction': {
         return KEY.deliveryInstruction;
+      }
+      case '/private/manage-nonprofit/[organizationSlug]/tax-deduction': {
+        return KEY.taxDeduction;
       }
       default: {
         return null;
@@ -51,10 +55,10 @@ export function ManageNonprofitNav() {
       </Nav.Link>
       <Nav.Link
         as={Link}
-        eventKey={KEY.taxDeduction}
-        href={`/private/manage-nonprofit/${organization.slug}/tax-deduction/`}
+        eventKey={KEY.requestedGoods}
+        href={`/private/manage-nonprofit/${organization.slug}/requested-goods/`}
       >
-        Tax Deduction
+        Requested Goods
       </Nav.Link>
       <Nav.Link
         as={Link}
@@ -62,6 +66,13 @@ export function ManageNonprofitNav() {
         href={`/private/manage-nonprofit/${organization.slug}/delivery-instruction/`}
       >
         Delivery Instruction
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.taxDeduction}
+        href={`/private/manage-nonprofit/${organization.slug}/tax-deduction/`}
+      >
+        Tax Deduction
       </Nav.Link>
     </Nav>
   );

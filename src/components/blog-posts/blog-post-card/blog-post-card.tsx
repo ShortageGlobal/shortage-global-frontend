@@ -39,7 +39,9 @@ export function BlogPostCard({
         </div>
       ) : null}
 
+      {/* text content */}
       <div className={styles.content}>
+        {/* title */}
         <div className={classNames(styles.title)}>
           {isVertical
             ? truncateString({ value: blogPost.title, maxLength: 50 })

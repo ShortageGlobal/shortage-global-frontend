@@ -1,0 +1,22 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.controls {
+  margin-bottom: 2rem;
+
+  .paginationCol {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.productsList {
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  &.loading {
+    opacity: 0.5;
+  }
+}

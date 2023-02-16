@@ -140,6 +140,20 @@ export type Product = ProductBase & {
   description?: string;
 };
 
+export type AccountProduct = {
+  id: number;
+  name: string;
+  slug: Slug;
+  category: Category;
+  photo?: string;
+  price?: number;
+  requested_amount: number;
+  top_priority: boolean;
+  position?: number;
+  description?: string;
+  created_at?: string;
+};
+
 export type OnlineStore = {
   url: string;
   name: string;
