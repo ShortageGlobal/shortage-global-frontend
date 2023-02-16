@@ -447,3 +447,20 @@ export const getManageNonprofitDeliveryInstructionCrumb = ({
     },
     ...props,
   });
+
+export const getManageRequestedGoodsCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-requested-goods-crumb',
+    label: 'Requested Goods',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/requested-goods/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });

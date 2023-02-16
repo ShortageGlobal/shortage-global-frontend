@@ -1,8 +1,12 @@
 import axios from 'axios';
-import { API_ROOT } from 'core/constants';
-import type {
+import { API_ROOT, PRODUCT_CATEGORY_ALL_KEY } from 'core/constants';
+import {
+  Category,
   CancelTokenParams,
+  PaginationParams,
+  PaginatedResponse,
   AccountOrganization,
+  AccountProduct,
   AccountDeliveryInstruction,
 } from 'core/api/types';
 
@@ -190,5 +194,40 @@ export async function updateAccountDeliveryInstruction({
     ),
     { name, description },
     { cancelToken: cancelToken?.token }
+  );
+}
+
+export type FetchAccountOrganizationProductsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  category?: Category;
+  search?: string;
+  accessToken?: string;
+} & PaginationParams &
+  CancelTokenParams;
+export async function fetchAccountOrganizationProducts({
+  organizationSlug,
+  category = null,
+  search = null,
+  limit = null,
+  offset = null,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountOrganizationProductsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PaginatedResponse<AccountProduct>>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/products/`
+    ),
+    {
+      params: {
+        category: category !== PRODUCT_CATEGORY_ALL_KEY ? category : null,
+        search: search.trim() !== '' ? search : null,
+        limit,
+        offset,
+      },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
   );
 }
