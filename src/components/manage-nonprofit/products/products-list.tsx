@@ -1,8 +1,7 @@
 import styles from './products-list.module.scss';
-import { useEffect, useState, useCallback, useMemo } from 'react';
-import { Row, Col, Table, Button, Form } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Row, Col, Button, Form } from 'react-bootstrap';
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
 import {
   useAppSelector,
   useNotifications,
@@ -23,7 +22,6 @@ import type {
 } from 'core/api/types';
 
 export function ProductsList() {
-  const router = useRouter();
   const { showNotification } = useNotifications();
   const { organization } = useAppSelector(selectAccountOrganization);
 
@@ -32,7 +30,7 @@ export function ProductsList() {
   const [pageNumber, setPageNumber] = useState(0);
   const [totalCount, setTotalCount] = useState(null);
   const [products, setProducts] = useState<AccountProduct[]>([]);
-  const [currentCategory, setCurrentCategory] = useState<Category>(
+  const [currentCategory /*, setCurrentCategory */] = useState<Category>(
     PRODUCT_CATEGORY_ALL_KEY
   );
   const [searchQuery, setSearchQuery] = useState('');

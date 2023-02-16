@@ -1,6 +1,5 @@
 import styles from './product-card.module.scss';
 import { useMemo } from 'react';
-import { Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
