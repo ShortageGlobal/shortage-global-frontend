@@ -45,18 +45,11 @@
   }
 
   .control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-color: $image-upload-input-button-border-color;
 
     &:hover,
     &:active {
       border-color: $image-upload-input-button-hover-border-color;
-    }
-
-    > * + * {
-      margin-left: 0.5rem;
     }
   }
 }

@@ -27,7 +27,7 @@ const ERROR_KEYS = Object.freeze({
   ZIP: 'zip',
   COUNTRY: 'country',
 });
-type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
+type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
 type DonationDetailsFormProps = {
   cart: Cart;
@@ -195,7 +195,6 @@ export function DonationDetailsForm({
         {profile ? (
           <Button
             variant="outline-dark"
-            className={styles.populateFromProfileBtn}
             onClick={handlePopulateFromProfile}
             disabled={!isPopulateFromProfileAvailable}
           >

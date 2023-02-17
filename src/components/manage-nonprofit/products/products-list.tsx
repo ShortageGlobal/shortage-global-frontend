@@ -1,6 +1,6 @@
 import styles from './products-list.module.scss';
 import { useEffect, useState } from 'react';
-import { Row, Col, Button, Form } from 'react-bootstrap';
+import { Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 import {
   useAppSelector,
@@ -20,6 +20,7 @@ import type {
   AccountOrganization,
   AccountProduct,
 } from 'core/api/types';
+import { Search } from 'react-feather';
 
 export function ProductsList() {
   const { showNotification } = useNotifications();
@@ -101,11 +102,17 @@ export function ProductsList() {
     <div>
       <Row className={styles.controls}>
         <Col>
-          <Form.Control
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <InputGroup>
+            <InputGroup.Text as="label" htmlFor="search-input">
+              <Search />
+            </InputGroup.Text>
+            <Form.Control
+              id="search-input"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </InputGroup>
         </Col>
         <Col className={styles.paginationCol}>
           {products?.length > 0 ? (

@@ -53,15 +53,9 @@
 
     .primaryActionBtn {
       display: inline-flex;
-      justify-content: center;
-      align-items: center;
       padding-left: 2rem;
       padding-right: 2rem;
       margin: 1rem 0;
-
-      > * + * {
-        margin-left: 0.5rem;
-      }
     }
 
     .primaryActionBtnPlaceholder {

@@ -17,16 +17,9 @@
   }
 
   .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 3rem;
     line-height: 1.1;
     padding: 0.5rem;
-
-    > * + * {
-      margin-left: 0.5rem;
-    }
 
     .buttonGlyph {
       flex-shrink: 0;
