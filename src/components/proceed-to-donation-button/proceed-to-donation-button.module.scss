@@ -1,9 +1,3 @@
 .proceedToDonationButton {
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
-  > * + * {
-    margin-left: 0.5rem;
-  }
 }

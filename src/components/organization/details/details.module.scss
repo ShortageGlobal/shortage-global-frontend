@@ -55,14 +55,8 @@
 
     .checkGoodsButton {
       display: inline-flex;
-      justify-content: center;
-      align-items: center;
       padding: 1rem 2rem;
       line-height: 1.1;
-
-      > * + * {
-        margin-left: 0.5rem;
-      }
 
       @include media-breakpoint-down(sm) {
         padding: 1rem;

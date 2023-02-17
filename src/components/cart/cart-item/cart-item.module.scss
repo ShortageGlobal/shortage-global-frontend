@@ -92,18 +92,11 @@
   .removeButton {
     width: 100%;
     min-height: 38px; // matches input height
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-color: $cart-item-remove-button-border-color;
 
     &:hover,
     &:active {
       border-color: $cart-item-remove-button-hover-border-color;
-    }
-
-    > * + * {
-      margin-left: 0.5rem;
     }
   }
 
