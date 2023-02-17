@@ -50,9 +50,9 @@ const NonprofitDeliveryInstructionPage: NextPageWithLayout = () => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row>
+      <Row className={commonStyles.headerRow}>
         <Col>
-          <h2 className={commonStyles.header}>Delivery Instruction</h2>
+          <h2 className={commonStyles.title}>Delivery Instruction</h2>
         </Col>
       </Row>
 

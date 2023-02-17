@@ -108,6 +108,7 @@ export function ProductsList() {
             </InputGroup.Text>
             <Form.Control
               id="search-input"
+              className={styles.searchInput}
               placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

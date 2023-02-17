@@ -79,11 +79,9 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
       </BreadcrumbsPortal>
 
       <div className={styles.donation}>
-        <Row>
+        <Row className={commonStyles.headerRow}>
           <Col>
-            <h2 className={commonStyles.header}>
-              <span>Donation Details</span>
-            </h2>
+            <h2 className={commonStyles.title}>Donation Details</h2>
           </Col>
         </Row>
 

@@ -49,9 +49,9 @@ const NonprofitPagePage: NextPageWithLayout = () => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row>
+      <Row className={commonStyles.headerRow}>
         <Col>
-          <h2 className={commonStyles.header}>Nonprofit Page</h2>
+          <h2 className={commonStyles.title}>Nonprofit Page</h2>
         </Col>
       </Row>
 

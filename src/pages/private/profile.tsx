@@ -123,9 +123,9 @@ const ProfilePage: NextPageWithLayout = () => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row>
+      <Row className={commonStyles.headerRow}>
         <Col>
-          <h2 className={commonStyles.header}>Profile</h2>
+          <h2 className={commonStyles.title}>Profile</h2>
         </Col>
       </Row>
 

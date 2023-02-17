@@ -57,9 +57,9 @@ const NonprofitLegalInformationPage: NextPageWithLayout = ({
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row>
+      <Row className={commonStyles.headerRow}>
         <Col>
-          <h2 className={commonStyles.header}>Legal Information</h2>
+          <h2 className={commonStyles.title}>Legal Information</h2>
         </Col>
       </Row>
 

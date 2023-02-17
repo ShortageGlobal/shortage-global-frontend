@@ -19,12 +19,19 @@ export function ManageNonprofitNav() {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const activeKey = useMemo(() => {
+    // requested goods list/create/edit
+    if (
+      router.pathname.startsWith(
+        '/private/manage-nonprofit/[organizationSlug]/requested-goods'
+      )
+    ) {
+      return KEY.requestedGoods;
+    }
+
+    // the rest of routes
     switch (router.pathname) {
       case '/private/manage-nonprofit/[organizationSlug]/page': {
         return KEY.page;
-      }
-      case '/private/manage-nonprofit/[organizationSlug]/requested-goods': {
-        return KEY.requestedGoods;
       }
       case '/private/manage-nonprofit/[organizationSlug]/delivery-instruction': {
         return KEY.deliveryInstruction;
