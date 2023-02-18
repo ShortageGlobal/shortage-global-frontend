@@ -68,49 +68,49 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
 
       <div className={commonStyles.restrictedWidth}>
         <Row className={commonStyles.headerRow}>
-          <Col as="h2" md={7} className={commonStyles.title}>
-            Edit Request
-          </Col>
+          <Col>
+            <h2 className={commonStyles.title}>
+              <span>Edit Request</span>
 
-          <Col xs="auto" className={commonStyles.actions}>
-            <Dropdown>
-              <Dropdown.Toggle variant="outline">
-                <Settings />
-              </Dropdown.Toggle>
+              <Dropdown>
+                <Dropdown.Toggle variant="outline">
+                  <Settings />
+                </Dropdown.Toggle>
 
-              <Dropdown.Menu align="end">
-                <Link
-                  href={{
-                    pathname: '/[organizationSlug]/products/[productSlug]/',
-                    query: {
-                      organizationSlug: organization.slug,
-                      productSlug: product.slug,
-                    },
-                  }}
-                  passHref
-                  legacyBehavior
-                >
-                  <Dropdown.Item className={commonStyles.dropdownItem}>
-                    <Eye size="1rem" />
-                    <span>Preview</span>
+                <Dropdown.Menu align="end">
+                  <Link
+                    href={{
+                      pathname: '/[organizationSlug]/products/[productSlug]/',
+                      query: {
+                        organizationSlug: organization.slug,
+                        productSlug: product.slug,
+                      },
+                    }}
+                    passHref
+                    legacyBehavior
+                  >
+                    <Dropdown.Item className={commonStyles.dropdownItem}>
+                      <Eye size="1rem" />
+                      <span>Preview</span>
+                    </Dropdown.Item>
+                  </Link>
+
+                  <Dropdown.Divider />
+
+                  <Dropdown.Item
+                    as="button"
+                    className={classNames(
+                      commonStyles.dropdownItem,
+                      commonStyles.dropdownItemDanger
+                    )}
+                    onClick={() => setShowDeleteConfirmationModal(true)}
+                  >
+                    <Trash2 size="1rem" />
+                    <span>Delete</span>
                   </Dropdown.Item>
-                </Link>
-
-                <Dropdown.Divider />
-
-                <Dropdown.Item
-                  as="button"
-                  className={classNames(
-                    commonStyles.dropdownItem,
-                    commonStyles.dropdownItemDanger
-                  )}
-                  onClick={() => setShowDeleteConfirmationModal(true)}
-                >
-                  <Trash2 size="1rem" />
-                  <span>Delete</span>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                </Dropdown.Menu>
+              </Dropdown>
+            </h2>
           </Col>
         </Row>
       </div>
