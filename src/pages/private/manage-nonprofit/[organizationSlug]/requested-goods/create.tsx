@@ -1,8 +1,7 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
-import Link from 'next/link';
 import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
 import { useAppSelector } from 'core/hooks';
@@ -20,7 +19,7 @@ import {
   getManageRequestedGoodsCrumb,
   getManageRequestedGoodsCreateCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { ProductsList } from 'components/manage-nonprofit/products/products-list';
+import { ProductForm } from 'components/manage-nonprofit/products/product-form/product-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const RequestedGoodsPage: NextPageWithLayout = () => {
@@ -60,7 +59,7 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
         </Col>
       </Row>
 
-      <ProductsList />
+      <ProductForm />
     </>
   );
 };

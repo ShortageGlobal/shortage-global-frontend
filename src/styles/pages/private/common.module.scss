@@ -24,6 +24,10 @@ $restrictedWidth: 650px;
   }
 }
 
+.addressDomain {
+  color: $input-placeholder-color;
+}
+
 .restrictedWidth {
   max-width: $restrictedWidth;
 }
@@ -39,6 +43,25 @@ $restrictedWidth: 650px;
 
 .sectionHeader {
   margin: 2rem 0;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    margin-left: 0.5rem;
+  }
+}
+
+.dropdownItemDanger {
+  &:not(:active) {
+    &,
+    &:hover,
+    &:focus {
+      color: $danger;
+    }
+  }
 }
 
 .submitBtn {

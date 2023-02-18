@@ -1,7 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
-import classNames from 'classnames';
-import { Row, Col, Button, Container } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { Plus } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -52,7 +51,7 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
       </BreadcrumbsPortal>
 
       <div className={commonStyles.restrictedWidth}>
-        <Row className={classNames(commonStyles.headerRow)}>
+        <Row className={commonStyles.headerRow}>
           <Col as="h2" md={7} className={commonStyles.title}>
             Requested Goods
           </Col>

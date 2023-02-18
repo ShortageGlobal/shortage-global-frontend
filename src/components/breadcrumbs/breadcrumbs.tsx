@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Home } from 'react-feather';
 import Link, { LinkProps } from 'next/link';
 import { truncateString } from 'core/helpers';
-import type { Organization, Slug, Uuid } from 'core/api/types';
+import type { AccountProduct, Organization, Slug, Uuid } from 'core/api/types';
 import type { ReactNode } from 'react';
 
 type BreadcrumbItem = {
@@ -480,6 +480,26 @@ export const getManageRequestedGoodsCreateCrumb = ({
       pathname:
         '/private/manage-nonprofit/[organizationSlug]/requested-goods/create/',
       query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageRequestedGoodsEditCrumb = ({
+  organizationSlug,
+  productId,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+  productId: AccountProduct['id'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-requested-goods-edit-crumb',
+    label: 'Edit',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/requested-goods/[productId]/',
+      query: { organizationSlug, productId },
     },
     ...props,
   });

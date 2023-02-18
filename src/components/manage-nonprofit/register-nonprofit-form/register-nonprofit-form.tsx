@@ -6,7 +6,7 @@ import { Loader, ArrowRightCircle } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { registerAccountOrganization } from 'core/api';
-import { slugify } from 'core/helpers';
+import { stripProtocolFromUrl, slugify } from 'core/helpers';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
 
@@ -147,7 +147,7 @@ export function RegisterNonprofitForm() {
                     id="slug-address"
                     className={styles.addressDomain}
                   >
-                    {ROOT_URL}/
+                    {stripProtocolFromUrl(ROOT_URL)}/
                   </InputGroup.Text>
                   <Form.Control
                     size="lg"

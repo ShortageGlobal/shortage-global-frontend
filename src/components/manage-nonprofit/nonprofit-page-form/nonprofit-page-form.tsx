@@ -1,4 +1,3 @@
-import styles from './nonprofit-page-form.module.scss';
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useEffect, useCallback, useState } from 'react';
@@ -17,6 +16,7 @@ import {
   patchOrganization,
 } from 'core/store/slices/account-organization';
 import { updateAccountOrganization } from 'core/api';
+import { stripProtocolFromUrl } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
 import { HtmlEditor } from 'components/html-editor/html-editor';
 import { ROOT_URL } from 'core/constants';
@@ -180,7 +180,7 @@ export function NonprofitPageForm() {
               controlId={INPUT_ID.name}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Name *</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
@@ -199,13 +199,13 @@ export function NonprofitPageForm() {
           {/* Slug */}
           <Row>
             <Col className={commonStyles.formGroup}>
-              <Form.Label htmlFor={INPUT_ID.slug}>Page address *</Form.Label>
+              <Form.Label htmlFor={INPUT_ID.slug}>Page address</Form.Label>
               <InputGroup>
                 <InputGroup.Text
                   id="slug-address"
-                  className={styles.addressDomain}
+                  className={commonStyles.addressDomain}
                 >
-                  {ROOT_URL}/
+                  {stripProtocolFromUrl(ROOT_URL)}/
                 </InputGroup.Text>
                 <Form.Control
                   size="lg"

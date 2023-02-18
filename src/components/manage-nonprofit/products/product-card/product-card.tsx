@@ -17,7 +17,7 @@ export function ProductCard({ product, organization }: ProductCardProps) {
   const productHref = useMemo(() => {
     return {
       pathname:
-        '/private/manage-nonprofit/[organizationSlug]/products/[productId]/',
+        '/private/manage-nonprofit/[organizationSlug]/requested-goods/[productId]/',
       query: {
         organizationSlug: organization.slug,
         productId: product.id,

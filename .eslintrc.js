@@ -7,6 +7,7 @@ module.exports = {
     'prettier',
     'next',
   ],
+  ignorePatterns: ['/public/**/*'],
   rules: {
     'react-hooks/exhaustive-deps': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
