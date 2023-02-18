@@ -2,6 +2,7 @@
 @import 'styles/_variables';
 
 .accountNav {
+  align-items: flex-start;
   margin-bottom: 1.5rem;
 
   > * + * {
