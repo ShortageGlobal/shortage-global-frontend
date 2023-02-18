@@ -88,7 +88,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     setPosition(product?.position || '0');
   }, [product]);
 
-  const getUpdateAccountOrganizationCancelToken = useCancelToken();
+  const getAccountProductCancelToken = useCancelToken();
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -100,7 +100,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
 
       setIsSaving(true);
 
-      const cancelToken = getUpdateAccountOrganizationCancelToken();
+      const cancelToken = getAccountProductCancelToken();
 
       try {
         if (!product) {
