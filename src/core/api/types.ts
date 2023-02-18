@@ -135,7 +135,7 @@ export type Instruction = {
 type ProductBase = {
   name: string;
   slug: Slug;
-  category: Category;
+  category: (typeof PRODUCT_CATEGORY_KEY)[CategoryKey];
   photo?: string;
   price?: number;
   requested_amount: number;
@@ -152,16 +152,16 @@ export type Product = ProductBase & {
 };
 
 export type AccountProduct = {
-  id: number;
+  id: number | string;
   name: string;
   slug: Slug;
-  category: Category;
+  category: (typeof PRODUCT_CATEGORY_KEY)[CategoryKey];
   photo?: string;
   price?: number;
   requested_amount: number;
   top_priority: boolean;
-  position?: number;
   description?: string;
+  position?: number;
   created_at?: string;
 };
 

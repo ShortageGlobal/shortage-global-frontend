@@ -1,9 +1,7 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
-import { Plus } from 'react-feather';
+import { Row, Col } from 'react-bootstrap';
 import Head from 'next/head';
-import Link from 'next/link';
 import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
 import { useAppSelector } from 'core/hooks';
@@ -19,8 +17,9 @@ import {
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
   getManageRequestedGoodsCrumb,
+  getManageRequestedGoodsCreateCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { ProductsList } from 'components/manage-nonprofit/products/products-list';
+import { ProductForm } from 'components/manage-nonprofit/products/product-form/product-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const RequestedGoodsPage: NextPageWithLayout = () => {
@@ -35,6 +34,9 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
         organizationName: organization.name,
       }),
       getManageRequestedGoodsCrumb({
+        organizationSlug: organization.slug,
+      }),
+      getManageRequestedGoodsCreateCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -44,40 +46,20 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Requested Goods | Shortage`}</title>
+        <title>{`${organization.name} — Add New Request | Shortage`}</title>
       </Head>
+
       <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <div className={commonStyles.restrictedWidth}>
-        <Row className={commonStyles.headerRow}>
-          <Col as="h2" md={7} className={commonStyles.title}>
-            Requested Goods
-          </Col>
+      <Row className={commonStyles.headerRow}>
+        <Col>
+          <h2 className={commonStyles.title}>Add New Request</h2>
+        </Col>
+      </Row>
 
-          <Col xs="auto" className={commonStyles.actions}>
-            <Link
-              href={{
-                pathname:
-                  '/private/manage-nonprofit/[organizationSlug]/requested-goods/create',
-                query: {
-                  organizationSlug: organization.slug,
-                },
-              }}
-              passHref
-              legacyBehavior
-            >
-              <Button size="lg">
-                <Plus />
-                <span>Add new</span>
-              </Button>
-            </Link>
-          </Col>
-        </Row>
-
-        <ProductsList />
-      </div>
+      <ProductForm />
     </>
   );
 };

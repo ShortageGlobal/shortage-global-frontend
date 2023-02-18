@@ -270,3 +270,147 @@ export async function fetchAccountOrganizationProducts({
     }
   );
 }
+
+export type FetchAccountProductParams = {
+  organizationSlug: AccountOrganization['slug'];
+  productId: AccountProduct['id'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchAccountOrganizationProduct({
+  organizationSlug,
+  productId,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountProductParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<AccountProduct>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/products/${productId}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type DeleteAccountProductParams = {
+  organizationSlug: AccountOrganization['slug'];
+  productId: AccountProduct['id'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function deleteAccountOrganizationProduct({
+  organizationSlug,
+  productId,
+  accessToken = null,
+  cancelToken = null,
+}: DeleteAccountProductParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.delete(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/products/${productId}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type UpdateAccountOrganizationProductParams = {
+  organizationSlug: AccountOrganization['slug'];
+  productId: AccountProduct['id'];
+  name: AccountProduct['name'];
+  slug: AccountProduct['slug'];
+  category: AccountProduct['category'];
+  photo: File | string;
+  price: AccountProduct['price'];
+  requestedAmount: AccountProduct['requested_amount'];
+  topPriority: AccountProduct['top_priority'];
+  description: AccountProduct['description'];
+  position: AccountProduct['position'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function updateAccountOrganizationProduct({
+  organizationSlug,
+  productId,
+  name,
+  slug,
+  category,
+  photo,
+  price,
+  requestedAmount,
+  topPriority,
+  description,
+  position,
+  cancelToken = null,
+}: UpdateAccountOrganizationProductParams) {
+  return axios.put<AccountProduct>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/products/${productId}/`
+    ),
+    {
+      name,
+      slug,
+      category,
+      photo,
+      price,
+      requested_amount: requestedAmount,
+      top_priority: topPriority,
+      description,
+      position,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
+export type CreateAccountOrganizationProductParams = {
+  organizationSlug: AccountOrganization['slug'];
+  name: AccountProduct['name'];
+  slug: AccountProduct['slug'];
+  category: AccountProduct['category'];
+  photo: File | string;
+  price: AccountProduct['price'];
+  requestedAmount: AccountProduct['requested_amount'];
+  topPriority: AccountProduct['top_priority'];
+  description: AccountProduct['description'];
+  position: AccountProduct['position'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function createAccountOrganizationProduct({
+  organizationSlug,
+  name,
+  slug,
+  category,
+  photo,
+  price,
+  requestedAmount,
+  topPriority,
+  description,
+  position,
+  cancelToken = null,
+}: CreateAccountOrganizationProductParams) {
+  return axios.post<AccountProduct>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/products/`
+    ),
+    {
+      name,
+      slug,
+      category,
+      photo,
+      price,
+      requested_amount: requestedAmount,
+      top_priority: topPriority,
+      description,
+      position,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}

@@ -100,9 +100,9 @@ const AccountDonationsPage: NextPageWithLayout = () => {
       </BreadcrumbsPortal>
 
       <div className={styles.donations}>
-        <Row>
+        <Row className={commonStyles.headerRow}>
           <Col>
-            <h2 className={commonStyles.header}>
+            <h2 className={commonStyles.title}>
               <span>Donations</span>
 
               {donations?.length > 0 ? (

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Home } from 'react-feather';
 import Link, { LinkProps } from 'next/link';
 import { truncateString } from 'core/helpers';
-import type { Organization, Slug, Uuid } from 'core/api/types';
+import type { AccountProduct, Organization, Slug, Uuid } from 'core/api/types';
 import type { ReactNode } from 'react';
 
 type BreadcrumbItem = {
@@ -462,6 +462,44 @@ export const getManageRequestedGoodsCrumb = ({
     href: {
       pathname: '/private/manage-nonprofit/[organizationSlug]/requested-goods/',
       query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageRequestedGoodsCreateCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-requested-goods-create-crumb',
+    label: 'Create',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/requested-goods/create/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageRequestedGoodsEditCrumb = ({
+  organizationSlug,
+  productId,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+  productId: AccountProduct['id'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-requested-goods-edit-crumb',
+    label: 'Edit',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/requested-goods/[productId]/',
+      query: { organizationSlug, productId },
     },
     ...props,
   });

@@ -36,9 +36,9 @@ const MyImpactPage: NextPageWithLayout = ({ blogPosts }: MyImpactPageProps) => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row>
+      <Row className={commonStyles.headerRow}>
         <Col>
-          <h2 className={commonStyles.header}>My Impact</h2>
+          <h2 className={commonStyles.title}>My Impact</h2>
         </Col>
       </Row>
 
