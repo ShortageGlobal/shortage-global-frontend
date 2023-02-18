@@ -59,7 +59,7 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Add New Request | Shortage`}</title>
+        <title>{`${organization.name} — Edit Request | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
