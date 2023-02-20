@@ -261,8 +261,8 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 id={INPUT_ID.category}
                 value={category}
                 onChange={(e) => setCategory(e.target.value as typeof category)}
-                isValid={getIsValid(ERROR_KEYS.slug)}
-                isInvalid={getIsInvalid(ERROR_KEYS.slug)}
+                isValid={getIsValid(ERROR_KEYS.category)}
+                isInvalid={getIsInvalid(ERROR_KEYS.category)}
               >
                 <option></option>
                 {PRODUCT_CATEGORY_LIST.filter(
@@ -275,7 +275,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                   );
                 })}
               </Form.Select>
-              {getErrorsFeedback(ERROR_KEYS.slug)}
+              {getErrorsFeedback(ERROR_KEYS.category)}
             </Form.Group>
           </Row>
 
@@ -288,7 +288,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             >
               <Form.Label>Price</Form.Label>
               <InputGroup>
-                <InputGroup.Text id="slug-address">
+                <InputGroup.Text>
                   <DollarSign />
                 </InputGroup.Text>
                 <Form.Control
