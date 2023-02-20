@@ -150,6 +150,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           size="lg"
           className={styles.button}
           onClick={handleTangibleDonation}
+          disabled={organizationInstructions?.length === 0}
         >
           <Package className={styles.buttonGlyph} />
           <span>Donate what I have</span>
