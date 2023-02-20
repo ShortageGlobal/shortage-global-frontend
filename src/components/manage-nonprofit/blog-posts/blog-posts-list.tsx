@@ -14,12 +14,8 @@ import { fetchAccountBlogPosts } from 'core/api';
 import { Pagination } from 'components/pagination/pagination';
 import { LoadingMessage } from 'components/loading-message/loading-message';
 import { BlogPostCard } from 'components/manage-nonprofit/blog-posts/blog-post-card/blog-post-card';
-import { PRODUCT_CATEGORY_ALL_KEY, DEFAULT_PAGE_SIZE } from 'core/constants';
-import type {
-  Category,
-  AccountOrganization,
-  AccountBlogPost,
-} from 'core/api/types';
+import { DEFAULT_PAGE_SIZE } from 'core/constants';
+import type { AccountOrganization, AccountBlogPost } from 'core/api/types';
 import { Search } from 'react-feather';
 
 export function BlogPostsList() {
@@ -31,9 +27,6 @@ export function BlogPostsList() {
   const [pageNumber, setPageNumber] = useState(0);
   const [totalCount, setTotalCount] = useState(null);
   const [blogPosts, setBlogPosts] = useState<AccountBlogPost[]>([]);
-  const [currentCategory /*, setCurrentCategory */] = useState<Category>(
-    PRODUCT_CATEGORY_ALL_KEY
-  );
   const [searchQuery, setSearchQuery] = useState('');
 
   const getFetchBlogPostsCancelToken = useCancelToken();
@@ -46,7 +39,6 @@ export function BlogPostsList() {
       limit,
     }: {
       organizationSlug: AccountOrganization['slug'];
-      category: Category;
       search: string;
       offset?: number;
       limit?: number;
@@ -85,7 +77,6 @@ export function BlogPostsList() {
   useEffect(() => {
     debouncedFetchBlogPosts({
       organizationSlug: organization.slug,
-      category: currentCategory,
       search: searchQuery,
       offset: pageSize * pageNumber,
       limit: pageSize,
@@ -94,7 +85,7 @@ export function BlogPostsList() {
     return () => {
       debouncedFetchBlogPosts.cancel();
     };
-  }, [organization.slug, currentCategory, searchQuery, pageSize, pageNumber]);
+  }, [organization.slug, searchQuery, pageSize, pageNumber]);
 
   return (
     <div>
