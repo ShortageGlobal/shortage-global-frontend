@@ -116,8 +116,8 @@ export type AccountOrganization = Organization & {
   representative_signature?: string;
   is_verified: boolean;
   is_draft: boolean;
-  updated_at?: '2023-01-30T03:58:29.873224Z';
-  created_at?: '2023-01-16T22:50:42.834009Z';
+  updated_at?: string;
+  created_at?: string;
 };
 
 export type AccountDeliveryInstruction = {
@@ -256,4 +256,16 @@ export type BlogPostPreview = {
 export type BlogPost = BlogPostPreview & {
   content: string;
   meta_description?: string;
+};
+
+export type AccountBlogPost = {
+  uuid: Uuid;
+  title: string;
+  slug: Slug;
+  image?: string;
+  content: string;
+  meta_description?: string;
+  is_draft: boolean;
+  created_at: string;
+  updated_at: string;
 };

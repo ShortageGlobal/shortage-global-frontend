@@ -64,6 +64,30 @@ $restrictedWidth: 650px;
   }
 }
 
+.listControls {
+  margin-bottom: 2rem;
+
+  .paginationCol {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .searchInput {
+    max-width: 250px;
+  }
+}
+
+.list {
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  &.loading {
+    opacity: 0.5;
+  }
+}
+
 .submitBtn {
   margin-top: 1rem;
 }

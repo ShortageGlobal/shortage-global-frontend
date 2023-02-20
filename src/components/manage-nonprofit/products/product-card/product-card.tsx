@@ -47,22 +47,22 @@ export function ProductCard({ product, organization }: ProductCardProps) {
       <div className={styles.details}>
         {/* Category */}
         <div className={styles.detail}>
-          <div className={styles.title}>category</div>
-          <div className={classNames(styles.value, styles.categoryValue)}>
+          <div className={styles.detailKey}>category</div>
+          <div className={styles.detailValue}>
             <span>{PRODUCT_CATEGORY_DETAILS[product.category].name}</span>
           </div>
         </div>
 
         {/* Requested Amount */}
         <div className={styles.detail}>
-          <div className={styles.title}>requested</div>
-          <div className={styles.value}>{product.requested_amount}</div>
+          <div className={styles.detailKey}>requested</div>
+          <div className={styles.detailValue}>{product.requested_amount}</div>
         </div>
 
         {/* Price */}
         <div className={styles.detail}>
-          <div className={styles.title}>price</div>
-          <div className={styles.value}>{formatPrice(product.price)}</div>
+          <div className={styles.detailKey}>price</div>
+          <div className={styles.detailValue}>{formatPrice(product.price)}</div>
         </div>
       </div>
     </Link>

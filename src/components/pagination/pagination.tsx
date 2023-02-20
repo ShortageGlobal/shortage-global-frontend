@@ -64,6 +64,7 @@ export function Pagination({
     <div className={classNames(styles.pagination, className)}>
       <Button
         variant=""
+        className={styles.paginationArrowBtn}
         onClick={handlePrevPageClick}
         disabled={isPrevDisabled}
         aria-label="Previous page"
@@ -87,6 +88,7 @@ export function Pagination({
 
       <Button
         variant=""
+        className={styles.paginationArrowBtn}
         onClick={handleNextPageClick}
         disabled={isNextDisabled}
         aria-label="Next page"

@@ -3,7 +3,14 @@ import classNames from 'classnames';
 import { Home } from 'react-feather';
 import Link, { LinkProps } from 'next/link';
 import { truncateString } from 'core/helpers';
-import type { AccountProduct, Organization, Slug, Uuid } from 'core/api/types';
+import type {
+  Slug,
+  Uuid,
+  Organization,
+  AccountOrganization,
+  AccountProduct,
+  AccountBlogPost,
+} from 'core/api/types';
 import type { ReactNode } from 'react';
 
 type BreadcrumbItem = {
@@ -382,8 +389,8 @@ export const getManageNonprofitRootCrumb = ({
   organizationName,
   ...props
 }: {
-  organizationSlug: Organization['slug'];
-  organizationName: Organization['name'];
+  organizationSlug: AccountOrganization['slug'];
+  organizationName: AccountOrganization['name'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -400,7 +407,7 @@ export const getManageNonprofitPageCrumb = ({
   organizationSlug,
   ...props
 }: {
-  organizationSlug: Organization['slug'];
+  organizationSlug: AccountOrganization['slug'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -417,7 +424,7 @@ export const getManageNonprofitLegalInformationCrumb = ({
   organizationSlug,
   ...props
 }: {
-  organizationSlug: Organization['slug'];
+  organizationSlug: AccountOrganization['slug'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -435,7 +442,7 @@ export const getManageNonprofitDeliveryInstructionCrumb = ({
   organizationSlug,
   ...props
 }: {
-  organizationSlug: Organization['slug'];
+  organizationSlug: AccountOrganization['slug'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -453,7 +460,7 @@ export const getManageRequestedGoodsCrumb = ({
   organizationSlug,
   ...props
 }: {
-  organizationSlug: Organization['slug'];
+  organizationSlug: AccountOrganization['slug'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -470,7 +477,7 @@ export const getManageRequestedGoodsCreateCrumb = ({
   organizationSlug,
   ...props
 }: {
-  organizationSlug: Organization['slug'];
+  organizationSlug: AccountOrganization['slug'];
 } & BreadcrumbItem) =>
   Object.freeze({
     ...defaultCrumb,
@@ -489,7 +496,7 @@ export const getManageRequestedGoodsEditCrumb = ({
   productId,
   ...props
 }: {
-  organizationSlug: Organization['slug'];
+  organizationSlug: AccountOrganization['slug'];
   productId: AccountProduct['id'];
 } & BreadcrumbItem) =>
   Object.freeze({
@@ -500,6 +507,61 @@ export const getManageRequestedGoodsEditCrumb = ({
       pathname:
         '/private/manage-nonprofit/[organizationSlug]/requested-goods/[productId]/',
       query: { organizationSlug, productId },
+    },
+    ...props,
+  });
+
+export const getManageImpactStoriesCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-impact-stories-crumb',
+    label: 'Impact Stories',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/impact-stories/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageImpactStoriesCreateCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-impact-stories-create-crumb',
+    label: 'Create',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/impact-stories/create/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageImpactStoriesEditCrumb = ({
+  organizationSlug,
+  blogPostUuid,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+  blogPostUuid: AccountBlogPost['uuid'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-impact-stories-edit-crumb',
+    label: 'Edit',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/impact-stories/[blogPostUuid]/',
+      query: { organizationSlug, blogPostUuid },
     },
     ...props,
   });
