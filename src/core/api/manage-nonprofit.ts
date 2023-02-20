@@ -8,6 +8,7 @@ import {
   AccountOrganization,
   AccountProduct,
   AccountDeliveryInstruction,
+  AccountBlogPost,
 } from 'core/api/types';
 
 type UploadImageParams = {
@@ -405,6 +406,164 @@ export async function createAccountOrganizationProduct({
       top_priority: topPriority,
       description,
       position,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
+export type FetchAccountBlogPostsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  search?: string;
+  accessToken?: string;
+} & PaginationParams &
+  CancelTokenParams;
+export async function fetchAccountBlogPosts({
+  organizationSlug,
+  search = null,
+  limit = null,
+  offset = null,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountBlogPostsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PaginatedResponse<AccountBlogPost>>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/blog_posts/`
+    ),
+    {
+      params: {
+        search: search.trim() !== '' ? search : null,
+        limit,
+        offset,
+      },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type FetchAccountBlogPostParams = {
+  organizationSlug: AccountOrganization['slug'];
+  blogPostUuid: AccountBlogPost['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchAccountOrganizationBlogPost({
+  organizationSlug,
+  blogPostUuid,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountBlogPostParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<AccountBlogPost>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/blog_posts/${blogPostUuid}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type DeleteAccountBlogPostParams = {
+  organizationSlug: AccountOrganization['slug'];
+  blogPostUuid: AccountBlogPost['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function deleteAccountOrganizationBlogPost({
+  organizationSlug,
+  blogPostUuid,
+  accessToken = null,
+  cancelToken = null,
+}: DeleteAccountBlogPostParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.delete(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/blog_posts/${blogPostUuid}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type UpdateAccountOrganizationBlogPostParams = {
+  organizationSlug: AccountOrganization['slug'];
+  blogPostUuid: AccountBlogPost['uuid'];
+  title: AccountBlogPost['title'];
+  slug: AccountBlogPost['slug'];
+  image: File | string;
+  content: AccountBlogPost['content'];
+  metaDescription: AccountBlogPost['meta_description'];
+  isDraft: AccountBlogPost['is_draft'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function updateAccountOrganizationBlogPost({
+  organizationSlug,
+  blogPostUuid,
+  title,
+  slug,
+  image,
+  content,
+  metaDescription,
+  isDraft,
+  cancelToken = null,
+}: UpdateAccountOrganizationBlogPostParams) {
+  return axios.put<AccountBlogPost>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/blog_posts/${blogPostUuid}/`
+    ),
+    {
+      title,
+      slug,
+      image,
+      content,
+      meta_description: metaDescription,
+      is_draft: isDraft,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
+export type CreateAccountOrganizationBlogPostParams = {
+  organizationSlug: AccountOrganization['slug'];
+  title: AccountBlogPost['title'];
+  slug: AccountBlogPost['slug'];
+  image: File | string;
+  content: AccountBlogPost['content'];
+  metaDescription: AccountBlogPost['meta_description'];
+  isDraft: AccountBlogPost['is_draft'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function createAccountOrganizationBlogPost({
+  organizationSlug,
+  title,
+  slug,
+  image,
+  content,
+  metaDescription,
+  isDraft,
+  cancelToken = null,
+}: CreateAccountOrganizationBlogPostParams) {
+  return axios.post<AccountBlogPost>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/blog_posts/`
+    ),
+    {
+      title,
+      slug,
+      image,
+      content,
+      meta_description: metaDescription,
+      is_draft: isDraft,
     },
     {
       cancelToken: cancelToken?.token,

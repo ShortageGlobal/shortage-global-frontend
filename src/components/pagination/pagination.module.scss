@@ -5,4 +5,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .paginationArrowBtn {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
 }

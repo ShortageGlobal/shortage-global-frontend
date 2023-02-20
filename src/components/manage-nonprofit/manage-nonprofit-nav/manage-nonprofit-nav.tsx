@@ -12,6 +12,7 @@ const KEY = {
   requestedGoods: 'requestedGoods',
   deliveryInstruction: 'deliveryInstruction',
   taxDeduction: 'taxDeduction',
+  impactStories: 'impactStories',
 };
 
 export function ManageNonprofitNav() {
@@ -26,6 +27,15 @@ export function ManageNonprofitNav() {
       )
     ) {
       return KEY.requestedGoods;
+    }
+
+    // requested goods list/details
+    if (
+      router.pathname.startsWith(
+        '/private/manage-nonprofit/[organizationSlug]/impact-stories'
+      )
+    ) {
+      return KEY.impactStories;
     }
 
     // the rest of routes
@@ -80,6 +90,13 @@ export function ManageNonprofitNav() {
         href={`/private/manage-nonprofit/${organization.slug}/legal-information/`}
       >
         Legal Information
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.impactStories}
+        href={`/private/manage-nonprofit/${organization.slug}/impact-stories/`}
+      >
+        Impact Stories
       </Nav.Link>
     </Nav>
   );

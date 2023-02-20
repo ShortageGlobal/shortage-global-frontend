@@ -10,19 +10,19 @@ import {
 } from 'core/hooks';
 import { selectAccountOrganization } from 'core/store/slices/account-organization';
 import { useDebouncedCallback } from 'use-debounce';
-import { fetchAccountOrganizationProducts } from 'core/api';
+import { fetchAccountBlogPosts } from 'core/api';
 import { Pagination } from 'components/pagination/pagination';
 import { LoadingMessage } from 'components/loading-message/loading-message';
-import { ProductCard } from 'components/manage-nonprofit/products/product-card/product-card';
+import { BlogPostCard } from 'components/manage-nonprofit/blog-posts/blog-post-card/blog-post-card';
 import { PRODUCT_CATEGORY_ALL_KEY, DEFAULT_PAGE_SIZE } from 'core/constants';
 import type {
   Category,
   AccountOrganization,
-  AccountProduct,
+  AccountBlogPost,
 } from 'core/api/types';
 import { Search } from 'react-feather';
 
-export function ProductsList() {
+export function BlogPostsList() {
   const { showNotification } = useNotifications();
   const { organization } = useAppSelector(selectAccountOrganization);
 
@@ -30,18 +30,17 @@ export function ProductsList() {
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [pageNumber, setPageNumber] = useState(0);
   const [totalCount, setTotalCount] = useState(null);
-  const [products, setProducts] = useState<AccountProduct[]>([]);
+  const [blogPosts, setBlogPosts] = useState<AccountBlogPost[]>([]);
   const [currentCategory /*, setCurrentCategory */] = useState<Category>(
     PRODUCT_CATEGORY_ALL_KEY
   );
   const [searchQuery, setSearchQuery] = useState('');
 
-  const getFetchProductsCancelToken = useCancelToken();
+  const getFetchBlogPostsCancelToken = useCancelToken();
 
-  const debouncedFetchProducts = useDebouncedCallback(
+  const debouncedFetchBlogPosts = useDebouncedCallback(
     async ({
       organizationSlug,
-      category,
       search,
       offset,
       limit,
@@ -52,21 +51,20 @@ export function ProductsList() {
       offset?: number;
       limit?: number;
     }) => {
-      const cancelToken = getFetchProductsCancelToken();
+      const cancelToken = getFetchBlogPostsCancelToken();
 
       setIsLoading(true);
 
       try {
-        const response = await fetchAccountOrganizationProducts({
+        const response = await fetchAccountBlogPosts({
           organizationSlug,
-          category,
           search,
           offset,
           limit,
           cancelToken,
         });
 
-        setProducts(response.data.results);
+        setBlogPosts(response.data.results);
         setTotalCount(response.data.count);
         setIsLoading(false);
       } catch (rejection) {
@@ -76,7 +74,7 @@ export function ProductsList() {
         const rejectionErrors = rejection?.response?.data;
         showNotification({
           isFailure: true,
-          message: rejectionErrors?.details || 'Failed to get products',
+          message: rejectionErrors?.details || 'Failed to get impact stories',
         });
         setIsLoading(false);
       }
@@ -85,7 +83,7 @@ export function ProductsList() {
   );
 
   useEffect(() => {
-    debouncedFetchProducts({
+    debouncedFetchBlogPosts({
       organizationSlug: organization.slug,
       category: currentCategory,
       search: searchQuery,
@@ -94,7 +92,7 @@ export function ProductsList() {
     });
 
     return () => {
-      debouncedFetchProducts.cancel();
+      debouncedFetchBlogPosts.cancel();
     };
   }, [organization.slug, currentCategory, searchQuery, pageSize, pageNumber]);
 
@@ -116,7 +114,7 @@ export function ProductsList() {
           </InputGroup>
         </Col>
         <Col className={commonStyles.paginationCol}>
-          {products?.length > 0 ? (
+          {blogPosts?.length > 0 ? (
             <Pagination
               pageSize={pageSize}
               pageNumber={pageNumber}
@@ -131,12 +129,12 @@ export function ProductsList() {
       </Row>
 
       {/* Loading */}
-      {!products?.length && isLoading ? <LoadingMessage /> : null}
+      {!blogPosts?.length && isLoading ? <LoadingMessage /> : null}
 
-      {/* No products */}
-      {products?.length === 0 && !isLoading ? (
+      {/* No blog posts */}
+      {blogPosts?.length === 0 && !isLoading ? (
         <div>
-          <p>No products found.</p>
+          <p>No impact stories found.</p>
           {searchQuery?.length > 0 ? (
             <Button variant="outline-dark" onClick={() => setSearchQuery('')}>
               Clear search
@@ -145,18 +143,18 @@ export function ProductsList() {
         </div>
       ) : null}
 
-      {/* Products list */}
-      {products?.length > 0 ? (
+      {/* Blog posts list */}
+      {blogPosts?.length > 0 ? (
         <div
           className={classNames(commonStyles.list, {
             [commonStyles.loading]: isLoading,
           })}
         >
-          {products.map((product) => {
+          {blogPosts.map((blogPost) => {
             return (
-              <ProductCard
-                key={product.slug}
-                product={product}
+              <BlogPostCard
+                key={blogPost.uuid}
+                blogPost={blogPost}
                 organization={organization}
               />
             );
