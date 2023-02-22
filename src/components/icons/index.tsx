@@ -21,7 +21,7 @@ export * from './product-categories/education';
 export * from './product-categories/food';
 export * from './product-categories/healthcare';
 export * from './product-categories/household-items';
-export * from './product-categories/save-animals';
+export * from './product-categories/animal-care';
 export * from './product-categories/toys';
 export * from './product-categories/vital-goods';
 export * from './product-categories/hygiene';

@@ -1,4 +1,4 @@
-export function SaveAnimals({ size = 24 }: { size?: number | string } = {}) {
+export function AnimalCare({ size = 24 }: { size?: number | string } = {}) {
   return (
     <svg
       width={size}
