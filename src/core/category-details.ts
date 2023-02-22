@@ -4,7 +4,7 @@ import {
   Healthcare,
   Education,
   BabyCare,
-  SaveAnimals,
+  AnimalCare,
   HouseholdItems,
   Food,
   Toys,
@@ -48,11 +48,11 @@ export const PRODUCT_CATEGORY_DETAILS = Object.freeze({
     name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.BABY_CARE],
     GlyphComponent: BabyCare,
   },
-  [PRODUCT_CATEGORY_KEY.SAVE_ANIMALS]: {
-    key: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
-    queryFilter: PRODUCT_CATEGORY_KEY.SAVE_ANIMALS,
-    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.SAVE_ANIMALS],
-    GlyphComponent: SaveAnimals,
+  [PRODUCT_CATEGORY_KEY.ANIMAL_CARE]: {
+    key: PRODUCT_CATEGORY_KEY.ANIMAL_CARE,
+    queryFilter: PRODUCT_CATEGORY_KEY.ANIMAL_CARE,
+    name: PRODUCT_CATEGORY_LABELS[PRODUCT_CATEGORY_KEY.ANIMAL_CARE],
+    GlyphComponent: AnimalCare,
   },
   [PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS]: {
     key: PRODUCT_CATEGORY_KEY.HOUSEHOLD_ITEMS,
