@@ -47,11 +47,11 @@ const ERROR_KEYS = Object.freeze({
 });
 type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
-type LegalInformationFormProps = {
+type TaxInformationFormProps = {
   countries: CountryChoice[];
 };
 
-export function LegalInformationForm({ countries }: LegalInformationFormProps) {
+export function TaxInformationForm({ countries }: TaxInformationFormProps) {
   const { showNotification } = useNotifications();
 
   const { organization } = useAppSelector(selectAccountOrganization);
@@ -134,7 +134,7 @@ export function LegalInformationForm({ countries }: LegalInformationFormProps) {
         setIsSaving(false);
         showNotification({
           isSuccess: true,
-          message: 'Legal information details saved successfully',
+          message: 'Tax information details saved successfully',
         });
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
@@ -148,7 +148,7 @@ export function LegalInformationForm({ countries }: LegalInformationFormProps) {
           isFailure: true,
           message:
             rejectionErrors?.details ||
-            'Failed to save legal information details',
+            'Failed to save tax information details',
         });
       }
 

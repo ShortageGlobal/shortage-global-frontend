@@ -17,19 +17,19 @@ import {
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageNonprofitLegalInformationCrumb,
+  getManageNonprofitTaxInformationCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { LegalInformationForm } from 'components/manage-nonprofit/legal-information/legal-information-form';
+import { TaxInformationForm } from 'components/manage-nonprofit/tax-information/tax-information-form';
 import type { NextPageWithLayout } from 'pages/_app';
 import type { CountryChoice } from 'core/api/types';
 
-type NonprofitLegalInformationPageProps = {
+type NonprofitTaxInformationPageProps = {
   countries: CountryChoice[];
 };
 
-const NonprofitLegalInformationPage: NextPageWithLayout = ({
+const NonprofitTaxInformationPage: NextPageWithLayout = ({
   countries,
-}: NonprofitLegalInformationPageProps) => {
+}: NonprofitTaxInformationPageProps) => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -40,7 +40,7 @@ const NonprofitLegalInformationPage: NextPageWithLayout = ({
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageNonprofitLegalInformationCrumb({
+      getManageNonprofitTaxInformationCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -50,7 +50,7 @@ const NonprofitLegalInformationPage: NextPageWithLayout = ({
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Legal Information | Shortage`}</title>
+        <title>{`${organization.name} — Tax Information | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
@@ -59,11 +59,11 @@ const NonprofitLegalInformationPage: NextPageWithLayout = ({
 
       <Row className={commonStyles.headerRow}>
         <Col>
-          <h2 className={commonStyles.title}>Legal Information</h2>
+          <h2 className={commonStyles.title}>Tax Information</h2>
         </Col>
       </Row>
 
-      <LegalInformationForm countries={countries} />
+      <TaxInformationForm countries={countries} />
     </>
   );
 };
@@ -110,6 +110,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-NonprofitLegalInformationPage.getLayout = manageNonprofitLayout;
+NonprofitTaxInformationPage.getLayout = manageNonprofitLayout;
 
-export default NonprofitLegalInformationPage;
+export default NonprofitTaxInformationPage;
