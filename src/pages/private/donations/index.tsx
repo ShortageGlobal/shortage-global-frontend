@@ -3,6 +3,7 @@ import styles from 'styles/pages/private/donations/donations.module.scss';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import { Row, Col, Table, Button } from 'react-bootstrap';
+import { Package as PackageGlyph, DollarSign } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -23,6 +24,7 @@ import {
   REQUESTED_GOODS_CONTAINER_ID,
   PACKAGE_STATUS_DISPLAY_LABELS,
   PACKAGE_TYPE_DISPLAY_LABELS,
+  PACKAGE_TYPE,
   DEFAULT_PAGE_SIZE,
 } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -155,8 +157,6 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                     })}
                   >
                     {donations?.map((p) => {
-                      // all package items must belong to a single organization,
-                      // so just pick the first item
                       return (
                         <tr
                           key={p.uuid}
@@ -171,7 +171,16 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                           </td>
 
                           <td className={styles.typeColumn}>
-                            {PACKAGE_TYPE_DISPLAY_LABELS[p.type]}
+                            <div className={styles.typeValue}>
+                              {p.type === PACKAGE_TYPE.SENT_BY_DONOR ? (
+                                <PackageGlyph size="1rem" />
+                              ) : null}
+                              {p.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
+                                <DollarSign size="1rem" />
+                              ) : null}
+
+                              <span>{PACKAGE_TYPE_DISPLAY_LABELS[p.type]}</span>
+                            </div>
                           </td>
 
                           <td className={styles.statusColumn}>

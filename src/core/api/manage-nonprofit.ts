@@ -9,6 +9,7 @@ import {
   AccountProduct,
   AccountDeliveryInstruction,
   AccountBlogPost,
+  AccountOrganizationPackage,
 } from 'core/api/types';
 
 type UploadImageParams = {
@@ -571,5 +572,55 @@ export async function createAccountOrganizationBlogPost({
         'Content-Type': 'multipart/form-data',
       },
     }
+  );
+}
+
+export type FetchAccountOrganizationPackagesParams = {
+  organizationSlug: AccountOrganization['slug'];
+  accessToken?: string;
+} & PaginationParams &
+  CancelTokenParams;
+export async function fetchAccountOrganizationPackages({
+  organizationSlug,
+  limit = null,
+  offset = null,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountOrganizationPackagesParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PaginatedResponse<AccountOrganizationPackage>>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/packages/`
+    ),
+    {
+      params: {
+        limit,
+        offset,
+      },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type FetchAccountOrganizationPackageParams = {
+  organizationSlug: AccountOrganization['slug'];
+  packageId: AccountOrganizationPackage['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchAccountOrganizationPackage({
+  organizationSlug,
+  packageId,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountOrganizationPackageParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<AccountOrganizationPackage>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/packages/${packageId}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
   );
 }

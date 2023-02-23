@@ -1,13 +1,7 @@
 @import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
-.donations {
-  .paginationContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
+.donationsList {
   .tbody {
     vertical-align: middle;
     white-space: nowrap;
@@ -44,15 +38,26 @@
   .statusColumn {
   }
 
-  .recipientColumn {
-    max-width: 150px;
+  .itemsColumn {
+    min-width: 200px;
 
-    .orgLink {
-      margin-top: 4px; // dirty hack to compensate difference in vertical position of inline-block element
-      max-width: 100%;
-      display: inline-block;
-      @include text-truncate();
+    .productLine {
+      display: flex;
+      align-items: center;
+
+      > * + * {
+        margin-left: 0.25rem;
+      }
     }
+
+    .productNameLink {
+      display: inline-block;
+      color: var(--bs-body-color);
+      max-width: 250px;
+    }
+  }
+
+  .valueColumn {
   }
 
   .actionsColumn {

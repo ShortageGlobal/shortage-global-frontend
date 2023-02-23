@@ -2,6 +2,7 @@ import commonStyles from 'styles/pages/private/common.module.scss';
 import { useEffect, useState } from 'react';
 import { Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
+import { Search } from 'react-feather';
 import {
   useAppSelector,
   useNotifications,
@@ -20,7 +21,6 @@ import type {
   AccountOrganization,
   AccountProduct,
 } from 'core/api/types';
-import { Search } from 'react-feather';
 
 export function ProductsList() {
   const { showNotification } = useNotifications();

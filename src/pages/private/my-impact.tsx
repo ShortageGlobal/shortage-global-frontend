@@ -36,28 +36,30 @@ const MyImpactPage: NextPageWithLayout = ({ blogPosts }: MyImpactPageProps) => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row className={commonStyles.headerRow}>
-        <Col>
-          <h2 className={commonStyles.title}>My Impact</h2>
-        </Col>
-      </Row>
+      <div className={commonStyles.restrictedWidth}>
+        <Row className={commonStyles.headerRow}>
+          <Col>
+            <h2 className={commonStyles.title}>My Impact</h2>
+          </Col>
+        </Row>
 
-      <Row>
-        <Col>
-          {blogPosts?.length > 0 ? (
-            <div className={styles.blogPostsList}>
-              {blogPosts.map((blogPost) => {
-                const key = `${blogPost.organization.slug}-${blogPost.slug}`;
-                return <BlogPostCard key={key} blogPost={blogPost} />;
-              })}
-            </div>
-          ) : (
-            <div>
-              There are no impact stories associated with your donations yet.
-            </div>
-          )}
-        </Col>
-      </Row>
+        <Row>
+          <Col>
+            {blogPosts?.length > 0 ? (
+              <div className={styles.blogPostsList}>
+                {blogPosts.map((blogPost) => {
+                  const key = `${blogPost.organization.slug}-${blogPost.slug}`;
+                  return <BlogPostCard key={key} blogPost={blogPost} />;
+                })}
+              </div>
+            ) : (
+              <div>
+                There are no impact stories associated with your donations yet.
+              </div>
+            )}
+          </Col>
+        </Row>
+      </div>
     </>
   );
 };

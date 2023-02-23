@@ -10,6 +10,7 @@ import type {
   AccountOrganization,
   AccountProduct,
   AccountBlogPost,
+  AccountOrganizationPackage,
 } from 'core/api/types';
 import type { ReactNode } from 'react';
 
@@ -561,6 +562,43 @@ export const getManageImpactStoriesEditCrumb = ({
       pathname:
         '/private/manage-nonprofit/[organizationSlug]/impact-stories/[blogPostUuid]/',
       query: { organizationSlug, blogPostUuid },
+    },
+    ...props,
+  });
+
+export const getManageDonationsCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-donations-crumb',
+    label: 'Donations',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/donations/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageDonationDetailsCrumb = ({
+  organizationSlug,
+  packageId,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+  packageId: AccountOrganizationPackage['uuid'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-donation-details-crumb',
+    label: 'Donation Details',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/donations/[packageId]/',
+      query: { organizationSlug, packageId },
     },
     ...props,
   });
