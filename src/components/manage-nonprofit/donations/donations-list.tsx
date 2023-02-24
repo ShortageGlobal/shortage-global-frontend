@@ -112,10 +112,10 @@ export function DonationsList() {
 
   return (
     <div>
-      <Row className={commonStyles.listControls}>
-        <Col></Col>
-        <Col className={commonStyles.paginationCol}>
-          {donations?.length > 0 ? (
+      {donations?.length > 0 ? (
+        <Row className={commonStyles.listControls}>
+          <Col></Col>
+          <Col className={commonStyles.paginationCol}>
             <Pagination
               pageSize={pageSize}
               pageNumber={pageNumber}
@@ -125,9 +125,9 @@ export function DonationsList() {
                 setPageNumber(newPageNumber)
               }
             />
-          ) : null}
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      ) : null}
 
       {/* Loading */}
       {!donations?.length && isLoading ? <LoadingMessage /> : null}
@@ -200,6 +200,12 @@ export function DonationsList() {
                           key={item.product.id}
                           className={styles.productLine}
                         >
+                          {item.quantity > 1 ? (
+                            <>
+                              <span>{item.quantity}</span>
+                              <X size="0.9rem" />
+                            </>
+                          ) : null}
                           <Link
                             href={{
                               pathname:
@@ -218,12 +224,6 @@ export function DonationsList() {
                           >
                             <span>{item.product.name}</span>
                           </Link>
-                          {item.quantity > 1 ? (
-                            <>
-                              <X size="0.9rem" />
-                              <span>{item.quantity}</span>
-                            </>
-                          ) : null}
                         </div>
                       ))}
 
