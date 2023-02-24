@@ -352,6 +352,30 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             </Form.Group>
           </Row>
 
+          {/* Top priority */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.topPriority}
+              className={commonStyles.formGroup}
+            >
+              <Form.Check
+                type="checkbox"
+                checked={topPriority}
+                label="High demand"
+                onChange={(e) => setTopPriority(e.target.checked)}
+                isValid={getIsValid(ERROR_KEYS.topPriority)}
+                isInvalid={getIsInvalid(ERROR_KEYS.topPriority)}
+                aria-describedby="topPriorityHelpBlock"
+              />
+              <Form.Text as="div" id="topPriorityHelpBlock">
+                If checked, the product will have a &quot;High demand&quot;
+                badge
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.topPriority)}
+            </Form.Group>
+          </Row>
+
           {/* Description */}
           <Row>
             <Form.Group

@@ -180,6 +180,15 @@ export type PackageItem = {
   quantity: number;
 };
 
+export type AccountOrganizationPackageItem = {
+  product: ProductBase & {
+    id: number;
+    is_deleted: boolean;
+    top_priority: boolean;
+  };
+  quantity: number;
+};
+
 export type PackageLog = {
   status: PackageStatus;
   created_at: string;
@@ -211,6 +220,33 @@ export type Package = {
   created_at?: string;
   items?: PackageItem[];
   organization?: OrganizationPreview;
+};
+
+export type AccountOrganizationPackage = {
+  type: PackageType;
+  uuid: Uuid;
+
+  need_tax_deduction: boolean;
+  first_name?: string;
+  last_name?: string;
+  phone_number?: string;
+  email?: string;
+  address_line1?: string;
+  address_line2?: string;
+  city?: string;
+  state_province_region?: string;
+  zip?: string;
+  country?: string;
+  tax_deduction_receipt?: string;
+
+  delivery_company: string;
+  tracking_code: string;
+  note?: string;
+  photo?: string;
+  checkout_url?: string;
+  status: PackageStatus;
+  created_at?: string;
+  items?: AccountOrganizationPackageItem[];
 };
 
 export type CreateCartItem = {

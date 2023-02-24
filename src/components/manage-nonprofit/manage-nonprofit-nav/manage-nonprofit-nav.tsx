@@ -7,13 +7,14 @@ import { useAppSelector } from 'core/hooks';
 import { selectAccountOrganization } from 'core/store/slices/account-organization';
 import Link from 'next/link';
 
-const KEY = {
+const KEY = Object.freeze({
   page: 'page',
   requestedGoods: 'requestedGoods',
   deliveryInstruction: 'deliveryInstruction',
   taxDeduction: 'taxDeduction',
+  donations: 'donations',
   impactStories: 'impactStories',
-};
+});
 
 export function ManageNonprofitNav() {
   const router = useRouter();
@@ -29,7 +30,16 @@ export function ManageNonprofitNav() {
       return KEY.requestedGoods;
     }
 
-    // requested goods list/details
+    // packages list/details
+    if (
+      router.pathname.startsWith(
+        '/private/manage-nonprofit/[organizationSlug]/donations'
+      )
+    ) {
+      return KEY.donations;
+    }
+
+    // impact stories list/details
     if (
       router.pathname.startsWith(
         '/private/manage-nonprofit/[organizationSlug]/impact-stories'
@@ -90,6 +100,13 @@ export function ManageNonprofitNav() {
         href={`/private/manage-nonprofit/${organization.slug}/tax-information/`}
       >
         Tax Information
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.donations}
+        href={`/private/manage-nonprofit/${organization.slug}/donations/`}
+      >
+        Donations
       </Nav.Link>
       <Nav.Link
         as={Link}
