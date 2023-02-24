@@ -2,8 +2,15 @@ import commonStyles from 'styles/pages/private/common.module.scss';
 import styles from './donations-list.module.scss';
 import { useEffect, useState, useCallback } from 'react';
 import classNames from 'classnames';
-import { Row, Col, Button, Table } from 'react-bootstrap';
-import { Package, DollarSign, X, HelpCircle } from 'react-feather';
+import {
+  Row,
+  Col,
+  Button,
+  Table,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap';
+import { Package, DollarSign, X } from 'react-feather';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
@@ -171,10 +178,21 @@ export function DonationsList() {
                     onClick={() => handleRowClick(p.uuid)}
                   >
                     <td className={styles.dateColumn}>
-                      {formatDateForHumans({
-                        date: p.created_at,
-                        isMonthShort: true,
-                      })}
+                      <OverlayTrigger
+                        placement="top"
+                        overlay={
+                          <Tooltip>
+                            {new Date(p.created_at).toLocaleString()}
+                          </Tooltip>
+                        }
+                      >
+                        <span>
+                          {formatDateForHumans({
+                            date: p.created_at,
+                            isMonthShort: true,
+                          })}
+                        </span>
+                      </OverlayTrigger>
                     </td>
 
                     <td className={styles.typeColumn}>
