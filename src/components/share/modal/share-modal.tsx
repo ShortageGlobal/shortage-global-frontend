@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from 'react-bootstrap';
 import classNames from 'classnames';
-import { Check, Link } from 'react-feather';
+import { Check, Copy } from 'react-feather';
 import { Email, Facebook, LinkedIn, Reddit, Twitter } from 'components/icons';
 
 type ShareModalProps = {
@@ -124,9 +124,9 @@ export function ShareModal({ url, text, show, onHide }: ShareModalProps) {
             placement="top"
             overlay={
               <Tooltip>
-                <span className={styles.copySuccessTooltip}>
+                <span className="d-flex align-items-center">
                   <Check size="1rem" />
-                  <span>Copied!</span>
+                  <span className="ms-1">Copied!</span>
                 </span>
               </Tooltip>
             }
@@ -139,7 +139,7 @@ export function ShareModal({ url, text, show, onHide }: ShareModalProps) {
                 className={styles.copyBtn}
                 onClick={handleLinkCopy}
               >
-                <Link size="1rem" />
+                <Copy size="1rem" />
                 <span>Copy</span>
               </Button>
             </div>
