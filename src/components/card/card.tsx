@@ -44,7 +44,7 @@ export function Card({
         {/* Title */}
         <div className={styles.title}>{title}</div>
 
-        {/* Meta description */}
+        {/* Description */}
         {description ? (
           <div className={styles.description}>{description}</div>
         ) : null}
