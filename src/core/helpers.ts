@@ -1,17 +1,10 @@
 import { getToken } from 'next-auth/jwt';
-import {
-  PACKAGE_STATUS,
-  PACKAGE_STATUS_LIFECYCLE,
-  PACKAGE_TYPE,
-} from 'core/constants';
 import type { GetTokenParams } from 'next-auth/jwt';
 import type {
   AxiosSerializedError,
   Slug,
   CartItem,
   Profile,
-  PackageType,
-  PackageStatus,
 } from 'core/api/types';
 import type { ReactNode } from 'react';
 
