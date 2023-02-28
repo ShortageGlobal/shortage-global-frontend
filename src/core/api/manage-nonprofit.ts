@@ -679,3 +679,28 @@ export async function generateTaxDeductionReceiptFile({
     }
   );
 }
+
+export type MarkPackageAsDeliveredParams = {
+  organizationSlug: AccountOrganization['slug'];
+  packageId: AccountOrganizationPackage['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function markPackageAsDelivered({
+  organizationSlug,
+  packageId,
+  accessToken = null,
+  cancelToken = null,
+}: MarkPackageAsDeliveredParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/packages/${packageId}/mark_package_as_delivered/`
+    ),
+    {},
+    {
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}

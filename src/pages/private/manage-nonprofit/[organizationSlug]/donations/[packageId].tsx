@@ -1,9 +1,25 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import styles from 'styles/pages/private/donations/donation.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useMemo, useState, useCallback } from 'react';
-import { Row, Col, Accordion, Button, Alert } from 'react-bootstrap';
-import { Loader, Paperclip, RefreshCw } from 'react-feather';
+import { useMemo, useState, useCallback, useRef } from 'react';
+import {
+  Row,
+  Col,
+  Accordion,
+  Button,
+  Alert,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap';
+import {
+  Loader,
+  Paperclip,
+  RefreshCw,
+  DollarSign,
+  Package,
+  Copy,
+  Check,
+} from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
 import { manageNonprofitLayout } from 'core/layouts';
@@ -22,6 +38,7 @@ import { selectPackageBlogPosts } from 'core/store/slices/package-blog-posts';
 import {
   uploadTaxDeductionReceiptFile,
   generateTaxDeductionReceiptFile,
+  markPackageAsDelivered,
 } from 'core/api';
 import { useAppSelector, useAppDispatch, useNotifications } from 'core/hooks';
 import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
@@ -38,7 +55,11 @@ import { PackageStatusVisualization } from 'components/package-status-visualizat
 import { PackageLogs } from 'components/package-logs/package-logs';
 import { ProductCard } from 'components/manage-nonprofit/products/product-card/product-card';
 import { BlogPostCard } from 'components/blog-posts/blog-post-card/blog-post-card';
-import { PACKAGE_TYPE } from 'core/constants';
+import {
+  PACKAGE_STATUS,
+  PACKAGE_TYPE,
+  PACKAGE_TYPE_DISPLAY_LABELS,
+} from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const SECTION_KEY = Object.freeze({
@@ -88,6 +109,15 @@ const DonationDetailsPage: NextPageWithLayout = () => {
     );
   }, [donation.items]);
 
+  const canMarkAsDelivered = useMemo(() => {
+    return [PACKAGE_STATUS.CONFIRMED, PACKAGE_STATUS.ON_ITS_WAY].some(
+      (s) => s === donation.status
+    );
+  }, [donation]);
+
+  const [isMarkAsDeliveredPending, setIsMarkAsDeliveredPending] =
+    useState(false);
+
   const [isTaxDeductionReceiptFileSaving, setIsTaxDeductionReceiptFileSaving] =
     useState(false);
 
@@ -124,6 +154,34 @@ const DonationDetailsPage: NextPageWithLayout = () => {
     [organization, donation]
   );
 
+  const handleMarkAsDelivered = useCallback(async () => {
+    setIsMarkAsDeliveredPending(true);
+
+    try {
+      const response = await markPackageAsDelivered({
+        organizationSlug: organization.slug,
+        packageId: donation.uuid,
+      });
+      dispatch(patchPackage({ ...response.data })); // patch pretty much the entire package
+      setIsMarkAsDeliveredPending(false);
+      showNotification({
+        isSuccess: true,
+        message: 'Donation is marked as delivered.',
+      });
+    } catch (rejection) {
+      setIsMarkAsDeliveredPending(false);
+      const rejectionDetails = rejection?.response?.data?.details;
+      let errorMessage = `Failed to mark the donation as delivered.`;
+      if (rejectionDetails) {
+        errorMessage = `${errorMessage} ${rejectionDetails}`;
+      }
+      showNotification({
+        isFailure: true,
+        message: errorMessage,
+      });
+    }
+  }, [organization, donation]);
+
   const handleTaxDeductionReceiptGenerate = useCallback(async () => {
     setIsTaxDeductionReceiptFileSaving(true);
 
@@ -151,6 +209,23 @@ const DonationDetailsPage: NextPageWithLayout = () => {
       });
     }
   }, [organization, donation]);
+
+  const clearCopyTrackingCodeSuccessTooltipTimeout =
+    useRef<ReturnType<typeof setTimeout>>();
+
+  const [
+    showCopyTrackingCodeSuccessTooltip,
+    setShowCopyTrackingCodeSuccessTooltip,
+  ] = useState(false);
+
+  const handleTrackingCodeCopy = useCallback(() => {
+    navigator.clipboard.writeText(donation.tracking_code);
+    clearTimeout(clearCopyTrackingCodeSuccessTooltipTimeout.current);
+    clearCopyTrackingCodeSuccessTooltipTimeout.current = setTimeout(() => {
+      setShowCopyTrackingCodeSuccessTooltip(false);
+    }, 2000);
+    setShowCopyTrackingCodeSuccessTooltip(true);
+  }, [donation.tracking_code]);
 
   return (
     <>
@@ -180,12 +255,62 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                 <Accordion.Item eventKey={SECTION_KEY.STATUS}>
                   <Accordion.Header>Status</Accordion.Header>
                   <Accordion.Body className={styles.statusBody}>
+                    <div className="d-flex align-items-center">
+                      {donation.type === PACKAGE_TYPE.SENT_BY_DONOR ? (
+                        <Package size="1rem" />
+                      ) : null}
+                      {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
+                        <DollarSign size="1rem" />
+                      ) : null}
+                      <span className="ms-1">
+                        {PACKAGE_TYPE_DISPLAY_LABELS[donation.type]}
+                      </span>
+                    </div>
+
                     <PackageStatusVisualization package={donation} />
 
                     <PackageLogs
                       organizationSlug={organization.slug}
                       packageId={donation.uuid}
                     />
+
+                    {/* Mark as "Delivered" button */}
+                    {canMarkAsDelivered ? (
+                      <div>
+                        <Alert variant="info">
+                          <ul className="m-0 ps-4">
+                            <li>
+                              If you have received the gift, you can notify the
+                              donor by marking the donation as
+                              &quot;Delivered&quot;.
+                            </li>
+                            <li>
+                              It&apos;s <strong>highly recommended</strong> to
+                              attach an impact story about the donation with
+                              photos of the package. Let them know how thankful
+                              you are and it will encourage others to donate to
+                              your cause.
+                            </li>
+                          </ul>
+                        </Alert>
+
+                        <Button
+                          size="lg"
+                          onClick={handleMarkAsDelivered}
+                          disabled={isMarkAsDeliveredPending}
+                        >
+                          {isMarkAsDeliveredPending ? (
+                            <Loader
+                              size="1rem"
+                              className={animationStyles.rotate}
+                            />
+                          ) : (
+                            <Check size="1rem" />
+                          )}
+                          <span>Mark as &quot;Delivered&quot;</span>
+                        </Button>
+                      </div>
+                    ) : null}
                   </Accordion.Body>
                 </Accordion.Item>
 
@@ -196,6 +321,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                       return (
                         <ProductCard
                           key={item.product.id}
+                          quantity={item.quantity}
                           product={item.product}
                           organization={organization}
                         />
@@ -204,7 +330,9 @@ const DonationDetailsPage: NextPageWithLayout = () => {
 
                     {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
                       <dl>
-                        <dt>Total donation (including Stripe fee and taxes)</dt>
+                        <dt>
+                          Total amount funded (including Stripe fee and taxes)
+                        </dt>
                         <dd>{formatPrice(totalPrice)}</dd>
                       </dl>
                     ) : null}
@@ -222,7 +350,29 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                         </Col>
                         <Col sm={6}>
                           <dt>Tracking Number</dt>
-                          <dd>{donation.tracking_code}</dd>
+                          <dd>
+                            <span>{donation.tracking_code}</span>
+
+                            <OverlayTrigger
+                              show={showCopyTrackingCodeSuccessTooltip}
+                              placement="top"
+                              overlay={
+                                <Tooltip>
+                                  <span className="d-flex align-items-center">
+                                    <Check size="1rem" />
+                                    <span className="ms-1">Copied!</span>
+                                  </span>
+                                </Tooltip>
+                              }
+                            >
+                              <Copy
+                                size="1rem"
+                                role="button"
+                                className="ms-2"
+                                onClick={handleTrackingCodeCopy}
+                              />
+                            </OverlayTrigger>
+                          </dd>
                         </Col>
                       </Row>
                     </Accordion.Body>

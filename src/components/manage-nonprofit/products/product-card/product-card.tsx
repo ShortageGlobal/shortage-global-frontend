@@ -7,11 +7,16 @@ import { PRODUCT_CATEGORY_DETAILS } from 'core/category-details';
 import type { AccountOrganization, AccountProduct } from 'core/api/types';
 
 type ProductCardProps = {
+  quantity?: number;
   product: AccountProduct;
   organization: AccountOrganization;
 };
 
-export function ProductCard({ product, organization }: ProductCardProps) {
+export function ProductCard({
+  quantity,
+  product,
+  organization,
+}: ProductCardProps) {
   const productHref = useMemo(() => {
     return {
       pathname:
@@ -25,6 +30,7 @@ export function ProductCard({ product, organization }: ProductCardProps) {
 
   const details = useMemo(() => {
     return [
+      ...(quantity ? [{ key: 'quantity', value: quantity }] : []),
       {
         key: 'category',
         value: PRODUCT_CATEGORY_DETAILS[product.category].name,
@@ -38,7 +44,7 @@ export function ProductCard({ product, organization }: ProductCardProps) {
         value: formatPrice(product.price),
       },
     ];
-  }, [product]);
+  }, [quantity, product]);
 
   return (
     <Card
