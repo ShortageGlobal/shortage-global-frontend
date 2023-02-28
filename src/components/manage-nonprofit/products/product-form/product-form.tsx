@@ -71,7 +71,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   const [category, setCategory] = useState<AccountProduct['category'] | ''>('');
   const [price, setPrice] = useState<string | number>('1');
   const [requestedAmount, setRequestedAmount] = useState<string | number>('1');
-  const [topPriority, setTopPriority] = useState<boolean>();
+  const [topPriority, setTopPriority] = useState<boolean>(false);
   const [description, setDescription] = useState(null);
   const [position, setPosition] = useState<string | number>('0');
 

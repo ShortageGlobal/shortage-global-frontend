@@ -5,7 +5,7 @@ import { Row, Col, Accordion, Button } from 'react-bootstrap';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FileText } from 'react-feather';
+import { Paperclip } from 'react-feather';
 import { accountLayout } from 'core/layouts';
 import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import { wrapper } from 'core/store';
@@ -126,7 +126,10 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                   <Accordion.Body className={styles.statusBody}>
                     <PackageStatusVisualization package={donation} />
 
-                    <PackageLogs donation={donation} />
+                    <PackageLogs
+                      organizationSlug={donation.organization.slug}
+                      packageId={donation.uuid}
+                    />
                   </Accordion.Body>
                 </Accordion.Item>
 
@@ -318,8 +321,8 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                                   target="_blank"
                                   rel="noreferrer"
                                 >
-                                  <FileText />
-                                  <span>See the tax deduction receipt</span>
+                                  <Paperclip />
+                                  <span>Tax deduction receipt</span>
                                 </Button>
                               </dd>
                             </Col>

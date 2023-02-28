@@ -16,7 +16,7 @@ import {
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageDonationsCrumb,
+  getManageNonprofitDonationsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { DonationsList } from 'components/manage-nonprofit/donations/donations-list';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -32,7 +32,7 @@ const DonationsPage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageDonationsCrumb({
+      getManageNonprofitDonationsCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),

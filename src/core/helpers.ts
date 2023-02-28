@@ -127,15 +127,20 @@ export function getProductId({ organizationSlug, productSlug }) {
 // Return format: "December 14, 2022"
 export function formatDateForHumans({
   date,
+  withTime = false, // show hours:minutes:seconds
   isMonthShort = false, // "Dec" or "December"
 }: {
   date: Date | string;
+  withTime?: boolean;
   isMonthShort?: boolean;
 }) {
   return new Date(date).toLocaleString('en-us', {
-    month: isMonthShort ? 'short' : 'long',
     year: 'numeric',
     day: 'numeric',
+    month: isMonthShort ? 'short' : 'long',
+    hour: withTime ? 'numeric' : undefined,
+    minute: withTime ? 'numeric' : undefined,
+    second: withTime ? 'numeric' : undefined,
   });
 }
 

@@ -1,9 +1,6 @@
-import styles from './blog-post-card.module.scss';
 import { useMemo } from 'react';
-import classNames from 'classnames';
-import Image from 'next/image';
-import Link from 'next/link';
 import { formatDateForHumans } from 'core/helpers';
+import { Card } from 'components/card/card';
 import type { AccountOrganization, AccountBlogPost } from 'core/api/types';
 
 type BlogPostCardProps = {
@@ -23,46 +20,29 @@ export function BlogPostCard({ blogPost, organization }: BlogPostCardProps) {
     };
   }, [blogPost, organization]);
 
+  const details = useMemo(() => {
+    return [
+      {
+        key: 'updated on',
+        value: formatDateForHumans({
+          date: blogPost.updated_at,
+          isMonthShort: true,
+        }),
+      },
+      {
+        key: 'published',
+        value: blogPost.is_draft ? 'no' : 'yes',
+      },
+    ];
+  }, [blogPost]);
+
   return (
-    <Link href={blogPostHref} className={styles.blogPostCard}>
-      <div className={styles.imageContainer}>
-        {blogPost.image ? (
-          <Image src={blogPost.image} className={styles.image} fill alt="" />
-        ) : null}
-      </div>
-
-      {/* Text content */}
-      <div className={styles.textContent}>
-        {/* Title */}
-        <div className={classNames(styles.title, 'text-truncate')}>
-          {blogPost.title}
-        </div>
-
-        {/* Meta description */}
-        <div className={styles.description}>{blogPost.meta_description}</div>
-      </div>
-
-      {/* Details */}
-      <div className={styles.details}>
-        {/* Updated on */}
-        <div className={styles.detail}>
-          <div className={styles.detailKey}>updated on</div>
-          <div className={styles.detailValue}>
-            {formatDateForHumans({
-              date: blogPost.updated_at,
-              isMonthShort: true,
-            })}
-          </div>
-        </div>
-
-        {/* Published */}
-        <div className={styles.detail}>
-          <div className={styles.detailKey}>published</div>
-          <div className={styles.detailValue}>
-            {blogPost.is_draft ? 'no' : 'yes'}
-          </div>
-        </div>
-      </div>
-    </Link>
+    <Card
+      href={blogPostHref}
+      image={blogPost.image}
+      title={blogPost.title}
+      description={blogPost.meta_description}
+      details={details}
+    />
   );
 }

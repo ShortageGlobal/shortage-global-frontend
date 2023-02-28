@@ -1,8 +1,6 @@
-import styles from './blog-post-card.module.scss';
-import classNames from 'classnames';
-import Link from 'next/link';
-import Image from 'next/image';
-import { formatDateForHumans, truncateString } from 'core/helpers';
+import { useMemo } from 'react';
+import { Card } from 'components/card/card';
+import { formatDateForHumans } from 'core/helpers';
 import type { BlogPostPreview } from 'core/api/types';
 
 type BlogPostCardProps = {
@@ -14,47 +12,34 @@ export function BlogPostCard({
   blogPost,
   isVertical = false,
 }: BlogPostCardProps) {
+  const blogPostHref = useMemo(() => {
+    return {
+      pathname: '/[organizationSlug]/impact-stories/[blogPostSlug]/',
+      query: {
+        organizationSlug: blogPost.organization.slug,
+        blogPostSlug: blogPost.slug,
+      },
+    };
+  }, [blogPost]);
+
+  const details = useMemo(() => {
+    return [
+      {
+        key: 'updated on',
+        value: formatDateForHumans({
+          date: blogPost.updated_at,
+        }),
+      },
+    ];
+  }, [blogPost]);
+
   return (
-    <Link
-      href={{
-        pathname: '/[organizationSlug]/impact-stories/[blogPostSlug]/',
-        query: {
-          organizationSlug: blogPost.organization.slug,
-          blogPostSlug: blogPost.slug,
-        },
-      }}
-      className={classNames(styles.blogPostCard, {
-        [styles.vertical]: isVertical,
-      })}
-    >
-      {/* photo */}
-      {blogPost.image ? (
-        <div className={styles.imageWrap}>
-          <Image
-            src={blogPost.image}
-            alt={blogPost.title}
-            className={styles.image}
-            fill
-          />
-        </div>
-      ) : null}
-
-      {/* text content */}
-      <div className={styles.content}>
-        {/* title */}
-        <div className={classNames(styles.title)}>
-          {isVertical
-            ? truncateString({ value: blogPost.title, maxLength: 50 })
-            : blogPost.title}
-        </div>
-
-        <div className={styles.text}>
-          <div className={styles.detailKey}>updated on</div>
-          <div className={styles.detailValue}>
-            {formatDateForHumans({ date: blogPost.updated_at })}
-          </div>
-        </div>
-      </div>
-    </Link>
+    <Card
+      isVertical={isVertical}
+      href={blogPostHref}
+      image={blogPost.image}
+      title={blogPost.title}
+      details={details}
+    />
   );
 }

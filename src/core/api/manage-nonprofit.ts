@@ -624,3 +624,58 @@ export async function fetchAccountOrganizationPackage({
     { cancelToken: cancelToken?.token, headers }
   );
 }
+
+export type UploadTaxDeductionReceiptFileParams = {
+  organizationSlug: AccountOrganization['slug'];
+  packageId: AccountOrganizationPackage['uuid'];
+  tax_deduction_receipt: File;
+  accessToken?: string;
+} & CancelTokenParams;
+export async function uploadTaxDeductionReceiptFile({
+  organizationSlug,
+  packageId,
+  tax_deduction_receipt,
+  accessToken = null,
+  cancelToken = null,
+}: UploadTaxDeductionReceiptFileParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/packages/${packageId}/upload_tax_deduction_receipt/`
+    ),
+    { tax_deduction_receipt },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        ...headers,
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
+export type GenerateTaxDeductionReceiptFileParams = {
+  organizationSlug: AccountOrganization['slug'];
+  packageId: AccountOrganizationPackage['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function generateTaxDeductionReceiptFile({
+  organizationSlug,
+  packageId,
+  accessToken = null,
+  cancelToken = null,
+}: GenerateTaxDeductionReceiptFileParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/packages/${packageId}/generate_tax_deduction_receipt/`
+    ),
+    {},
+    {
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
