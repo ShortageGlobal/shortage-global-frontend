@@ -1,10 +1,8 @@
-import styles from './product-card.module.scss';
+import cardStyles from 'components/card/card.module.scss';
 import { useMemo } from 'react';
-import classNames from 'classnames';
-import Image from 'next/image';
-import Link from 'next/link';
 import { formatPrice } from 'core/helpers';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
+import { Card } from 'components/card/card';
 import { PRODUCT_CATEGORY_DETAILS } from 'core/category-details';
 import type { AccountOrganization, AccountProduct } from 'core/api/types';
 
@@ -25,46 +23,34 @@ export function ProductCard({ product, organization }: ProductCardProps) {
     };
   }, [product, organization]);
 
+  const details = useMemo(() => {
+    return [
+      {
+        key: 'category',
+        value: PRODUCT_CATEGORY_DETAILS[product.category].name,
+      },
+      {
+        key: 'requested',
+        value: product.requested_amount,
+      },
+      {
+        key: 'price',
+        value: formatPrice(product.price),
+      },
+    ];
+  }, [product]);
+
   return (
-    <Link href={productHref} className={styles.productCard}>
-      <div className={styles.photoContainer}>
-        {product.photo ? (
-          <Image src={product.photo} className={styles.photo} fill alt="" />
-        ) : null}
-
-        {/* top priority */}
-        {product.top_priority ? (
-          <HighDemandBadge className={styles.highDemandBadge} />
-        ) : null}
-      </div>
-
-      {/* Name */}
-      <div className={classNames(styles.name, 'text-truncate')}>
-        {product.name}
-      </div>
-
-      {/* Details */}
-      <div className={styles.details}>
-        {/* Category */}
-        <div className={styles.detail}>
-          <div className={styles.detailKey}>category</div>
-          <div className={styles.detailValue}>
-            <span>{PRODUCT_CATEGORY_DETAILS[product.category].name}</span>
-          </div>
-        </div>
-
-        {/* Requested Amount */}
-        <div className={styles.detail}>
-          <div className={styles.detailKey}>requested</div>
-          <div className={styles.detailValue}>{product.requested_amount}</div>
-        </div>
-
-        {/* Price */}
-        <div className={styles.detail}>
-          <div className={styles.detailKey}>price</div>
-          <div className={styles.detailValue}>{formatPrice(product.price)}</div>
-        </div>
-      </div>
-    </Link>
+    <Card
+      href={productHref}
+      image={product.photo}
+      imageExtra={
+        product.top_priority ? (
+          <HighDemandBadge className={cardStyles.imageBadge} />
+        ) : null
+      }
+      title={product.name}
+      details={details}
+    />
   );
 }

@@ -9,11 +9,13 @@ import {
   isRequestCancel,
 } from 'core/hooks';
 import { fetchPackageLogs } from 'core/api';
-import { PACKAGE_STATUS, PACKAGE_STATUS_DISPLAY_LABELS } from 'core/constants';
-import type { Package, PackageLog } from 'core/api/types';
+import { formatDateForHumans } from 'core/helpers';
+import { PACKAGE_STATUS_DISPLAY_LABELS } from 'core/constants';
+import type { Slug, Uuid, PackageLog } from 'core/api/types';
 
 type PackageLogsProps = {
-  donation: Package;
+  organizationSlug: Slug;
+  packageId: Uuid;
   className?: string;
 };
 
@@ -21,7 +23,11 @@ type PackageLogsProps = {
     A list of package log pairs: DATA - STATUS.
     Note, dates rendered on server cause hydration errors due to different time zones.
 */
-export function PackageLogs({ donation, className = '' }: PackageLogsProps) {
+export function PackageLogs({
+  organizationSlug,
+  packageId,
+  className = '',
+}: PackageLogsProps) {
   const [logs, setLogs] = useState<PackageLog[]>(null);
   const [isPending, setIsPending] = useState(true);
   const { showNotification } = useNotifications();
@@ -42,21 +48,14 @@ export function PackageLogs({ donation, className = '' }: PackageLogsProps) {
 
       try {
         const response = await fetchPackageLogs({
-          packageId: donation.uuid,
-          organizationSlug: donation.organization.slug,
+          organizationSlug,
+          packageId,
           cancelToken,
         });
 
         if (response.data?.length) {
-          setLogs(response.data);
-        } else {
           // old packages might not have logs
-          setLogs([
-            {
-              created_at: donation.created_at,
-              status: PACKAGE_STATUS.REGISTERED,
-            },
-          ]);
+          setLogs(response.data);
         }
 
         setIsPending(false);
@@ -111,7 +110,13 @@ export function PackageLogs({ donation, className = '' }: PackageLogsProps) {
           {logs?.map((log, index) => {
             return (
               <li key={index}>
-                <span>{new Date(log.created_at).toLocaleString()}</span> &#8211;{' '}
+                <span>
+                  {formatDateForHumans({
+                    date: new Date(log.created_at),
+                    withTime: true,
+                  })}
+                </span>{' '}
+                &#8211;{' '}
                 <span className={styles.logValue}>
                   {PACKAGE_STATUS_DISPLAY_LABELS[log.status]}
                 </span>

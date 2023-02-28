@@ -2,7 +2,7 @@ import styles from './package-status.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Alert, Button, Form } from 'react-bootstrap';
-import { FileText, Loader } from 'react-feather';
+import { Paperclip, Loader } from 'react-feather';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import * as gtm from 'core/tracking/gtm';
@@ -336,7 +336,10 @@ export function PackageStatus() {
                 />
 
                 {/* Logs */}
-                <PackageLogs donation={packageState.package} />
+                <PackageLogs
+                  organizationSlug={organization.slug}
+                  packageId={packageState.package.uuid}
+                />
 
                 {/* Tax Deduction */}
                 {packageState.package.tax_deduction_receipt &&
@@ -352,8 +355,8 @@ export function PackageStatus() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <FileText />
-                        <span>See the tax deduction receipt</span>
+                        <Paperclip />
+                        <span>Tax deduction receipt</span>
                       </Button>
                     </dd>
                   </dl>

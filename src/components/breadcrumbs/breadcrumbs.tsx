@@ -566,7 +566,7 @@ export const getManageImpactStoriesEditCrumb = ({
     ...props,
   });
 
-export const getManageDonationsCrumb = ({
+export const getManageNonprofitDonationsCrumb = ({
   organizationSlug,
   ...props
 }: {
@@ -583,7 +583,7 @@ export const getManageDonationsCrumb = ({
     ...props,
   });
 
-export const getManageDonationDetailsCrumb = ({
+export const getManageNonprofitDonationDetailsCrumb = ({
   organizationSlug,
   packageId,
   ...props

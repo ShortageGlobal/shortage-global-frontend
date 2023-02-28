@@ -2,7 +2,7 @@ import styles from './notification.module.scss';
 import { useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import { Toast, CloseButton } from 'react-bootstrap';
-import { NOTIFICATION_TYPE } from 'core/constants';
+import { NOTIFICATION_TYPE, NOTIFICATION_DELAY } from 'core/constants';
 import type { Notification } from 'core/api/types';
 
 type NotificationProps = {
@@ -28,7 +28,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
     <Toast
       bg={bg}
       autohide
-      delay={3000}
+      delay={NOTIFICATION_DELAY}
       onClose={handleClose}
       className={classNames(styles.notification)}
     >

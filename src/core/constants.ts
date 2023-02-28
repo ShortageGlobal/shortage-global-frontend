@@ -83,6 +83,8 @@ export const NOTIFICATION_TYPE = Object.freeze({
   FAILURE: 'FAILURE',
 });
 
+export const NOTIFICATION_DELAY = 5000; // ms, how long notification stays on screen
+
 export const PACKAGE_TYPE = Object.freeze({
   SENT_BY_DONOR: 'SENT_BY_DONOR',
   FUNDED_BY_DONOR: 'FUNDED_BY_DONOR',

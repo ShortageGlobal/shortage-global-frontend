@@ -1,0 +1,13 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.fileUploadInput {
+  .controls {
+    display: flex;
+    margin-top: 0.5rem;
+
+    > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+}
