@@ -349,7 +349,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                       </div>
                     ) : (
                       <div>
-                        There are no published impact stories associated with
+                        There are no published Impact Stories associated with
                         this donation yet.
                       </div>
                     )}

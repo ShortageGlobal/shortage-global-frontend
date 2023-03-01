@@ -2,6 +2,7 @@ import commonStyles from 'styles/pages/private/common.module.scss';
 import { useEffect, useState } from 'react';
 import { Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
+import { Search } from 'react-feather';
 import {
   useAppSelector,
   useNotifications,
@@ -16,7 +17,6 @@ import { LoadingMessage } from 'components/loading-message/loading-message';
 import { BlogPostCard } from 'components/manage-nonprofit/blog-posts/blog-post-card/blog-post-card';
 import { DEFAULT_PAGE_SIZE } from 'core/constants';
 import type { AccountOrganization, AccountBlogPost } from 'core/api/types';
-import { Search } from 'react-feather';
 
 export function BlogPostsList() {
   const { showNotification } = useNotifications();
@@ -66,7 +66,7 @@ export function BlogPostsList() {
         const rejectionErrors = rejection?.response?.data;
         showNotification({
           isFailure: true,
-          message: rejectionErrors?.details || 'Failed to get impact stories',
+          message: rejectionErrors?.details || 'Failed to get Impact Stories',
         });
         setIsLoading(false);
       }
@@ -125,7 +125,7 @@ export function BlogPostsList() {
       {/* No blog posts */}
       {blogPosts?.length === 0 && !isLoading ? (
         <div>
-          <p>No impact stories found.</p>
+          <p>No Impact Stories found.</p>
           {searchQuery?.length > 0 ? (
             <Button variant="outline-dark" onClick={() => setSearchQuery('')}>
               Clear search

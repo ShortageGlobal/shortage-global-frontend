@@ -704,3 +704,54 @@ export async function markPackageAsDelivered({
     }
   );
 }
+
+export type SetOrganizationPackageBlogPostsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  packageId: AccountOrganizationPackage['uuid'];
+  blogPostIds: AccountBlogPost['uuid'][];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function setOrganizationPackageBlogPosts({
+  organizationSlug,
+  packageId,
+  blogPostIds,
+  accessToken = null,
+  cancelToken = null,
+}: SetOrganizationPackageBlogPostsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/packages/${packageId}/set_blog_posts/`
+    ),
+    { blog_posts: blogPostIds },
+    {
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type FetchOrganizationPackageBlogPostsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  packageId: AccountOrganizationPackage['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchOrganizationPackageBlogPosts({
+  organizationSlug,
+  packageId,
+  accessToken = null,
+  cancelToken = null,
+}: FetchOrganizationPackageBlogPostsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<AccountBlogPost[]>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/packages/${packageId}/blog_posts/`
+    ),
+    {
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}

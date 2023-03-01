@@ -60,7 +60,7 @@ export function BlogPostConfirmDeleteModal({
       showNotification({
         isFailure: true,
         message:
-          rejection?.response?.data?.details || 'Failed to delete impact story',
+          rejection?.response?.data?.details || 'Failed to delete Impact Story',
       });
     }
   }, [blogPost, setIsPending]);
@@ -79,10 +79,10 @@ export function BlogPostConfirmDeleteModal({
       </Modal.Header>
 
       <Modal.Body>
-        <Alert variant="danger">This action can&apos;t be reverted.</Alert>
+        <Alert variant="warning">This action can&apos;t be reverted.</Alert>
         <div>
           Are you sure you want to delete the{' '}
-          <b>&quot;{blogPost.title}&quot;</b> impact story?
+          <b>&quot;{blogPost.title}&quot;</b> Impact Story?
         </div>
       </Modal.Body>
 

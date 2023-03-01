@@ -39,7 +39,7 @@ export function ManageNonprofitNav() {
       return KEY.donations;
     }
 
-    // impact stories list/details
+    // Impact Stories list/details
     if (
       router.pathname.startsWith(
         '/private/manage-nonprofit/[organizationSlug]/impact-stories'

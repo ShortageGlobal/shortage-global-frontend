@@ -114,6 +114,7 @@ export function PackageLogs({
                   {formatDateForHumans({
                     date: new Date(log.created_at),
                     withTime: true,
+                    isMonthShort: true,
                   })}
                 </span>{' '}
                 &#8211;{' '}

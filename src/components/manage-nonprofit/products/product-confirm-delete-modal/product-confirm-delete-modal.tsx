@@ -78,7 +78,7 @@ export function ProductConfirmDeleteModal({
       </Modal.Header>
 
       <Modal.Body>
-        <Alert variant="danger">This action can&apos;t be reverted.</Alert>
+        <Alert variant="warning">This action can&apos;t be reverted.</Alert>
         <div>
           Are you sure you want to delete the <b>&quot;{product.name}&quot;</b>{' '}
           request?
