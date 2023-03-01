@@ -212,7 +212,7 @@ export function SelectBlogPostModal({
         >
           <Button variant="outline-dark">
             <Plus />
-            <span>Add new Impact Story</span>
+            <span>Add Impact Story</span>
           </Button>
         </Link>
 
