@@ -7,8 +7,10 @@ import type { LinkProps } from 'next/link';
 import type { ImageProps } from 'next/image';
 
 type CardProps = {
+  className?: string;
   isVertical?: boolean;
-  href: LinkProps['href'];
+  href?: LinkProps['href'];
+  onClick?: () => void;
   image?: ImageProps['src'];
   imageExtra?: ReactNode;
   title: string;
@@ -17,19 +19,18 @@ type CardProps = {
 };
 
 export function Card({
+  className,
   isVertical = false,
   href,
+  onClick = () => {},
   image = null,
   imageExtra = null,
   title,
   description = null,
   details,
 }: CardProps) {
-  return (
-    <Link
-      href={href}
-      className={classNames(styles.card, { [styles.vertical]: isVertical })}
-    >
+  const content = (
+    <>
       <div className={styles.imageContainer}>
         {image ? (
           <Image src={image} className={styles.image} fill alt="" />
@@ -63,6 +64,24 @@ export function Card({
           );
         })}
       </div>
-    </Link>
+    </>
+  );
+
+  const containerClassName = classNames(styles.card, className, {
+    [styles.vertical]: isVertical,
+  });
+
+  if (href) {
+    return (
+      <Link href={href} className={containerClassName}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div role="button" className={containerClassName} onClick={onClick}>
+      {content}
+    </div>
   );
 }

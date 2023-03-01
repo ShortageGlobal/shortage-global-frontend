@@ -1,0 +1,36 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.donation {
+  word-break: break-word;
+
+  :global {
+    dl {
+      margin: 0;
+    }
+  }
+
+  .statusBody {
+    > * + * {
+      margin-top: 2rem;
+    }
+  }
+
+  .blogPostRow {
+    display: flex;
+    align-items: flex-start;
+
+    > * + * {
+      margin-left: 1rem;
+    }
+
+    .blogPostCard {
+      flex: 1;
+    }
+
+    .detachBlogPostBtn {
+      flex-shrink: 0;
+      border-color: $border-color;
+    }
+  }
+}

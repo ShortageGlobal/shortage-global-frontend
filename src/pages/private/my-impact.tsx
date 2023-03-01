@@ -54,7 +54,7 @@ const MyImpactPage: NextPageWithLayout = ({ blogPosts }: MyImpactPageProps) => {
               </div>
             ) : (
               <div>
-                There are no impact stories associated with your donations yet.
+                There are no Impact Stories associated with your donations yet.
               </div>
             )}
           </Col>

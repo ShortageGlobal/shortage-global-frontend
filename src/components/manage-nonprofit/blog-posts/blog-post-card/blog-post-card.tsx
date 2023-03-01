@@ -4,11 +4,16 @@ import { Card } from 'components/card/card';
 import type { AccountOrganization, AccountBlogPost } from 'core/api/types';
 
 type BlogPostCardProps = {
+  className?: string;
   blogPost: AccountBlogPost;
   organization: AccountOrganization;
 };
 
-export function BlogPostCard({ blogPost, organization }: BlogPostCardProps) {
+export function BlogPostCard({
+  className,
+  blogPost,
+  organization,
+}: BlogPostCardProps) {
   const blogPostHref = useMemo(() => {
     return {
       pathname:
@@ -38,6 +43,7 @@ export function BlogPostCard({ blogPost, organization }: BlogPostCardProps) {
 
   return (
     <Card
+      className={className}
       href={blogPostHref}
       image={blogPost.image}
       title={blogPost.title}

@@ -2,6 +2,8 @@
 @import 'styles/_variables';
 
 .packageLogs {
+  $logTimeWidth: 185px;
+
   :global ul {
     list-style: none;
     margin: 0;
@@ -12,8 +14,13 @@
     color: $placeholder-background-color;
 
     .placeholderDate {
-      width: 230px;
+      width: $logTimeWidth;
     }
+  }
+
+  .logTime {
+    display: inline-block;
+    min-width: $logTimeWidth;
   }
 
   .logValue {

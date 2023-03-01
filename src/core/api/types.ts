@@ -247,6 +247,7 @@ export type AccountOrganizationPackage = {
   status: PackageStatus;
   created_at?: string;
   items?: AccountOrganizationPackageItem[];
+  blog_posts?: AccountBlogPost['uuid'][];
 };
 
 export type CreateCartItem = {

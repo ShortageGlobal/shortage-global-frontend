@@ -135,7 +135,7 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
         setIsSaving(false);
         showNotification({
           isFailure: true,
-          message: rejectionErrors?.details || 'Failed to save impact story',
+          message: rejectionErrors?.details || 'Failed to save Impact Story',
         });
       }
     },
@@ -233,7 +233,7 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
                 onChange={(image) => setImage(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.image)}
               />
-              <Form.Text as="div">Illustration of the impact story.</Form.Text>
+              <Form.Text as="div">Illustration of the Impact Story.</Form.Text>
               {getErrorsFeedback(ERROR_KEYS.image)}
             </Form.Group>
           </Row>
@@ -268,6 +268,7 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
                 type="text"
                 autoComplete="off"
                 placeholder=""
+                maxLength={200}
                 value={metaDescription}
                 className={styles.metaDescriptionTextarea}
                 onChange={(e) => setMetaDescription(e.target.value)}
@@ -299,7 +300,7 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
                 aria-describedby="isDraftHelpBlock"
               />
               <Form.Text as="div" id="isDraftHelpBlock">
-                If checked, the impact story is posted on your page.
+                If checked, the Impact Story is posted on your page.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.isDraft)}
             </Form.Group>

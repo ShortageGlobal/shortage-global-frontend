@@ -1,7 +1,7 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
-import styles from 'styles/pages/private/donations/donation.module.scss';
+import styles from 'styles/pages/private/manage-nonprofit/donation.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useMemo, useState, useCallback, useRef } from 'react';
+import { useMemo, useState, useCallback, useRef, useEffect } from 'react';
 import {
   Row,
   Col,
@@ -19,7 +19,10 @@ import {
   Package,
   Copy,
   Check,
+  FilePlus,
+  X,
 } from 'react-feather';
+import classNames from 'classnames';
 import Head from 'next/head';
 import Link from 'next/link';
 import { manageNonprofitLayout } from 'core/layouts';
@@ -34,13 +37,19 @@ import {
   selectAccountOrganizationPackage,
   patchPackage,
 } from 'core/store/slices/account-organization-package';
-import { selectPackageBlogPosts } from 'core/store/slices/package-blog-posts';
 import {
   uploadTaxDeductionReceiptFile,
   generateTaxDeductionReceiptFile,
-  markPackageAsDelivered,
+  setOrganizationPackageBlogPosts,
+  fetchOrganizationPackageBlogPosts,
 } from 'core/api';
-import { useAppSelector, useAppDispatch, useNotifications } from 'core/hooks';
+import {
+  useAppSelector,
+  useAppDispatch,
+  useNotifications,
+  useCancelToken,
+  isRequestCancel,
+} from 'core/hooks';
 import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
 import {
   Breadcrumbs,
@@ -52,15 +61,18 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { FileUploadInput } from 'components/file-upload-input/file-upload-input';
 import { PackageStatusVisualization } from 'components/package-status-visualization/package-status-visualization';
+import { ConfirmDonationDeliveredModal } from 'components/manage-nonprofit/donations/confirm-donation-delivered-modal/confirm-donation-delivered-modal';
 import { PackageLogs } from 'components/package-logs/package-logs';
 import { ProductCard } from 'components/manage-nonprofit/products/product-card/product-card';
-import { BlogPostCard } from 'components/blog-posts/blog-post-card/blog-post-card';
+import { BlogPostCard } from 'components/manage-nonprofit/blog-posts/blog-post-card/blog-post-card';
+import { SelectBlogPostModal } from 'components/manage-nonprofit/blog-posts/select-blog-post-modal/select-blog-post-modal';
 import {
   PACKAGE_STATUS,
   PACKAGE_TYPE,
   PACKAGE_TYPE_DISPLAY_LABELS,
 } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
+import type { AccountBlogPost } from 'core/api/types';
 
 const SECTION_KEY = Object.freeze({
   STATUS: 'STATUS',
@@ -97,7 +109,41 @@ const DonationDetailsPage: NextPageWithLayout = () => {
     ];
   }, [organization, donation]);
 
-  const { packageBlogPosts } = useAppSelector(selectPackageBlogPosts);
+  const [blogPosts, setBlogPosts] = useState<AccountBlogPost[]>([]);
+  const [isBlogPostsLoading, setIsBlogPostsLoading] = useState(true);
+
+  const getFetchBlogPostsCancelToken = useCancelToken();
+
+  const fetchBlogPosts = useCallback(async () => {
+    const cancelToken = getFetchBlogPostsCancelToken();
+
+    setIsBlogPostsLoading(true);
+
+    try {
+      const response = await fetchOrganizationPackageBlogPosts({
+        organizationSlug: organization.slug,
+        packageId: donation.uuid,
+        cancelToken,
+      });
+
+      setBlogPosts(response.data);
+      setIsBlogPostsLoading(false);
+    } catch (rejection) {
+      if (isRequestCancel(rejection)) {
+        return;
+      }
+      const rejectionErrors = rejection?.response?.data;
+      showNotification({
+        isFailure: true,
+        message: rejectionErrors?.details || 'Failed to get Impact Stories',
+      });
+      setIsBlogPostsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchBlogPosts();
+  }, [donation.blog_posts]);
 
   const totalPrice = useMemo(() => {
     if (!donation) {
@@ -115,11 +161,18 @@ const DonationDetailsPage: NextPageWithLayout = () => {
     );
   }, [donation]);
 
-  const [isMarkAsDeliveredPending, setIsMarkAsDeliveredPending] =
+  const [
+    isConfirmMarkAsDeliveredModalShown,
+    setIsConfirmMarkAsDeliveredModalShown,
+  ] = useState(false);
+
+  const [isSelectBlogPostModalShown, setIsSelectBlogPostModalShown] =
     useState(false);
 
   const [isTaxDeductionReceiptFileSaving, setIsTaxDeductionReceiptFileSaving] =
     useState(false);
+
+  const [isBlogPostAttachPending, setIsBlogPostAttachPending] = useState(false);
 
   const handleTaxDeductionReceiptFileSave = useCallback(
     async ({ taxDeductionReceipt }) => {
@@ -154,33 +207,9 @@ const DonationDetailsPage: NextPageWithLayout = () => {
     [organization, donation]
   );
 
-  const handleMarkAsDelivered = useCallback(async () => {
-    setIsMarkAsDeliveredPending(true);
-
-    try {
-      const response = await markPackageAsDelivered({
-        organizationSlug: organization.slug,
-        packageId: donation.uuid,
-      });
-      dispatch(patchPackage({ ...response.data })); // patch pretty much the entire package
-      setIsMarkAsDeliveredPending(false);
-      showNotification({
-        isSuccess: true,
-        message: 'Donation is marked as delivered.',
-      });
-    } catch (rejection) {
-      setIsMarkAsDeliveredPending(false);
-      const rejectionDetails = rejection?.response?.data?.details;
-      let errorMessage = `Failed to mark the donation as delivered.`;
-      if (rejectionDetails) {
-        errorMessage = `${errorMessage} ${rejectionDetails}`;
-      }
-      showNotification({
-        isFailure: true,
-        message: errorMessage,
-      });
-    }
-  }, [organization, donation]);
+  const handleMarkAsDelivered = useCallback(() => {
+    setIsConfirmMarkAsDeliveredModalShown(true);
+  }, []);
 
   const handleTaxDeductionReceiptGenerate = useCallback(async () => {
     setIsTaxDeductionReceiptFileSaving(true);
@@ -227,6 +256,89 @@ const DonationDetailsPage: NextPageWithLayout = () => {
     setShowCopyTrackingCodeSuccessTooltip(true);
   }, [donation.tracking_code]);
 
+  const handleAttachBlogPost = useCallback(
+    async (blogPostId: AccountBlogPost['uuid']) => {
+      setIsSelectBlogPostModalShown(false);
+
+      if (blogPosts.some((blogPost) => blogPost.uuid === blogPostId)) {
+        // do not attach already attached blog post
+        return;
+      }
+
+      const blogPostIds = [
+        ...blogPosts.map((blogPost) => blogPost.uuid),
+        blogPostId,
+      ];
+
+      setIsBlogPostAttachPending(true);
+      try {
+        const response = await setOrganizationPackageBlogPosts({
+          organizationSlug: organization.slug,
+          packageId: donation.uuid,
+          blogPostIds,
+        });
+        dispatch(patchPackage({ ...response.data }));
+        setIsBlogPostAttachPending(false);
+        showNotification({
+          isSuccess: true,
+          message: 'Impact Story attached successfully.',
+        });
+      } catch (rejection) {
+        setIsBlogPostAttachPending(false);
+        const rejectionDetails = rejection?.response?.data?.details;
+        let errorMessage = `Failed to attach an Impact Story.`;
+        if (rejectionDetails) {
+          errorMessage = `${errorMessage} ${rejectionDetails}`;
+        }
+        showNotification({
+          isFailure: true,
+          message: errorMessage,
+        });
+      }
+    },
+    [organization, blogPosts]
+  );
+
+  const handleDetachBlogPost = useCallback(
+    async (blogPostId: AccountBlogPost['uuid']) => {
+      if (blogPosts.every((blogPost) => blogPost.uuid !== blogPostId)) {
+        // do not detach already detached blog post
+        return;
+      }
+
+      const blogPostIds = blogPosts
+        .map((blogPost) => blogPost.uuid)
+        .filter((uuid) => uuid !== blogPostId);
+
+      setIsBlogPostAttachPending(true);
+      try {
+        const response = await setOrganizationPackageBlogPosts({
+          organizationSlug: organization.slug,
+          packageId: donation.uuid,
+          blogPostIds,
+        });
+        dispatch(patchPackage({ ...response.data }));
+        setIsBlogPostAttachPending(false);
+        showNotification({
+          isSuccess: true,
+          message: 'Impact Story detached successfully.',
+        });
+      } catch (rejection) {
+        setIsBlogPostAttachPending(false);
+        const rejectionDetails = rejection?.response?.data?.details;
+        let errorMessage = `Failed to detach an Impact Story.`;
+        if (rejectionDetails) {
+          errorMessage = `${errorMessage} ${rejectionDetails}`;
+        }
+        showNotification({
+          isFailure: true,
+          message: errorMessage,
+        });
+      }
+    },
+    [organization, blogPosts]
+  );
+
   return (
     <>
       <Head>
@@ -250,7 +362,6 @@ const DonationDetailsPage: NextPageWithLayout = () => {
               <Accordion
                 defaultActiveKey={Object.values(SECTION_KEY)}
                 alwaysOpen
-                className={styles.reviewDonationDetails}
               >
                 <Accordion.Item eventKey={SECTION_KEY.STATUS}>
                   <Accordion.Header>Status</Accordion.Header>
@@ -286,7 +397,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                             </li>
                             <li>
                               It&apos;s <strong>highly recommended</strong> to
-                              attach an impact story about the donation with
+                              attach an Impact Story about the donation with
                               photos of the package. Let them know how thankful
                               you are and it will encourage others to donate to
                               your cause.
@@ -294,29 +405,27 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                           </ul>
                         </Alert>
 
-                        <Button
-                          size="lg"
-                          onClick={handleMarkAsDelivered}
-                          disabled={isMarkAsDeliveredPending}
-                        >
-                          {isMarkAsDeliveredPending ? (
-                            <Loader
-                              size="1rem"
-                              className={animationStyles.rotate}
-                            />
-                          ) : (
-                            <Check size="1rem" />
-                          )}
+                        <Button size="lg" onClick={handleMarkAsDelivered}>
+                          <Check size="1rem" />
                           <span>Mark as &quot;Delivered&quot;</span>
                         </Button>
                       </div>
                     ) : null}
+
+                    <ConfirmDonationDeliveredModal
+                      organization={organization}
+                      donation={donation}
+                      show={isConfirmMarkAsDeliveredModalShown}
+                      onHide={() =>
+                        setIsConfirmMarkAsDeliveredModalShown(false)
+                      }
+                    />
                   </Accordion.Body>
                 </Accordion.Item>
 
                 <Accordion.Item eventKey={SECTION_KEY.ITEMS}>
                   <Accordion.Header>Items</Accordion.Header>
-                  <Accordion.Body className={styles.packageItems}>
+                  <Accordion.Body className={commonStyles.list}>
                     {donation.items.map((item) => {
                       return (
                         <ProductCard
@@ -381,7 +490,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
 
                 <Accordion.Item eventKey={SECTION_KEY.TAX_DEDUCTION}>
                   <Accordion.Header>Tax Deduction / Details</Accordion.Header>
-                  <Accordion.Body as="dl" className={styles.body}>
+                  <Accordion.Body as="dl">
                     <Row>
                       <Col>
                         <dt>Request Tax Deduction</dt>
@@ -490,7 +599,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
 
                             <Button
                               size="lg"
-                              variant="outline-dark"
+                              variant="outline-danger"
                               className="me-2"
                               onClick={() =>
                                 handleTaxDeductionReceiptFileSave({
@@ -501,7 +610,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                                 !donation || isTaxDeductionReceiptFileSaving
                               }
                             >
-                              <span>Remove</span>
+                              <span>Delete</span>
                             </Button>
                           </dd>
                         ) : null}
@@ -557,7 +666,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
 
                         <div className="my-3">
                           <Button
-                            variant="outline-dark"
+                            variant="outline-primary"
                             className="me-2"
                             onClick={handleTaxDeductionReceiptGenerate}
                             disabled={
@@ -583,23 +692,67 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                 <Accordion.Item eventKey={SECTION_KEY.IMPACT_STORIES}>
                   <Accordion.Header>Impact Stories</Accordion.Header>
                   <Accordion.Body>
-                    {packageBlogPosts?.length > 0 ? (
-                      <div className={styles.blogPosts}>
-                        {packageBlogPosts.map((blogPost) => {
+                    {blogPosts?.length > 0 ? (
+                      <div
+                        className={classNames(commonStyles.list, {
+                          [commonStyles.loading]: isBlogPostsLoading,
+                        })}
+                      >
+                        {blogPosts.map((blogPost) => {
                           return (
-                            <BlogPostCard
+                            <div
                               key={blogPost.slug}
-                              blogPost={blogPost}
-                            />
+                              className={styles.blogPostRow}
+                            >
+                              <BlogPostCard
+                                className={styles.blogPostCard}
+                                organization={organization}
+                                blogPost={blogPost}
+                              />
+
+                              <Button
+                                className={styles.detachBlogPostBtn}
+                                variant="outline-dark"
+                                onClick={() =>
+                                  handleDetachBlogPost(blogPost.uuid)
+                                }
+                              >
+                                <X />
+                              </Button>
+                            </div>
                           );
                         })}
                       </div>
                     ) : (
                       <div>
-                        There are no published impact stories associated with
+                        There are no published Impact Stories associated with
                         this donation yet.
                       </div>
                     )}
+
+                    <Button
+                      className="my-3"
+                      variant="outline-dark"
+                      onClick={() => setIsSelectBlogPostModalShown(true)}
+                      disabled={isBlogPostAttachPending || isBlogPostsLoading}
+                    >
+                      {isBlogPostAttachPending || isBlogPostsLoading ? (
+                        <Loader
+                          size="1rem"
+                          className={animationStyles.rotate}
+                        />
+                      ) : (
+                        <FilePlus size="1rem" />
+                      )}
+                      <span>Attach Impact Story</span>
+                    </Button>
+
+                    <SelectBlogPostModal
+                      organization={organization}
+                      show={isSelectBlogPostModalShown}
+                      onHide={() => setIsSelectBlogPostModalShown(false)}
+                      onSelect={handleAttachBlogPost}
+                    />
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>

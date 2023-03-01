@@ -110,10 +110,11 @@ export function PackageLogs({
           {logs?.map((log, index) => {
             return (
               <li key={index}>
-                <span>
+                <span className={styles.logTime}>
                   {formatDateForHumans({
                     date: new Date(log.created_at),
                     withTime: true,
+                    isMonthShort: true,
                   })}
                 </span>{' '}
                 &#8211;{' '}
