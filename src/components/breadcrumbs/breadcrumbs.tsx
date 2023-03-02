@@ -602,3 +602,37 @@ export const getManageNonprofitDonationDetailsCrumb = ({
     },
     ...props,
   });
+
+export const getManageNonprofitProfileCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-profile-crumb',
+    label: 'Profile',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/profile/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageNonprofitChangePasswordCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-change-password-crumb',
+    label: 'Change Password',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/change-password/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
