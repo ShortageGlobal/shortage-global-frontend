@@ -14,6 +14,8 @@ const KEY = Object.freeze({
   taxDeduction: 'taxDeduction',
   donations: 'donations',
   impactStories: 'impactStories',
+  profile: 'profile',
+  changePassword: 'changePassword',
 });
 
 export function ManageNonprofitNav() {
@@ -58,6 +60,12 @@ export function ManageNonprofitNav() {
       }
       case '/private/manage-nonprofit/[organizationSlug]/tax-information': {
         return KEY.taxDeduction;
+      }
+      case '/private/manage-nonprofit/[organizationSlug]/profile': {
+        return KEY.profile;
+      }
+      case '/private/manage-nonprofit/[organizationSlug]/change-password': {
+        return KEY.changePassword;
       }
       default: {
         return null;
@@ -114,6 +122,20 @@ export function ManageNonprofitNav() {
         href={`/private/manage-nonprofit/${organization.slug}/impact-stories/`}
       >
         Impact Stories
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.profile}
+        href={`/private/manage-nonprofit/${organization.slug}/profile/`}
+      >
+        Profile
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.changePassword}
+        href={`/private/manage-nonprofit/${organization.slug}/change-password/`}
+      >
+        Change Password
       </Nav.Link>
     </Nav>
   );
