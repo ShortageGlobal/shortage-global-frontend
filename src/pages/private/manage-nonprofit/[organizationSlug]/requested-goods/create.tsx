@@ -96,6 +96,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
       };
     }
 
+    if (!accountOrganization.organization.is_draft) {
+      return {
+        redirect: {
+          destination: `/private/manage-nonprofit/${accountOrganization.organization.slug}/requested-goods/`,
+          permanent: false,
+        },
+      };
+    }
+
     return {
       props: {},
     };

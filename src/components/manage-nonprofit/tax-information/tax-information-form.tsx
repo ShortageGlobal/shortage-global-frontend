@@ -218,6 +218,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setEinNumber(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.einNumber)}
                 isInvalid={getIsInvalid(ERROR_KEYS.einNumber)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.einNumber)}
             </Form.Group>
@@ -244,6 +245,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setAddressLine1(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.addressLine1)}
                 isInvalid={getIsInvalid(ERROR_KEYS.addressLine1)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.addressLine1)}
             </Form.Group>
@@ -264,6 +266,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setAddressLine2(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.addressLine2)}
                 isInvalid={getIsInvalid(ERROR_KEYS.addressLine2)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.addressLine2)}
             </Form.Group>
@@ -284,6 +287,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setCity(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.city)}
                 isInvalid={getIsInvalid(ERROR_KEYS.city)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.city)}
             </Form.Group>
@@ -304,6 +308,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setStateProvinceRegion(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.stateProvinceRegion)}
                 isInvalid={getIsInvalid(ERROR_KEYS.stateProvinceRegion)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.stateProvinceRegion)}
             </Form.Group>
@@ -324,6 +329,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setZip(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.zip)}
                 isInvalid={getIsInvalid(ERROR_KEYS.zip)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.zip)}
             </Form.Group>
@@ -342,6 +348,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setCountry(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.country)}
                 isInvalid={getIsInvalid(ERROR_KEYS.country)}
+                disabled={!organization.is_draft}
               >
                 {countries?.map(({ value, display_name }) => (
                   <option key={value} value={value}>
@@ -374,6 +381,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setRepresentativeFirstName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.representativeFirstName)}
                 isInvalid={getIsInvalid(ERROR_KEYS.representativeFirstName)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.representativeFirstName)}
             </Form.Group>
@@ -394,6 +402,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setRepresentativeLastName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.representativeLastName)}
                 isInvalid={getIsInvalid(ERROR_KEYS.representativeLastName)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.representativeLastName)}
             </Form.Group>
@@ -414,6 +423,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(e) => setRepresentativeEmail(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.representativeEmail)}
                 isInvalid={getIsInvalid(ERROR_KEYS.representativeEmail)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.representativeEmail)}
             </Form.Group>
@@ -428,7 +438,10 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
               <Form.Label>Phone Number</Form.Label>
               <PhoneInput
                 value={representativePhoneNumber}
-                inputProps={{ id: 'phoneNumber' }}
+                inputProps={{
+                  id: 'phoneNumber',
+                  ...(organization.is_draft ? {} : { readonly: 'true' }),
+                }}
                 inputClass="form-control-lg"
                 isValid={getIsValid(ERROR_KEYS.representativePhoneNumber)}
                 isInvalid={getIsInvalid(ERROR_KEYS.representativePhoneNumber)}
@@ -454,6 +467,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 value={representativeSignature}
                 onChange={(image) => setRepresentativeSignature(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.representativeSignature)}
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 {`A scan of the responsible person's signature. Will be used to sign tax deduction receipts.`}
@@ -482,6 +496,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 isValid={getIsValid(ERROR_KEYS.receiptPreamble)}
                 isInvalid={getIsInvalid(ERROR_KEYS.receiptPreamble)}
                 aria-describedby="receiptPreambleHelpBlock"
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="receiptPreambleHelpBlock">
                 Text added to automatically generated tax deduction receipts
@@ -511,6 +526,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 isValid={getIsValid(ERROR_KEYS.receiptFooter)}
                 isInvalid={getIsInvalid(ERROR_KEYS.receiptFooter)}
                 aria-describedby="receiptFooterHelpBlock"
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="receiptFooterHelpBlock">
                 Text added to automatically generated tax deduction receipts at
@@ -521,25 +537,27 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
           </Row>
 
           {/* Submit Button */}
-          <Row>
-            <Col>
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isSaving}
-                className={commonStyles.submitBtn}
-              >
-                {isSaving ? (
-                  <Loader
-                    role="status"
-                    aria-hidden="true"
-                    className={animationStyles.rotate}
-                  />
-                ) : null}
-                <span>Save</span>
-              </Button>
-            </Col>
-          </Row>
+          {organization.is_draft ? (
+            <Row>
+              <Col>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isSaving}
+                  className={commonStyles.submitBtn}
+                >
+                  {isSaving ? (
+                    <Loader
+                      role="status"
+                      aria-hidden="true"
+                      className={animationStyles.rotate}
+                    />
+                  ) : null}
+                  <span>Save</span>
+                </Button>
+              </Col>
+            </Row>
+          ) : null}
         </Form>
       </Col>
     </Row>

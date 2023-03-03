@@ -159,6 +159,7 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.name)}
                 isInvalid={getIsInvalid(ERROR_KEYS.name)}
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 The name of the delivery instruction, e.g. &quot;Warehouse&quot;
@@ -180,6 +181,7 @@ export function DeliveryInstructionForm() {
                 onChange={(newValue) => setDescription(newValue)}
                 isValid={getIsValid(ERROR_KEYS.description)}
                 isInvalid={getIsInvalid(ERROR_KEYS.description)}
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 The detailed instruction a donor should follow to send you
@@ -190,25 +192,27 @@ export function DeliveryInstructionForm() {
           </Row>
 
           {/* Submit Button */}
-          <Row>
-            <Col>
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isSaving}
-                className={commonStyles.submitBtn}
-              >
-                {isSaving ? (
-                  <Loader
-                    role="status"
-                    aria-hidden="true"
-                    className={animationStyles.rotate}
-                  />
-                ) : null}
-                <span>Save</span>
-              </Button>
-            </Col>
-          </Row>
+          {organization.is_draft ? (
+            <Row>
+              <Col>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isSaving}
+                  className={commonStyles.submitBtn}
+                >
+                  {isSaving ? (
+                    <Loader
+                      role="status"
+                      aria-hidden="true"
+                      className={animationStyles.rotate}
+                    />
+                  ) : null}
+                  <span>Save</span>
+                </Button>
+              </Col>
+            </Row>
+          ) : null}
         </Form>
       </Col>
     </Row>
