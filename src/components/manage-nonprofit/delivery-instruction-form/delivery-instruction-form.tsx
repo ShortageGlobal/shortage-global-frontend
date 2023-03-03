@@ -178,6 +178,8 @@ export function DeliveryInstructionForm() {
               <HtmlEditor
                 value={description}
                 onChange={(newValue) => setDescription(newValue)}
+                isValid={getIsValid(ERROR_KEYS.description)}
+                isInvalid={getIsInvalid(ERROR_KEYS.description)}
               />
               <Form.Text as="div">
                 The detailed instruction a donor should follow to send you

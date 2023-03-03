@@ -114,6 +114,8 @@ export type AccountOrganization = Organization & {
   representative_email?: string;
   representative_phone_number?: string;
   representative_signature?: string;
+  tax_deduction_receipt_preamble?: string;
+  tax_deduction_receipt_footer?: string;
   is_verified: boolean;
   is_draft: boolean;
   updated_at?: string;
@@ -305,4 +307,19 @@ export type AccountBlogPost = {
   is_draft: boolean;
   created_at: string;
   updated_at: string;
+};
+
+export type OrganizationChecklistSeverity = 'WARNING' | 'ERROR';
+
+export type OrganizationChecklistRemark = {
+  code: string;
+  message: string;
+  severity: OrganizationChecklistSeverity;
+};
+
+export type OrganizationChecklist = {
+  page: OrganizationChecklistRemark[];
+  products: OrganizationChecklistRemark[];
+  instructions: OrganizationChecklistRemark[];
+  tax_information: OrganizationChecklistRemark[];
 };

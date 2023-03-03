@@ -1,0 +1,16 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.editor {
+  &.isInvalid {
+    :global(.tox-tinymce) {
+      border-color: $form-feedback-invalid-color;
+    }
+  }
+
+  &.isValid {
+    :global(.tox-tinymce) {
+      border-color: $form-feedback-valid-color;
+    }
+  }
+}

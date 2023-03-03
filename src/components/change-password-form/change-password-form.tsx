@@ -65,7 +65,7 @@ export function ChangePasswordForm() {
         setIsSaving(false);
         const rejectionErrors = rejection?.response?.data;
         if (rejectionErrors) {
-          setErrors(rejection?.response?.data);
+          setErrors(rejectionErrors);
         } else {
           setErrors(null);
           showNotification({
