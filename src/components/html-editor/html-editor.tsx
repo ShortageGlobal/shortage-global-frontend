@@ -11,6 +11,7 @@ export function HtmlEditor({
   initProps = {},
   isValid = false,
   isInvalid = false,
+  readOnly = false,
 }) {
   const [initialValue, setInitialValue] = useState(value);
 
@@ -34,6 +35,7 @@ export function HtmlEditor({
         initialValue={initialValue}
         onEditorChange={onChange}
         tinymceScriptSrc="/tinymce/tinymce.min.js"
+        disabled={readOnly}
         init={{
           promotion: false,
           menubar: false,
@@ -44,13 +46,13 @@ export function HtmlEditor({
           height: 400,
           plugins: ['image', 'lists', 'link', 'anchor'],
           toolbar: `
-          blocks fontsize | 
-          link image | 
-          bold italic bullist numlist | 
-          forecolor backcolor |
-          alignleft aligncenter alignright |
-          removeformat
-        `,
+            blocks fontsize | 
+            link image | 
+            bold italic bullist numlist | 
+            forecolor backcolor |
+            alignleft aligncenter alignright |
+            removeformat
+          `,
           link_target_list: false,
           link_default_target: '_blank',
           font_size_formats: '0.75rem 1rem 1.1rem 1.5rem 2rem',

@@ -16,6 +16,16 @@
     color: $danger;
   }
 
+  &.readOnly {
+    .dropArea {
+      border-style: solid;
+    }
+
+    .glyph {
+      opacity: 0.5;
+    }
+  }
+
   .dropArea {
     display: flex;
     align-items: center;

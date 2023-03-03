@@ -213,6 +213,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 onChange={(e) => setName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.name)}
                 isInvalid={getIsInvalid(ERROR_KEYS.name)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.name)}
             </Form.Group>
@@ -240,6 +241,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                   onChange={(e) => setSlug(e.target.value)}
                   isValid={getIsValid(ERROR_KEYS.slug)}
                   isInvalid={getIsInvalid(ERROR_KEYS.slug)}
+                  readOnly={!organization.is_draft}
                 />
                 {getErrorsFeedback(ERROR_KEYS.slug)}
               </InputGroup>
@@ -263,6 +265,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 onChange={(e) => setCategory(e.target.value as typeof category)}
                 isValid={getIsValid(ERROR_KEYS.category)}
                 isInvalid={getIsInvalid(ERROR_KEYS.category)}
+                disabled={!organization.is_draft}
               >
                 <option></option>
                 {PRODUCT_CATEGORY_LIST.filter(
@@ -303,6 +306,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                   onChange={(e) => setPrice(e.target.value)}
                   isValid={getIsValid(ERROR_KEYS.price)}
                   isInvalid={getIsInvalid(ERROR_KEYS.price)}
+                  readOnly={!organization.is_draft}
                 />
                 {getErrorsFeedback(ERROR_KEYS.price)}
               </InputGroup>
@@ -344,6 +348,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 value={photo}
                 onChange={(image) => setPhoto(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.photo)}
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 Illustration of the product you are looking for.
@@ -367,6 +372,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 isValid={getIsValid(ERROR_KEYS.topPriority)}
                 isInvalid={getIsInvalid(ERROR_KEYS.topPriority)}
                 aria-describedby="topPriorityHelpBlock"
+                disabled={!organization.is_draft}
               />
               <Form.Text as="div" id="topPriorityHelpBlock">
                 If checked, the product will have a &quot;High demand&quot;
@@ -387,6 +393,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
               <HtmlEditor
                 value={description}
                 onChange={(newValue) => setDescription(newValue)}
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 Describe what you are looking for, so donors could send you

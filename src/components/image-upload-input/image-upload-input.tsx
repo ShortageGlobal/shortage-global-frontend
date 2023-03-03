@@ -13,12 +13,14 @@ type ImageUploadInputProps = {
   value: ImageListType;
   onChange: ImageUploadingPropsType['onChange'];
   isInvalid?: boolean;
+  readOnly?: boolean;
 };
 
 export function ImageUploadInput({
   value,
   onChange,
-  isInvalid,
+  isInvalid = false,
+  readOnly = false,
 }: ImageUploadInputProps) {
   return (
     <ImageUploading
@@ -39,19 +41,25 @@ export function ImageUploadInput({
           <div
             className={classNames(styles.imageUploadInput, {
               'is-invalid': isInvalid,
+              [styles.readOnly]: readOnly,
             })}
           >
             <div
-              role="button"
+              role={readOnly ? '' : 'button'}
               className={classNames(styles.dropArea, {
                 [styles.dragging]: isDragging,
                 [styles.filled]: hasImage,
               })}
-              onClick={onImageUpload}
+              onClick={readOnly ? () => {} : onImageUpload}
               {...dragProps}
             >
               {!hasImage ? (
-                <ImageUpload size={46} className={styles.glyph} />
+                <ImageUpload
+                  size={46}
+                  className={classNames(styles.glyph, {
+                    [styles.readOnly]: readOnly,
+                  })}
+                />
               ) : null}
 
               {hasImage ? (
@@ -63,7 +71,7 @@ export function ImageUploadInput({
               ) : null}
             </div>
 
-            {!hasImage ? (
+            {!hasImage && !readOnly ? (
               <Button
                 variant="outline-dark"
                 onClick={onImageUpload}
@@ -74,7 +82,7 @@ export function ImageUploadInput({
               </Button>
             ) : null}
 
-            {hasImage ? (
+            {hasImage && !readOnly ? (
               <>
                 <Button
                   variant="outline-dark"
