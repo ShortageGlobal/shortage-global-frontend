@@ -64,6 +64,16 @@ $restrictedWidth: 650px;
   }
 }
 
+.dropdownItemWarning {
+  &:not(:active) {
+    &,
+    &:hover,
+    &:focus {
+      color: $warning;
+    }
+  }
+}
+
 .listControls {
   margin-bottom: 2rem;
 

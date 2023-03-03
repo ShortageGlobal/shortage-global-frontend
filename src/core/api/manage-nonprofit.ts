@@ -99,6 +99,23 @@ export async function publishAccountOrganization({
   );
 }
 
+export type DeleteAccountOrganizationParams = {
+  organizationSlug: AccountOrganization['slug'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function deleteAccountOrganization({
+  organizationSlug,
+  accessToken = null,
+  cancelToken = null,
+}: DeleteAccountOrganizationParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.delete(
+    encodeURI(`${API_ROOT}/api/private/organizations/${organizationSlug}/`),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
 export type UnpublishAccountOrganizationParams = {
   organizationSlug: AccountOrganization['slug'];
   accessToken?: string;

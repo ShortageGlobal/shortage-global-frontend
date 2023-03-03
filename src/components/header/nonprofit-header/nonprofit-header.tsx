@@ -1,6 +1,6 @@
 import styles from 'components/header/header.module.scss';
 import { useCallback, useState, useEffect, useMemo } from 'react';
-import { Container, Navbar, Nav, Button } from 'react-bootstrap';
+import { Container, Navbar, Nav, Button, Badge } from 'react-bootstrap';
 import { Menu, Send, X } from 'react-feather';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -68,6 +68,12 @@ export function NonprofitHeader() {
               <div className={styles.navbarCollapsedTopPlaceholder} />
 
               <Nav>
+                {!organization.is_draft && !organization.is_verified ? (
+                  <Nav.Item className="d-flex align-items-center">
+                    <Badge className="me-3 my-2">Pending Approval</Badge>
+                  </Nav.Item>
+                ) : null}
+
                 {organization.is_draft ? (
                   <Nav.Item>
                     <Button

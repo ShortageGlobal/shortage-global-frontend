@@ -4,53 +4,48 @@ import { Modal, Alert, Button } from 'react-bootstrap';
 import { Loader, Trash2 } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
-import { deleteAccountOrganizationProduct } from 'core/api';
-import type { AccountOrganization, AccountProduct } from 'core/api/types';
+import { deleteAccountOrganization } from 'core/api';
+import type { AccountOrganization } from 'core/api/types';
 
-type ProductConfirmDeleteModalProps = {
+type NonprofitConfirmDeleteModalProps = {
   organization: AccountOrganization;
-  product: AccountProduct;
   show: boolean;
   onHide: () => void;
 };
 
-export function ProductConfirmDeleteModal({
+export function NonprofitConfirmDeleteModal({
   organization,
-  product,
   show,
   onHide,
-}: ProductConfirmDeleteModalProps) {
+}: NonprofitConfirmDeleteModalProps) {
   const router = useRouter();
   const { showNotification } = useNotifications();
   const [isPending, setIsPending] = useState(false);
 
-  const getDeleteAccountProductCancelToken = useCancelToken();
+  const getDeleteAccountNonprofitCancelToken = useCancelToken();
 
-  const handleProductDelete = useCallback(async () => {
+  const handleNonprofitDelete = useCallback(async () => {
     if (isPending) {
       return;
     }
 
-    const cancelToken = getDeleteAccountProductCancelToken();
+    const cancelToken = getDeleteAccountNonprofitCancelToken();
     setIsPending(true);
 
     try {
-      await deleteAccountOrganizationProduct({
+      await deleteAccountOrganization({
         organizationSlug: organization.slug,
-        productId: product.id,
         cancelToken,
       });
 
-      // redirect to the products list
+      // redirect to the root
       router.push({
-        pathname:
-          '/private/manage-nonprofit/[organizationSlug]/requested-goods/',
-        query: { organizationSlug: organization.slug },
+        pathname: '/',
       });
 
       showNotification({
         isSuccess: true,
-        message: 'Requested item deleted successfully',
+        message: 'Nonprofit page deleted successfully',
       });
     } catch (rejection) {
       if (isRequestCancel(rejection)) {
@@ -61,33 +56,35 @@ export function ProductConfirmDeleteModal({
         isFailure: true,
         message:
           rejection?.response?.data?.details ||
-          'Failed to delete requested item',
+          'Failed to delete nonprofit page',
       });
     }
-  }, [product, setIsPending]);
+  }, [setIsPending]);
 
   return (
     <Modal
       show={show}
       onHide={onHide}
-      aria-labelledby="delete-product-modal-title"
+      aria-labelledby="delete-nonprofit-modal-title"
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="delete-product-modal-title">Are you sure?</Modal.Title>
+        <Modal.Title id="delete-nonprofit-modal-title">
+          Are you sure?
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <Alert variant="warning">This action cannot be undone.</Alert>
+        <Alert variant="danger">This action cannot be undone.</Alert>
         <div>
-          Are you sure you want to delete the <b>&quot;{product.name}&quot;</b>{' '}
-          request?
+          Are you sure you want to delete the{' '}
+          <b>&quot;{organization.name}&quot;</b> page?
         </div>
       </Modal.Body>
 
       <Modal.Footer>
         <Button
-          onClick={handleProductDelete}
+          onClick={handleNonprofitDelete}
           variant="danger"
           disabled={isPending}
         >
