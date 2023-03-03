@@ -36,6 +36,19 @@ body {
   }
 }
 
+.btn-warning {
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:disabled,
+  &.disabled,
+  &.dropdown-toggle.show {
+    color: $white;
+  }
+}
+
+.btn-outline-warning,
 .btn-outline-primary {
   &:hover,
   &:active,

@@ -87,7 +87,7 @@ export function ConfirmDonationDeliveredModal({
       </Modal.Header>
 
       <Modal.Body>
-        <Alert variant="warning">This action can&apos;t be reverted.</Alert>
+        <Alert variant="warning">This action cannot be undone.</Alert>
         <div>
           Are you sure you want to mark the donation as &quot;Delivered&quot;?
         </div>

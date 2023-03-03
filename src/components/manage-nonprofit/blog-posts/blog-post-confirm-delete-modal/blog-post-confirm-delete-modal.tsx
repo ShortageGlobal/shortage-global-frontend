@@ -79,7 +79,7 @@ export function BlogPostConfirmDeleteModal({
       </Modal.Header>
 
       <Modal.Body>
-        <Alert variant="warning">This action can&apos;t be reverted.</Alert>
+        <Alert variant="warning">This action cannot be undone.</Alert>
         <div>
           Are you sure you want to delete the{' '}
           <b>&quot;{blogPost.title}&quot;</b> Impact Story?
