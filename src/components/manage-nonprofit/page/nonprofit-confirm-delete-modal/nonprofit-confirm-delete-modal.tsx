@@ -75,7 +75,9 @@ export function NonprofitConfirmDeleteModal({
       </Modal.Header>
 
       <Modal.Body>
-        <Alert variant="danger">This action cannot be undone.</Alert>
+        <Alert variant="danger">
+          This action cannot be undone. All data will be lost.
+        </Alert>
         <div>
           Are you sure you want to delete the{' '}
           <b>&quot;{organization.name}&quot;</b> page?
