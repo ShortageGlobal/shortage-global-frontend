@@ -100,7 +100,7 @@ export function NonprofitPageForm() {
           logo: logo?.length ? logo[0]?.file || null : '',
           banner: banner?.length ? banner[0]?.file || null : '',
           url,
-          deadline: new Date(deadline).toISOString(),
+          deadline: deadline ? new Date(deadline).toISOString() : '',
           description,
           metaDescription,
           cancelToken,

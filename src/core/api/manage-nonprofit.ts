@@ -10,6 +10,7 @@ import {
   AccountDeliveryInstruction,
   AccountBlogPost,
   AccountOrganizationPackage,
+  OrganizationChecklist,
 } from 'core/api/types';
 
 type UploadImageParams = {
@@ -78,6 +79,46 @@ export async function fetchAccountOrganization({
   );
 }
 
+export type PublishAccountOrganizationParams = {
+  organizationSlug: AccountOrganization['slug'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function publishAccountOrganization({
+  organizationSlug,
+  accessToken = null,
+  cancelToken = null,
+}: PublishAccountOrganizationParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post<AccountOrganization>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/publish/`
+    ),
+    {},
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type UnpublishAccountOrganizationParams = {
+  organizationSlug: AccountOrganization['slug'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function unpublishAccountOrganization({
+  organizationSlug,
+  accessToken = null,
+  cancelToken = null,
+}: UnpublishAccountOrganizationParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post<AccountOrganization>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/unpublish/`
+    ),
+    {},
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
 export type RegisterAccountOrganizationParams = {
   name: AccountOrganization['name'];
   slug: AccountOrganization['slug'];
@@ -116,6 +157,8 @@ export type UpdateAccountOrganizationParams = {
   representativeEmail?: AccountOrganization['representative_email'];
   representativePhoneNumber?: AccountOrganization['representative_phone_number'];
   representativeSignature?: File | string;
+  receiptPreamble?: string;
+  receiptFooter?: string;
 } & CancelTokenParams;
 export async function updateAccountOrganization({
   organizationSlug,
@@ -139,6 +182,8 @@ export async function updateAccountOrganization({
   representativeEmail,
   representativePhoneNumber,
   representativeSignature,
+  receiptPreamble,
+  receiptFooter,
   cancelToken = null,
 }: UpdateAccountOrganizationParams) {
   return axios.patch<AccountOrganization>(
@@ -167,6 +212,8 @@ export async function updateAccountOrganization({
       representative_email: representativeEmail,
       representative_phone_number: representativePhoneNumber,
       representative_signature: representativeSignature,
+      tax_deduction_receipt_preamble: receiptPreamble,
+      tax_deduction_receipt_footer: receiptFooter,
     },
     {
       cancelToken: cancelToken?.token,
@@ -191,6 +238,25 @@ export async function fetchAccountDeliveryInstructions({
   return axios.get<AccountDeliveryInstruction[]>(
     encodeURI(
       `${API_ROOT}/api/private/organizations/${organizationSlug}/instructions/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type FetchOrganizationPublishChecklistParams = {
+  organizationSlug: AccountOrganization['slug'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchOrganizationPublishChecklist({
+  organizationSlug,
+  accessToken = null,
+  cancelToken = null,
+}: FetchOrganizationPublishChecklistParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<{ checklist: OrganizationChecklist; can_publish: boolean }>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/checklist/`
     ),
     { cancelToken: cancelToken?.token, headers }
   );

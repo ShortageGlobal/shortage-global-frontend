@@ -5,7 +5,8 @@ import { User } from 'react-feather';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useUser } from 'core/hooks';
+import { useAppSelector, useUser } from 'core/hooks';
+import { selectAccountOrganization } from 'core/store/slices/account-organization';
 import { getFullNameOrEmail } from 'core/helpers';
 import { LoadingMessage } from 'components/loading-message/loading-message';
 import { DonorProfileBenefits } from 'components/donor-profile-benefits/donor-profile-benefits';
@@ -44,6 +45,7 @@ type AccountDropdownProps = {
 
 export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
   const router = useRouter();
+  const { organization } = useAppSelector(selectAccountOrganization);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -95,9 +97,15 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
               </Dropdown.Header>
             ) : null}
 
-            {/* <Link href="/private/profile/" passHref legacyBehavior>
-              <Dropdown.Item>Profile</Dropdown.Item>
-            </Link> */}
+            {organization ? (
+              <Link
+                href={`/private/manage-nonprofit/${organization.slug}/profile/`}
+                passHref
+                legacyBehavior
+              >
+                <Dropdown.Item>Profile</Dropdown.Item>
+              </Link>
+            ) : null}
 
             <Dropdown.Divider />
 

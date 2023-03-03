@@ -30,6 +30,8 @@ const INPUT_ID = Object.freeze({
   representativeEmail: 'representativeEmail',
   representativePhoneNumber: 'representativePhoneNumber',
   representativeSignature: 'representativeSignature',
+  receiptPreamble: 'receiptPreamble',
+  receiptFooter: 'receiptFooter',
 });
 const ERROR_KEYS = Object.freeze({
   [INPUT_ID.einNumber]: 'ein_number',
@@ -44,6 +46,8 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.representativeEmail]: 'representative_email',
   [INPUT_ID.representativePhoneNumber]: 'representative_phone_number',
   [INPUT_ID.representativeSignature]: 'representative_signature',
+  [INPUT_ID.receiptPreamble]: 'tax_deduction_receipt_preamble',
+  [INPUT_ID.receiptFooter]: 'tax_deduction_receipt_footer',
 });
 type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
@@ -74,6 +78,8 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
     useState('');
   const [representativeSignature, setRepresentativeSignature] =
     useState<ImageListType>([]);
+  const [receiptPreamble, setReceiptPreamble] = useState('');
+  const [receiptFooter, setReceiptFooter] = useState('');
 
   // store organization in state
   useEffect(() => {
@@ -95,6 +101,8 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
         ? [{ dataURL: organization.representative_signature }]
         : []
     );
+    setReceiptPreamble(organization?.tax_deduction_receipt_preamble || '');
+    setReceiptFooter(organization?.tax_deduction_receipt_footer || '');
   }, [organization]);
 
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
@@ -128,6 +136,8 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
           representativeSignature: representativeSignature?.length
             ? representativeSignature[0]?.file || null
             : '',
+          receiptPreamble,
+          receiptFooter,
           cancelToken,
         });
         setErrors(null);
@@ -169,6 +179,8 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
       representativeEmail,
       representativePhoneNumber,
       representativeSignature,
+      receiptPreamble,
+      receiptFooter,
     ]
   );
 
@@ -426,6 +438,10 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
             </Form.Group>
           </Row>
 
+          <header className={commonStyles.sectionHeader}>
+            <h5>Tax Deduction Receipt Blocks</h5>
+          </header>
+
           {/* Signature */}
           <Row>
             <Form.Group
@@ -443,6 +459,64 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 {`A scan of the responsible person's signature. Will be used to sign tax deduction receipts.`}
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.representativeSignature)}
+            </Form.Group>
+          </Row>
+
+          {/* Receipt Preamble */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.receiptPreamble}
+              className={commonStyles.formGroup}
+            >
+              <Form.Label>Receipt Preamble</Form.Label>
+              <Form.Control
+                as="textarea"
+                size="lg"
+                type="text"
+                autoComplete="off"
+                placeholder=""
+                maxLength={500}
+                value={receiptPreamble}
+                onChange={(e) => setReceiptPreamble(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.receiptPreamble)}
+                isInvalid={getIsInvalid(ERROR_KEYS.receiptPreamble)}
+                aria-describedby="receiptPreambleHelpBlock"
+              />
+              <Form.Text as="div" id="receiptPreambleHelpBlock">
+                Text added to automatically generated tax deduction receipts
+                before the table.
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.receiptPreamble)}
+            </Form.Group>
+          </Row>
+
+          {/* Receipt Footer */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.receiptFooter}
+              className={commonStyles.formGroup}
+            >
+              <Form.Label>Receipt Footer</Form.Label>
+              <Form.Control
+                as="textarea"
+                size="lg"
+                type="text"
+                autoComplete="off"
+                placeholder=""
+                maxLength={500}
+                value={receiptFooter}
+                onChange={(e) => setReceiptFooter(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.receiptFooter)}
+                isInvalid={getIsInvalid(ERROR_KEYS.receiptFooter)}
+                aria-describedby="receiptFooterHelpBlock"
+              />
+              <Form.Text as="div" id="receiptFooterHelpBlock">
+                Text added to automatically generated tax deduction receipts at
+                the end of the document.
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.receiptFooter)}
             </Form.Group>
           </Row>
 
