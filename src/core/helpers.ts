@@ -41,6 +41,7 @@ export type CartGroup = {
   organizationName: string;
   organizationSlug: Slug;
   isOrganizationDraft: boolean;
+  isOrganizationVerified: boolean;
   items: CartItem[];
 };
 export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
@@ -58,11 +59,13 @@ export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
       const organizationSlug = item.product.organization.slug;
       const organizationName = item.product.organization.name;
       const isOrganizationDraft = item.product.organization.is_draft;
+      const isOrganizationVerified = item.product.organization.is_verified;
       if (!groups.has(organizationSlug)) {
         groups.set(organizationSlug, {
           organizationSlug,
           organizationName,
           isOrganizationDraft,
+          isOrganizationVerified,
           items: [item],
         });
       } else {

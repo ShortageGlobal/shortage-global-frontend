@@ -1,7 +1,7 @@
 import styles from 'components/header/header.module.scss';
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { Container, Navbar, Nav, Button, Badge } from 'react-bootstrap';
-import { Menu, Send, X } from 'react-feather';
+import { Eye, Menu, Send, X } from 'react-feather';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useAppSelector } from 'core/hooks';
@@ -67,7 +67,7 @@ export function NonprofitHeader() {
             >
               <div className={styles.navbarCollapsedTopPlaceholder} />
 
-              <Nav>
+              <Nav className="align-items-start">
                 {!organization.is_draft && !organization.is_verified ? (
                   <Nav.Item className="d-flex align-items-center">
                     <Badge className="me-3 my-2">Pending Approval</Badge>
@@ -77,7 +77,7 @@ export function NonprofitHeader() {
                 {organization.is_draft ? (
                   <Nav.Item>
                     <Button
-                      variant="outline-primary"
+                      variant="outline-dark"
                       className="me-3"
                       onClick={() => setIsPublishNavbarShown(true)}
                     >
@@ -93,8 +93,9 @@ export function NonprofitHeader() {
                 />
 
                 <ActiveLink href={`/${organization.slug}/`} passHref>
-                  <Nav.Link>
-                    <span>Go To Page</span>
+                  <Nav.Link className="d-flex align-items-center">
+                    <Eye />
+                    <span className="ms-2">Visit Page</span>
                   </Nav.Link>
                 </ActiveLink>
               </Nav>

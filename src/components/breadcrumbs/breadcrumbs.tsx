@@ -356,7 +356,7 @@ export const getManageNonprofitChooseCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
     key: 'manage-nonprofit-choose-crumb',
-    label: 'Choose a Nonprofit',
+    label: 'Choose',
     href: {
       pathname: '/private/manage-nonprofit/choose/',
     },
@@ -367,7 +367,7 @@ export const getManageNonprofitRegisterCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
     key: 'manage-nonprofit-register-crumb',
-    label: 'Register a Nonprofit',
+    label: 'Register',
     href: {
       pathname: '/private/manage-nonprofit/register/',
     },

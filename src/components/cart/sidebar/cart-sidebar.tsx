@@ -155,6 +155,7 @@ export function CartSidebar() {
             organizationName,
             organizationSlug,
             isOrganizationDraft,
+            isOrganizationVerified,
             items,
           }) => {
             return (
@@ -172,7 +173,7 @@ export function CartSidebar() {
                     </Link>
                   </span>
 
-                  {isOrganizationDraft ? (
+                  {isOrganizationDraft || !isOrganizationVerified ? (
                     <Badge bg="secondary" className="ms-2">
                       Draft
                     </Badge>

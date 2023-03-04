@@ -87,6 +87,7 @@ export type OrganizationPreview = {
   slug: Slug;
   logo: string;
   is_draft: boolean;
+  is_verified: boolean;
 };
 
 export type ExternalOrganizationPreview = {
