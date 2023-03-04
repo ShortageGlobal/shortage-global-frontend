@@ -70,7 +70,11 @@ export function OrganizationDetails() {
                   </Button>
                 </Link>
 
-                <ShareButton url={shareUrl} text={shareText} />
+                <ShareButton
+                  url={shareUrl}
+                  text={shareText}
+                  disabled={organization.is_draft}
+                />
               </div>
             </div>
 

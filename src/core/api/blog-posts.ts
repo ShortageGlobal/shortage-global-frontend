@@ -35,11 +35,14 @@ export function fetchOrganizationBlogPosts({
   organizationSlug,
   limit = null,
   offset = null,
+  accessToken = null,
   cancelToken = null,
 }: FetchOrganizationBlogPostsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
   return axios.get<PaginatedResponse<BlogPostPreview>>(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/blog_posts/`),
-    { params: { limit, offset }, cancelToken: cancelToken?.token }
+    { params: { limit, offset }, cancelToken: cancelToken?.token, headers }
   );
 }
 

@@ -1,4 +1,6 @@
+import cardStyles from 'components/card/card.module.scss';
 import { useMemo } from 'react';
+import { Badge } from 'react-bootstrap';
 import { Card } from 'components/card/card';
 import { formatDateForHumans } from 'core/helpers';
 import type { BlogPostPreview } from 'core/api/types';
@@ -38,6 +40,13 @@ export function BlogPostCard({
       isVertical={isVertical}
       href={blogPostHref}
       image={blogPost.image}
+      imageExtra={
+        blogPost.is_draft ? (
+          <Badge className={cardStyles.imageBadge} bg="secondary">
+            Draft
+          </Badge>
+        ) : null
+      }
       title={blogPost.title}
       details={details}
     />

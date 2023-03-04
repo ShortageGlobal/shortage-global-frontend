@@ -1,6 +1,13 @@
 import styles from 'styles/pages/donation-cart.module.scss';
 import { useMemo, useCallback, useEffect, useState } from 'react';
-import { Container, Row, Col, Alert, Placeholder } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Alert,
+  Placeholder,
+  Badge,
+} from 'react-bootstrap';
 import { Info } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -278,21 +285,30 @@ const DonationCart: NextPageWithLayout = () => {
                           className={styles.cartGroup}
                         >
                           {/* Title */}
-                          <p className={styles.cartGroupTitle}>
-                            {groupedCartItems.size > 1
-                              ? `${index + 1}. `
-                              : null}
-                            For{' '}
-                            <Link
-                              href={{
-                                pathname: '/[organizationSlug]/',
-                                query: {
-                                  organizationSlug: cartGroup.organizationSlug,
-                                },
-                              }}
-                            >
-                              {cartGroup.organizationName}
-                            </Link>
+                          <p>
+                            <span className={styles.cartGroupTitle}>
+                              {groupedCartItems.size > 1
+                                ? `${index + 1}. `
+                                : null}
+                              For{' '}
+                              <Link
+                                href={{
+                                  pathname: '/[organizationSlug]/',
+                                  query: {
+                                    organizationSlug:
+                                      cartGroup.organizationSlug,
+                                  },
+                                }}
+                              >
+                                {cartGroup.organizationName}
+                              </Link>
+                            </span>
+
+                            {cartGroup.isOrganizationDraft ? (
+                              <Badge bg="secondary" className="ms-2">
+                                Draft
+                              </Badge>
+                            ) : null}
                           </p>
 
                           {/* Cart Items */}

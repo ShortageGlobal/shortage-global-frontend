@@ -12,6 +12,7 @@ type ShareButtonProps = {
   className?: string;
   size?: ButtonProps['size'];
   variant?: ButtonProps['variant'];
+  disabled?: boolean;
 };
 
 export function ShareButton({
@@ -20,6 +21,7 @@ export function ShareButton({
   className = '',
   size = 'lg',
   variant = 'outline-dark',
+  disabled = false,
 }: ShareButtonProps) {
   const [showModal, setShowModal] = useState(false);
 
@@ -30,6 +32,7 @@ export function ShareButton({
         variant={variant}
         className={classNames(styles.shareButton, className)}
         onClick={() => setShowModal(true)}
+        disabled={disabled}
       >
         <Share2 aria-hidden="true" />
         <span className={styles.buttonLabel}>Share</span>

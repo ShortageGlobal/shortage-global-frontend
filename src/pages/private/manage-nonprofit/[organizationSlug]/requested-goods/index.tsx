@@ -46,6 +46,7 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
       <Head>
         <title>{`${organization.name} — Requested Goods | Shortage`}</title>
       </Head>
+
       <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>

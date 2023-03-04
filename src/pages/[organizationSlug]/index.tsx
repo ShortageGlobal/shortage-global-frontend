@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import * as gtm from 'core/tracking/gtm';
 import { wrapper } from 'core/store';
 import { useAppSelector } from 'core/hooks';
+import { extractAccessTokenFromSession } from 'core/helpers';
 import {
   fetchOrganization,
   selectOrganization,
@@ -19,6 +20,7 @@ import {
   selectOrganizationBlogPosts,
 } from 'core/store/slices/organization-blog-posts';
 import { setSearchQuery } from 'core/store/slices/search';
+import { DraftWarning } from 'components/draft-warning/draft-warning';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -109,6 +111,15 @@ const OrganizationPage: NextPageWithLayout = () => {
         ) : null}
       </Head>
 
+      {organization.is_draft ? (
+        <DraftWarning
+          adminHref={{
+            pathname: '/private/manage-nonprofit/[organizationSlug]/',
+            query: { organizationSlug: organization.slug },
+          }}
+        />
+      ) : null}
+
       <Container className={styles.organization}>
         <Row>
           <Col>
@@ -132,15 +143,19 @@ const OrganizationPage: NextPageWithLayout = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    const accessToken = await extractAccessTokenFromSession({
+      req: context.req,
+    });
     const organizationSlug = context.params.organizationSlug as string;
 
     await Promise.all([
-      store.dispatch(fetchOrganization({ organizationSlug })),
-      store.dispatch(fetchCategories({ organizationSlug })),
+      store.dispatch(fetchOrganization({ organizationSlug, accessToken })),
+      store.dispatch(fetchCategories({ organizationSlug, accessToken })),
       store.dispatch(
         fetchOrganizationBlogPosts({
           organizationSlug,
           limit: BLOG_POSTS_PAGE_SIZE,
+          accessToken,
         })
       ),
     ]);
@@ -175,6 +190,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         category: currentCategory,
         search,
         limit: PRODUCTS_PAGE_SIZE,
+        accessToken,
       })
     );
 

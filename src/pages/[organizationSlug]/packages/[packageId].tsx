@@ -35,7 +35,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
 
     await Promise.all([
-      store.dispatch(fetchOrganization({ organizationSlug })),
+      store.dispatch(fetchOrganization({ organizationSlug, accessToken })),
       store.dispatch(
         fetchPackage({ organizationSlug, packageId, accessToken })
       ),

@@ -6,12 +6,18 @@ import Link from 'next/link';
 import { ShoppingCart, Loader } from 'react-feather';
 import { Container, Row, Col, Button, Placeholder } from 'react-bootstrap';
 import * as gtm from 'core/tracking/gtm';
-import { formatPrice, pluralize } from 'core/helpers';
+import {
+  extractAccessTokenFromSession,
+  formatPrice,
+  pluralize,
+} from 'core/helpers';
 import { isRequestCancel, useAppSelector, useCart } from 'core/hooks';
 import { wrapper } from 'core/store';
 import { getProductId } from 'core/helpers';
+import { fetchOrganization } from 'core/store/slices/organization';
 import { fetchProduct } from 'core/store/slices/product';
 import { selectProduct } from 'core/store/slices/product';
+import { DraftWarning } from 'components/draft-warning/draft-warning';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -117,6 +123,19 @@ const ProductPage: NextPageWithLayout = () => {
           key="product-jsonld"
         />
       </Head>
+
+      {product.organization.is_draft ? (
+        <DraftWarning
+          adminHref={{
+            pathname:
+              '/private/manage-nonprofit/[organizationSlug]/requested-goods/[productId]/',
+            query: {
+              organizationSlug: product.organization.slug,
+              productId: product.id,
+            },
+          }}
+        />
+      ) : null}
 
       <Container className={styles.product}>
         <Row>
@@ -279,14 +298,24 @@ const ProductPage: NextPageWithLayout = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    const accessToken = await extractAccessTokenFromSession({
+      req: context.req,
+    });
+
     const organizationSlug = context.params.organizationSlug as string;
     const productSlug = context.params.productSlug as string;
 
-    await store.dispatch(fetchProduct({ organizationSlug, productSlug }));
+    await Promise.all([
+      store.dispatch(fetchOrganization({ organizationSlug, accessToken })),
+      store.dispatch(
+        fetchProduct({ organizationSlug, productSlug, accessToken })
+      ),
+    ]);
 
+    const { organization } = store.getState();
     const { product } = store.getState();
 
-    if (product.error?.status === 404) {
+    if (organization.error?.status === 404 || product.error?.status === 404) {
       return {
         notFound: true,
       };

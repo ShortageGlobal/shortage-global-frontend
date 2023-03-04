@@ -1,0 +1,35 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.draftWarning {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-bottom: 1px solid $header-border-bottom-color;
+  background-image: linear-gradient(
+    135deg,
+    $secondary-background 25%,
+    #ffffff 25%,
+    #ffffff 50%,
+    $secondary-background 50%,
+    $secondary-background 75%,
+    #ffffff 75%,
+    #ffffff 100%
+  );
+  background-size: 56.57px 56.57px;
+
+  &,
+  &:hover {
+    color: $body-color;
+  }
+
+  > * + * {
+    margin-left: 1rem;
+  }
+
+  @include media-breakpoint-down(lg) {
+    padding: 0.5rem 1rem;
+  }
+}
