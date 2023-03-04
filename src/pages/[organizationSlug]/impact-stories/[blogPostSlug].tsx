@@ -115,7 +115,7 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
         <Row>
           <Col className={styles.organizationBlogPost}>
             <header className={styles.header}>
-              <h2 className="">{blogPost.title}</h2>
+              <h2 className="text-break">{blogPost.title}</h2>
               <div className="d-flex align-items-center justify-content-center">
                 <span className={styles.date}>
                   {formatDateForHumans({ date: blogPost.updated_at })}
