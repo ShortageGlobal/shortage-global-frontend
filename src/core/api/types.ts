@@ -118,7 +118,7 @@ export type AccountOrganization = Organization & {
   representative_phone_number?: string;
   representative_signature?: string;
   tax_deduction_receipt_preamble?: string;
-  tax_deduction_receipt_footer?: string;
+  tax_deduction_receipt_legal_information?: string;
   is_verified: boolean;
   is_draft: boolean;
   updated_at?: string;
