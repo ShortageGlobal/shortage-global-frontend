@@ -175,7 +175,7 @@ export type UpdateAccountOrganizationParams = {
   representativePhoneNumber?: AccountOrganization['representative_phone_number'];
   representativeSignature?: File | string;
   receiptPreamble?: string;
-  receiptFooter?: string;
+  receiptLegalInformation?: string;
 } & CancelTokenParams;
 export async function updateAccountOrganization({
   organizationSlug,
@@ -200,7 +200,7 @@ export async function updateAccountOrganization({
   representativePhoneNumber,
   representativeSignature,
   receiptPreamble,
-  receiptFooter,
+  receiptLegalInformation,
   cancelToken = null,
 }: UpdateAccountOrganizationParams) {
   return axios.patch<AccountOrganization>(
@@ -230,7 +230,7 @@ export async function updateAccountOrganization({
       representative_phone_number: representativePhoneNumber,
       representative_signature: representativeSignature,
       tax_deduction_receipt_preamble: receiptPreamble,
-      tax_deduction_receipt_footer: receiptFooter,
+      tax_deduction_receipt_legal_information: receiptLegalInformation,
     },
     {
       cancelToken: cancelToken?.token,

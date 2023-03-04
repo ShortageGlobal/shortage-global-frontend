@@ -31,7 +31,7 @@ const INPUT_ID = Object.freeze({
   representativePhoneNumber: 'representativePhoneNumber',
   representativeSignature: 'representativeSignature',
   receiptPreamble: 'receiptPreamble',
-  receiptFooter: 'receiptFooter',
+  receiptLegalInformation: 'receiptLegalInformation',
 });
 const ERROR_KEYS = Object.freeze({
   [INPUT_ID.einNumber]: 'ein_number',
@@ -47,7 +47,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.representativePhoneNumber]: 'representative_phone_number',
   [INPUT_ID.representativeSignature]: 'representative_signature',
   [INPUT_ID.receiptPreamble]: 'tax_deduction_receipt_preamble',
-  [INPUT_ID.receiptFooter]: 'tax_deduction_receipt_footer',
+  [INPUT_ID.receiptLegalInformation]: 'tax_deduction_receipt_legal_information',
 });
 type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
@@ -79,7 +79,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
   const [representativeSignature, setRepresentativeSignature] =
     useState<ImageListType>([]);
   const [receiptPreamble, setReceiptPreamble] = useState('');
-  const [receiptFooter, setReceiptFooter] = useState('');
+  const [receiptLegalInformation, setReceiptLegalInformation] = useState('');
 
   // store organization in state
   useEffect(() => {
@@ -102,7 +102,9 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
         : []
     );
     setReceiptPreamble(organization?.tax_deduction_receipt_preamble || '');
-    setReceiptFooter(organization?.tax_deduction_receipt_footer || '');
+    setReceiptLegalInformation(
+      organization?.tax_deduction_receipt_legal_information || ''
+    );
   }, [organization]);
 
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
@@ -137,7 +139,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
             ? representativeSignature[0]?.file || null
             : '',
           receiptPreamble,
-          receiptFooter,
+          receiptLegalInformation,
           cancelToken,
         });
         setErrors(null);
@@ -180,7 +182,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
       representativePhoneNumber,
       representativeSignature,
       receiptPreamble,
-      receiptFooter,
+      receiptLegalInformation,
     ]
   );
 
@@ -510,10 +512,10 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
           <Row>
             <Form.Group
               as={Col}
-              controlId={INPUT_ID.receiptFooter}
+              controlId={INPUT_ID.receiptLegalInformation}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Receipt Footer</Form.Label>
+              <Form.Label>Legal Information</Form.Label>
               <Form.Control
                 as="textarea"
                 size="lg"
@@ -521,18 +523,18 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 autoComplete="off"
                 placeholder=""
                 maxLength={500}
-                value={receiptFooter}
-                onChange={(e) => setReceiptFooter(e.target.value)}
-                isValid={getIsValid(ERROR_KEYS.receiptFooter)}
-                isInvalid={getIsInvalid(ERROR_KEYS.receiptFooter)}
-                aria-describedby="receiptFooterHelpBlock"
+                value={receiptLegalInformation}
+                onChange={(e) => setReceiptLegalInformation(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.receiptLegalInformation)}
+                isInvalid={getIsInvalid(ERROR_KEYS.receiptLegalInformation)}
+                aria-describedby="receiptLegalInformationHelpBlock"
                 readOnly={!organization.is_draft}
               />
-              <Form.Text as="div" id="receiptFooterHelpBlock">
+              <Form.Text as="div" id="receiptLegalInformationHelpBlock">
                 Text added to automatically generated tax deduction receipts at
                 the end of the document.
               </Form.Text>
-              {getErrorsFeedback(ERROR_KEYS.receiptFooter)}
+              {getErrorsFeedback(ERROR_KEYS.receiptLegalInformation)}
             </Form.Group>
           </Row>
 
