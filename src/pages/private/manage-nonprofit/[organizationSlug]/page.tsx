@@ -87,17 +87,17 @@ const NonprofitPagePage: NextPageWithLayout = () => {
                   </Link>
 
                   {!organization.is_draft ? (
-                    <Dropdown.Item
-                      as="button"
-                      className={classNames(
-                        commonStyles.dropdownItem,
-                        commonStyles.dropdownItemWarning
-                      )}
-                      onClick={() => setShowBackToDraftModal(true)}
-                    >
-                      <Edit size="1rem" />
-                      <span>Back to draft</span>
-                    </Dropdown.Item>
+                    <>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        as="button"
+                        className={classNames(commonStyles.dropdownItem)}
+                        onClick={() => setShowBackToDraftModal(true)}
+                      >
+                        <Edit size="1rem" />
+                        <span>Back to draft</span>
+                      </Dropdown.Item>
+                    </>
                   ) : null}
 
                   <Dropdown.Divider />

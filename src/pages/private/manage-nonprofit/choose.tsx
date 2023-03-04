@@ -8,6 +8,7 @@ import { fetchAccountOrganizations } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
+  getForNonprofitsCrumb,
   getManageNonprofitChooseCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import type { AccountOrganization } from 'core/api/types';
@@ -21,7 +22,11 @@ const ChooseNonprofitPage: NextPageWithLayout = ({
   organizations,
 }: ChooseNonprofitPageProps) => {
   const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getManageNonprofitChooseCrumb({ isActive: true })];
+    return [
+      getHomeCrumb(),
+      getForNonprofitsCrumb(),
+      getManageNonprofitChooseCrumb({ isActive: true }),
+    ];
   }, []);
 
   return (

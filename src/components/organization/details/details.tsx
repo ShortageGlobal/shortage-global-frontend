@@ -73,7 +73,7 @@ export function OrganizationDetails() {
                 <ShareButton
                   url={shareUrl}
                   text={shareText}
-                  disabled={organization.is_draft}
+                  disabled={organization.is_draft || !organization.is_verified}
                 />
               </div>
             </div>

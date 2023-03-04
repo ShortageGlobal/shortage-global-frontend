@@ -304,7 +304,8 @@ const DonationCart: NextPageWithLayout = () => {
                               </Link>
                             </span>
 
-                            {cartGroup.isOrganizationDraft ? (
+                            {cartGroup.isOrganizationDraft ||
+                            !cartGroup.isOrganizationVerified ? (
                               <Badge bg="secondary" className="ms-2">
                                 Draft
                               </Badge>

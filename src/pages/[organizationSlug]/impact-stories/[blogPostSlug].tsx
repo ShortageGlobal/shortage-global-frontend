@@ -90,7 +90,7 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
         ) : null}
       </Head>
 
-      {blogPost.organization.is_draft ? (
+      {blogPost.organization.is_draft || !blogPost.organization.is_verified ? (
         <DraftWarning
           adminHref={{
             pathname:
@@ -150,7 +150,11 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
               <ShareButton
                 url={metaUrl}
                 text={blogPost.title}
-                disabled={blogPost.is_draft || blogPost.organization.is_draft}
+                disabled={
+                  blogPost.is_draft ||
+                  blogPost.organization.is_draft ||
+                  !blogPost.organization.is_verified
+                }
               />
             </div>
           </Col>

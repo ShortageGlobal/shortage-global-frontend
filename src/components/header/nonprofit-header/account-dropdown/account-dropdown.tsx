@@ -107,6 +107,10 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
               </Link>
             ) : null}
 
+            <Link href={`/`} passHref legacyBehavior>
+              <Dropdown.Item>Back to platform</Dropdown.Item>
+            </Link>
+
             <Dropdown.Divider />
 
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>

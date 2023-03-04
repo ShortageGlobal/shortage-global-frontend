@@ -124,7 +124,7 @@ const ProductPage: NextPageWithLayout = () => {
         />
       </Head>
 
-      {product.organization.is_draft ? (
+      {product.organization.is_draft || !product.organization.is_verified ? (
         <DraftWarning
           adminHref={{
             pathname:

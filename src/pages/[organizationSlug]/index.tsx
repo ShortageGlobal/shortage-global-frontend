@@ -111,7 +111,7 @@ const OrganizationPage: NextPageWithLayout = () => {
         ) : null}
       </Head>
 
-      {organization.is_draft ? (
+      {organization.is_draft || !organization.is_verified ? (
         <DraftWarning
           adminHref={{
             pathname: '/private/manage-nonprofit/[organizationSlug]/',
