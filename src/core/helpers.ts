@@ -40,6 +40,7 @@ export function stripProtocolFromUrl(url: string) {
 export type CartGroup = {
   organizationName: string;
   organizationSlug: Slug;
+  isOrganizationDraft: boolean;
   items: CartItem[];
 };
 export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
@@ -56,10 +57,12 @@ export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
     .reduce((groups, item) => {
       const organizationSlug = item.product.organization.slug;
       const organizationName = item.product.organization.name;
+      const isOrganizationDraft = item.product.organization.is_draft;
       if (!groups.has(organizationSlug)) {
         groups.set(organizationSlug, {
           organizationSlug,
           organizationName,
+          isOrganizationDraft,
           items: [item],
         });
       } else {

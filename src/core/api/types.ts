@@ -64,6 +64,7 @@ export type PaginationWithCancelTokenParams = PaginationParams &
 
 export type OrganizationSlugParams = CancelTokenParams & {
   organizationSlug: Slug;
+  accessToken?: string;
 };
 
 export type ProductSlugParams = OrganizationSlugParams & {
@@ -85,6 +86,7 @@ export type OrganizationPreview = {
   name: string;
   slug: Slug;
   logo: string;
+  is_draft: boolean;
 };
 
 export type ExternalOrganizationPreview = {
@@ -135,6 +137,7 @@ export type Instruction = {
 };
 
 type ProductBase = {
+  id?: number;
   name: string;
   slug: Slug;
   category: (typeof PRODUCT_CATEGORY_KEY)[CategoryKey];
@@ -284,12 +287,14 @@ export type Cart = {
 };
 
 export type BlogPostPreview = {
+  uuid: Uuid;
   title: string;
   slug: Slug;
   image?: string;
   created_at: string;
   updated_at: string;
   organization: OrganizationPreview;
+  is_draft: boolean;
 };
 
 export type BlogPost = BlogPostPreview & {

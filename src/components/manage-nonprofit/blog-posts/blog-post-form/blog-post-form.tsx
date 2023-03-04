@@ -88,7 +88,7 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
 
       try {
         if (!blogPost) {
-          await createAccountOrganizationBlogPost({
+          const response = await createAccountOrganizationBlogPost({
             organizationSlug: organization.slug,
             title,
             slug,
@@ -97,6 +97,16 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
             metaDescription,
             isDraft,
             cancelToken,
+          });
+
+          // redirect to the blog posts edit
+          router.push({
+            pathname:
+              '/private/manage-nonprofit/[organizationSlug]/impact-stories/[blogPostId]/',
+            query: {
+              organizationSlug: organization.slug,
+              blogPostId: response.data.uuid,
+            },
           });
         } else {
           await updateAccountOrganizationBlogPost({
@@ -110,19 +120,13 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
             isDraft,
             cancelToken,
           });
+          setIsSaving(false);
         }
 
         setErrors(null);
         showNotification({
           isSuccess: true,
           message: 'Impact story saved successfully',
-        });
-
-        // redirect to the blog posts list
-        router.push({
-          pathname:
-            '/private/manage-nonprofit/[organizationSlug]/impact-stories/',
-          query: { organizationSlug: organization.slug },
         });
       } catch (rejection) {
         if (isRequestCancel(rejection)) {

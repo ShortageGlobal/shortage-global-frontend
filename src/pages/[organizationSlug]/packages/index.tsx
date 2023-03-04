@@ -7,6 +7,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import * as gtm from 'core/tracking/gtm';
 import { wrapper } from 'core/store';
 import { useAppSelector, useCart } from 'core/hooks';
+import { extractAccessTokenFromSession } from 'core/helpers';
 import {
   fetchOrganization,
   selectOrganization,
@@ -182,10 +183,13 @@ const PackageRegistrationPage: NextPageWithLayout = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    const accessToken = await extractAccessTokenFromSession({
+      req: context.req,
+    });
     const organizationSlug = context.params.organizationSlug as string;
 
     await Promise.all([
-      store.dispatch(fetchOrganization({ organizationSlug })),
+      store.dispatch(fetchOrganization({ organizationSlug, accessToken })),
     ]);
 
     const { organization } = store.getState();

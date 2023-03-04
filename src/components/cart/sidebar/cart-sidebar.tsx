@@ -2,7 +2,7 @@ import styles from './cart-sidebar.module.scss';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Offcanvas, Button } from 'react-bootstrap';
+import { Offcanvas, Button, Badge } from 'react-bootstrap';
 import {
   useAppDispatch,
   useCancelToken,
@@ -151,19 +151,32 @@ export function CartSidebar() {
 
         {/* Items grouped by organizations */}
         {Array.from(groupedCartItems.values()).map(
-          ({ organizationName, organizationSlug, items }) => {
+          ({
+            organizationName,
+            organizationSlug,
+            isOrganizationDraft,
+            items,
+          }) => {
             return (
               <div key={organizationSlug} className={styles.cartGroup}>
-                <p className="text-truncate">
-                  For{' '}
-                  <Link
-                    href={{
-                      pathname: '/[organizationSlug]/',
-                      query: { organizationSlug },
-                    }}
-                  >
-                    {organizationName}
-                  </Link>
+                <p className="d-flex align-items-center">
+                  <span className="text-truncate">
+                    For{' '}
+                    <Link
+                      href={{
+                        pathname: '/[organizationSlug]/',
+                        query: { organizationSlug },
+                      }}
+                    >
+                      {organizationName}
+                    </Link>
+                  </span>
+
+                  {isOrganizationDraft ? (
+                    <Badge bg="secondary" className="ms-2">
+                      Draft
+                    </Badge>
+                  ) : null}
                 </p>
 
                 <div className={styles.cartGroupItems}>

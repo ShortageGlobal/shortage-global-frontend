@@ -1,11 +1,15 @@
 import styles from 'styles/pages/organization-blog-post.module.scss';
 import { useMemo } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Badge } from 'react-bootstrap';
 import Head from 'next/head';
 import Image from 'next/image';
 import { wrapper } from 'core/store';
-import { formatDateForHumans } from 'core/helpers';
+import {
+  extractAccessTokenFromSession,
+  formatDateForHumans,
+} from 'core/helpers';
 import { fetchOrganizationBlogPost } from 'core/api';
+import { DraftWarning } from 'components/draft-warning/draft-warning';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -86,6 +90,19 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
         ) : null}
       </Head>
 
+      {blogPost.organization.is_draft ? (
+        <DraftWarning
+          adminHref={{
+            pathname:
+              '/private/manage-nonprofit/[organizationSlug]/impact-stories/[blogPostId]/',
+            query: {
+              organizationSlug: blogPost.organization.slug,
+              blogPostId: blogPost.uuid,
+            },
+          }}
+        />
+      ) : null}
+
       <Container>
         <Row>
           <Col>
@@ -99,9 +116,16 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
           <Col className={styles.organizationBlogPost}>
             <header className={styles.header}>
               <h2 className="">{blogPost.title}</h2>
-              <span className={styles.date}>
-                {formatDateForHumans({ date: blogPost.updated_at })}
-              </span>
+              <div className="d-flex align-items-center justify-content-center">
+                <span className={styles.date}>
+                  {formatDateForHumans({ date: blogPost.updated_at })}
+                </span>
+                {blogPost.is_draft ? (
+                  <Badge bg="secondary" className="ms-2">
+                    Draft
+                  </Badge>
+                ) : null}
+              </div>
             </header>
 
             {blogPost.image ? (
@@ -123,7 +147,11 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
             />
 
             <div className={styles.shareButtonContainer}>
-              <ShareButton url={metaUrl} text={blogPost.title} />
+              <ShareButton
+                url={metaUrl}
+                text={blogPost.title}
+                disabled={blogPost.is_draft || blogPost.organization.is_draft}
+              />
             </div>
           </Col>
         </Row>
@@ -134,15 +162,20 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   () => async (context) => {
+    const accessToken = await extractAccessTokenFromSession({
+      req: context.req,
+    });
+
     const organizationSlug = context.params.organizationSlug as string;
     const blogPostSlug = context.params.blogPostSlug as string;
 
     let blogPostResponse;
     try {
-      // fetch package
+      // fetch blog post
       blogPostResponse = await fetchOrganizationBlogPost({
         organizationSlug,
         blogPostSlug,
+        accessToken,
       });
     } catch (rejection) {
       if (rejection?.response?.status === 404) {

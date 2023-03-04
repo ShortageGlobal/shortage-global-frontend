@@ -104,7 +104,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
 
       try {
         if (!product) {
-          await createAccountOrganizationProduct({
+          const response = await createAccountOrganizationProduct({
             organizationSlug: organization.slug,
             name,
             slug,
@@ -116,6 +116,16 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             description,
             position: Number(position),
             cancelToken,
+          });
+
+          // redirect to the product edit
+          router.push({
+            pathname:
+              '/private/manage-nonprofit/[organizationSlug]/requested-goods/[productId]/',
+            query: {
+              organizationSlug: organization.slug,
+              productId: response.data.id,
+            },
           });
         } else {
           await updateAccountOrganizationProduct({
@@ -132,19 +142,13 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             position: Number(position),
             cancelToken,
           });
+          setIsSaving(false);
         }
 
         setErrors(null);
         showNotification({
           isSuccess: true,
           message: 'Requested good details saved successfully',
-        });
-
-        // redirect to the products list
-        router.push({
-          pathname:
-            '/private/manage-nonprofit/[organizationSlug]/requested-goods/',
-          query: { organizationSlug: organization.slug },
         });
       } catch (rejection) {
         if (isRequestCancel(rejection)) {

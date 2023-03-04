@@ -20,8 +20,11 @@ export function fetchProducts({
   search = null,
   limit = null,
   offset = null,
+  accessToken = null,
   cancelToken = null,
 }: FetchProductsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
   return axios.get<PaginatedResponse<ProductPreview>>(
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/products/`),
     {
@@ -32,6 +35,7 @@ export function fetchProducts({
         offset,
       },
       cancelToken: cancelToken?.token,
+      headers,
     }
   );
 }
@@ -40,12 +44,15 @@ export type FetchProductParams = ProductSlugParams;
 export function fetchProduct({
   organizationSlug,
   productSlug,
+  accessToken = null,
   cancelToken = null,
 }: FetchProductParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
   return axios.get<Product>(
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/products/${productSlug}/`
     ),
-    { cancelToken: cancelToken?.token }
+    { cancelToken: cancelToken?.token, headers }
   );
 }
