@@ -1,6 +1,6 @@
 # Shortage.Global Frontend
 
-https://frontend-ij85f.ondigitalocean.app/
+https://shortage.global/
 
 ## Development
 
