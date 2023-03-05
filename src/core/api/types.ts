@@ -42,6 +42,7 @@ export type Profile = {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
+  nonprofitAdmin?: boolean;
 };
 
 export type Notification = {

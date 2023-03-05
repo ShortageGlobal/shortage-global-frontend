@@ -107,6 +107,15 @@ export function AccountDropdown({ toggleClassName }: AccountDropdownProps) {
               <Dropdown.Item>My Impact</Dropdown.Item>
             </Link>
 
+            {profile?.nonprofitAdmin ? (
+              <>
+                <Dropdown.Divider />
+                <Link href="/private/manage-nonprofit/" passHref legacyBehavior>
+                  <Dropdown.Item>Manage Nonprofit</Dropdown.Item>
+                </Link>
+              </>
+            ) : null}
+
             <Dropdown.Divider />
 
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
