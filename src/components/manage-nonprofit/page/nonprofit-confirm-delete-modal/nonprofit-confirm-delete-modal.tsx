@@ -1,7 +1,7 @@
 import animationStyles from 'styles/animations.module.scss';
-import { useState, useCallback } from 'react';
-import { Modal, Alert, Button } from 'react-bootstrap';
-import { Loader, Trash2 } from 'react-feather';
+import { useState, useCallback, useMemo } from 'react';
+import { Modal, Alert, Button, Form, InputGroup } from 'react-bootstrap';
+import { AlertOctagon, Check, Loader, Trash2 } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { deleteAccountOrganization } from 'core/api';
@@ -13,6 +13,8 @@ type NonprofitConfirmDeleteModalProps = {
   onHide: () => void;
 };
 
+const CONFIRM_VALUE = 'confirm';
+
 export function NonprofitConfirmDeleteModal({
   organization,
   show,
@@ -21,6 +23,7 @@ export function NonprofitConfirmDeleteModal({
   const router = useRouter();
   const { showNotification } = useNotifications();
   const [isPending, setIsPending] = useState(false);
+  const [confirmValue, setConfirmValue] = useState('');
 
   const getDeleteAccountNonprofitCancelToken = useCancelToken();
 
@@ -61,6 +64,10 @@ export function NonprofitConfirmDeleteModal({
     }
   }, [setIsPending]);
 
+  const canProceed = useMemo(() => {
+    return confirmValue.toLowerCase() === CONFIRM_VALUE.toLowerCase();
+  }, [confirmValue]);
+
   return (
     <Modal
       show={show}
@@ -80,7 +87,32 @@ export function NonprofitConfirmDeleteModal({
         </Alert>
         <div>
           Are you sure you want to delete the{' '}
-          <b>&quot;{organization.name}&quot;</b> page?
+          <b>&quot;{organization.name}&quot;</b> page and all associated data?
+        </div>
+
+        <div className="mt-4">
+          <Form.Label htmlFor="confirm-delete-input">
+            Type <strong>&quot;{CONFIRM_VALUE}&quot;</strong> to proceed
+          </Form.Label>
+          <InputGroup>
+            <InputGroup.Text id="delete-confirm-icon">
+              {canProceed ? (
+                <Check size="1.25rem" />
+              ) : (
+                <AlertOctagon size="1.25rem" />
+              )}
+            </InputGroup.Text>
+            <Form.Control
+              type="text"
+              required
+              autoComplete="off"
+              placeholder='type "confirm"'
+              aria-describedby="delete-confirm-icon"
+              id="confirm-delete-input"
+              value={confirmValue}
+              onChange={(e) => setConfirmValue(e.target.value)}
+            />
+          </InputGroup>
         </div>
       </Modal.Body>
 
@@ -88,7 +120,7 @@ export function NonprofitConfirmDeleteModal({
         <Button
           onClick={handleNonprofitDelete}
           variant="danger"
-          disabled={isPending}
+          disabled={isPending || !canProceed}
         >
           {isPending ? (
             <Loader
