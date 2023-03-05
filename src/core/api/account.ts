@@ -137,6 +137,7 @@ function flattenProfileResponse(data) {
     firstName: data.user.first_name,
     lastName: data.user.last_name,
     phoneNumber: data.phone_number,
+    nonprofitAdmin: data.nonprofit_admin,
   };
 }
 
