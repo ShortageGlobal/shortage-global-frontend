@@ -131,13 +131,28 @@ export type AccountOrganization = Organization & {
 export type AccountDeliveryInstruction = {
   id: number;
   name: string;
-  description: string;
+  description?: string;
+  address_line1: string;
+  address_line2?: string;
+  city: string;
+  state_province_region: string;
+  zip: string;
+  country: string;
+  phone_number?: string;
+  comment?: string;
 };
 
 export type Instruction = {
   name: string;
-  description: string;
+  description?: string;
+  address_line1: string;
+  address_line2?: string;
+  city: string;
+  state_province_region: string;
+  zip: string;
   country: string;
+  phone_number?: string;
+  comment?: string;
 };
 
 type ProductBase = {
