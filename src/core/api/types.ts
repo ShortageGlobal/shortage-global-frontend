@@ -99,6 +99,8 @@ export type ExternalOrganizationPreview = {
 
 export type Organization = OrganizationPreview & {
   description?: string;
+  requested_goods?: string;
+  mission_description?: string;
   meta_description?: string;
   url?: string;
   banner?: string;

@@ -31,10 +31,26 @@
     .description {
       font-size: 1.5rem;
       word-break: break-word;
+      line-height: 2rem;
 
-      > * {
-        margin: 0;
-        line-height: 2rem;
+      .title {
+        font-weight: 700;
+        font-size: 2rem;
+
+        .organizationName {
+          color: $primary;
+        }
+
+        .requestedGoods {
+          text-decoration: underline;
+          -webkit-text-decoration-color: $primary;
+          text-decoration-color: $primary;
+          text-decoration-thickness: 3px;
+        }
+      }
+
+      .missionDescription {
+        margin-top: 2rem;
       }
     }
 

@@ -281,7 +281,7 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
                 aria-describedby="metaDescriptionHelpBlock"
               />
               <Form.Text as="div" id="metaDescriptionHelpBlock">
-                {`This value will be used as content of <meta property="description" /> tag. It is useful for SEO. Optional.`}
+                Meta description will be used for link sharing. Optional.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.metaDescription)}
             </Form.Group>
