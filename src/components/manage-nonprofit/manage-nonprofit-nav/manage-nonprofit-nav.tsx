@@ -123,6 +123,9 @@ export function ManageNonprofitNav() {
       >
         Impact Stories
       </Nav.Link>
+
+      <div className={styles.divider} />
+
       <Nav.Link
         as={Link}
         eventKey={KEY.profile}

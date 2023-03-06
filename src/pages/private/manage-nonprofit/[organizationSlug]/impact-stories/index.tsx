@@ -1,6 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Alert, Button } from 'react-bootstrap';
 import { Plus } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -73,6 +73,17 @@ const ImpactStoriesPage: NextPageWithLayout = () => {
                 <span>Add new</span>
               </Button>
             </Link>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Alert variant="info" className="mb-4">
+              Impact Stories on our portal are critical for our team. It is
+              really important for us to provide donors proof of their
+              donations. Please, add photos of the delivered goods and
+              &quot;thank you&quot; notes for donors.
+            </Alert>
           </Col>
         </Row>
 
