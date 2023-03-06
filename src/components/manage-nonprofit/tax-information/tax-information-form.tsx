@@ -206,9 +206,8 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
           <Row>
             <Col>
               <Alert variant="info" className="mb-4">
-                Tax information is needed to generate a tax deduction receipt
-                through the Shortage platform and send to your donors
-                automatically.
+                Tax information is needed to generate tax deduction receipts and
+                send to your donors automatically.
               </Alert>
             </Col>
           </Row>
