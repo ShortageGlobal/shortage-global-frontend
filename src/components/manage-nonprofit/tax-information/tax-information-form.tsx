@@ -1,7 +1,7 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useEffect, useCallback, useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Alert, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import {
   useAppSelector,
@@ -203,6 +203,15 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
     <Row>
       <Col>
         <Form className={commonStyles.form} onSubmit={handleFormSubmit}>
+          <Row>
+            <Col>
+              <Alert variant="info" className="mb-4">
+                Tax information is needed to generate a tax deduction receipt
+                through the Shortage platform and send to your donors
+                automatically.
+              </Alert>
+            </Col>
+          </Row>
           <Row>
             {/* EIN number */}
             <Form.Group
@@ -472,7 +481,8 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
-                {`A scan of the responsible person's signature. Will be used to sign tax deduction receipts.`}
+                A scan of the responsible person&apos;s signature. Will be used
+                to sign tax deduction receipts. Optional.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.representativeSignature)}
             </Form.Group>
