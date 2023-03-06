@@ -1,14 +1,18 @@
 import styles from 'styles/pages/account/create-account.module.scss';
-import { useMemo, useState, useCallback, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import { wrapper } from 'core/store';
+import { extractAccessTokenFromSession } from 'core/helpers';
+import { fetchProfile } from 'core/api';
 import {
   Breadcrumbs,
   getHomeCrumb,
-  getCreateAccountCrumb,
+  getForNonprofitsCrumb,
+  getForNonprofitsJoinCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
 import { CreateAccountForm } from 'components/create-account-form/create-account-form';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -18,7 +22,11 @@ const CreateAccount: NextPageWithLayout = () => {
   const router = useRouter();
 
   const breadcrumbs = useMemo(() => {
-    return [getHomeCrumb(), getCreateAccountCrumb({ isActive: true })];
+    return [
+      getHomeCrumb(),
+      getForNonprofitsCrumb(),
+      getForNonprofitsJoinCrumb({ isActive: true }),
+    ];
   }, []);
 
   const isAuthenticated = useMemo(
@@ -36,10 +44,6 @@ const CreateAccount: NextPageWithLayout = () => {
       router.replace(url);
     }
   }, [isAuthenticated, router?.query?.callbackUrl]);
-
-  const handleDismiss = useCallback(() => {
-    setIsRegistered(false);
-  }, []);
 
   return (
     <>
@@ -59,7 +63,7 @@ const CreateAccount: NextPageWithLayout = () => {
         <Container className={styles.registrationSuccessContainer}>
           <Row>
             <Col>
-              <h2 className={styles.header}>Thank you for registering 💚</h2>
+              <h2 className={styles.header}>Just few more steps 💚</h2>
             </Col>
           </Row>
           <Row>
@@ -77,13 +81,18 @@ const CreateAccount: NextPageWithLayout = () => {
                 folder.
               </p>
 
-              <Button
-                variant="outline-dark"
-                onClick={handleDismiss}
-                className={styles.dismissBtn}
-              >
-                Got it
-              </Button>
+              <p>
+                <strong>Come back to this page after signing in</strong> to
+                register your nonprofit page.
+              </p>
+
+              <div className="d-flex justify-content-center">
+                <Link href="/private/manage-nonprofit/" passHref legacyBehavior>
+                  <Button variant="outline-dark" className={styles.dismissBtn}>
+                    Already activated account?
+                  </Button>
+                </Link>
+              </div>
             </Col>
           </Row>
         </Container>
@@ -102,10 +111,29 @@ const CreateAccount: NextPageWithLayout = () => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
-  return {
-    props: {},
-  };
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  () => async (context) => {
+    const accessToken = await extractAccessTokenFromSession({
+      req: context.req,
+    });
+
+    // fetch profile and redirect to managing nonprofit if it exists
+    try {
+      await fetchProfile({ accessToken });
+      return {
+        redirect: {
+          destination: `/private/manage-nonprofit/`,
+          permanent: false,
+        },
+      };
+    } catch (rejection) {
+      // if 401 -> show create account form
+    }
+
+    return {
+      props: {},
+    };
+  }
+);
 
 export default CreateAccount;

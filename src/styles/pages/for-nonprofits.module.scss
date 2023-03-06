@@ -11,9 +11,13 @@
 
   .bookDemoWrap {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin: 1rem;
+
+    > * + * {
+      margin-left: 1rem;
+    }
 
     .bookDemo {
       padding: 0.5rem 2rem;
@@ -26,7 +30,7 @@
 
   .banner {
     position: relative;
-    padding: 3.5rem 1rem 1rem;
+    padding: 1rem 1rem 1rem;
     margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
@@ -67,6 +71,24 @@
       @include media-breakpoint-down(sm) {
         padding: 0rem 4rem 0;
         font-size: 1.8rem;
+      }
+    }
+
+    .bannerText {
+      font-size: 1.2rem;
+      max-width: 450px;
+
+      @include media-breakpoint-down(lg) {
+        max-width: 320px;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 1rem;
+        max-width: 250px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        max-width: 280px;
       }
     }
 

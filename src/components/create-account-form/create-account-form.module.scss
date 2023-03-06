@@ -1,0 +1,29 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.form {
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.showPasswordBtn {
+  border-color: $input-border-color;
+
+  &:hover,
+  &:active {
+    border-color: $cart-item-remove-button-hover-border-color;
+  }
+
+  &.withFeedback {
+    border-left-color: transparent;
+  }
+}
+
+.submitBtn {
+  margin: 1rem 0rem 3rem;
+  width: 100%;
+}

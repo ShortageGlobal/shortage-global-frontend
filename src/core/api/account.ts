@@ -132,22 +132,26 @@ export async function confirmAccount({
 }
 
 function flattenProfileResponse(data) {
-  return {
+  return Object.freeze({
     email: data.user.email,
     firstName: data.user.first_name,
     lastName: data.user.last_name,
     phoneNumber: data.phone_number,
     nonprofitAdmin: data.nonprofit_admin,
-  };
+  });
 }
 
 export async function fetchProfile({
+  accessToken = null,
   cancelToken = null,
-}: CancelTokenParams = {}) {
+}: CancelTokenParams & { accessToken?: string } = {}) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
   const response = await axios.get(
     encodeURI(`${API_ROOT}/api/private/users/profile/`),
     {
       cancelToken: cancelToken?.token,
+      headers,
     }
   );
   response.data = flattenProfileResponse(response.data);
