@@ -340,7 +340,6 @@ export function NonprofitPageForm() {
                 Support {name} with
               </Form.Label>
               <Form.Control
-                as="textarea"
                 size="lg"
                 type="text"
                 autoComplete="off"

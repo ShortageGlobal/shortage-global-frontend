@@ -49,9 +49,9 @@ export function OrganizationDetails() {
               ) : null}
 
               {/* description */}
-              {organization.requested_goods &&
-              organization.mission_description ? (
+              {organization.requested_goods ? (
                 <div className={styles.description}>
+                  {/* Title */}
                   <h2 className={styles.title}>
                     Support{' '}
                     <span className={styles.organizationName}>
@@ -62,14 +62,16 @@ export function OrganizationDetails() {
                       {organization.requested_goods}
                     </span>
                   </h2>
-                  <div className={styles.missionDescription}>
-                    {organization.mission_description}
-                  </div>
+
+                  {/* Mission description */}
+                  {organization.mission_description ? (
+                    <div className={styles.missionDescription}>
+                      {organization.mission_description}
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
-              {!organization.requested_goods &&
-              !organization.mission_description &&
-              organization.description ? (
+              {!organization.requested_goods && organization.description ? (
                 <div
                   className={styles.description}
                   dangerouslySetInnerHTML={{ __html: organization.description }}
