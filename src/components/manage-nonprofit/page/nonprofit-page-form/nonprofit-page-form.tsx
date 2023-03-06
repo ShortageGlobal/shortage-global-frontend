@@ -18,7 +18,6 @@ import {
 import { updateAccountOrganization } from 'core/api';
 import { stripProtocolFromUrl } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
-import { HtmlEditor } from 'components/html-editor/html-editor';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
 import type { ImageListType } from 'react-images-uploading';
@@ -30,6 +29,8 @@ const INPUT_ID = Object.freeze({
   banner: 'banner',
   deadline: 'deadline',
   url: 'url',
+  requestedGoods: 'requestedGoods',
+  missionDescription: 'missionDescription',
   metaDescription: 'metaDescription',
 });
 const ERROR_KEYS = Object.freeze({
@@ -39,6 +40,8 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.banner]: 'banner',
   [INPUT_ID.deadline]: 'deadline',
   [INPUT_ID.url]: 'url',
+  [INPUT_ID.requestedGoods]: 'requested_goods',
+  [INPUT_ID.missionDescription]: 'mission_description',
   [INPUT_ID.metaDescription]: 'meta_description',
 });
 type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
@@ -60,6 +63,8 @@ export function NonprofitPageForm() {
   const [url, setUrl] = useState('');
   const [deadline, setDeadline] = useState('');
   const [description, setDescription] = useState(null);
+  const [requestedGoods, setRequestedGoods] = useState('');
+  const [missionDescription, setMissionDescription] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
 
   // store organization in state
@@ -76,6 +81,8 @@ export function NonprofitPageForm() {
     );
     setDescription(organization?.description || '');
     setMetaDescription(organization?.meta_description || '');
+    setRequestedGoods(organization?.requested_goods || '');
+    setMissionDescription(organization?.mission_description || '');
   }, [organization]);
 
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
@@ -102,6 +109,8 @@ export function NonprofitPageForm() {
           url,
           deadline: deadline ? new Date(deadline).toISOString() : '',
           description,
+          requestedGoods,
+          missionDescription,
           metaDescription,
           cancelToken,
         });
@@ -152,6 +161,8 @@ export function NonprofitPageForm() {
       url,
       deadline,
       description,
+      requestedGoods,
+      missionDescription,
       metaDescription,
     ]
   );
@@ -318,20 +329,64 @@ export function NonprofitPageForm() {
             </Form.Group>
           </Row>
 
-          {/* Description */}
+          {/* Requested goods */}
           <Row>
             <Form.Group
               as={Col}
-              controlId={INPUT_ID.url}
+              controlId={INPUT_ID.requestedGoods}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Description</Form.Label>
-              <HtmlEditor
-                value={description}
-                onChange={(newValue) => setDescription(newValue)}
+              <Form.Label className="text-break">
+                Support {name} with
+              </Form.Label>
+              <Form.Control
+                size="lg"
+                type="text"
+                autoComplete="off"
+                placeholder=""
+                maxLength={200}
+                value={requestedGoods}
+                onChange={(e) => setRequestedGoods(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.requestedGoods)}
+                isInvalid={getIsInvalid(ERROR_KEYS.requestedGoods)}
+                aria-describedby="requestedGoodsHelpBlock"
                 readOnly={!organization.is_draft}
               />
-              {getErrorsFeedback(ERROR_KEYS.url)}
+              <Form.Text as="div" id="requestedGoodsHelpBlock">
+                Specify what better describes items you are looking for.
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.requestedGoods)}
+            </Form.Group>
+          </Row>
+
+          {/* Mission Description */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.missionDescription}
+              className={commonStyles.formGroup}
+            >
+              <Form.Label className="text-break">Mission</Form.Label>
+              <Form.Control
+                as="textarea"
+                size="lg"
+                type="text"
+                autoComplete="off"
+                placeholder=""
+                rows={5}
+                maxLength={1000}
+                value={missionDescription}
+                onChange={(e) => setMissionDescription(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.missionDescription)}
+                isInvalid={getIsInvalid(ERROR_KEYS.missionDescription)}
+                aria-describedby="missionDescriptionHelpBlock"
+                readOnly={!organization.is_draft}
+              />
+              <Form.Text as="div" id="missionDescriptionHelpBlock">
+                Short description of what you do, who you help, and how donors
+                can help you.
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.missionDescription)}
             </Form.Group>
           </Row>
 
@@ -358,7 +413,7 @@ export function NonprofitPageForm() {
                 readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="metaDescriptionHelpBlock">
-                {`This value will be used as content of <meta property="description" /> tag. It is useful for SEO. Optional.`}
+                Meta description will be used for link sharing. Optional.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.metaDescription)}
             </Form.Group>

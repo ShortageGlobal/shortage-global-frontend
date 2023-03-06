@@ -160,6 +160,8 @@ export type UpdateAccountOrganizationParams = {
   banner?: File | string;
   url?: AccountOrganization['url'];
   description?: AccountOrganization['description'];
+  requestedGoods?: AccountOrganization['requested_goods'];
+  missionDescription?: AccountOrganization['mission_description'];
   metaDescription?: AccountOrganization['meta_description'];
   deadline?: AccountOrganization['deadline'];
   einNumber?: AccountOrganization['ein_number'];
@@ -185,6 +187,8 @@ export async function updateAccountOrganization({
   banner,
   url,
   description,
+  requestedGoods,
+  missionDescription,
   metaDescription,
   deadline,
   einNumber,
@@ -213,6 +217,8 @@ export async function updateAccountOrganization({
       banner,
       url,
       description,
+      requested_goods: requestedGoods,
+      mission_description: missionDescription,
       meta_description: metaDescription,
       deadline,
 

@@ -49,7 +49,29 @@ export function OrganizationDetails() {
               ) : null}
 
               {/* description */}
-              {organization.description ? (
+              {organization.requested_goods ? (
+                <div className={styles.description}>
+                  {/* Title */}
+                  <h2 className={styles.title}>
+                    Support{' '}
+                    <span className={styles.organizationName}>
+                      {organization.name}
+                    </span>{' '}
+                    with{' '}
+                    <span className={styles.requestedGoods}>
+                      {organization.requested_goods}
+                    </span>
+                  </h2>
+
+                  {/* Mission description */}
+                  {organization.mission_description ? (
+                    <div className={styles.missionDescription}>
+                      {organization.mission_description}
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+              {!organization.requested_goods && organization.description ? (
                 <div
                   className={styles.description}
                   dangerouslySetInnerHTML={{ __html: organization.description }}
