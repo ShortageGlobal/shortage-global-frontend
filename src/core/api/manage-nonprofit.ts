@@ -288,19 +288,41 @@ export async function fetchOrganizationPublishChecklist({
 export type CreateAccountDeliveryInstructionsParams = {
   organizationSlug: AccountOrganization['slug'];
   name: AccountDeliveryInstruction['name'];
-  description: AccountDeliveryInstruction['description'];
+  addressLine1: AccountDeliveryInstruction['address_line1'];
+  addressLine2: AccountDeliveryInstruction['address_line2'];
+  city: AccountDeliveryInstruction['city'];
+  stateProvinceRegion: AccountDeliveryInstruction['state_province_region'];
+  zip: AccountDeliveryInstruction['zip'];
+  phoneNumber: AccountDeliveryInstruction['phone_number'];
+  comment: AccountDeliveryInstruction['comment'];
 } & CancelTokenParams;
 export async function createAccountDeliveryInstruction({
   organizationSlug,
   name,
-  description,
+  addressLine1,
+  addressLine2,
+  city,
+  stateProvinceRegion,
+  zip,
+  phoneNumber,
+  comment,
   cancelToken = null,
 }: CreateAccountDeliveryInstructionsParams) {
   return axios.post<AccountDeliveryInstruction>(
     encodeURI(
       `${API_ROOT}/api/private/organizations/${organizationSlug}/instructions/`
     ),
-    { name, description },
+    {
+      name,
+      description: 'obsolete field', // TODO: remove description field
+      address_line1: addressLine1,
+      address_line2: addressLine2,
+      city,
+      state_province_region: stateProvinceRegion,
+      zip,
+      phone_number: phoneNumber,
+      comment,
+    },
     { cancelToken: cancelToken?.token }
   );
 }
@@ -309,20 +331,42 @@ export type UpdateAccountDeliveryInstructionsParams = {
   organizationSlug: AccountOrganization['slug'];
   id: AccountDeliveryInstruction['id'];
   name: AccountDeliveryInstruction['name'];
-  description: AccountDeliveryInstruction['description'];
+  addressLine1: AccountDeliveryInstruction['address_line1'];
+  addressLine2: AccountDeliveryInstruction['address_line2'];
+  city: AccountDeliveryInstruction['city'];
+  stateProvinceRegion: AccountDeliveryInstruction['state_province_region'];
+  zip: AccountDeliveryInstruction['zip'];
+  phoneNumber: AccountDeliveryInstruction['phone_number'];
+  comment: AccountDeliveryInstruction['comment'];
 } & CancelTokenParams;
 export async function updateAccountDeliveryInstruction({
   organizationSlug,
   id,
   name,
-  description,
+  addressLine1,
+  addressLine2,
+  city,
+  stateProvinceRegion,
+  zip,
+  phoneNumber,
+  comment,
   cancelToken = null,
 }: UpdateAccountDeliveryInstructionsParams) {
   return axios.put<AccountDeliveryInstruction>(
     encodeURI(
       `${API_ROOT}/api/private/organizations/${organizationSlug}/instructions/${id}/`
     ),
-    { name, description },
+    {
+      name,
+      description: 'obsolete field', // TODO: remove description field
+      address_line1: addressLine1,
+      address_line2: addressLine2,
+      city,
+      state_province_region: stateProvinceRegion,
+      zip,
+      phone_number: phoneNumber,
+      comment,
+    },
     { cancelToken: cancelToken?.token }
   );
 }
