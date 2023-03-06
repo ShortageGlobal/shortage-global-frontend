@@ -19,6 +19,7 @@ import {
   NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
 } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
+import Link from 'next/link';
 
 const ForNonprofits: NextPageWithLayout = () => {
   const breadcrumbs = useMemo(() => {
@@ -75,14 +76,16 @@ const ForNonprofits: NextPageWithLayout = () => {
                 donations
               </h2>
 
+              <p className={styles.bannerText}>
+                Create your own page with Shortage and start receiving goods
+              </p>
+
               <div className={styles.bookDemoWrap}>
-                <Button
-                  size="lg"
-                  className={styles.bookDemo}
-                  onClick={handleBookDemo}
-                >
-                  Book a demo
-                </Button>
+                <Link href="/for-nonprofits/join/" passHref legacyBehavior>
+                  <Button size="lg" className={styles.bookDemo}>
+                    Join Shortage
+                  </Button>
+                </Link>
               </div>
 
               <div className={classNames(styles.image, styles.womanLeft)}>
@@ -281,9 +284,18 @@ const ForNonprofits: NextPageWithLayout = () => {
         </div>
 
         <div className={styles.bookDemoWrap}>
+          <Link href="/for-nonprofits/join/" passHref legacyBehavior>
+            <Button size="lg" className={styles.bookDemo}>
+              Join Shortage
+            </Button>
+          </Link>
+
+          <strong>or</strong>
+
           <Button
             size="lg"
             className={styles.bookDemo}
+            variant="outline-primary"
             onClick={handleBookDemo}
           >
             Book a demo
