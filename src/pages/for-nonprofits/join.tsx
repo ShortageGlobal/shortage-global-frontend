@@ -63,7 +63,7 @@ const CreateAccount: NextPageWithLayout = () => {
         <Container className={styles.registrationSuccessContainer}>
           <Row>
             <Col>
-              <h2 className={styles.header}>Just few more steps 💚</h2>
+              <h2 className={styles.header}>Just a few more steps 💚</h2>
             </Col>
           </Row>
           <Row>
