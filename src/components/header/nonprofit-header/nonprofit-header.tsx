@@ -10,6 +10,7 @@ import { LogoImage } from 'components/logo-image/logo-image';
 import { ActiveLink } from 'components/active-link/active-link';
 import { AccountDropdown } from 'components/header/nonprofit-header/account-dropdown/account-dropdown';
 import { PublishModal } from 'components/manage-nonprofit/publish-modal/publish-modal';
+import { MANAGE_NONPROFIT_TOUR_ID } from 'core/constants';
 
 export function NonprofitHeader() {
   const router = useRouter();
@@ -80,6 +81,7 @@ export function NonprofitHeader() {
                       variant="outline-dark"
                       className="me-3"
                       onClick={() => setIsPublishNavbarShown(true)}
+                      id={MANAGE_NONPROFIT_TOUR_ID.PUBLISH_BUTTON}
                     >
                       <Send size="1.25rem" />
                       <span>Publish</span>
@@ -93,7 +95,10 @@ export function NonprofitHeader() {
                 />
 
                 <ActiveLink href={`/${organization.slug}/`} passHref>
-                  <Nav.Link className="d-flex align-items-center">
+                  <Nav.Link
+                    className="d-flex align-items-center"
+                    id={MANAGE_NONPROFIT_TOUR_ID.PREVIEW_BUTTON}
+                  >
                     <Eye />
                     <span className="ms-2">Visit Page</span>
                   </Nav.Link>

@@ -2,10 +2,11 @@ import styles from './manage-nonprofit-nav.module.scss';
 import { useMemo } from 'react';
 import { Nav } from 'react-bootstrap';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAppSelector } from 'core/hooks';
 import { selectAccountOrganization } from 'core/store/slices/account-organization';
-import Link from 'next/link';
+import { MANAGE_NONPROFIT_TOUR_ID } from 'core/constants';
 
 const KEY = Object.freeze({
   page: 'page',
@@ -80,11 +81,13 @@ export function ManageNonprofitNav() {
         styles.manageNonprofitNav
       )}
       activeKey={activeKey}
+      id={MANAGE_NONPROFIT_TOUR_ID.NAV_PANEL}
     >
       <Nav.Link
         as={Link}
         eventKey={KEY.page}
         href={`/private/manage-nonprofit/${organization.slug}/page/`}
+        id={MANAGE_NONPROFIT_TOUR_ID.NONPROFIT_PAGE_NAV}
       >
         Nonprofit Page
       </Nav.Link>
@@ -92,6 +95,7 @@ export function ManageNonprofitNav() {
         as={Link}
         eventKey={KEY.requestedGoods}
         href={`/private/manage-nonprofit/${organization.slug}/requested-goods/`}
+        id={MANAGE_NONPROFIT_TOUR_ID.REQUESTED_GOODS_NAV}
       >
         Requested Goods
       </Nav.Link>
@@ -99,6 +103,7 @@ export function ManageNonprofitNav() {
         as={Link}
         eventKey={KEY.deliveryInstruction}
         href={`/private/manage-nonprofit/${organization.slug}/delivery-instruction/`}
+        id={MANAGE_NONPROFIT_TOUR_ID.DELIVERY_INSTRUCTIONS_NAV}
       >
         Delivery Instruction
       </Nav.Link>
@@ -106,6 +111,7 @@ export function ManageNonprofitNav() {
         as={Link}
         eventKey={KEY.taxDeduction}
         href={`/private/manage-nonprofit/${organization.slug}/tax-information/`}
+        id={MANAGE_NONPROFIT_TOUR_ID.TAX_INFORMATION_NAV}
       >
         Tax Information
       </Nav.Link>
@@ -113,6 +119,7 @@ export function ManageNonprofitNav() {
         as={Link}
         eventKey={KEY.donations}
         href={`/private/manage-nonprofit/${organization.slug}/donations/`}
+        id={MANAGE_NONPROFIT_TOUR_ID.DONATIONS_NAV}
       >
         Donations
       </Nav.Link>
@@ -120,6 +127,7 @@ export function ManageNonprofitNav() {
         as={Link}
         eventKey={KEY.impactStories}
         href={`/private/manage-nonprofit/${organization.slug}/impact-stories/`}
+        id={MANAGE_NONPROFIT_TOUR_ID.IMPACT_STORIES_NAV}
       >
         Impact Stories
       </Nav.Link>
