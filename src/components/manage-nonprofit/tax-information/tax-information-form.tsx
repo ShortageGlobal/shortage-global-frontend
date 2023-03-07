@@ -478,11 +478,8 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 onChange={(image) => setRepresentativeSignature(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.representativeSignature)}
                 readOnly={!organization.is_draft}
+                helpText="A scan of the responsible person's signature. Will be used to sign tax deduction receipts. Optional."
               />
-              <Form.Text as="div">
-                A scan of the responsible person&apos;s signature. Will be used
-                to sign tax deduction receipts. Optional.
-              </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.representativeSignature)}
             </Form.Group>
           </Row>

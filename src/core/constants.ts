@@ -34,6 +34,9 @@ export const CLIENT_JWT_MAX_AGE = 14 * 24 * 60 * 60; // 14 days
 // If set to `0` (default), the session is not polled.
 export const CLIENT_SESSION_REFETCH_INTERVAL = BACKEND_JWT_MAX_AGE / 2; // 27 minutes
 
+// max image size allowed for uploading
+export const MAX_IMAGE_SIZE = 7; // MB
+
 // !IMPORTANT: the list of category keys must be synchronized with backend
 export const PRODUCT_CATEGORY_KEY = Object.freeze({
   VITAL_GOODS: 'VITAL_GOODS',

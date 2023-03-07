@@ -268,10 +268,8 @@ export function NonprofitPageForm() {
                 onChange={(image) => setBanner(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.banner)}
                 readOnly={!organization.is_draft}
+                helpText="A cover photo for your organization page. Optional."
               />
-              <Form.Text as="div">
-                {`A cover photo for your organization page. Optional.`}
-              </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.banner)}
             </Form.Group>
           </Row>
