@@ -370,7 +370,7 @@ export function NonprofitPageForm() {
               className={commonStyles.formGroup}
             >
               <Form.Label className="text-break">
-                <span>Description</span>
+                <span>Mission</span>
                 <FormControlExample
                   triggerClassname="ms-3"
                   example={`${name} has partnered with Shortage to collect ... for ...`}
