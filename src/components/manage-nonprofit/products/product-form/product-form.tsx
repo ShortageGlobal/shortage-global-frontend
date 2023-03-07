@@ -365,10 +365,8 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 onChange={(image) => setPhoto(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.photo)}
                 readOnly={!organization.is_draft}
+                helpText="Illustration of the product you are looking for."
               />
-              <Form.Text as="div">
-                Illustration of the product you are looking for.
-              </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.photo)}
             </Form.Group>
           </Row>

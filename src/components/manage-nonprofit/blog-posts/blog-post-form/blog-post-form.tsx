@@ -248,8 +248,8 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
                 value={image}
                 onChange={(image) => setImage(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.image)}
+                helpText="Illustration of the Impact Story."
               />
-              <Form.Text as="div">Illustration of the Impact Story.</Form.Text>
               {getErrorsFeedback(ERROR_KEYS.image)}
             </Form.Group>
           </Row>
