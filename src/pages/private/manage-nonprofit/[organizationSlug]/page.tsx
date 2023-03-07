@@ -178,9 +178,6 @@ const joyrideStyles = {
     marginRight: '0.5rem',
     fontSize: '1rem',
   },
-  buttonClose: {
-    // display: 'none',
-  },
 };
 
 const NonprofitPagePage: NextPageWithLayout = () => {
