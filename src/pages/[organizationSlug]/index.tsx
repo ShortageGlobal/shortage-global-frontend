@@ -45,6 +45,9 @@ const OrganizationPage: NextPageWithLayout = () => {
   const { organizationBlogPosts } = useAppSelector(selectOrganizationBlogPosts);
 
   const { metaUrl, metaTitle, metaDescription, metaImage } = useMemo(() => {
+    if (!organization) {
+      return {};
+    }
     return {
       metaUrl: `${ROOT_URL}/${organization.slug}/`,
       metaTitle: `Make an in-kind gift to ${organization.name}`,
@@ -56,6 +59,9 @@ const OrganizationPage: NextPageWithLayout = () => {
   }, [organization]);
 
   const breadcrumbs = useMemo(() => {
+    if (!organization) {
+      return [];
+    }
     return [
       getHomeCrumb(),
       getOrganizationCrumb({
@@ -68,16 +74,19 @@ const OrganizationPage: NextPageWithLayout = () => {
 
   // track page view
   useEffect(() => {
+    if (!organization) {
+      return;
+    }
     gtm.trackOrganizationView({
       organizationSlug: organization.slug,
       organizationName: organization.name,
     });
-  }, []);
+  }, [organization?.slug, organization?.name]);
 
   return (
     <>
       <Head>
-        <title>{`${organization.name} | Shortage`}</title>
+        <title>{`${organization?.name} | Shortage`}</title>
         <meta property="og:url" key="og:url" content={metaUrl} />
         <meta property="og:title" key="og:title" content={metaTitle} />
         {metaDescription ? (
@@ -111,11 +120,11 @@ const OrganizationPage: NextPageWithLayout = () => {
         ) : null}
       </Head>
 
-      {organization.is_draft || !organization.is_verified ? (
+      {organization?.is_draft || !organization?.is_verified ? (
         <DraftWarning
           adminHref={{
             pathname: '/private/manage-nonprofit/[organizationSlug]/',
-            query: { organizationSlug: organization.slug },
+            query: { organizationSlug: organization?.slug },
           }}
         />
       ) : null}
