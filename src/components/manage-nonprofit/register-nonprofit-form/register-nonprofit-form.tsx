@@ -69,7 +69,7 @@ export function RegisterNonprofitForm() {
         // redirect to the organization management page
         router.push({
           pathname: '/private/manage-nonprofit/[organizationSlug]/page/',
-          query: { organizationSlug: slug },
+          query: { organizationSlug: slug, showTour: '1' },
         });
       } catch (rejection) {
         if (isRequestCancel(rejection)) {

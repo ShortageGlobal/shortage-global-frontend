@@ -168,6 +168,18 @@ export const NONPROFIT_REGISTRATION_FORM_ID = 'nonprofit-registration-form';
 export const NONPROFIT_REGISTRATION_EMAIL_INPUT_ID =
   'nonprofit-registration-email-input';
 
+export const MANAGE_NONPROFIT_TOUR_ID = {
+  NAV_PANEL: 'nav-panel-id',
+  NONPROFIT_PAGE_NAV: 'nonprofit-page-nav-id',
+  REQUESTED_GOODS_NAV: 'requested-goods-nav-id',
+  DELIVERY_INSTRUCTIONS_NAV: 'delivery-instructions-nav-id',
+  TAX_INFORMATION_NAV: 'tax-information-nav-id',
+  DONATIONS_NAV: 'donations-nav-id',
+  IMPACT_STORIES_NAV: 'impact-stories-nav-id',
+  PREVIEW_BUTTON: 'preview-button-id',
+  PUBLISH_BUTTON: 'publish-button-id',
+};
+
 export const PRODUCTS_PAGE_SIZE = 15;
 
 export const BLOG_POSTS_PAGE_SIZE = 15;

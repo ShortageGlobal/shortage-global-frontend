@@ -8,6 +8,11 @@ body {
   min-width: 374px;
 }
 
+body.disable-scroll {
+  overflow: hidden;
+  padding-right: 15px;
+}
+
 #__next {
   display: flex;
   flex-direction: column;
