@@ -69,9 +69,17 @@ export function NonprofitHeader() {
               <div className={styles.navbarCollapsedTopPlaceholder} />
 
               <Nav className="align-items-start">
+                {!organization.is_draft && organization.is_verified ? (
+                  <Nav.Item className="d-flex align-items-center">
+                    <Badge className="me-3 my-2">Published</Badge>
+                  </Nav.Item>
+                ) : null}
+
                 {!organization.is_draft && !organization.is_verified ? (
                   <Nav.Item className="d-flex align-items-center">
-                    <Badge className="me-3 my-2">Pending Approval</Badge>
+                    <Badge bg="warning" className="me-3 my-2">
+                      Pending Approval
+                    </Badge>
                   </Nav.Item>
                 ) : null}
 
