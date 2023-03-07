@@ -18,6 +18,7 @@ import {
 import { updateAccountOrganization } from 'core/api';
 import { stripProtocolFromUrl } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
+import { FormControlExample } from 'components/form-control-example/form-control-example';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
 import type { ImageListType } from 'react-images-uploading';
@@ -335,7 +336,11 @@ export function NonprofitPageForm() {
               className={commonStyles.formGroup}
             >
               <Form.Label className="text-break">
-                Support {name} with
+                <span>Support {name} with</span>
+                <FormControlExample
+                  triggerClassname="ms-3"
+                  example={`school supplies, diapers, toys, laptops`}
+                />
               </Form.Label>
               <Form.Control
                 size="lg"
@@ -364,7 +369,14 @@ export function NonprofitPageForm() {
               controlId={INPUT_ID.missionDescription}
               className={commonStyles.formGroup}
             >
-              <Form.Label className="text-break">Mission</Form.Label>
+              <Form.Label className="text-break">
+                <span>Description</span>
+                <FormControlExample
+                  triggerClassname="ms-3"
+                  example={`${name} has partnered with Shortage to collect ... for ...`}
+                  onApply={(example) => setMissionDescription(example)}
+                />
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 size="lg"
@@ -395,7 +407,15 @@ export function NonprofitPageForm() {
               controlId={INPUT_ID.metaDescription}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Meta description</Form.Label>
+              <Form.Label>
+                <span>Meta description</span>
+                <FormControlExample
+                  triggerClassname="ms-3"
+                  example={`Make an in-kind donation to ${name}.`}
+                  onApply={(example) => setMetaDescription(example)}
+                />
+              </Form.Label>
+
               <Form.Control
                 as="textarea"
                 size="lg"

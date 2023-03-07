@@ -19,6 +19,7 @@ import {
 import { stripProtocolFromUrl, slugify } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
 import { HtmlEditor } from 'components/html-editor/html-editor';
+import { FormControlExample } from 'components/form-control-example/form-control-example';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
 import type { ImageListType } from 'react-images-uploading';
@@ -277,7 +278,14 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
               controlId={INPUT_ID.metaDescription}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Meta description</Form.Label>
+              <Form.Label>
+                <span>Meta description</span>
+                <FormControlExample
+                  triggerClassname="ms-3"
+                  example={`${organization.name} is thankful for a generous donation.`}
+                  onApply={(example) => setMetaDescription(example)}
+                />
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 size="lg"
