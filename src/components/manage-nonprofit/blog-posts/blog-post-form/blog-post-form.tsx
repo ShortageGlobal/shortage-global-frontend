@@ -16,7 +16,7 @@ import {
   createAccountOrganizationBlogPost,
   updateAccountOrganizationBlogPost,
 } from 'core/api';
-import { stripProtocolFromUrl } from 'core/helpers';
+import { stripProtocolFromUrl, slugify } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
 import { HtmlEditor } from 'components/html-editor/html-editor';
 import { ROOT_URL } from 'core/constants';
@@ -57,6 +57,7 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
 
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
+  const [isSlugPristine, setIsSlugPristine] = useState(false);
   const [image, setImage] = useState<ImageListType>([]);
   const [content, setContent] = useState(null);
   const [metaDescription, setMetaDescription] = useState('');
@@ -66,11 +67,19 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
   useEffect(() => {
     setTitle(blogPost?.title || '');
     setSlug(blogPost?.slug || '');
+    setIsSlugPristine(!blogPost?.slug);
     setImage(blogPost?.image ? [{ dataURL: blogPost.image }] : []);
     setContent(blogPost?.content || '');
     setMetaDescription(blogPost?.meta_description || '');
     setIsDraft(blogPost?.is_draft ?? true);
   }, [blogPost]);
+
+  // autofill slug based on the title if slug wasn't edited
+  useEffect(() => {
+    if (isSlugPristine) {
+      setSlug(slugify(title));
+    }
+  }, [title, isSlugPristine]);
 
   const getAccountBlogPostCancelToken = useCancelToken();
 
@@ -215,7 +224,10 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
                   aria-describedby="slug-address"
                   id={INPUT_ID.slug}
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
+                  onChange={(e) => {
+                    setIsSlugPristine(false);
+                    setSlug(e.target.value);
+                  }}
                   isValid={getIsValid(ERROR_KEYS.slug)}
                   isInvalid={getIsInvalid(ERROR_KEYS.slug)}
                 />

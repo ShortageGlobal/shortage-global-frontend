@@ -15,7 +15,7 @@ import {
   createAccountOrganizationProduct,
   updateAccountOrganizationProduct,
 } from 'core/api';
-import { stripProtocolFromUrl } from 'core/helpers';
+import { stripProtocolFromUrl, slugify } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
 import { HtmlEditor } from 'components/html-editor/html-editor';
 import { PRODUCT_CATEGORY_DETAILS } from 'core/category-details';
@@ -67,6 +67,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
+  const [isSlugPristine, setIsSlugPristine] = useState(false);
   const [photo, setPhoto] = useState<ImageListType>([]);
   const [category, setCategory] = useState<AccountProduct['category'] | ''>('');
   const [price, setPrice] = useState<string | number>('1');
@@ -79,6 +80,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   useEffect(() => {
     setName(product?.name || '');
     setSlug(product?.slug || '');
+    setIsSlugPristine(!product?.slug);
     setPhoto(product?.photo ? [{ dataURL: product.photo }] : []);
     setCategory(product?.category || '');
     setPrice(product?.price || '1');
@@ -87,6 +89,13 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     setDescription(product?.description || '');
     setPosition(product?.position || '0');
   }, [product]);
+
+  // autofill slug based on the name if slug wasn't edited
+  useEffect(() => {
+    if (isSlugPristine) {
+      setSlug(slugify(name));
+    }
+  }, [name, isSlugPristine]);
 
   const getAccountProductCancelToken = useCancelToken();
 
@@ -242,7 +251,10 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                   aria-describedby="slug-address"
                   id={INPUT_ID.slug}
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
+                  onChange={(e) => {
+                    setIsSlugPristine(false);
+                    setSlug(e.target.value);
+                  }}
                   isValid={getIsValid(ERROR_KEYS.slug)}
                   isInvalid={getIsInvalid(ERROR_KEYS.slug)}
                   readOnly={!organization.is_draft}
