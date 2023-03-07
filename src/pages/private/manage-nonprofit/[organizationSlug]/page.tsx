@@ -33,6 +33,7 @@ import type { NextPageWithLayout } from 'pages/_app';
 const steps: JoyrideProps['steps'] = [
   {
     target: 'body',
+    title: 'Welcome to Shortage',
     content: (
       <div>
         This quick guide will make you familiar with the admin panel and the
