@@ -104,7 +104,10 @@ const CreateAccount: NextPageWithLayout = () => {
             </Col>
           </Row>
 
-          <CreateAccountForm onRegistered={() => setIsRegistered(true)} />
+          <CreateAccountForm
+            onRegistered={() => setIsRegistered(true)}
+            signInCallbackUrl="/private/manage-nonprofit/"
+          />
         </Container>
       )}
     </>

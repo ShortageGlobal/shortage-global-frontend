@@ -26,10 +26,14 @@ const ERROR_KEYS = Object.freeze({
 type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
 type CreateAccountFormProps = {
+  signInCallbackUrl?: string;
   onRegistered: () => void;
 };
 
-export function CreateAccountForm({ onRegistered }: CreateAccountFormProps) {
+export function CreateAccountForm({
+  signInCallbackUrl,
+  onRegistered,
+}: CreateAccountFormProps) {
   const { showNotification } = useNotifications();
   const session = useSession();
   const router = useRouter();
@@ -38,6 +42,12 @@ export function CreateAccountForm({ onRegistered }: CreateAccountFormProps) {
     () => session?.status === 'authenticated',
     [session?.status]
   );
+
+  const signInHref = useMemo(() => {
+    return signInCallbackUrl
+      ? `/account/sign-in/?callbackUrl=${encodeURIComponent(signInCallbackUrl)}`
+      : '/account/sign-in/';
+  }, [signInCallbackUrl]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
@@ -252,8 +262,7 @@ export function CreateAccountForm({ onRegistered }: CreateAccountFormProps) {
       <Row>
         <Col>
           <div>
-            Already have an account?{' '}
-            <Link href="/account/sign-in/">Sign in</Link>
+            Already have an account? <Link href={signInHref}>Sign in</Link>
           </div>
         </Col>
       </Row>
