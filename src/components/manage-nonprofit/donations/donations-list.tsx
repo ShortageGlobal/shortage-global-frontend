@@ -119,22 +119,25 @@ export function DonationsList() {
 
   return (
     <div>
-      {donations?.length > 0 ? (
-        <Row className={commonStyles.listControls}>
-          <Col></Col>
-          <Col className={commonStyles.paginationCol}>
-            <Pagination
-              pageSize={pageSize}
-              pageNumber={pageNumber}
-              totalCount={totalCount}
-              onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-              onPageNumberChange={(newPageNumber) =>
-                setPageNumber(newPageNumber)
-              }
-            />
-          </Col>
-        </Row>
-      ) : null}
+      <Row className={commonStyles.headerRow}>
+        <Col>
+          <h2 className={commonStyles.title}>
+            <span>Donations</span>
+
+            {donations?.length > 0 ? (
+              <Pagination
+                pageSize={pageSize}
+                pageNumber={pageNumber}
+                totalCount={totalCount}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                onPageNumberChange={(newPageNumber) =>
+                  setPageNumber(newPageNumber)
+                }
+              />
+            ) : null}
+          </h2>
+        </Col>
+      </Row>
 
       {/* Loading */}
       {!donations?.length && isLoading ? <LoadingMessage /> : null}

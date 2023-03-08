@@ -80,6 +80,10 @@ body.disable-scroll {
   border: 1px solid $badge-border-color;
 }
 
+.popover {
+  max-width: 500px;
+}
+
 // Fix grey border on images in safari
 // See: https://nextjs.org/docs/api-reference/next/image#known-browser-bugs
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
