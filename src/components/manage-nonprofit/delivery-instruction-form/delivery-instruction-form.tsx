@@ -21,6 +21,7 @@ import {
   updateAccountDeliveryInstruction,
 } from 'core/api';
 import { PhoneInput } from 'components/phone-input/phone-input';
+import { FormControlExample } from 'components/form-control-example/form-control-example';
 import type { FormEvent } from 'react';
 
 const INPUT_ID = Object.freeze({
@@ -205,7 +206,13 @@ export function DeliveryInstructionForm() {
               controlId={INPUT_ID.facilityName}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Name</Form.Label>
+              <Form.Label>
+                <span>Name</span>
+                <FormControlExample
+                  triggerClassname="ms-3"
+                  example={`Office, Warehouse, Storage etc.`}
+                />
+              </Form.Label>
               <Form.Control
                 size="lg"
                 type="text"
@@ -345,7 +352,13 @@ export function DeliveryInstructionForm() {
               controlId={INPUT_ID.comment}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Comment</Form.Label>
+              <Form.Label>
+                <span>Comment</span>
+                <FormControlExample
+                  triggerClassname="ms-3"
+                  example={`Our warehouses do not accept deliveries on weekends. Please mark Sat-Sun as closed for deliveries.`}
+                />
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 size="lg"
