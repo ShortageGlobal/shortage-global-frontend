@@ -210,7 +210,7 @@ export function DeliveryInstructionForm() {
                 <span>Name</span>
                 <FormControlExample
                   triggerClassname="ms-3"
-                  example={`Office, Warehouse, Storage etc.`}
+                  example={`Office, Warehouse, Storage, etc.`}
                 />
               </Form.Label>
               <Form.Control
