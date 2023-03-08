@@ -13,6 +13,7 @@ import { selectAccountOrganization } from 'core/store/slices/account-organizatio
 import { updateAccountOrganization } from 'core/api';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
+import { FormControlExample } from 'components/form-control-example/form-control-example';
 import type { FormEvent } from 'react';
 import type { ImageListType } from 'react-images-uploading';
 import type { CountryChoice } from 'core/api/types';
@@ -457,6 +458,9 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 isInvalid={getIsInvalid(ERROR_KEYS.representativePhoneNumber)}
                 onChange={(phone) => setRepresentativePhoneNumber(phone)}
               />
+              <Form.Text as="div" id="receiptLegalInformationHelpBlock">
+                Optional.
+              </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.representativePhoneNumber)}
             </Form.Group>
           </Row>
@@ -508,7 +512,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
               />
               <Form.Text as="div" id="receiptPreambleHelpBlock">
                 Text added to automatically generated tax deduction receipts
-                before the table.
+                before the list of donated goods. Optional.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.receiptPreamble)}
             </Form.Group>
@@ -521,7 +525,28 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
               controlId={INPUT_ID.receiptLegalInformation}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Legal Information</Form.Label>
+              <Form.Label>
+                <span>Legal Information</span>
+                <FormControlExample
+                  triggerClassname="ms-3"
+                  example={`
+                    Please print this receipt for tax purposes. As required by the IRS
+                    regulations, we provide the following information:
+                    ${
+                      organization.name
+                    } is a 501(c)(3) not for profit organization.
+                    Our federal tax identification number is ${
+                      einNumber || '___'
+                    }. As
+                    no goods or services have been provided in connection with this gift, the
+                    full amount is deductible to the fullest extent provided by law.
+                  `
+                    .replace(/\n/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim()}
+                  onApply={(example) => setReceiptLegalInformation(example)}
+                />
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 size="lg"
@@ -529,6 +554,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 autoComplete="off"
                 placeholder=""
                 maxLength={500}
+                rows={5}
                 value={receiptLegalInformation}
                 onChange={(e) => setReceiptLegalInformation(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.receiptLegalInformation)}
@@ -538,7 +564,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
               />
               <Form.Text as="div" id="receiptLegalInformationHelpBlock">
                 Text added to automatically generated tax deduction receipts at
-                the end of the document.
+                the end of the document. Optional.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.receiptLegalInformation)}
             </Form.Group>

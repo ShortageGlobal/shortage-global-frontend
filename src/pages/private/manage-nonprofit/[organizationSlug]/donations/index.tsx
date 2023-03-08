@@ -48,10 +48,6 @@ const DonationsPage: NextPageWithLayout = () => {
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row className={commonStyles.headerRow}>
-        <h2 className={commonStyles.title}>Donations</h2>
-      </Row>
-
       <DonationsList />
     </>
   );
