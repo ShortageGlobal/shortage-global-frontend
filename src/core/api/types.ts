@@ -118,6 +118,7 @@ export type AccountOrganization = Organization & {
   representative_first_name?: string;
   representative_last_name?: string;
   representative_email?: string;
+  representative_url?: string;
   representative_phone_number?: string;
   representative_signature?: string;
   tax_deduction_receipt_preamble?: string;

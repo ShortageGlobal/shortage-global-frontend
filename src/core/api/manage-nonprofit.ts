@@ -174,6 +174,7 @@ export type UpdateAccountOrganizationParams = {
   representativeFirstName?: AccountOrganization['representative_first_name'];
   representativeLastName?: AccountOrganization['representative_last_name'];
   representativeEmail?: AccountOrganization['representative_email'];
+  representativeUrl?: AccountOrganization['representative_url'];
   representativePhoneNumber?: AccountOrganization['representative_phone_number'];
   representativeSignature?: File | string;
   receiptPreamble?: string;
@@ -201,6 +202,7 @@ export async function updateAccountOrganization({
   representativeFirstName,
   representativeLastName,
   representativeEmail,
+  representativeUrl,
   representativePhoneNumber,
   representativeSignature,
   receiptPreamble,
@@ -233,6 +235,7 @@ export async function updateAccountOrganization({
       representative_first_name: representativeFirstName,
       representative_last_name: representativeLastName,
       representative_email: representativeEmail,
+      representative_url: representativeUrl,
       representative_phone_number: representativePhoneNumber,
       representative_signature: representativeSignature,
       tax_deduction_receipt_preamble: receiptPreamble,
