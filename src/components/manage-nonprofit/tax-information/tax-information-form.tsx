@@ -29,6 +29,7 @@ const INPUT_ID = Object.freeze({
   representativeFirstName: 'representativeFirstName',
   representativeLastName: 'representativeLastName',
   representativeEmail: 'representativeEmail',
+  representativeUrl: 'representativeUrl',
   representativePhoneNumber: 'representativePhoneNumber',
   representativeSignature: 'representativeSignature',
   receiptPreamble: 'receiptPreamble',
@@ -45,6 +46,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.representativeFirstName]: 'representative_first_name',
   [INPUT_ID.representativeLastName]: 'representative_last_name',
   [INPUT_ID.representativeEmail]: 'representative_email',
+  [INPUT_ID.representativeUrl]: 'representative_url',
   [INPUT_ID.representativePhoneNumber]: 'representative_phone_number',
   [INPUT_ID.representativeSignature]: 'representative_signature',
   [INPUT_ID.receiptPreamble]: 'tax_deduction_receipt_preamble',
@@ -75,6 +77,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
   const [representativeFirstName, setRepresentativeFirstName] = useState('');
   const [representativeLastName, setRepresentativeLastName] = useState('');
   const [representativeEmail, setRepresentativeEmail] = useState('');
+  const [representativeUrl, setRepresentativeUrl] = useState('');
   const [representativePhoneNumber, setRepresentativePhoneNumber] =
     useState('');
   const [representativeSignature, setRepresentativeSignature] =
@@ -94,6 +97,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
     setRepresentativeFirstName(organization?.representative_first_name || '');
     setRepresentativeLastName(organization?.representative_last_name || '');
     setRepresentativeEmail(organization?.representative_email || '');
+    setRepresentativeUrl(organization?.representative_url || '');
     setRepresentativePhoneNumber(
       organization?.representative_phone_number || ''
     );
@@ -135,6 +139,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
           representativeFirstName,
           representativeLastName,
           representativeEmail,
+          representativeUrl,
           representativePhoneNumber,
           representativeSignature: representativeSignature?.length
             ? representativeSignature[0]?.file || null
@@ -180,6 +185,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
       representativeFirstName,
       representativeLastName,
       representativeEmail,
+      representativeUrl,
       representativePhoneNumber,
       representativeSignature,
       receiptPreamble,
@@ -469,6 +475,34 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
             <h5>Tax Deduction Receipt Blocks</h5>
           </header>
 
+          {/* URL */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.representativeUrl}
+              className={commonStyles.formGroup}
+            >
+              <Form.Label>Website</Form.Label>
+              <Form.Control
+                size="lg"
+                type="text"
+                autoComplete="off"
+                placeholder="https://example.com"
+                maxLength={75}
+                value={representativeUrl}
+                onChange={(e) => setRepresentativeUrl(e.target.value)}
+                isValid={getIsValid(ERROR_KEYS.representativeUrl)}
+                isInvalid={getIsInvalid(ERROR_KEYS.representativeUrl)}
+                aria-describedby="websiteHelpBlock"
+                readOnly={!organization.is_draft}
+              />
+              <Form.Text as="div" id="websiteHelpBlock">
+                {`The address of the company website to show on tax deduction receipts. Optional.`}
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.representativeUrl)}
+            </Form.Group>
+          </Row>
+
           {/* Signature */}
           <Row>
             <Form.Group
@@ -502,7 +536,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 type="text"
                 autoComplete="off"
                 placeholder=""
-                maxLength={500}
+                maxLength={1000}
                 value={receiptPreamble}
                 onChange={(e) => setReceiptPreamble(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.receiptPreamble)}
@@ -553,7 +587,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 type="text"
                 autoComplete="off"
                 placeholder=""
-                maxLength={500}
+                maxLength={1000}
                 rows={5}
                 value={receiptLegalInformation}
                 onChange={(e) => setReceiptLegalInformation(e.target.value)}
