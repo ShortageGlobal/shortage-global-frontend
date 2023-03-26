@@ -77,6 +77,7 @@ import type { AccountBlogPost } from 'core/api/types';
 const SECTION_KEY = Object.freeze({
   STATUS: 'STATUS',
   ITEMS: 'ITEMS',
+  NOTE: 'NOTE',
   TRACKING: 'TRACKING',
   TAX_DEDUCTION: 'TAX_DEDUCTION',
   IMPACT_STORIES: 'IMPACT_STORIES',
@@ -105,6 +106,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
       getManageNonprofitDonationDetailsCrumb({
         organizationSlug: organization.slug,
         packageId: donation.uuid,
+        isActive: true,
       }),
     ];
   }, [organization, donation]);
@@ -156,8 +158,12 @@ const DonationDetailsPage: NextPageWithLayout = () => {
   }, [donation.items]);
 
   const canMarkAsDelivered = useMemo(() => {
-    return [PACKAGE_STATUS.CONFIRMED, PACKAGE_STATUS.ON_ITS_WAY].some(
-      (s) => s === donation.status
+    return (
+      [PACKAGE_STATUS.CONFIRMED, PACKAGE_STATUS.ON_ITS_WAY].some(
+        (s) => s === donation.status
+      ) ||
+      (donation.type === PACKAGE_TYPE.DROPPED_OFF_BY_DONOR &&
+        donation.status !== PACKAGE_STATUS.DELIVERED)
     );
   }, [donation]);
 
@@ -367,7 +373,8 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                   <Accordion.Header>Status</Accordion.Header>
                   <Accordion.Body className={styles.statusBody}>
                     <div className="d-flex align-items-center">
-                      {donation.type === PACKAGE_TYPE.SENT_BY_DONOR ? (
+                      {donation.type === PACKAGE_TYPE.SENT_BY_DONOR ||
+                      donation.type === PACKAGE_TYPE.DROPPED_OFF_BY_DONOR ? (
                         <Package size="1rem" />
                       ) : null}
                       {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
@@ -438,7 +445,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                     })}
 
                     {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
-                      <dl>
+                      <dl className="mt-4">
                         <dt>
                           Total amount funded (including Stripe fee and taxes)
                         </dt>
@@ -447,6 +454,13 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                     ) : null}
                   </Accordion.Body>
                 </Accordion.Item>
+
+                {donation.note ? (
+                  <Accordion.Item eventKey={SECTION_KEY.NOTE}>
+                    <Accordion.Header>Note From Donor</Accordion.Header>
+                    <Accordion.Body>{donation.note}</Accordion.Body>
+                  </Accordion.Item>
+                ) : null}
 
                 {donation.type === PACKAGE_TYPE.SENT_BY_DONOR ? (
                   <Accordion.Item eventKey={SECTION_KEY.TRACKING}>

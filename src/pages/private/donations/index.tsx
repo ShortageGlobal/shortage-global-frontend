@@ -172,7 +172,8 @@ const AccountDonationsPage: NextPageWithLayout = () => {
 
                           <td className={styles.typeColumn}>
                             <div className={styles.typeValue}>
-                              {p.type === PACKAGE_TYPE.SENT_BY_DONOR ? (
+                              {p.type === PACKAGE_TYPE.SENT_BY_DONOR ||
+                              p.type === PACKAGE_TYPE.DROPPED_OFF_BY_DONOR ? (
                                 <PackageGlyph size="1rem" />
                               ) : null}
                               {p.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (

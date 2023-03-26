@@ -131,7 +131,8 @@ export function PackageStatus() {
     useState(
       () =>
         router.query?.registrationStatus === 'succeeded' &&
-        packageState.package.type === PACKAGE_TYPE.SENT_BY_DONOR
+        (packageState.package.type === PACKAGE_TYPE.SENT_BY_DONOR ||
+          packageState.package.type === PACKAGE_TYPE.DROPPED_OFF_BY_DONOR)
     );
 
   const handleDismissPaymentSucceededAlert = useCallback(() => {

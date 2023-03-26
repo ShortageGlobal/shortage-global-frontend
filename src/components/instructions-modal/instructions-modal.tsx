@@ -2,7 +2,7 @@ import styles from './instructions-modal.module.scss';
 import classNames from 'classnames';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, ButtonGroup } from 'react-bootstrap';
 import { Organization, Instruction } from 'core/api/types';
 
 type InstructionsModalProps = {
@@ -21,6 +21,7 @@ export function InstructionsModal({
   onHide,
 }: InstructionsModalProps) {
   const [selectedInstruction] = useState(instructions?.[0]);
+  const [isDropOff, setIsDropOff] = useState(false); // opposite to "Shipping"
 
   return (
     <Modal
@@ -37,21 +38,37 @@ export function InstructionsModal({
       </Modal.Header>
 
       <Modal.Body>
-        {selectedInstruction.address_line1 ? (
-          <div className={styles.instructionDescription}>
+        <ButtonGroup size="lg" className="mb-4">
+          <Button
+            variant="outline-dark"
+            active={!isDropOff}
+            onClick={() => setIsDropOff(false)}
+          >
+            Shipping
+          </Button>
+          <Button
+            variant="outline-dark"
+            active={isDropOff}
+            onClick={() => setIsDropOff(true)}
+          >
+            Drop Off
+          </Button>
+        </ButtonGroup>
+
+        <div className={styles.instructionDescription}>
+          {isDropOff ? (
             <ol>
-              <li>Find the product and package it for shipping</li>
+              <li>Prepare the product for drop off</li>
               <li>
-                Write the following on the 2 sides of the package with a marker
+                Use a marker to label the box/product with the following
+                information:
                 <blockquote>
-                  IN THE BENEFIT OF {organizationName} (&ldquo;Shortage via{' '}
-                  {organizationName}&rdquo;) + what&apos;s inside and quantity
-                  (use capital letters)
+                  IN THE BENEFIT OF {organizationName} VIA SHORTAGE +
+                  what&apos;s inside and quantity (use capital letters)
                 </blockquote>
               </li>
               <li>
-                Ship the package directly from an online store or use short-term
-                delivery via your favorite carrier to
+                Drop off the package directly to
                 <blockquote>
                   <div>{selectedInstruction.name}:</div>
                   <div>{selectedInstruction.address_line1}</div>
@@ -74,27 +91,60 @@ export function InstructionsModal({
                   <div>{selectedInstruction.comment}</div>
                 ) : null}
               </li>
-              <li>Register the package on our website to track its delivery</li>
+              <li>
+                Register the package on our website to receive a tax deduction
+                receipt and an impact report
+              </li>
             </ol>
-          </div>
-        ) : null}
-
-        {!selectedInstruction.address_line1 &&
-        selectedInstruction.description ? (
-          <div
-            className={styles.instructionDescription}
-            dangerouslySetInnerHTML={{
-              __html: selectedInstruction.description,
-            }}
-          />
-        ) : null}
+          ) : (
+            <ol>
+              <li>Find the product and package it for shipping</li>
+              <li>
+                Write the following on the 2 sides of the package with a marker:
+                <blockquote>
+                  IN THE BENEFIT OF {organizationName} VIA SHORTAGE +
+                  what&apos;s inside and quantity (use capital letters)
+                </blockquote>
+              </li>
+              <li>
+                Ship the package directly from an online store or order delivery
+                via your favorite carrier to
+                <blockquote>
+                  <div>{selectedInstruction.name}:</div>
+                  <div>{selectedInstruction.address_line1}</div>
+                  {selectedInstruction.address_line2 ? (
+                    <div>{selectedInstruction.address_line2}</div>
+                  ) : null}
+                  {[
+                    selectedInstruction.city,
+                    selectedInstruction.state_province_region,
+                    selectedInstruction.zip,
+                  ].join(', ')}
+                  {selectedInstruction.phone_number ? (
+                    <div>
+                      Phone # {selectedInstruction.phone_number} (delivery
+                      questions only)
+                    </div>
+                  ) : null}
+                </blockquote>
+                {selectedInstruction.comment ? (
+                  <div>{selectedInstruction.comment}</div>
+                ) : null}
+              </li>
+              <li>
+                Register the package on our website to track its delivery,
+                receive a tax deduction receipt and an impact report
+              </li>
+            </ol>
+          )}
+        </div>
       </Modal.Body>
 
       <Modal.Footer>
         <Link
           href={{
             pathname: '/[organizationSlug]/packages/',
-            query: { organizationSlug },
+            query: { organizationSlug, isDropOff },
           }}
           passHref
           legacyBehavior

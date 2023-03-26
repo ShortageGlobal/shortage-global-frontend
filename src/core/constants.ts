@@ -89,11 +89,13 @@ export const NOTIFICATION_TYPE = Object.freeze({
 export const NOTIFICATION_DELAY = 5000; // ms, how long notification stays on screen
 
 export const PACKAGE_TYPE = Object.freeze({
+  DROPPED_OFF_BY_DONOR: 'DROPPED_OFF_BY_DONOR',
   SENT_BY_DONOR: 'SENT_BY_DONOR',
   FUNDED_BY_DONOR: 'FUNDED_BY_DONOR',
 });
 
 export const PACKAGE_TYPE_DISPLAY_LABELS = Object.freeze({
+  [PACKAGE_TYPE.DROPPED_OFF_BY_DONOR]: 'Dropped Off',
   [PACKAGE_TYPE.SENT_BY_DONOR]: 'Sent',
   [PACKAGE_TYPE.FUNDED_BY_DONOR]: 'Funded',
 });
@@ -138,6 +140,18 @@ export const PACKAGE_STATUS_GLYPHS = Object.freeze({
 });
 
 export const PACKAGE_STATUS_LIFECYCLE = Object.freeze({
+  [PACKAGE_TYPE.DROPPED_OFF_BY_DONOR]: Object.freeze([
+    Object.freeze([
+      PACKAGE_STATUS.REGISTERED,
+      PACKAGE_STATUS.PAYMENT_CANCELED,
+      PACKAGE_STATUS.PAYMENT_FAILED,
+      PACKAGE_STATUS.PAYMENT_PROCESSING,
+      PACKAGE_STATUS.PAYMENT_SUCCEEDED,
+      PACKAGE_STATUS.CONFIRMED,
+      PACKAGE_STATUS.ON_ITS_WAY,
+    ]),
+    Object.freeze([PACKAGE_STATUS.DELIVERED]),
+  ]),
   [PACKAGE_TYPE.SENT_BY_DONOR]: Object.freeze([
     Object.freeze([
       PACKAGE_STATUS.REGISTERED,

@@ -236,8 +236,8 @@ export type Package = {
   country?: string;
   tax_deduction_receipt?: string;
 
-  delivery_company: string;
-  tracking_code: string;
+  delivery_company?: string;
+  tracking_code?: string;
   note?: string;
   photo?: string;
   checkout_url?: string;
@@ -264,8 +264,8 @@ export type AccountOrganizationPackage = {
   country?: string;
   tax_deduction_receipt?: string;
 
-  delivery_company: string;
-  tracking_code: string;
+  delivery_company?: string;
+  tracking_code?: string;
   note?: string;
   photo?: string;
   checkout_url?: string;

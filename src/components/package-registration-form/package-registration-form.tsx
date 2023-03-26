@@ -1,7 +1,7 @@
 import styles from './package-registration-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import { createPackage } from 'core/api';
@@ -27,6 +27,9 @@ export function PackageRegistrationForm({
 
   const [isCreating, setIsCreating] = useState(false);
 
+  const [isDropOff, setIsDropOff] = useState(() => {
+    return router.query?.isDropOff === 'true';
+  });
   const [deliveryCompany, setDeliveryCompany] = useState('');
   const [trackingCode, setTrackingNumber] = useState('');
   const [photo /*, setPhoto */] = useState();
@@ -75,7 +78,9 @@ export function PackageRegistrationForm({
       setIsCreating(true);
       try {
         const response = await createPackage({
-          type: PACKAGE_TYPE.SENT_BY_DONOR,
+          type: isDropOff
+            ? PACKAGE_TYPE.DROPPED_OFF_BY_DONOR
+            : PACKAGE_TYPE.SENT_BY_DONOR,
           organizationSlug: organization.slug,
           firstName: cart.first_name,
           lastName: cart.last_name,
@@ -116,6 +121,7 @@ export function PackageRegistrationForm({
       handleItemRemove,
       cart,
       items,
+      isDropOff,
       deliveryCompany,
       trackingCode,
       photo,
@@ -150,40 +156,58 @@ export function PackageRegistrationForm({
       </header>
 
       <Row>
-        <Form.Group
-          as={Col}
-          xs={6}
-          controlId="delivery-company"
-          className={styles.formGroup}
-        >
-          <Form.Label>Shipping Carrier *</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder="UPS, FedEx, DHL, etc."
-            required
-            value={deliveryCompany}
-            onChange={(e) => setDeliveryCompany(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group
-          as={Col}
-          xs={6}
-          controlId="tracking-number"
-          className={styles.formGroup}
-        >
-          <Form.Label>Tracking Number *</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder=""
-            required
-            value={trackingCode}
-            onChange={(e) => setTrackingNumber(e.target.value)}
+        <Form.Group as={Col} className="mb-4">
+          <Form.Check
+            id="is-drop-off-checkbox"
+            type="checkbox"
+            label={
+              <span>
+                The package was dropped off at the organization&apos;s facility
+              </span>
+            }
+            checked={isDropOff}
+            onChange={(e) => setIsDropOff(e.target.checked)}
           />
         </Form.Group>
       </Row>
+
+      <Collapse in={!isDropOff}>
+        <Row>
+          <Form.Group
+            as={Col}
+            xs={6}
+            controlId="delivery-company"
+            className={styles.formGroup}
+          >
+            <Form.Label>Shipping Carrier *</Form.Label>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder="UPS, FedEx, DHL, etc."
+              required={!isDropOff}
+              value={deliveryCompany}
+              onChange={(e) => setDeliveryCompany(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group
+            as={Col}
+            xs={6}
+            controlId="tracking-number"
+            className={styles.formGroup}
+          >
+            <Form.Label>Tracking Number *</Form.Label>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder=""
+              required={!isDropOff}
+              value={trackingCode}
+              onChange={(e) => setTrackingNumber(e.target.value)}
+            />
+          </Form.Group>
+        </Row>
+      </Collapse>
 
       {/* Optional photo of package. Decided to exclude because the form is already overloaded with elements */}
       {/*<Row>*/}
