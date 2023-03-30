@@ -21,7 +21,7 @@ export function InstructionsModal({
   onHide,
 }: InstructionsModalProps) {
   const [selectedInstruction] = useState(instructions?.[0]);
-  const [isDropOff, setIsDropOff] = useState(false); // opposite to "Shipping"
+  const [isDropOff, setIsDropOff] = useState(true); // opposite to "Shipping"
 
   return (
     <Modal
@@ -38,23 +38,24 @@ export function InstructionsModal({
       </Modal.Header>
 
       <Modal.Body>
-        <ButtonGroup size="lg" className="mb-4">
-          <Button
-            variant="outline-dark"
-            active={!isDropOff}
-            onClick={() => setIsDropOff(false)}
-          >
-            Shipping
-          </Button>
-          <Button
-            variant="outline-dark"
-            active={isDropOff}
-            onClick={() => setIsDropOff(true)}
-          >
-            Drop Off
-          </Button>
-        </ButtonGroup>
-
+        <div className="d-flex justify-content-center">
+          <ButtonGroup size="lg" className="mb-4">
+            <Button
+              variant="outline-dark"
+              active={isDropOff}
+              onClick={() => setIsDropOff(true)}
+            >
+              Drop Off
+            </Button>
+            <Button
+              variant="outline-dark"
+              active={!isDropOff}
+              onClick={() => setIsDropOff(false)}
+            >
+              Shipping
+            </Button>
+          </ButtonGroup>
+        </div>
         <div className={styles.instructionDescription}>
           {isDropOff ? (
             <ol>
