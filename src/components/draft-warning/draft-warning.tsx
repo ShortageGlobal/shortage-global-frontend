@@ -12,7 +12,7 @@ export function DraftWarning({ adminHref }: DraftWarningProps) {
     <Link href={adminHref} className={styles.draftWarning}>
       <Edit3 size="1rem" />
       <div>
-        This page is a draft. Only you can see it.{' '}
+        This page is a draft. Only you can see it. Got it?{' '}
         <span className="text-nowrap">Click to edit</span>
       </div>
     </Link>
