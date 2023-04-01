@@ -70,13 +70,17 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
 
   const handleTaxDownload = () => {
     fetch(donation.tax_deduction_receipt).then((response) => {
-      response.arrayBuffer().then((buffer) => {
-        const url = window.URL.createObjectURL(new Blob([buffer]));
+      response.blob().then((data) => {
+        const url = window.URL.createObjectURL(data);
+
         const link = document.createElement('a');
         link.href = url;
         link.setAttribute('download', 'tax_deduction_receipt.pdf');
         document.body.appendChild(link);
         link.click();
+        link.remove();
+
+        URL.revokeObjectURL(url);
       });
     });
   };
