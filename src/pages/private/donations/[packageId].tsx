@@ -68,6 +68,19 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
     );
   }, [donation.items]);
 
+  const handleTaxDownload = () => {
+    fetch(donation.tax_deduction_receipt).then((response) => {
+      response.arrayBuffer().then((buffer) => {
+        const url = window.URL.createObjectURL(new Blob([buffer]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'tax_deduction_receipt.pdf');
+        document.body.appendChild(link);
+        link.click();
+      });
+    });
+  };
+
   return (
     <>
       <Head>
@@ -315,11 +328,9 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                               <dd>
                                 <Button
                                   size="lg"
-                                  href={donation.tax_deduction_receipt}
                                   variant="outline-dark"
                                   className={styles.seeTaxDeductionReceiptBtn}
-                                  target="_blank"
-                                  rel="noreferrer"
+                                  onClick={handleTaxDownload}
                                 >
                                   <Paperclip />
                                   <span>Tax deduction receipt</span>
