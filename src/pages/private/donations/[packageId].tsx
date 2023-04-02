@@ -11,7 +11,11 @@ import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-p
 import { wrapper } from 'core/store';
 import { fetchAccountPackage } from 'core/api';
 import { useAppSelector } from 'core/hooks';
-import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
+import {
+  extractAccessTokenFromSession,
+  formatPrice,
+  fileDownload,
+} from 'core/helpers';
 import {
   fetchPackageBlogPosts,
   selectPackageBlogPosts,
@@ -315,11 +319,14 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                               <dd>
                                 <Button
                                   size="lg"
-                                  href={donation.tax_deduction_receipt}
                                   variant="outline-dark"
                                   className={styles.seeTaxDeductionReceiptBtn}
-                                  target="_blank"
-                                  rel="noreferrer"
+                                  onClick={() =>
+                                    fileDownload(
+                                      donation.tax_deduction_receipt,
+                                      'tax_deduction_receipt.pdf'
+                                    )
+                                  }
                                 >
                                   <Paperclip />
                                   <span>Tax deduction receipt</span>

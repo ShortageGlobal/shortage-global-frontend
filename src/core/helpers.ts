@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { getToken } from 'next-auth/jwt';
 import type { GetTokenParams } from 'next-auth/jwt';
 import type {
@@ -190,4 +191,21 @@ export function slugify(inputStr) {
     .replace(/-+/g, '-');
 
   return str;
+}
+
+//Download a file
+export async function fileDownload(fileUrl: string, fileName: string) {
+  const response = await axios.get(fileUrl, {
+    responseType: 'blob',
+  });
+  const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
+
+  const link = document.createElement('a');
+  link.href = blobUrl;
+  link.setAttribute('download', fileName);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(blobUrl);
 }
