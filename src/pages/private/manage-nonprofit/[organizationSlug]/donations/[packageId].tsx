@@ -50,7 +50,11 @@ import {
   useCancelToken,
   isRequestCancel,
 } from 'core/hooks';
-import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
+import {
+  extractAccessTokenFromSession,
+  fileDownload,
+  formatPrice,
+} from 'core/helpers';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -603,9 +607,12 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                               size="lg"
                               variant="outline-dark"
                               className="me-2"
-                              href={donation.tax_deduction_receipt}
-                              target="_blank"
-                              rel="noreferrer"
+                              onClick={() =>
+                                fileDownload(
+                                  donation.tax_deduction_receipt,
+                                  'tax_deduction_receipt.pdf'
+                                )
+                              }
                             >
                               <Paperclip />
                               <span>Tax deduction receipt</span>

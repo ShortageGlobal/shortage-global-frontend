@@ -30,6 +30,7 @@ import { ProceedToDonationButton } from 'components/proceed-to-donation-button/p
 import { BlogPostCard } from 'components/blog-posts/blog-post-card/blog-post-card';
 import { PACKAGE_TYPE } from 'core/constants';
 import type { FormEvent } from 'react';
+import { fileDownload } from 'core/helpers';
 
 export function PackageStatus() {
   const router = useRouter();
@@ -350,11 +351,14 @@ export function PackageStatus() {
                     <dd>
                       <Button
                         size="lg"
-                        href={packageState.package.tax_deduction_receipt}
                         variant="outline-dark"
                         className={styles.seeTaxDeductionReceiptBtn}
-                        target="_blank"
-                        rel="noreferrer"
+                        onClick={() =>
+                          fileDownload(
+                            packageState.package.tax_deduction_receipt,
+                            'tax_deduction_receipt.pdf'
+                          )
+                        }
                       >
                         <Paperclip />
                         <span>Tax deduction receipt</span>
