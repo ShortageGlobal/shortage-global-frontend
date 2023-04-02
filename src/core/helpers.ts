@@ -194,18 +194,18 @@ export function slugify(inputStr) {
 }
 
 //Function for downloading a file directly
-export async function handleTaxDownload(taxDeductionReceipt: string) {
-  const response = await axios.get(taxDeductionReceipt, {
+export async function fileDownload(fileUrl: string, fileName: string) {
+  const response = await axios.get(fileUrl, {
     responseType: 'blob',
   });
-  const url = window.URL.createObjectURL(new Blob([response.data]));
+  const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
 
   const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download', 'tax_deduction_receipt.pdf');
+  link.href = blobUrl;
+  link.setAttribute('download', fileName);
   document.body.appendChild(link);
   link.click();
   link.remove();
 
-  URL.revokeObjectURL(url);
+  URL.revokeObjectURL(blobUrl);
 }

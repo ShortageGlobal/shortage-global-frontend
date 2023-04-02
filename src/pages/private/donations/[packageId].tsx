@@ -14,7 +14,7 @@ import { useAppSelector } from 'core/hooks';
 import {
   extractAccessTokenFromSession,
   formatPrice,
-  handleTaxDownload,
+  fileDownload,
 } from 'core/helpers';
 import {
   fetchPackageBlogPosts,
@@ -322,8 +322,9 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                                   variant="outline-dark"
                                   className={styles.seeTaxDeductionReceiptBtn}
                                   onClick={() =>
-                                    handleTaxDownload(
-                                      donation.tax_deduction_receipt
+                                    fileDownload(
+                                      donation.tax_deduction_receipt,
+                                      'tax_deduction_receipt.pdf'
                                     )
                                   }
                                 >
