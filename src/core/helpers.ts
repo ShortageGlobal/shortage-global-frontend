@@ -193,7 +193,7 @@ export function slugify(inputStr) {
   return str;
 }
 
-//Download a file
+// Download a file
 export async function fileDownload(fileUrl: string, fileName: string) {
   const response = await axios.get(fileUrl, {
     responseType: 'blob',
@@ -207,5 +207,5 @@ export async function fileDownload(fileUrl: string, fileName: string) {
   link.click();
   link.remove();
 
-  URL.revokeObjectURL(blobUrl);
+  window.URL.revokeObjectURL(blobUrl);
 }

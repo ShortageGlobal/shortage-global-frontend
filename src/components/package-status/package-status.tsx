@@ -18,6 +18,7 @@ import { selectOrganization } from 'core/store/slices/organization';
 import { fetchPackage, selectPackage } from 'core/store/slices/package';
 import { selectPackageBlogPosts } from 'core/store/slices/package-blog-posts';
 import { updatePackageNote } from 'core/api';
+import { fileDownload } from 'core/helpers';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -30,7 +31,6 @@ import { ProceedToDonationButton } from 'components/proceed-to-donation-button/p
 import { BlogPostCard } from 'components/blog-posts/blog-post-card/blog-post-card';
 import { PACKAGE_TYPE } from 'core/constants';
 import type { FormEvent } from 'react';
-import { fileDownload } from 'core/helpers';
 
 export function PackageStatus() {
   const router = useRouter();
