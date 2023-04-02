@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { getToken } from 'next-auth/jwt';
 import type { GetTokenParams } from 'next-auth/jwt';
 import type {
@@ -7,7 +8,6 @@ import type {
   Profile,
 } from 'core/api/types';
 import type { ReactNode } from 'react';
-import axios from 'axios';
 
 // format axios error so it could be stored in redux state
 export function serizalizeAxiosError(rejection): AxiosSerializedError {
@@ -193,7 +193,7 @@ export function slugify(inputStr) {
   return str;
 }
 
-//Function for downloading a file directly
+//Download a file
 export async function fileDownload(fileUrl: string, fileName: string) {
   const response = await axios.get(fileUrl, {
     responseType: 'blob',
