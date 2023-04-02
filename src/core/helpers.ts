@@ -195,10 +195,10 @@ export function slugify(inputStr) {
 
 // Download a file
 export async function fileDownload(fileUrl: string, fileName: string) {
-  const response = await axios.get(fileUrl, {
-    responseType: 'blob',
-  });
-  const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
+  // Use fetch instead of axios so we don't send additional headers and not break CORS with them
+  const response = await fetch(fileUrl);
+  const data = await response.blob();
+  const blobUrl = window.URL.createObjectURL(new Blob([data]));
 
   const link = document.createElement('a');
   link.href = blobUrl;
