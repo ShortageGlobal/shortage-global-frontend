@@ -11,7 +11,11 @@ import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-p
 import { wrapper } from 'core/store';
 import { fetchAccountPackage } from 'core/api';
 import { useAppSelector } from 'core/hooks';
-import { extractAccessTokenFromSession, formatPrice } from 'core/helpers';
+import {
+  extractAccessTokenFromSession,
+  formatPrice,
+  handleTaxDownload,
+} from 'core/helpers';
 import {
   fetchPackageBlogPosts,
   selectPackageBlogPosts,
@@ -67,23 +71,6 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
       0
     );
   }, [donation.items]);
-
-  const handleTaxDownload = () => {
-    fetch(donation.tax_deduction_receipt).then((response) => {
-      response.blob().then((data) => {
-        const url = window.URL.createObjectURL(data);
-
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'tax_deduction_receipt.pdf');
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-
-        URL.revokeObjectURL(url);
-      });
-    });
-  };
 
   return (
     <>
@@ -334,7 +321,11 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                                   size="lg"
                                   variant="outline-dark"
                                   className={styles.seeTaxDeductionReceiptBtn}
-                                  onClick={handleTaxDownload}
+                                  onClick={() =>
+                                    handleTaxDownload(
+                                      donation.tax_deduction_receipt
+                                    )
+                                  }
                                 >
                                   <Paperclip />
                                   <span>Tax deduction receipt</span>

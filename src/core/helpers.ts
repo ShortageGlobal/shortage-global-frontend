@@ -7,6 +7,7 @@ import type {
   Profile,
 } from 'core/api/types';
 import type { ReactNode } from 'react';
+import axios from 'axios';
 
 // format axios error so it could be stored in redux state
 export function serizalizeAxiosError(rejection): AxiosSerializedError {
@@ -190,4 +191,21 @@ export function slugify(inputStr) {
     .replace(/-+/g, '-');
 
   return str;
+}
+
+//Function for downloading a file directly
+export async function handleTaxDownload(taxDeductionReceipt: string) {
+  const response = await axios.get(taxDeductionReceipt, {
+    responseType: 'blob',
+  });
+  const url = window.URL.createObjectURL(new Blob([response.data]));
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', 'tax_deduction_receipt.pdf');
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
 }
