@@ -29,7 +29,7 @@ export function RegisterNonprofitForm() {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [debouncedSlug] = useDebounce(slug, 100);
-  const [availableSlug, setAvailableSlug] = useState(false);
+  const [availableSlug, setAvailableSlug] = useState(true);
   const [canAutofillSlug, setCanAutofillSlug] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
