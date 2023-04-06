@@ -1,3 +1,5 @@
+import { useDebounce } from 'use-debounce';
+import classNames from 'classnames';
 import styles from './register-nonprofit-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useState, useCallback, useEffect } from 'react';
@@ -26,6 +28,8 @@ export function RegisterNonprofitForm() {
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
+  const [debouncedSlug] = useDebounce(slug, 100);
+  const [availableSlug, setAvailableSlug] = useState(false);
   const [canAutofillSlug, setCanAutofillSlug] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
@@ -37,6 +41,20 @@ export function RegisterNonprofitForm() {
       setSlug(slugify(name));
     }
   }, [name, canAutofillSlug]);
+
+  useEffect(() => {
+    const fullPath = `${ROOT_URL}/${debouncedSlug}`;
+    fetch(fullPath).then((response) => {
+      // Attention, that code makes error 404 in console
+      if (response.ok) {
+        setAvailableSlug(false);
+        console.log(`Sorry, that address was taken: ${fullPath}`);
+      } else {
+        setAvailableSlug(true);
+        console.log(`Sure, you can use address: ${fullPath}`);
+      }
+    });
+  }, [debouncedSlug]);
 
   const handleSlugChange = useCallback(
     (e: FormEvent<HTMLInputElement> & { target: HTMLInputElement }) => {
@@ -150,6 +168,9 @@ export function RegisterNonprofitForm() {
                     {stripProtocolFromUrl(ROOT_URL)}/
                   </InputGroup.Text>
                   <Form.Control
+                    className={classNames({
+                      'is-invalid': !availableSlug && slug !== '',
+                    })}
                     size="lg"
                     type="text"
                     required
