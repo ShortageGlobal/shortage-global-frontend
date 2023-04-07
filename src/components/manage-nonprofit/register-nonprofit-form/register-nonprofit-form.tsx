@@ -28,9 +28,10 @@ export function RegisterNonprofitForm() {
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
-  const [debouncedSlug] = useDebounce(slug, 100);
+  const [debouncedSlug] = useDebounce(slug, 250);
   const [availableSlug, setAvailableSlug] = useState(true);
   const [canAutofillSlug, setCanAutofillSlug] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
@@ -43,16 +44,16 @@ export function RegisterNonprofitForm() {
   }, [name, canAutofillSlug]);
 
   useEffect(() => {
-    const fullPath = `${ROOT_URL}/${debouncedSlug}`;
+    // const fullPath = `$/api/private/exists/organizations/${debouncedSlug}/`;
+    setIsLoading(true);
+    const fullPath = `${ROOT_URL}/${debouncedSlug}/`;
     fetch(fullPath).then((response) => {
-      // Attention, that code makes error 404 in console
       if (response.ok) {
         setAvailableSlug(false);
-        console.log(`Sorry, that address was taken: ${fullPath}`);
       } else {
         setAvailableSlug(true);
-        console.log(`Sure, you can use address: ${fullPath}`);
       }
+      setIsLoading(false);
     });
   }, [debouncedSlug]);
 
@@ -169,7 +170,7 @@ export function RegisterNonprofitForm() {
                   </InputGroup.Text>
                   <Form.Control
                     className={classNames({
-                      'is-invalid': !availableSlug && slug !== '',
+                      'is-invalid': !availableSlug && slug !== '' && !isLoading,
                     })}
                     size="lg"
                     type="text"
