@@ -912,7 +912,7 @@ export async function checkOrganizationSlugIsTaken({
     return true;
   } catch (rejection) {
     // 404 means the organizaion with the given slug not found
-    if (rejection.response.status === 404) {
+    if (rejection.response?.status === 404) {
       return false;
     }
     throw rejection;

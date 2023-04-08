@@ -1,5 +1,4 @@
 import { useDebounce } from 'use-debounce';
-import classNames from 'classnames';
 import styles from './register-nonprofit-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useState, useCallback, useEffect } from 'react';
@@ -32,8 +31,10 @@ export function RegisterNonprofitForm() {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [debouncedSlug] = useDebounce(slug, 250);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAvailableSlug, setIsAvailableSlug] = useState(true);
   const [canAutofillSlug, setCanAutofillSlug] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isCheckOrganizationSlugPending, setIsCheckOrganizationSlugPending] =
     useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -176,12 +177,6 @@ export function RegisterNonprofitForm() {
                     {stripProtocolFromUrl(ROOT_URL)}/
                   </InputGroup.Text>
                   <Form.Control
-                    className={classNames({
-                      'is-invalid':
-                        !isAvailableSlug &&
-                        slug !== '' &&
-                        !isCheckOrganizationSlugPending,
-                    })}
                     size="lg"
                     type="text"
                     required
@@ -192,7 +187,12 @@ export function RegisterNonprofitForm() {
                     value={slug}
                     onChange={handleSlugChange}
                     isValid={getIsValid(ERROR_KEYS.slug)}
-                    isInvalid={getIsInvalid(ERROR_KEYS.slug)}
+                    isInvalid={
+                      getIsInvalid(ERROR_KEYS.slug) ||
+                      (!isAvailableSlug &&
+                        slug !== '' &&
+                        !isCheckOrganizationSlugPending)
+                    }
                   />
                   {getErrorsFeedback(ERROR_KEYS.slug)}
                 </InputGroup>
