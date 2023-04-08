@@ -31,10 +31,8 @@ export function RegisterNonprofitForm() {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [debouncedSlug] = useDebounce(slug, 250);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isAvailableSlug, setIsAvailableSlug] = useState(true);
+  const [isSlugAvailable, setIsSlugAvailable] = useState(true);
   const [canAutofillSlug, setCanAutofillSlug] = useState(true);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isCheckOrganizationSlugPending, setIsCheckOrganizationSlugPending] =
     useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -52,7 +50,7 @@ export function RegisterNonprofitForm() {
   useEffect(() => {
     const cancelToken = getCheckOrganizationSlugCancelToken();
     if (!debouncedSlug) {
-      setIsAvailableSlug(true);
+      setIsSlugAvailable(true);
       return;
     }
     setIsCheckOrganizationSlugPending(true);
@@ -60,7 +58,7 @@ export function RegisterNonprofitForm() {
       organizationSlug: debouncedSlug,
       cancelToken,
     }).then((isTaken) => {
-      setIsAvailableSlug(!isTaken);
+      setIsSlugAvailable(!isTaken);
       setIsCheckOrganizationSlugPending(false);
     });
   }, [debouncedSlug]);
@@ -189,7 +187,7 @@ export function RegisterNonprofitForm() {
                     isValid={getIsValid(ERROR_KEYS.slug)}
                     isInvalid={
                       getIsInvalid(ERROR_KEYS.slug) ||
-                      (!isAvailableSlug &&
+                      (!isSlugAvailable &&
                         slug !== '' &&
                         !isCheckOrganizationSlugPending)
                     }
