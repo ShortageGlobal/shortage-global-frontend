@@ -7,7 +7,10 @@ import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { Loader, ArrowRightCircle } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
-import { registerAccountOrganization } from 'core/api';
+import {
+  registerAccountOrganization,
+  checkOrganizationSlugIsTaken,
+} from 'core/api';
 import { stripProtocolFromUrl, slugify } from 'core/helpers';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
@@ -29,13 +32,15 @@ export function RegisterNonprofitForm() {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [debouncedSlug] = useDebounce(slug, 250);
-  const [availableSlug, setAvailableSlug] = useState(true);
+  const [isAvailableSlug, setIsAvailableSlug] = useState(true);
   const [canAutofillSlug, setCanAutofillSlug] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isCheckOrganizationSlugPending, setIsCheckOrganizationSlugPending] =
+    useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
   const getRegistrationCancelToken = useCancelToken();
+  const getCheckOrganizationSlugCancelToken = useCancelToken();
 
   useEffect(() => {
     if (canAutofillSlug) {
@@ -44,16 +49,18 @@ export function RegisterNonprofitForm() {
   }, [name, canAutofillSlug]);
 
   useEffect(() => {
-    // const fullPath = `$/api/private/exists/organizations/${debouncedSlug}/`;
-    setIsLoading(true);
-    const fullPath = `${ROOT_URL}/${debouncedSlug}/`;
-    fetch(fullPath).then((response) => {
-      if (response.ok) {
-        setAvailableSlug(false);
-      } else {
-        setAvailableSlug(true);
-      }
-      setIsLoading(false);
+    const cancelToken = getCheckOrganizationSlugCancelToken();
+    if (!debouncedSlug) {
+      setIsAvailableSlug(true);
+      return;
+    }
+    setIsCheckOrganizationSlugPending(true);
+    checkOrganizationSlugIsTaken({
+      organizationSlug: debouncedSlug,
+      cancelToken,
+    }).then((isTaken) => {
+      setIsAvailableSlug(!isTaken);
+      setIsCheckOrganizationSlugPending(false);
     });
   }, [debouncedSlug]);
 
@@ -170,7 +177,10 @@ export function RegisterNonprofitForm() {
                   </InputGroup.Text>
                   <Form.Control
                     className={classNames({
-                      'is-invalid': !availableSlug && slug !== '' && !isLoading,
+                      'is-invalid':
+                        !isAvailableSlug &&
+                        slug !== '' &&
+                        !isCheckOrganizationSlugPending,
                     })}
                     size="lg"
                     type="text"

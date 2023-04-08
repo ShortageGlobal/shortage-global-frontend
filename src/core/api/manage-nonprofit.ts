@@ -891,3 +891,30 @@ export async function fetchOrganizationPackageBlogPosts({
     }
   );
 }
+export type CheckOrganizationSlugIsTakenParams = {
+  organizationSlug: AccountOrganization['slug'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function checkOrganizationSlugIsTaken({
+  organizationSlug,
+  accessToken = null,
+  cancelToken = null,
+}: CheckOrganizationSlugIsTakenParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  try {
+    await axios.get(
+      encodeURI(
+        `${API_ROOT}/api/private/exists/organizations/${organizationSlug}`
+      ),
+      { cancelToken: cancelToken?.token, headers }
+    );
+    return true;
+  } catch (rejection) {
+    // 404 means the organizaion with the given slug not found
+    if (rejection.response.status === 404) {
+      return false;
+    }
+    throw rejection;
+  }
+}
