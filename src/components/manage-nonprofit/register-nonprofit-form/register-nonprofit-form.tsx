@@ -7,7 +7,10 @@ import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { Loader, ArrowRightCircle } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
-import { registerAccountOrganization } from 'core/api';
+import {
+  checkOrganizationSlugIsTaken,
+  registerAccountOrganization,
+} from 'core/api';
 import { stripProtocolFromUrl, slugify } from 'core/helpers';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
@@ -44,17 +47,17 @@ export function RegisterNonprofitForm() {
   }, [name, canAutofillSlug]);
 
   useEffect(() => {
-    // const fullPath = `$/api/private/exists/organizations/${debouncedSlug}/`;
+    if (!debouncedSlug) {
+      setAvailableSlug(true);
+      return;
+    }
     setIsLoading(true);
-    const fullPath = `${ROOT_URL}/${debouncedSlug}/`;
-    fetch(fullPath).then((response) => {
-      if (response.ok) {
-        setAvailableSlug(false);
-      } else {
-        setAvailableSlug(true);
+    checkOrganizationSlugIsTaken({ organizationSlug: debouncedSlug }).then(
+      (isTaken) => {
+        setAvailableSlug(!isTaken);
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    });
+    );
   }, [debouncedSlug]);
 
   const handleSlugChange = useCallback(
