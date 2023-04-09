@@ -12,6 +12,7 @@ import {
   AccountOrganizationPackage,
   OrganizationChecklist,
 } from 'core/api/types';
+import { isRequestCancel } from 'core/hooks/use-cancel-token';
 
 type UploadImageParams = {
   file: File;
@@ -905,12 +906,15 @@ export async function checkOrganizationSlugIsTaken({
   try {
     await axios.get(
       encodeURI(
-        `${API_ROOT}/api/private/exists/organizations/${organizationSlug}`
+        `${API_ROOT}/api/private/exists/organizations/${organizationSlug}/`
       ),
       { cancelToken: cancelToken?.token, headers }
     );
     return true;
   } catch (rejection) {
+    if (isRequestCancel(rejection)) {
+      return;
+    }
     // 404 means the organizaion with the given slug not found
     if (rejection.response?.status === 404) {
       return false;

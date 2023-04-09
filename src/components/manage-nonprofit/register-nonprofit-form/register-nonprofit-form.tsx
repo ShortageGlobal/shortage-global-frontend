@@ -202,7 +202,7 @@ export function RegisterNonprofitForm() {
                 <Button
                   type="submit"
                   size="lg"
-                  disabled={isSaving}
+                  disabled={isSaving || !isSlugAvailable || slug === ''}
                   className={styles.confirmDetailsBtn}
                 >
                   <span>Continue</span>
