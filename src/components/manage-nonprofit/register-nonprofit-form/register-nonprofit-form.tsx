@@ -54,13 +54,20 @@ export function RegisterNonprofitForm() {
       return;
     }
     setIsCheckOrganizationSlugPending(true);
-    checkOrganizationSlugIsTaken({
-      organizationSlug: debouncedSlug,
-      cancelToken,
-    }).then((isTaken) => {
-      setIsSlugAvailable(!isTaken);
-      setIsCheckOrganizationSlugPending(false);
-    });
+    try {
+      checkOrganizationSlugIsTaken({
+        organizationSlug: debouncedSlug,
+        cancelToken,
+      }).then((isTaken) => {
+        setIsSlugAvailable(!isTaken);
+        setIsCheckOrganizationSlugPending(false);
+      });
+    } catch (rejection) {
+      if (isRequestCancel(rejection)) {
+        return;
+      }
+      throw rejection;
+    }
   }, [debouncedSlug]);
 
   const handleSlugChange = useCallback(
