@@ -48,6 +48,12 @@ export function RegisterNonprofitForm() {
   }, [name, canAutofillSlug]);
 
   useEffect(() => {
+    if (slug === '') {
+      setErrors(null);
+    }
+  }, [slug]);
+
+  useEffect(() => {
     const cancelToken = getCheckOrganizationSlugCancelToken();
     if (!debouncedSlug) {
       setIsSlugAvailable(true);
@@ -74,7 +80,6 @@ export function RegisterNonprofitForm() {
         }
       })
       .catch((rejection) => {
-        setErrors(null);
         if (isRequestCancel(rejection)) {
           return;
         }
