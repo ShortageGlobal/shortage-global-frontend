@@ -54,6 +54,9 @@ export function RegisterNonprofitForm() {
       return;
     }
     setIsCheckOrganizationSlugPending(true);
+
+    setErrors(null);
+
     checkOrganizationSlugIsTaken({
       organizationSlug: debouncedSlug,
       cancelToken,
@@ -61,8 +64,17 @@ export function RegisterNonprofitForm() {
       .then((isTaken) => {
         setIsSlugAvailable(!isTaken);
         setIsCheckOrganizationSlugPending(false);
+        if (isTaken) {
+          setErrors({
+            ...errors,
+            [ERROR_KEYS[INPUT_ID.slug]]: [
+              'This address has already been taken.',
+            ],
+          });
+        }
       })
       .catch((rejection) => {
+        setErrors(null);
         if (isRequestCancel(rejection)) {
           return;
         }
@@ -199,13 +211,7 @@ export function RegisterNonprofitForm() {
                         !isCheckOrganizationSlugPending)
                     }
                   />
-                  {!isSlugAvailable && slug !== '' ? (
-                    <Form.Control.Feedback type="invalid">
-                      This address has already been taken.
-                    </Form.Control.Feedback>
-                  ) : (
-                    getErrorsFeedback(ERROR_KEYS.slug)
-                  )}
+                  {getErrorsFeedback(ERROR_KEYS.slug)}
                 </InputGroup>
               </Col>
             </Row>
