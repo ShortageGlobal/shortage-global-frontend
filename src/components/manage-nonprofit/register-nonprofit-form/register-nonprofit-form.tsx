@@ -1,3 +1,4 @@
+import { useDebounce } from 'use-debounce';
 import styles from './register-nonprofit-form.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useState, useCallback, useEffect } from 'react';
@@ -5,7 +6,10 @@ import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { Loader, ArrowRightCircle } from 'react-feather';
 import { useRouter } from 'next/router';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
-import { registerAccountOrganization } from 'core/api';
+import {
+  registerAccountOrganization,
+  checkOrganizationSlugIsTaken,
+} from 'core/api';
 import { stripProtocolFromUrl, slugify } from 'core/helpers';
 import { ROOT_URL } from 'core/constants';
 import type { FormEvent } from 'react';
@@ -26,17 +30,62 @@ export function RegisterNonprofitForm() {
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
+  const [debouncedSlug] = useDebounce(slug, 250);
+  const [isSlugAvailable, setIsSlugAvailable] = useState(true);
   const [canAutofillSlug, setCanAutofillSlug] = useState(true);
+  const [isCheckOrganizationSlugPending, setIsCheckOrganizationSlugPending] =
+    useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
   const getRegistrationCancelToken = useCancelToken();
+  const getCheckOrganizationSlugCancelToken = useCancelToken();
 
   useEffect(() => {
     if (canAutofillSlug) {
       setSlug(slugify(name));
     }
   }, [name, canAutofillSlug]);
+
+  useEffect(() => {
+    if (slug === '') {
+      setErrors(null);
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    const cancelToken = getCheckOrganizationSlugCancelToken();
+    if (!debouncedSlug) {
+      setIsSlugAvailable(true);
+      return;
+    }
+    setIsCheckOrganizationSlugPending(true);
+
+    setErrors(null);
+
+    checkOrganizationSlugIsTaken({
+      organizationSlug: debouncedSlug,
+      cancelToken,
+    })
+      .then((isTaken) => {
+        setIsSlugAvailable(!isTaken);
+        setIsCheckOrganizationSlugPending(false);
+        if (isTaken) {
+          setErrors({
+            ...errors,
+            [ERROR_KEYS[INPUT_ID.slug]]: [
+              'This address has already been taken.',
+            ],
+          });
+        }
+      })
+      .catch((rejection) => {
+        if (isRequestCancel(rejection)) {
+          return;
+        }
+        throw rejection;
+      });
+  }, [debouncedSlug]);
 
   const handleSlugChange = useCallback(
     (e: FormEvent<HTMLInputElement> & { target: HTMLInputElement }) => {
@@ -160,7 +209,12 @@ export function RegisterNonprofitForm() {
                     value={slug}
                     onChange={handleSlugChange}
                     isValid={getIsValid(ERROR_KEYS.slug)}
-                    isInvalid={getIsInvalid(ERROR_KEYS.slug)}
+                    isInvalid={
+                      getIsInvalid(ERROR_KEYS.slug) ||
+                      (!isSlugAvailable &&
+                        slug !== '' &&
+                        !isCheckOrganizationSlugPending)
+                    }
                   />
                   {getErrorsFeedback(ERROR_KEYS.slug)}
                 </InputGroup>
@@ -172,7 +226,7 @@ export function RegisterNonprofitForm() {
                 <Button
                   type="submit"
                   size="lg"
-                  disabled={isSaving}
+                  disabled={isSaving || !isSlugAvailable || slug === ''}
                   className={styles.confirmDetailsBtn}
                 >
                   <span>Continue</span>
