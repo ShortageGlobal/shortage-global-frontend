@@ -199,7 +199,13 @@ export function RegisterNonprofitForm() {
                         !isCheckOrganizationSlugPending)
                     }
                   />
-                  {getErrorsFeedback(ERROR_KEYS.slug)}
+                  {!isSlugAvailable && slug !== '' ? (
+                    <Form.Control.Feedback type="invalid">
+                      This address has already been taken.
+                    </Form.Control.Feedback>
+                  ) : (
+                    getErrorsFeedback(ERROR_KEYS.slug)
+                  )}
                 </InputGroup>
               </Col>
             </Row>
