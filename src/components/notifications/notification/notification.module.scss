@@ -8,4 +8,21 @@
   .closeButton {
     margin: auto 0.5rem auto auto;
   }
+
+  @keyframes progress-animation {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+
+  .loading-bar {
+    height: 10px;
+    overflow: hidden;
+    width: 100%;
+    animation: progress-animation;
+    background: white;
+  }
 }

@@ -1,5 +1,5 @@
 import styles from './notification.module.scss';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useState } from 'react';
 import classNames from 'classnames';
 import { Toast, CloseButton } from 'react-bootstrap';
 import { NOTIFICATION_TYPE, NOTIFICATION_DELAY } from 'core/constants';
@@ -11,6 +11,8 @@ type NotificationProps = {
 };
 
 export function Notification({ notification, onClose }: NotificationProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
       return 'success';
@@ -31,6 +33,8 @@ export function Notification({ notification, onClose }: NotificationProps) {
       delay={NOTIFICATION_DELAY}
       onClose={handleClose}
       className={classNames(styles.notification)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="d-flex">
         <Toast.Body>{notification.message}</Toast.Body>
@@ -40,6 +44,13 @@ export function Notification({ notification, onClose }: NotificationProps) {
           onClick={handleClose}
         />
       </div>
+      <div
+        className={styles['loading-bar']}
+        style={{
+          animationDuration: `${NOTIFICATION_DELAY / 1000}s`,
+          animationPlayState: isHovered ? 'paused' : 'running',
+        }}
+      ></div>
     </Toast>
   );
 }
