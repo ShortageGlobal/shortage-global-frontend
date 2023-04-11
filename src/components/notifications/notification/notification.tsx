@@ -1,5 +1,5 @@
 import styles from './notification.module.scss';
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, useRef } from 'react';
 import classNames from 'classnames';
 import { Toast, CloseButton } from 'react-bootstrap';
 import { NOTIFICATION_TYPE, NOTIFICATION_DELAY } from 'core/constants';
@@ -12,6 +12,9 @@ type NotificationProps = {
 
 export function Notification({ notification, onClose }: NotificationProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const countdownRef = useRef(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [countdown, setCountdown] = useState(NOTIFICATION_DELAY); // 5000 ms
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -23,18 +26,34 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.type]);
 
   const handleClose = useCallback(() => {
+    clearTimeout(countdownRef.current);
     return onClose(notification.key);
   }, [notification.key]);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    console.log(countdown); // 5000 ?!
+    clearTimeout(countdownRef.current);
+    countdownRef.current = null;
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    const remainingTime = countdownRef.current
+      ? countdownRef.current
+      : countdown;
+    countdownRef.current = setTimeout(handleClose, remainingTime);
+  };
 
   return (
     <Toast
       bg={bg}
       autohide
-      delay={NOTIFICATION_DELAY}
+      delay={countdown}
       onClose={handleClose}
       className={classNames(styles.notification)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => handleMouseEnter()}
+      onMouseLeave={() => handleMouseLeave()}
     >
       <div className="d-flex">
         <Toast.Body>{notification.message}</Toast.Body>
@@ -47,10 +66,10 @@ export function Notification({ notification, onClose }: NotificationProps) {
       <div
         className={styles['loading-bar']}
         style={{
-          animationDuration: `${NOTIFICATION_DELAY / 1000}s`,
+          animationDuration: `${countdown / 1000}s`,
           animationPlayState: isHovered ? 'paused' : 'running',
         }}
-      ></div>
+      />
     </Toast>
   );
 }
