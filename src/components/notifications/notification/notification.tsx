@@ -11,10 +11,8 @@ type NotificationProps = {
 };
 
 export function Notification({ notification, onClose }: NotificationProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const countdownRef = useRef(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [countdown, setCountdown] = useState(NOTIFICATION_DELAY); // 5000 ms
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -31,17 +29,16 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.key]);
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
-    console.log(countdown); // 5000 ?!
+    setIsPaused(true);
     clearTimeout(countdownRef.current);
     countdownRef.current = null;
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
+    setIsPaused(false);
     const remainingTime = countdownRef.current
       ? countdownRef.current
-      : countdown;
+      : NOTIFICATION_DELAY;
     countdownRef.current = setTimeout(handleClose, remainingTime);
   };
 
@@ -49,11 +46,11 @@ export function Notification({ notification, onClose }: NotificationProps) {
     <Toast
       bg={bg}
       autohide
-      delay={countdown}
+      delay={NOTIFICATION_DELAY}
       onClose={handleClose}
       className={classNames(styles.notification)}
-      onMouseEnter={() => handleMouseEnter()}
-      onMouseLeave={() => handleMouseLeave()}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="d-flex">
         <Toast.Body>{notification.message}</Toast.Body>
@@ -64,10 +61,10 @@ export function Notification({ notification, onClose }: NotificationProps) {
         />
       </div>
       <div
-        className={styles['loading-bar']}
+        className={styles.progressBar}
         style={{
-          animationDuration: `${countdown / 1000}s`,
-          animationPlayState: isHovered ? 'paused' : 'running',
+          animationDuration: `${NOTIFICATION_DELAY}ms`,
+          animationPlayState: isPaused ? 'paused' : 'running',
         }}
       />
     </Toast>
