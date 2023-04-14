@@ -29,15 +29,16 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.key]);
 
   useEffect(() => {
+    if (countdown < 0) return;
     if (!isPaused) {
-      setInterval(() => {
-        setCountdown(countdown - 1000);
-      }, 1000);
+      setTimeout(() => {
+        setCountdown(countdown - 100);
+      }, 100);
     }
   }, [countdown, isPaused]);
 
   const pauseDelay = () => {
-    clearInterval(countdown);
+    clearTimeout(countdown);
     setIsPaused(true);
   };
 
