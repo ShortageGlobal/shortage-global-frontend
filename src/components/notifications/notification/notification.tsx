@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styles from './notification.module.scss';
-import { useMemo, useCallback, useState, useRef } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { Toast, CloseButton } from 'react-bootstrap';
 import { NOTIFICATION_TYPE, NOTIFICATION_DELAY } from 'core/constants';
@@ -12,7 +13,12 @@ type NotificationProps = {
 
 export function Notification({ notification, onClose }: NotificationProps) {
   const [isPaused, setIsPaused] = useState(false);
-  const countdownRef = useRef(null);
+  const [isShow, setIsShow] = useState(true);
+  const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
+  const [remainingTime, setRemainingTime] = useState(null);
+  console.log(
+    `initial delay: countdown - ${countdown}, remaining time - ${remainingTime}`
+  );
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -24,33 +30,49 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.type]);
 
   const handleClose = useCallback(() => {
-    clearTimeout(countdownRef.current);
+    clearInterval(countdown);
     return onClose(notification.key);
   }, [notification.key]);
 
-  const handleMouseEnter = () => {
-    setIsPaused(true);
-    clearTimeout(countdownRef.current);
-    countdownRef.current = null;
+  useEffect(() => {
+    console.log(countdown);
+    setInterval(() => {
+      setCountdown(countdown - 1);
+      if (countdown <= 0) setIsShow(false);
+    }, countdown);
+  }, []);
+
+  const pauseDelay = () => {
+    //   console.log(
+    //     `pause delay: countdown - ${countdown}, remaining time - ${remainingTime}`
+    //   );
+    //   setIsPaused(true);
+    //   clearInterval(countdown);
+    //   setRemainingTime(countdown);
   };
 
-  const handleMouseLeave = () => {
-    setIsPaused(false);
-    const remainingTime = countdownRef.current
-      ? countdownRef.current
-      : NOTIFICATION_DELAY;
-    countdownRef.current = setTimeout(handleClose, remainingTime);
+  const resumeDelay = () => {
+    console.log(countdown);
+
+    // console.log(
+    //   `resume delay: countdown - ${countdown}, remaining time - ${remainingTime}`
+    // );
+    // setIsPaused(false);
+    // setCountdown(remainingTime);
+    // setInterval(() => {
+    //   setCountdown((prev) => prev - 1000);
+    //   if (countdown <= 0) setIsShow(false);
+    // }, remainingTime);
   };
 
   return (
     <Toast
       bg={bg}
-      autohide
-      delay={NOTIFICATION_DELAY}
       onClose={handleClose}
       className={classNames(styles.notification)}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={pauseDelay}
+      onMouseLeave={resumeDelay}
+      show={isShow}
     >
       <div className="d-flex">
         <Toast.Body>{notification.message}</Toast.Body>
