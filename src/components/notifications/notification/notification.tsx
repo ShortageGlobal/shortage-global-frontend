@@ -13,7 +13,6 @@ type NotificationProps = {
 export function Notification({ notification, onClose }: NotificationProps) {
   const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
   const [isPaused, setIsPaused] = useState(false);
-  const [timerId, setTimerId] = useState(null);
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -31,15 +30,13 @@ export function Notification({ notification, onClose }: NotificationProps) {
   useEffect(() => {
     if (countdown < 0) return;
     if (!isPaused) {
-      const id = setTimeout(() => {
-        setCountdown(countdown - 1000);
-      }, 1000);
-      setTimerId(id);
+      setTimeout(() => {
+        setCountdown(countdown - 100);
+      }, 100);
     }
   }, [countdown, isPaused]);
 
   const pauseDelay = () => {
-    clearTimeout(timerId);
     setIsPaused(true);
   };
 
@@ -68,7 +65,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
           <div
             className={styles.progressBar}
             style={{
-              animationDuration: `${NOTIFICATION_DELAY}ms`,
+              animationDuration: `${NOTIFICATION_DELAY + 200}ms`,
               animationPlayState: isPaused ? 'paused' : 'running',
             }}
           />
