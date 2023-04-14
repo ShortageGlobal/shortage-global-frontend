@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styles from './notification.module.scss';
 import { useMemo, useCallback, useState, useEffect } from 'react';
 import classNames from 'classnames';
@@ -14,6 +13,7 @@ type NotificationProps = {
 export function Notification({ notification, onClose }: NotificationProps) {
   const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
   const [isPaused, setIsPaused] = useState(false);
+  const [timerId, setTimerId] = useState(null);
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -31,14 +31,15 @@ export function Notification({ notification, onClose }: NotificationProps) {
   useEffect(() => {
     if (countdown < 0) return;
     if (!isPaused) {
-      setTimeout(() => {
-        setCountdown(countdown - 100);
-      }, 100);
+      const id = setTimeout(() => {
+        setCountdown(countdown - 1000);
+      }, 1000);
+      setTimerId(id);
     }
   }, [countdown, isPaused]);
 
   const pauseDelay = () => {
-    clearTimeout(countdown);
+    clearTimeout(timerId);
     setIsPaused(true);
   };
 
