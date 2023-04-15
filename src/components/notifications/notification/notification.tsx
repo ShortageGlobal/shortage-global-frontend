@@ -13,6 +13,9 @@ type NotificationProps = {
 export function Notification({ notification, onClose }: NotificationProps) {
   const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
   const [isPaused, setIsPaused] = useState(false);
+  const [isWasPaused, setIsWasPaused] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [timerId, setTimerId] = useState(null);
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -28,15 +31,23 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.key]);
 
   useEffect(() => {
-    if (countdown < 0) return;
+    if (countdown <= 0) onClose(notification.key);
+    if (isWasPaused && !isAdded) {
+      const additionTime = (countdown / 100) * 20;
+      setIsAdded(true);
+      setCountdown(countdown - additionTime);
+    }
     if (!isPaused) {
-      setTimeout(() => {
-        setCountdown(countdown - 100);
-      }, 100);
+      const id = setTimeout(() => {
+        setCountdown(countdown - 1000);
+      }, 1000);
+      setTimerId(id);
     }
   }, [countdown, isPaused]);
 
   const pauseDelay = () => {
+    clearTimeout(timerId);
+    setIsWasPaused(true);
     setIsPaused(true);
   };
 
@@ -46,7 +57,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
 
   return (
     <>
-      {countdown > 0 && (
+      {countdown > 0 ? (
         <Toast
           bg={bg}
           onClose={handleClose}
@@ -65,12 +76,12 @@ export function Notification({ notification, onClose }: NotificationProps) {
           <div
             className={styles.progressBar}
             style={{
-              animationDuration: `${NOTIFICATION_DELAY + 200}ms`,
+              animationDuration: `${NOTIFICATION_DELAY}ms`,
               animationPlayState: isPaused ? 'paused' : 'running',
             }}
           />
         </Toast>
-      )}
+      ) : null}
     </>
   );
 }
