@@ -31,7 +31,10 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.key]);
 
   useEffect(() => {
-    if (countdown <= 0) onClose(notification.key);
+    if (countdown <= 0) {
+      console.log(countdown);
+      onClose(notification.key);
+    }
     if (isWasPaused && !isAdded) {
       const additionTime = (countdown / 100) * 20;
       setIsAdded(true);
@@ -57,7 +60,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
 
   return (
     <>
-      {countdown > 0 ? (
+      {notification ? (
         <Toast
           bg={bg}
           onClose={handleClose}
