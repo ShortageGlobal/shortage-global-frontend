@@ -19,10 +19,10 @@
   }
 
   .progressBar {
-    height: 10px;
+    height: 5px;
     overflow: hidden;
     width: 100%;
     animation: progress-animation linear;
-    background: white;
+    background: rgba(255, 255, 255, 0.35);
   }
 }
