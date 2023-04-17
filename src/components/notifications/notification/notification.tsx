@@ -32,7 +32,6 @@ export function Notification({ notification, onClose }: NotificationProps) {
 
   useEffect(() => {
     if (countdown <= 0) {
-      console.log(countdown);
       onClose(notification.key);
     }
     if (isWasPaused && !isAdded) {
