@@ -14,6 +14,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
   const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
   const [isPaused, setIsPaused] = useState(false);
   const [isWasPaused, setIsWasPaused] = useState(false);
+  const [timeDifference, setTimeDifference] = useState(0);
   const timerIdRef = useRef<NodeJS.Timeout>();
   const startTimeRef = useRef<number>();
   const endTimeRef = useRef<number>();
@@ -34,7 +35,6 @@ export function Notification({ notification, onClose }: NotificationProps) {
   useEffect(() => {
     const currentTime = Date.now();
     startTimeRef.current = currentTime;
-    console.log('Mounted startTime value: ', startTimeRef.current);
     timerIdRef.current = setTimeout(() => {
       setCountdown(0);
     }, NOTIFICATION_DELAY);
@@ -46,9 +46,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
     }
 
     if (!isPaused && isWasPaused && endTimeRef.current) {
-      const timeDifference = endTimeRef.current - startTimeRef.current;
       startTimeRef.current = Date.now();
-      console.log('New startTime value: ', startTimeRef.current);
       timerIdRef.current = setTimeout(() => {
         setCountdown(0);
       }, NOTIFICATION_DELAY - timeDifference);
@@ -58,7 +56,9 @@ export function Notification({ notification, onClose }: NotificationProps) {
   const pauseDelay = () => {
     clearTimeout(timerIdRef.current);
     endTimeRef.current = Date.now();
-    console.log('New endTime value: ', endTimeRef.current);
+    setTimeDifference(
+      (prev) => prev + Math.abs(endTimeRef.current - startTimeRef.current)
+    );
     setIsWasPaused(true);
     setIsPaused(true);
   };
