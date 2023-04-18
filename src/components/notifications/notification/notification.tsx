@@ -1,5 +1,5 @@
 import styles from './notification.module.scss';
-import { useMemo, useCallback, useState, useEffect } from 'react';
+import { useMemo, useCallback, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Toast, CloseButton } from 'react-bootstrap';
 import { NOTIFICATION_TYPE, NOTIFICATION_DELAY } from 'core/constants';
@@ -13,10 +13,10 @@ type NotificationProps = {
 export function Notification({ notification, onClose }: NotificationProps) {
   const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
   const [isPaused, setIsPaused] = useState(false);
-  // const [isWasPaused, setIsWasPaused] = useState(false);
-  // const [isWasHovered, setIsWasHover] = useState(false);
-  const [timerId, setTimerId] = useState(null);
-  const [timeDifference, setTimeDifference] = useState(Date.now());
+  const [isWasPaused, setIsWasPaused] = useState(false);
+  const timerIdRef = useRef<NodeJS.Timeout>();
+  const mountTimeRef = useRef<number>();
+  const pausedTimeRef = useRef<number>();
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -32,10 +32,11 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.key]);
 
   useEffect(() => {
-    const id = setTimeout(() => {
+    const currentTime = Date.now();
+    mountTimeRef.current = currentTime;
+    timerIdRef.current = setTimeout(() => {
       setCountdown(countdown - NOTIFICATION_DELAY);
     }, NOTIFICATION_DELAY);
-    setTimerId(id);
   }, []);
 
   useEffect(() => {
@@ -43,43 +44,19 @@ export function Notification({ notification, onClose }: NotificationProps) {
       onClose(notification.key);
     }
 
-    if (!isPaused) {
-      console.log(
-        countdown - (NOTIFICATION_DELAY - (NOTIFICATION_DELAY - timeDifference))
-      );
-      const id = setTimeout(() => {
-        setCountdown(
-          countdown -
-            (NOTIFICATION_DELAY - (NOTIFICATION_DELAY - timeDifference))
-        );
-      }, NOTIFICATION_DELAY);
-      setTimerId(id);
+    if (!isPaused && isWasPaused && pausedTimeRef.current) {
+      const timeDifference = pausedTimeRef.current - mountTimeRef.current;
+      console.log(NOTIFICATION_DELAY - timeDifference);
+      timerIdRef.current = setTimeout(() => {
+        setCountdown(NOTIFICATION_DELAY - timeDifference);
+      }, NOTIFICATION_DELAY - timeDifference);
     }
-
-    // if (isWasPaused && !isWasHovered) {
-    //   setIsWasHover(true);
-    //   setCountdown(
-    //     countdown - (NOTIFICATION_DELAY - (NOTIFICATION_DELAY - timeDifference))
-    //   );
-    // }
-    // if (!isPaused && isWasPaused) {
-    //   console.log(
-    //     countdown - (NOTIFICATION_DELAY - (NOTIFICATION_DELAY - timeDifference))
-    //   );
-    //   const id = setTimeout(() => {
-    //     setCountdown(
-    //       countdown -
-    //         (NOTIFICATION_DELAY - (NOTIFICATION_DELAY - timeDifference))
-    //     );
-    //   }, NOTIFICATION_DELAY);
-    //   setTimerId(id);
-    // }
   }, [countdown, isPaused]);
 
   const pauseDelay = () => {
-    clearTimeout(timerId);
-    setTimeDifference(Date.now() - timeDifference);
-    // setIsWasPaused(true);
+    clearTimeout(timerIdRef.current);
+    pausedTimeRef.current = Date.now();
+    setIsWasPaused(true);
     setIsPaused(true);
   };
 
