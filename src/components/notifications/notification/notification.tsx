@@ -13,7 +13,6 @@ type NotificationProps = {
 export function Notification({ notification, onClose }: NotificationProps) {
   const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
   const [isPaused, setIsPaused] = useState(false);
-  const [isWasPaused, setIsWasPaused] = useState(false);
   const [timeDifference, setTimeDifference] = useState(0);
   const timerIdRef = useRef<NodeJS.Timeout>();
   const startTimeRef = useRef<number>();
@@ -45,7 +44,7 @@ export function Notification({ notification, onClose }: NotificationProps) {
       onClose(notification.key);
     }
 
-    if (!isPaused && isWasPaused && endTimeRef.current) {
+    if (!isPaused && endTimeRef.current) {
       startTimeRef.current = Date.now();
       timerIdRef.current = setTimeout(() => {
         setCountdown(0);
@@ -59,7 +58,6 @@ export function Notification({ notification, onClose }: NotificationProps) {
     setTimeDifference(
       (prev) => prev + Math.abs(endTimeRef.current - startTimeRef.current)
     );
-    setIsWasPaused(true);
     setIsPaused(true);
   };
 
