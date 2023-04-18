@@ -11,7 +11,6 @@ type NotificationProps = {
 };
 
 export function Notification({ notification, onClose }: NotificationProps) {
-  const [countdown, setCountdown] = useState(NOTIFICATION_DELAY);
   const [isPaused, setIsPaused] = useState(false);
   const [timeDifference, setTimeDifference] = useState(0);
   const timerIdRef = useRef<NodeJS.Timeout>();
@@ -32,31 +31,26 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.key]);
 
   useEffect(() => {
-    const currentTime = Date.now();
-    startTimeRef.current = currentTime;
+    startTimeRef.current = Date.now();
     timerIdRef.current = setTimeout(() => {
-      setCountdown(0);
+      onClose(notification.key);
     }, NOTIFICATION_DELAY);
   }, []);
 
   useEffect(() => {
-    if (countdown <= 0) {
-      onClose(notification.key);
-    }
-
     if (!isPaused && endTimeRef.current) {
       startTimeRef.current = Date.now();
       timerIdRef.current = setTimeout(() => {
-        setCountdown(0);
+        onClose(notification.key);
       }, NOTIFICATION_DELAY - timeDifference);
     }
-  }, [countdown, isPaused]);
+  }, [isPaused]);
 
   const pauseDelay = () => {
     clearTimeout(timerIdRef.current);
     endTimeRef.current = Date.now();
     setTimeDifference(
-      (prev) => prev + Math.abs(endTimeRef.current - startTimeRef.current)
+      (prev) => prev + endTimeRef.current - startTimeRef.current
     );
     setIsPaused(true);
   };
