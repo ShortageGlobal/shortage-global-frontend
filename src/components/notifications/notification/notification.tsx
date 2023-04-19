@@ -12,10 +12,8 @@ type NotificationProps = {
 
 export function Notification({ notification, onClose }: NotificationProps) {
   const [isPaused, setIsPaused] = useState(false);
-  const [timeDifference, setTimeDifference] = useState(0);
-  const timerIdRef = useRef<NodeJS.Timeout>();
-  const startTimeRef = useRef<number>();
-  const endTimeRef = useRef<number>();
+  const [timeLeft, setTimeLeft] = useState(NOTIFICATION_DELAY);
+  const showStartDate = useRef(Date.now());
 
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
@@ -31,41 +29,36 @@ export function Notification({ notification, onClose }: NotificationProps) {
   }, [notification.key]);
 
   useEffect(() => {
-    startTimeRef.current = Date.now();
-    timerIdRef.current = setTimeout(() => {
-      onClose(notification.key);
-    }, NOTIFICATION_DELAY);
-  }, []);
-
-  useEffect(() => {
-    if (!isPaused && endTimeRef.current) {
-      startTimeRef.current = Date.now();
-      timerIdRef.current = setTimeout(() => {
-        onClose(notification.key);
-      }, NOTIFICATION_DELAY - timeDifference);
+    if (isPaused) {
+      return;
     }
-  }, [isPaused]);
+    const timerId = setTimeout(() => {
+      handleClose();
+    }, timeLeft);
 
-  const pauseDelay = () => {
-    clearTimeout(timerIdRef.current);
-    endTimeRef.current = Date.now();
-    setTimeDifference(
-      (prev) => prev + endTimeRef.current - startTimeRef.current
-    );
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [isPaused, timeLeft, handleClose]);
+
+  const handlePause = useCallback(() => {
     setIsPaused(true);
-  };
+    const timeSinceStart = Date.now() - showStartDate.current;
+    setTimeLeft(timeLeft - timeSinceStart);
+  }, [timeLeft]);
 
-  const resumeDelay = () => {
+  const handleResume = useCallback(() => {
     setIsPaused(false);
-  };
+    showStartDate.current = Date.now();
+  }, []);
 
   return (
     <Toast
       bg={bg}
       onClose={handleClose}
       className={classNames(styles.notification)}
-      onMouseEnter={pauseDelay}
-      onMouseLeave={resumeDelay}
+      onMouseEnter={handlePause}
+      onMouseLeave={handleResume}
     >
       <div className="d-flex">
         <Toast.Body>{notification.message}</Toast.Body>
