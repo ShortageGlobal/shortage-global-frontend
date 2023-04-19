@@ -1,6 +1,5 @@
 import styles from './notification.module.scss';
-import { useMemo, useCallback } from 'react';
-import classNames from 'classnames';
+import { useMemo, useCallback, useState, useEffect, useRef } from 'react';
 import { Toast, CloseButton } from 'react-bootstrap';
 import { NOTIFICATION_TYPE, NOTIFICATION_DELAY } from 'core/constants';
 import type { Notification } from 'core/api/types';
@@ -11,6 +10,10 @@ type NotificationProps = {
 };
 
 export function Notification({ notification, onClose }: NotificationProps) {
+  const [isPaused, setIsPaused] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(NOTIFICATION_DELAY);
+  const showStartDate = useRef(Date.now());
+
   const bg = useMemo(() => {
     if (notification.type === NOTIFICATION_TYPE.SUCCESS) {
       return 'success';
@@ -24,13 +27,38 @@ export function Notification({ notification, onClose }: NotificationProps) {
     return onClose(notification.key);
   }, [notification.key]);
 
+  const handlePause = useCallback(() => {
+    setIsPaused(true);
+    const timeSinceStart = Date.now() - showStartDate.current;
+    setTimeLeft(timeLeft - timeSinceStart);
+  }, [timeLeft]);
+
+  const handleResume = useCallback(() => {
+    setIsPaused(false);
+    showStartDate.current = Date.now();
+  }, []);
+
+  // close notification by timeout
+  useEffect(() => {
+    if (isPaused) {
+      return;
+    }
+    const timerId = setTimeout(() => {
+      handleClose();
+    }, timeLeft);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [isPaused, timeLeft, handleClose]);
+
   return (
     <Toast
       bg={bg}
-      autohide
-      delay={NOTIFICATION_DELAY}
+      className={styles.notification}
       onClose={handleClose}
-      className={classNames(styles.notification)}
+      onMouseEnter={handlePause}
+      onMouseLeave={handleResume}
     >
       <div className="d-flex">
         <Toast.Body>{notification.message}</Toast.Body>
@@ -40,6 +68,13 @@ export function Notification({ notification, onClose }: NotificationProps) {
           onClick={handleClose}
         />
       </div>
+      <div
+        className={styles.progressBar}
+        style={{
+          animationDuration: `${NOTIFICATION_DELAY}ms`,
+          animationPlayState: isPaused ? 'paused' : 'running',
+        }}
+      />
     </Toast>
   );
 }
