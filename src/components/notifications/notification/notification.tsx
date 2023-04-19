@@ -1,6 +1,5 @@
 import styles from './notification.module.scss';
 import { useMemo, useCallback, useState, useEffect, useRef } from 'react';
-import classNames from 'classnames';
 import { Toast, CloseButton } from 'react-bootstrap';
 import { NOTIFICATION_TYPE, NOTIFICATION_DELAY } from 'core/constants';
 import type { Notification } from 'core/api/types';
@@ -28,6 +27,18 @@ export function Notification({ notification, onClose }: NotificationProps) {
     return onClose(notification.key);
   }, [notification.key]);
 
+  const handlePause = useCallback(() => {
+    setIsPaused(true);
+    const timeSinceStart = Date.now() - showStartDate.current;
+    setTimeLeft(timeLeft - timeSinceStart);
+  }, [timeLeft]);
+
+  const handleResume = useCallback(() => {
+    setIsPaused(false);
+    showStartDate.current = Date.now();
+  }, []);
+
+  // close notification by timeout
   useEffect(() => {
     if (isPaused) {
       return;
@@ -41,22 +52,11 @@ export function Notification({ notification, onClose }: NotificationProps) {
     };
   }, [isPaused, timeLeft, handleClose]);
 
-  const handlePause = useCallback(() => {
-    setIsPaused(true);
-    const timeSinceStart = Date.now() - showStartDate.current;
-    setTimeLeft(timeLeft - timeSinceStart);
-  }, [timeLeft]);
-
-  const handleResume = useCallback(() => {
-    setIsPaused(false);
-    showStartDate.current = Date.now();
-  }, []);
-
   return (
     <Toast
       bg={bg}
+      className={styles.notification}
       onClose={handleClose}
-      className={classNames(styles.notification)}
       onMouseEnter={handlePause}
       onMouseLeave={handleResume}
     >
