@@ -228,6 +228,19 @@
       }
     }
 
+    .sectionSubHeader {
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1.1rem;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 1rem;
+      }
+    }
+
     .sectionText {
       font-size: 1.3rem;
 
@@ -247,12 +260,73 @@
 
     .illustrationCol {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
 
       .illustration {
         max-width: 100%;
       }
+    }
+  }
+
+  .subscriptionPlan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .subscriptionTitle {
+    font-size: 1.75rem;
+    font-weight: 500;
+    text-align: center;
+
+    text-decoration: underline;
+    -webkit-text-decoration-color: $primary;
+    text-decoration-color: $primary;
+    text-decoration-thickness: 3px;
+  }
+
+  .subscriptionCostWrap {
+    display: grid;
+    margin: 1rem 0;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.25rem 0.5rem;
+    grid-template-areas:
+      'price priceMonthly'
+      'price priceAnnualy';
+
+    .price {
+      grid-area: price;
+      font-size: 3rem;
+      font-weight: 700;
+      color: $primary;
+    }
+
+    .priceMonthly {
+      grid-area: priceMonthly;
+      align-self: end;
+      font-size: 1.5rem;
+      line-height: 1;
+      font-weight: 700;
+      color: $primary;
+    }
+
+    .priceAnnualy {
+      grid-area: priceAnnualy;
+      font-size: 1rem;
+      line-height: 1;
+    }
+  }
+
+  .subscriptionFeatures {
+    > * + * {
+      margin-top: 0.5rem;
     }
   }
 
