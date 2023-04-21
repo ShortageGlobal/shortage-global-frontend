@@ -272,6 +272,88 @@ const ForNonprofits: NextPageWithLayout = () => {
           </Row>
         </div>
 
+        <div className={classNames(styles.section, styles.sectionGrey)}>
+          <Row>
+            <div className={classNames(styles.sectionHeader, 'text-center')}>
+              Subscription plans <strong>for nonprofits</strong>
+            </div>
+
+            <div className={classNames(styles.sectionSubHeader, 'text-center')}>
+              In order to grow and develop the platform, we charge a
+              subscription fee. All new partners receive a free 3 month trial
+              period!
+            </div>
+          </Row>
+
+          <Row>
+            <Col
+              lg={{ span: 4, order: 1 }}
+              xxs={{ order: 4 }}
+              className={styles.illustrationCol}
+            >
+              <Image
+                className={styles.illustration}
+                src="/images/for-nonprofits/subscriptions_pot.svg"
+                alt=""
+                width={220}
+                height={220}
+              />
+
+              <Button
+                size="lg"
+                className={classNames(styles.bookDemo, 'mt-4')}
+                onClick={handleBookDemo}
+              >
+                Book a demo
+              </Button>
+            </Col>
+
+            <Col lg={{ span: 4, order: 2 }} md={{ span: 6, order: 2 }}>
+              <div className={styles.subscriptionPlan}>
+                <div className={styles.subscriptionTitle}>Basic</div>
+
+                <div className={styles.subscriptionCostWrap}>
+                  <div className={styles.price}>$12</div>
+                  <div className={styles.priceMonthly}>monthly</div>
+                  <div className={styles.priceAnnualy}>
+                    or <b>$100</b> per year
+                  </div>
+                </div>
+
+                <ul className={styles.subscriptionFeatures}>
+                  <li>Personal account</li>
+                  <li>24/7 moderator support</li>
+                  <li>
+                    Donor communication is managed on our end (with LiveChat)
+                  </li>
+                  <li>Access to all statistics</li>
+                </ul>
+              </div>
+            </Col>
+
+            <Col lg={{ span: 4, order: 3 }} md={{ span: 6, order: 3 }}>
+              <div className={styles.subscriptionPlan}>
+                <div className={styles.subscriptionTitle}>Standart</div>
+
+                <div className={styles.subscriptionCostWrap}>
+                  <div className={styles.price}>$25</div>
+                  <div className={styles.priceMonthly}>monthly</div>
+                  <div className={styles.priceAnnualy}>
+                    or <b>$210</b> per year
+                  </div>
+                </div>
+
+                <ul className={styles.subscriptionFeatures}>
+                  <li>Everything from the &quot;Basic&quot; package</li>
+                  <li>Publishing a press release</li>
+                  <li>Writing a digest and emailing to Shortage partners</li>
+                  <li>Create content for your social media </li>
+                </ul>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
         <div className={classNames(styles.section, styles.partnersSection)}>
           <Row>
             <div className={classNames(styles.sectionHeader, 'text-center')}>
