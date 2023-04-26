@@ -280,8 +280,10 @@ const ForNonprofits: NextPageWithLayout = () => {
 
             <div className={classNames(styles.sectionSubHeader, 'text-center')}>
               In order to grow and develop the platform, we charge a
-              subscription fee. All new partners receive a free 3 month trial
-              period!
+              subscription fee. All new partners receive{' '}
+              <span className={styles.subHeaderHighlight}>
+                a free 3 month trial period!
+              </span>
             </div>
           </Row>
 
@@ -333,7 +335,7 @@ const ForNonprofits: NextPageWithLayout = () => {
 
             <Col lg={{ span: 4, order: 3 }} md={{ span: 6, order: 3 }}>
               <div className={styles.subscriptionPlan}>
-                <div className={styles.subscriptionTitle}>Standart</div>
+                <div className={styles.subscriptionTitle}>Standard</div>
 
                 <div className={styles.subscriptionCostWrap}>
                   <div className={styles.price}>$25</div>
