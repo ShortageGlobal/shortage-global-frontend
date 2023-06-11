@@ -1,6 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import {
@@ -8,6 +8,7 @@ import {
   useNotifications,
   useCancelToken,
   isRequestCancel,
+  useNavigationLock,
 } from 'core/hooks';
 import { updateProfile } from 'core/api';
 import { LoadingMessage } from 'components/loading-message/loading-message';
@@ -44,6 +45,13 @@ export function ProfileForm() {
     setLastName(profile?.lastName || '');
     setPhoneNumber(profile?.phoneNumber || '');
   }, [profile]);
+
+  const isFormProtected = useMemo(() => {
+    if (firstName === '' && lastName === '' && phoneNumber === '') return false;
+    return true;
+  }, [firstName, lastName, phoneNumber, profile]);
+
+  useNavigationLock(isFormProtected);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -99,6 +107,11 @@ export function ProfileForm() {
       );
     });
 
+  const handleFirstnameChange = (e) => {
+    setFirstName(e.target.value);
+    console.log(e.target.value, isFormProtected);
+  };
+
   return (
     <>
       {!isProfileReady ? (
@@ -126,7 +139,7 @@ export function ProfileForm() {
                     type="text"
                     autoFocus
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    onChange={handleFirstnameChange}
                     isValid={getIsValid(ERROR_KEYS.firstName)}
                     isInvalid={getIsInvalid(ERROR_KEYS.firstName)}
                   />
@@ -186,9 +199,12 @@ export function ProfileForm() {
                   {getErrorsFeedback(ERROR_KEYS.phoneNumber)}
                 </Form.Group>
               </Row>
-
               <Row>
                 <Col>
+                  {/* Temporary button for check  */}
+                  <Button onClick={() => console.log(isFormProtected)}>
+                    Check
+                  </Button>
                   <Button
                     type="submit"
                     size="lg"
