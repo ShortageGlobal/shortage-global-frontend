@@ -47,8 +47,14 @@ export function ProfileForm() {
   }, [profile]);
 
   const isFormProtected = useMemo(() => {
-    if (firstName === '' && lastName === '' && phoneNumber === '') return false;
-    return true;
+    if (
+      profile &&
+      firstName === profile.firstName &&
+      lastName === profile.lastName &&
+      phoneNumber === profile.phoneNumber
+    )
+      return true;
+    return false;
   }, [firstName, lastName, phoneNumber, profile]);
 
   useNavigationLock(isFormProtected);

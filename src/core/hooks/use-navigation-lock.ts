@@ -2,20 +2,20 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 export function useNavigationLock(
-  isEnabled = true,
+  isFormProtected = false,
   warningText = 'You have unsaved changes - are you sure you wish to leave this page?'
 ) {
   const router = useRouter();
 
   useEffect(() => {
     const handleWindowsClose = (e: BeforeUnloadEvent) => {
-      if (!isEnabled) return;
+      if (isFormProtected) return;
       e.preventDefault();
       return (e.returnValue = warningText);
     };
 
     const handleBrowserAway = () => {
-      if (!isEnabled) return;
+      if (isFormProtected) return;
       if (window.confirm(warningText)) return;
       router.events.emit('routeChangeError');
       throw 'routeChange abandoned';
@@ -29,5 +29,5 @@ export function useNavigationLock(
       window.removeEventListener('beforeunload', handleWindowsClose);
       router.events.off('routeChangeStart', handleBrowserAway);
     };
-  }, [isEnabled]);
+  }, [isFormProtected]);
 }
