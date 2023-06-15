@@ -197,7 +197,10 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
 
                     {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
                       <dl>
-                        <dt>Total donation (including Stripe fee and taxes)</dt>
+                        <dt>
+                          Total donation (including delivery, taxes, and
+                          administration fee)
+                        </dt>
                         <dd>{formatPrice(totalPrice)}</dd>
                       </dl>
                     ) : null}

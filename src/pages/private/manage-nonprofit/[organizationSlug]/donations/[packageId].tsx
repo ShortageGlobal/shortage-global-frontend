@@ -451,7 +451,8 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                     {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
                       <dl className="mt-4">
                         <dt>
-                          Total amount funded (including Stripe fee and taxes)
+                          Total amount funded (including delivery, taxes, and
+                          administration fee)
                         </dt>
                         <dd>{formatPrice(totalPrice)}</dd>
                       </dl>
