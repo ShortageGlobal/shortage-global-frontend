@@ -206,10 +206,6 @@ export function ProfileForm() {
               </Row>
               <Row>
                 <Col>
-                  {/* Temporary button for check  */}
-                  <Button onClick={() => console.log(isFormDirty)}>
-                    Check
-                  </Button>
                   <Button
                     type="submit"
                     size="lg"
