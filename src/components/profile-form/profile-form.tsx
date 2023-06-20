@@ -1,6 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import {
@@ -8,6 +8,7 @@ import {
   useNotifications,
   useCancelToken,
   isRequestCancel,
+  useNavigationLock,
 } from 'core/hooks';
 import { updateProfile } from 'core/api';
 import { LoadingMessage } from 'components/loading-message/loading-message';
@@ -44,6 +45,19 @@ export function ProfileForm() {
     setLastName(profile?.lastName || '');
     setPhoneNumber(profile?.phoneNumber || '');
   }, [profile]);
+
+  const isFormDirty = useMemo(() => {
+    if (
+      profile &&
+      firstName === profile.firstName &&
+      lastName === profile.lastName &&
+      phoneNumber === profile.phoneNumber
+    )
+      return false;
+    return true;
+  }, [firstName, lastName, phoneNumber, profile]);
+
+  useNavigationLock(isFormDirty);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -186,7 +200,6 @@ export function ProfileForm() {
                   {getErrorsFeedback(ERROR_KEYS.phoneNumber)}
                 </Form.Group>
               </Row>
-
               <Row>
                 <Col>
                   <Button
