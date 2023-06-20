@@ -113,10 +113,6 @@ export function ProfileForm() {
       );
     });
 
-  const handleFirstnameChange = (e) => {
-    setFirstName(e.target.value);
-  };
-
   return (
     <>
       {!isProfileReady ? (
@@ -144,7 +140,7 @@ export function ProfileForm() {
                     type="text"
                     autoFocus
                     value={firstName}
-                    onChange={handleFirstnameChange}
+                    onChange={(e) => setFirstName(e.target.value)}
                     isValid={getIsValid(ERROR_KEYS.firstName)}
                     isInvalid={getIsInvalid(ERROR_KEYS.firstName)}
                   />
