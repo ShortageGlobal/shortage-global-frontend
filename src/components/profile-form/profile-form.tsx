@@ -46,18 +46,18 @@ export function ProfileForm() {
     setPhoneNumber(profile?.phoneNumber || '');
   }, [profile]);
 
-  const isFormProtected = useMemo(() => {
+  const isFormDirty = useMemo(() => {
     if (
       profile &&
       firstName === profile.firstName &&
       lastName === profile.lastName &&
       phoneNumber === profile.phoneNumber
     )
-      return true;
-    return false;
+      return false;
+    return true;
   }, [firstName, lastName, phoneNumber, profile]);
 
-  useNavigationLock(isFormProtected);
+  useNavigationLock(isFormDirty);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -115,7 +115,6 @@ export function ProfileForm() {
 
   const handleFirstnameChange = (e) => {
     setFirstName(e.target.value);
-    console.log(e.target.value, isFormProtected);
   };
 
   return (
@@ -208,7 +207,7 @@ export function ProfileForm() {
               <Row>
                 <Col>
                   {/* Temporary button for check  */}
-                  <Button onClick={() => console.log(isFormProtected)}>
+                  <Button onClick={() => console.log(isFormDirty)}>
                     Check
                   </Button>
                   <Button
