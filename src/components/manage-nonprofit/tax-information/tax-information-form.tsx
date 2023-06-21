@@ -1,6 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, Alert, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import {
@@ -8,6 +8,7 @@ import {
   useNotifications,
   useCancelToken,
   isRequestCancel,
+  useNavigationLock,
 } from 'core/hooks';
 import { selectAccountOrganization } from 'core/store/slices/account-organization';
 import { updateAccountOrganization } from 'core/api';
@@ -114,6 +115,49 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
 
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
 
+  const isFormDirty = useMemo(() => {
+    if (
+      organization &&
+      einNumber === organization.ein_number &&
+      addressLine1 === organization.address_line1 &&
+      addressLine2 === organization.address_line2 &&
+      city === organization.city &&
+      stateProvinceRegion === organization.state_province_region &&
+      zip === organization.zip &&
+      country === organization.country &&
+      representativeFirstName === organization.representative_first_name &&
+      representativeLastName === organization.representative_last_name &&
+      representativeEmail === organization.representative_email &&
+      representativeUrl === organization.representative_url &&
+      representativePhoneNumber === organization.representative_phone_number &&
+      // representativeSignature == organization.representative_signature &&
+      receiptPreamble === organization.tax_deduction_receipt_preamble &&
+      receiptLegalInformation ===
+        organization.tax_deduction_receipt_legal_information
+    )
+      return false;
+    return true;
+  }, [
+    organization,
+    einNumber,
+    addressLine1,
+    addressLine2,
+    city,
+    stateProvinceRegion,
+    zip,
+    country,
+    representativeFirstName,
+    representativeLastName,
+    representativeEmail,
+    representativeUrl,
+    representativePhoneNumber,
+    representativeSignature,
+    receiptPreamble,
+    receiptLegalInformation,
+  ]);
+
+  useNavigationLock(isFormDirty);
+
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -210,6 +254,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
     <Row>
       <Col>
         <Form className={commonStyles.form} onSubmit={handleFormSubmit}>
+          <Button onClick={() => console.log(isFormDirty)}>Check</Button>
           <Row>
             <Col>
               <Alert variant="info" className="mb-4">
