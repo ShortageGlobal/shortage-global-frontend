@@ -254,7 +254,64 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
     <Row>
       <Col>
         <Form className={commonStyles.form} onSubmit={handleFormSubmit}>
-          <Button onClick={() => console.log(isFormDirty)}>Check</Button>
+          <Button
+            onClick={() =>
+              console.log(
+                'einNumber === organization.ein_number, ',
+                einNumber === organization.ein_number,
+                '\n',
+                'addressLine1 === organization.address_line1, ',
+                addressLine1 === organization.address_line1,
+                '\n',
+                'addressLine2 === organization.address_line2, ',
+                addressLine2 === organization.address_line2,
+                '\n',
+                'city === organization.city, ',
+                city === organization.city,
+                '\n',
+                'stateProvinceRegion === organization.state_province_region, ',
+                stateProvinceRegion === organization.state_province_region,
+                '\n',
+                'zip === organization.zip, ',
+                zip === organization.zip,
+                '\n',
+                'country === organization.country, ',
+                country === organization.country,
+                '\n',
+                'representativeFirstName === organization.representative_first_name, ',
+                representativeFirstName ===
+                  organization.representative_first_name,
+                '\n',
+                'representativeLastName === organization.representative_last_name, ',
+                representativeLastName ===
+                  organization.representative_last_name,
+                '\n',
+                'representativeEmail === organization.representative_email, ',
+                representativeEmail === organization.representative_email,
+                '\n',
+                'representativeUrl === organization.representative_url, ',
+                representativeUrl === organization.representative_url,
+                '\n',
+                'representativePhoneNumber === organization.representative_phone_number',
+                representativePhoneNumber ===
+                  organization.representative_phone_number,
+                '\n',
+                'representativeSignature == organization.representative_signature',
+                representativeSignature ===
+                  organization.representative_signature,
+                '\n',
+                'receiptPreamble === organization.tax_deduction_receipt_preamble , ',
+                receiptPreamble === organization.tax_deduction_receipt_preamble,
+                '\n',
+                'receiptLegalInformation === organization.tax_deduction_receipt_legal_information',
+                receiptLegalInformation ===
+                  organization.tax_deduction_receipt_legal_information,
+                '\n'
+              )
+            }
+          >
+            Check
+          </Button>
           <Row>
             <Col>
               <Alert variant="info" className="mb-4">
