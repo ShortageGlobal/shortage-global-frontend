@@ -1,6 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import { useRouter } from 'next/router';
@@ -10,13 +10,14 @@ import {
   useNotifications,
   useCancelToken,
   isRequestCancel,
+  useNavigationLock,
 } from 'core/hooks';
 import {
   selectAccountOrganization,
   patchOrganization,
 } from 'core/store/slices/account-organization';
 import { updateAccountOrganization } from 'core/api';
-import { stripProtocolFromUrl } from 'core/helpers';
+import { stripProtocolFromUrl, bothEmptyOrEqual } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
 import { FormControlExample } from 'components/form-control-example/form-control-example';
 import { ROOT_URL } from 'core/constants';
@@ -68,25 +69,79 @@ export function NonprofitPageForm() {
   const [missionDescription, setMissionDescription] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
 
-  // store organization in state
-  useEffect(() => {
-    setName(organization?.name || '');
-    setSlug(organization?.slug || '');
-    setLogo(organization?.logo ? [{ dataURL: organization.logo }] : []);
-    setBanner(organization?.banner ? [{ dataURL: organization.banner }] : []);
-    setUrl(organization?.url || '');
-    setDeadline(
-      organization?.deadline
+  const defaultValues = useMemo(() => {
+    return Object.freeze({
+      name: organization?.name || '',
+      slug: organization?.slug || '',
+      logo: organization?.logo ? [{ dataURL: organization.logo }] : [],
+      banner: organization?.banner ? [{ dataURL: organization.banner }] : [],
+      url: organization?.url || '',
+      deadline: organization?.deadline
         ? new Date(organization.deadline).toLocaleString('sv')
-        : ''
-    );
-    setDescription(organization?.description || '');
-    setMetaDescription(organization?.meta_description || '');
-    setRequestedGoods(organization?.requested_goods || '');
-    setMissionDescription(organization?.mission_description || '');
+        : '',
+      description: organization?.description || '',
+      requestedGoods: organization?.requested_goods || '',
+      missionDescription: organization?.mission_description || '',
+      metaDescription: organization?.meta_description || '',
+    });
   }, [organization]);
 
+  // store organization in state
+  useEffect(() => {
+    setName(defaultValues.name);
+    setSlug(defaultValues.slug);
+    setLogo(defaultValues.logo);
+    setBanner(defaultValues.banner);
+    setUrl(defaultValues.url);
+    setDeadline(defaultValues.deadline);
+    setDescription(defaultValues.description);
+    setRequestedGoods(defaultValues.requestedGoods);
+    setMissionDescription(defaultValues.missionDescription);
+    setMetaDescription(defaultValues.metaDescription);
+  }, [defaultValues]);
+
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
+
+  const isFormDirty = useMemo(() => {
+    if (isSaving) {
+      return false;
+    }
+
+    if (
+      bothEmptyOrEqual(defaultValues.name, name) &&
+      bothEmptyOrEqual(defaultValues.slug, slug) &&
+      bothEmptyOrEqual(defaultValues.url, url) &&
+      bothEmptyOrEqual(defaultValues.logo[0]?.dataURL, logo[0]?.dataURL) &&
+      bothEmptyOrEqual(defaultValues.banner[0]?.dataURL, banner[0]?.dataURL) &&
+      bothEmptyOrEqual(
+        defaultValues.deadline,
+        deadline ? new Date(deadline).toLocaleString('sv') : ''
+      ) &&
+      bothEmptyOrEqual(defaultValues.description, description) &&
+      bothEmptyOrEqual(defaultValues.requestedGoods, requestedGoods) &&
+      bothEmptyOrEqual(defaultValues.missionDescription, missionDescription) &&
+      bothEmptyOrEqual(defaultValues.metaDescription, metaDescription)
+    ) {
+      return false;
+    }
+
+    return true;
+  }, [
+    defaultValues,
+    isSaving,
+    name,
+    slug,
+    logo,
+    banner,
+    url,
+    deadline,
+    description,
+    requestedGoods,
+    missionDescription,
+    metaDescription,
+  ]);
+
+  useNavigationLock(isFormDirty);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
