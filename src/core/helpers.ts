@@ -215,9 +215,3 @@ export function bothEmptyOrEqual<
 >(a: T, b: T) {
   return (!a && !b) || a === b;
 }
-
-// bothEmptyOrEqual('a', 'b');
-// bothEmptyOrEqual('a', 12);
-// bothEmptyOrEqual(12, 32);
-// bothEmptyOrEqual(12, true);
-// bothEmptyOrEqual('', 12);

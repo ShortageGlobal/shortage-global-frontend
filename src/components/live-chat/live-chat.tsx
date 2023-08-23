@@ -6,7 +6,7 @@ import type { EventHandlerPayload } from '@livechat/widget-react';
 
 export function LiveChat() {
   /**
-   * Our LiveChat license has expired, so we are disabling it for now.
+   * Our LiveChat license has expired, so we are disabling the chat for now.
    */
   return null;
 
