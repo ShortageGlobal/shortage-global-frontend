@@ -3,7 +3,12 @@ import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
-import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
+import {
+  useNotifications,
+  useCancelToken,
+  isRequestCancel,
+  useNavigationLock,
+} from 'core/hooks';
 import { updateProfilePassword } from 'core/api';
 import type { FormEvent } from 'react';
 
@@ -25,6 +30,18 @@ export function ChangePasswordForm() {
   const [errors, setErrors] = useState<Record<ErrorKey, string[]>>(null);
 
   const getUpdateProfilePasswordCancelToken = useCancelToken();
+
+  const [isOldPasswordInputDirty, setIsOldPasswordInputDirty] = useState(false);
+  const [isNewPasswordInputDirty, setIsNewPasswordInputDirty] = useState(false);
+  const [isConfirmPasswordInputDirty, setIsConfirmPasswordInputDirty] =
+    useState(false);
+
+  const isFormDirty =
+    isOldPasswordInputDirty ||
+    isNewPasswordInputDirty ||
+    isConfirmPasswordInputDirty;
+
+  useNavigationLock(isFormDirty);
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -113,6 +130,7 @@ export function ChangePasswordForm() {
             required
             isValid={getIsValid(ERROR_KEYS.oldPassword)}
             isInvalid={getIsInvalid(ERROR_KEYS.oldPassword)}
+            onChange={(e) => setIsOldPasswordInputDirty(!!e.target.value)}
           />
           {getErrorsFeedback(ERROR_KEYS.oldPassword)}
         </Form.Group>
@@ -133,6 +151,7 @@ export function ChangePasswordForm() {
             required
             isValid={getIsValid(ERROR_KEYS.newPassword)}
             isInvalid={getIsInvalid(ERROR_KEYS.newPassword)}
+            onChange={(e) => setIsNewPasswordInputDirty(!!e.target.value)}
           />
           {getErrorsFeedback(ERROR_KEYS.newPassword)}
         </Form.Group>
@@ -151,6 +170,7 @@ export function ChangePasswordForm() {
             required
             isValid={getIsValid(ERROR_KEYS.confirmPassword)}
             isInvalid={getIsInvalid(ERROR_KEYS.confirmPassword)}
+            onChange={(e) => setIsConfirmPasswordInputDirty(!!e.target.value)}
           />
           {getErrorsFeedback(ERROR_KEYS.confirmPassword)}
         </Form.Group>
