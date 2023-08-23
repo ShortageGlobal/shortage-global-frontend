@@ -63,8 +63,6 @@ export function ProfileForm() {
     return true;
   }, [profile, firstName, lastName, phoneNumber]);
 
-  console.log({ isFormDirty });
-
   useNavigationLock(isFormDirty);
 
   const handleFormSubmit = useCallback(

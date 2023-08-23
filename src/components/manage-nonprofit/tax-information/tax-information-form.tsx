@@ -1,16 +1,22 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, Alert, Button } from 'react-bootstrap';
 import { Loader } from 'react-feather';
 import {
+  useAppDispatch,
   useAppSelector,
   useNotifications,
   useCancelToken,
   isRequestCancel,
+  useNavigationLock,
 } from 'core/hooks';
-import { selectAccountOrganization } from 'core/store/slices/account-organization';
+import {
+  selectAccountOrganization,
+  patchOrganization,
+} from 'core/store/slices/account-organization';
 import { updateAccountOrganization } from 'core/api';
+import { bothEmptyOrEqual } from 'core/helpers';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
 import { FormControlExample } from 'components/form-control-example/form-control-example';
@@ -59,6 +65,7 @@ type TaxInformationFormProps = {
 };
 
 export function TaxInformationForm({ countries }: TaxInformationFormProps) {
+  const dispatch = useAppDispatch();
   const { showNotification } = useNotifications();
 
   const { organization } = useAppSelector(selectAccountOrganization);
@@ -85,32 +92,117 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
   const [receiptPreamble, setReceiptPreamble] = useState('');
   const [receiptLegalInformation, setReceiptLegalInformation] = useState('');
 
-  // store organization in state
-  useEffect(() => {
-    setEinNumber(organization?.ein_number || '');
-    setAddressLine1(organization?.address_line1 || '');
-    setAddressLine2(organization?.address_line2 || '');
-    setCity(organization?.city || '');
-    setStateProvinceRegion(organization?.state_province_region || '');
-    setZip(organization?.zip || '');
-    setCountry(organization?.country || '');
-    setRepresentativeFirstName(organization?.representative_first_name || '');
-    setRepresentativeLastName(organization?.representative_last_name || '');
-    setRepresentativeEmail(organization?.representative_email || '');
-    setRepresentativeUrl(organization?.representative_url || '');
-    setRepresentativePhoneNumber(
-      organization?.representative_phone_number || ''
-    );
-    setRepresentativeSignature(
-      organization?.representative_signature
+  const defaultValues = useMemo(() => {
+    return Object.freeze({
+      einNumber: organization?.ein_number || '',
+      addressLine1: organization?.address_line1 || '',
+      addressLine2: organization?.address_line2 || '',
+      city: organization?.city || '',
+      stateProvinceRegion: organization?.state_province_region || '',
+      zip: organization?.zip || '',
+      country: organization?.country || '',
+      representativeFirstName: organization?.representative_first_name || '',
+      representativeLastName: organization?.representative_last_name || '',
+      representativeEmail: organization?.representative_email || '',
+      representativeUrl: organization?.representative_url || '',
+      representativePhoneNumber:
+        organization?.representative_phone_number || '',
+      representativeSignature: organization?.representative_signature
         ? [{ dataURL: organization.representative_signature }]
-        : []
-    );
-    setReceiptPreamble(organization?.tax_deduction_receipt_preamble || '');
-    setReceiptLegalInformation(
-      organization?.tax_deduction_receipt_legal_information || ''
-    );
+        : [],
+      receiptPreamble: organization?.tax_deduction_receipt_preamble || '',
+      receiptLegalInformation:
+        organization?.tax_deduction_receipt_legal_information || '',
+    });
   }, [organization]);
+
+  // store tax information in state
+  useEffect(() => {
+    setEinNumber(defaultValues.einNumber);
+    setAddressLine1(defaultValues.addressLine1);
+    setAddressLine2(defaultValues.addressLine2);
+    setCity(defaultValues.city);
+    setStateProvinceRegion(defaultValues.stateProvinceRegion);
+    setZip(defaultValues.zip);
+    setCountry(defaultValues.country);
+    setRepresentativeFirstName(defaultValues.representativeFirstName);
+    setRepresentativeLastName(defaultValues.representativeLastName);
+    setRepresentativeEmail(defaultValues.representativeEmail);
+    setRepresentativeUrl(defaultValues.representativeUrl);
+    setRepresentativePhoneNumber(defaultValues.representativePhoneNumber);
+    setRepresentativeSignature(defaultValues.representativeSignature);
+    setReceiptPreamble(defaultValues.receiptPreamble);
+    setReceiptLegalInformation(defaultValues.receiptLegalInformation);
+  }, [defaultValues]);
+
+  const isFormDirty = useMemo(() => {
+    if (isSaving) {
+      return false;
+    }
+
+    if (
+      bothEmptyOrEqual(defaultValues.einNumber, einNumber) &&
+      bothEmptyOrEqual(defaultValues.addressLine1, addressLine1) &&
+      bothEmptyOrEqual(defaultValues.addressLine2, addressLine2) &&
+      bothEmptyOrEqual(defaultValues.city, city) &&
+      bothEmptyOrEqual(
+        defaultValues.stateProvinceRegion,
+        stateProvinceRegion
+      ) &&
+      bothEmptyOrEqual(defaultValues.zip, zip) &&
+      bothEmptyOrEqual(defaultValues.country, country) &&
+      bothEmptyOrEqual(
+        defaultValues.representativeFirstName,
+        representativeFirstName
+      ) &&
+      bothEmptyOrEqual(
+        defaultValues.representativeLastName,
+        representativeLastName
+      ) &&
+      bothEmptyOrEqual(
+        defaultValues.representativeEmail,
+        representativeEmail
+      ) &&
+      bothEmptyOrEqual(defaultValues.representativeUrl, representativeUrl) &&
+      bothEmptyOrEqual(
+        defaultValues.representativePhoneNumber,
+        representativePhoneNumber
+      ) &&
+      bothEmptyOrEqual(
+        defaultValues.representativeSignature[0]?.dataURL,
+        representativeSignature[0]?.dataURL
+      ) &&
+      bothEmptyOrEqual(defaultValues.receiptPreamble, receiptPreamble) &&
+      bothEmptyOrEqual(
+        defaultValues.receiptLegalInformation,
+        receiptLegalInformation
+      )
+    ) {
+      return false;
+    }
+
+    return true;
+  }, [
+    defaultValues,
+    isSaving,
+    einNumber,
+    addressLine1,
+    addressLine2,
+    city,
+    stateProvinceRegion,
+    zip,
+    country,
+    representativeFirstName,
+    representativeLastName,
+    representativeEmail,
+    representativeUrl,
+    representativePhoneNumber,
+    representativeSignature,
+    receiptPreamble,
+    receiptLegalInformation,
+  ]);
+
+  useNavigationLock(isFormDirty);
 
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
 
@@ -127,7 +219,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
       const cancelToken = getUpdateAccountOrganizationCancelToken();
 
       try {
-        await updateAccountOrganization({
+        const response = await updateAccountOrganization({
           organizationSlug: organization.slug,
           einNumber,
           addressLine1,
@@ -154,6 +246,9 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
           isSuccess: true,
           message: 'Tax information details saved successfully',
         });
+
+        // update organization in store
+        dispatch(patchOrganization(response.data));
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
           return;
