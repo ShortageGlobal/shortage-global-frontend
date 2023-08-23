@@ -9,6 +9,7 @@ import {
   useNotifications,
   useCancelToken,
   isRequestCancel,
+  useNavigationLock,
 } from 'core/hooks';
 import { selectAccountOrganization } from 'core/store/slices/account-organization';
 import {
@@ -20,6 +21,7 @@ import {
   createAccountDeliveryInstruction,
   updateAccountDeliveryInstruction,
 } from 'core/api';
+import { bothEmptyOrEqual } from 'core/helpers';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import { FormControlExample } from 'components/form-control-example/form-control-example';
 import type { FormEvent } from 'react';
@@ -71,17 +73,67 @@ export function DeliveryInstructionForm() {
     return deliveryInstructions?.[0];
   }, [deliveryInstructions]);
 
-  // store organization in state
-  useEffect(() => {
-    setFacilityName(deliveryInstruction?.name || '');
-    setAddressLine1(deliveryInstruction?.address_line1 || '');
-    setAddressLine2(deliveryInstruction?.address_line2 || '');
-    setCity(deliveryInstruction?.city || '');
-    setStateProvinceRegion(deliveryInstruction?.state_province_region || '');
-    setZip(deliveryInstruction?.zip || '');
-    setPhoneNumber(deliveryInstruction?.phone_number || '');
-    setComment(deliveryInstruction?.comment || '');
+  const defaultValues = useMemo(() => {
+    return Object.freeze({
+      facilityName: deliveryInstruction?.name || '',
+      addressLine1: deliveryInstruction?.address_line1 || '',
+      addressLine2: deliveryInstruction?.address_line2 || '',
+      city: deliveryInstruction?.city || '',
+      stateProvinceRegion: deliveryInstruction?.state_province_region || '',
+      zip: deliveryInstruction?.zip || '',
+      phoneNumber: deliveryInstruction?.phone_number || '',
+      comment: deliveryInstruction?.comment || '',
+    });
   }, [deliveryInstruction]);
+
+  // store delivery instruction in state
+  useEffect(() => {
+    setFacilityName(defaultValues.facilityName);
+    setAddressLine1(defaultValues.addressLine1);
+    setAddressLine2(defaultValues.addressLine2);
+    setCity(defaultValues.city);
+    setStateProvinceRegion(defaultValues.stateProvinceRegion);
+    setZip(defaultValues.zip);
+    setPhoneNumber(defaultValues.phoneNumber);
+    setComment(defaultValues.comment);
+  }, [defaultValues]);
+
+  const isFormDirty = useMemo(() => {
+    if (isSaving) {
+      return false;
+    }
+
+    if (
+      bothEmptyOrEqual(defaultValues.facilityName, facilityName) &&
+      bothEmptyOrEqual(defaultValues.addressLine1, addressLine1) &&
+      bothEmptyOrEqual(defaultValues.addressLine2, addressLine2) &&
+      bothEmptyOrEqual(defaultValues.city, city) &&
+      bothEmptyOrEqual(
+        defaultValues.stateProvinceRegion,
+        stateProvinceRegion
+      ) &&
+      bothEmptyOrEqual(defaultValues.zip, zip) &&
+      bothEmptyOrEqual(defaultValues.phoneNumber, phoneNumber) &&
+      bothEmptyOrEqual(defaultValues.comment, comment)
+    ) {
+      return false;
+    }
+
+    return true;
+  }, [
+    defaultValues,
+    isSaving,
+    facilityName,
+    addressLine1,
+    addressLine2,
+    city,
+    stateProvinceRegion,
+    zip,
+    phoneNumber,
+    comment,
+  ]);
+
+  useNavigationLock(isFormDirty);
 
   const getUpdateAccountOrganizationCancelToken = useCancelToken();
 

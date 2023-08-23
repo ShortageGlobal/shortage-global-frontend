@@ -208,3 +208,10 @@ export async function fileDownload(fileUrl: string, fileName: string) {
 
   window.URL.revokeObjectURL(blobUrl);
 }
+
+// Check if two values are both falsy or equal
+export function bothEmptyOrEqual<
+  T extends string | number | boolean | null | undefined
+>(a: T, b: T) {
+  return (!a && !b) || a === b;
+}

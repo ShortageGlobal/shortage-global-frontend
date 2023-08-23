@@ -5,6 +5,11 @@ import { LIVE_CHAT_LICENCE_ID } from 'core/constants';
 import type { EventHandlerPayload } from '@livechat/widget-react';
 
 export function LiveChat() {
+  /**
+   * Our LiveChat license has expired, so we are disabling the chat for now.
+   */
+  return null;
+
   const dispatch = useAppDispatch();
   const { visibility } = useAppSelector(selectLiveChat);
 

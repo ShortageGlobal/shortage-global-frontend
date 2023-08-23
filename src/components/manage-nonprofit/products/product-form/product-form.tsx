@@ -1,21 +1,24 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { DollarSign, Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import {
   useAppSelector,
+  useAppDispatch,
   useNotifications,
   useCancelToken,
   isRequestCancel,
+  useNavigationLock,
 } from 'core/hooks';
 import { selectAccountOrganization } from 'core/store/slices/account-organization';
+import { patchProduct } from 'core/store/slices/account-product';
 import {
   createAccountOrganizationProduct,
   updateAccountOrganizationProduct,
 } from 'core/api';
-import { stripProtocolFromUrl, slugify } from 'core/helpers';
+import { stripProtocolFromUrl, slugify, bothEmptyOrEqual } from 'core/helpers';
 import { ImageUploadInput } from 'components/image-upload-input/image-upload-input';
 import { HtmlEditor } from 'components/html-editor/html-editor';
 import { PRODUCT_CATEGORY_DETAILS } from 'core/category-details';
@@ -60,6 +63,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   const router = useRouter();
   const { showNotification } = useNotifications();
 
+  const dispatch = useAppDispatch();
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const [isSaving, setIsSaving] = useState(false);
@@ -76,19 +80,33 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   const [description, setDescription] = useState(null);
   const [position, setPosition] = useState<string | number>('0');
 
+  const defaultValues = useMemo(() => {
+    return Object.freeze({
+      name: product?.name || '',
+      slug: product?.slug || '',
+      photo: product?.photo ? [{ dataURL: product.photo }] : [],
+      category: product?.category || '',
+      price: product?.price || '1',
+      requestedAmount: product?.requested_amount || '1',
+      topPriority: product?.top_priority || false,
+      description: product?.description || '',
+      position: product?.position || '0',
+    });
+  }, [product]);
+
   // store product in state
   useEffect(() => {
-    setName(product?.name || '');
-    setSlug(product?.slug || '');
-    setIsSlugPristine(!product?.slug);
-    setPhoto(product?.photo ? [{ dataURL: product.photo }] : []);
-    setCategory(product?.category || '');
-    setPrice(product?.price || '1');
-    setRequestedAmount(product?.requested_amount || '1');
-    setTopPriority(product?.top_priority || false);
-    setDescription(product?.description || '');
-    setPosition(product?.position || '0');
-  }, [product]);
+    setName(defaultValues.name);
+    setSlug(defaultValues.slug);
+    setIsSlugPristine(!defaultValues.slug);
+    setPhoto(defaultValues.photo);
+    setCategory(defaultValues.category);
+    setPrice(defaultValues.price);
+    setRequestedAmount(defaultValues.requestedAmount);
+    setTopPriority(defaultValues.topPriority);
+    setDescription(defaultValues.description);
+    setPosition(defaultValues.position);
+  }, [defaultValues]);
 
   // autofill slug based on the name if slug wasn't edited
   useEffect(() => {
@@ -96,6 +114,45 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       setSlug(slugify(name));
     }
   }, [name, isSlugPristine]);
+
+  const isFormDirty = useMemo(() => {
+    if (isSaving) {
+      return false;
+    }
+
+    if (
+      bothEmptyOrEqual(defaultValues.name, name) &&
+      bothEmptyOrEqual(defaultValues.slug, slug) &&
+      bothEmptyOrEqual(defaultValues.photo[0]?.dataURL, photo?.[0]?.dataURL) &&
+      bothEmptyOrEqual(defaultValues.category, category) &&
+      bothEmptyOrEqual(Number(defaultValues.price), Number(price)) &&
+      bothEmptyOrEqual(
+        Number(defaultValues.requestedAmount),
+        Number(requestedAmount)
+      ) &&
+      bothEmptyOrEqual(defaultValues.topPriority, topPriority) &&
+      bothEmptyOrEqual(defaultValues.description, description) &&
+      bothEmptyOrEqual(Number(defaultValues.position), Number(position))
+    ) {
+      return false;
+    }
+
+    return true;
+  }, [
+    defaultValues,
+    isSaving,
+    name,
+    slug,
+    photo,
+    category,
+    price,
+    requestedAmount,
+    topPriority,
+    description,
+    position,
+  ]);
+
+  useNavigationLock(isFormDirty);
 
   const getAccountProductCancelToken = useCancelToken();
 
@@ -137,7 +194,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             },
           });
         } else {
-          await updateAccountOrganizationProduct({
+          const response = await updateAccountOrganizationProduct({
             organizationSlug: organization.slug,
             productId: product.id,
             name,
@@ -151,6 +208,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             position: Number(position),
             cancelToken,
           });
+          dispatch(patchProduct(response.data));
           setIsSaving(false);
         }
 
@@ -439,7 +497,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
               <Form.Text as="div">
                 Change the order of goods on your page. The higher the value -
                 the higher the position on the list. <br />
-                Note: high priority items appear first.
+                Note: &quot;High Demand&quot; items appear first.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.position)}
             </Form.Group>

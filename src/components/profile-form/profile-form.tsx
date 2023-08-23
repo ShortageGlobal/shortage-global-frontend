@@ -11,6 +11,7 @@ import {
   useNavigationLock,
 } from 'core/hooks';
 import { updateProfile } from 'core/api';
+import { bothEmptyOrEqual } from 'core/helpers';
 import { LoadingMessage } from 'components/loading-message/loading-message';
 import { PhoneInput } from 'components/phone-input/phone-input';
 import type { FormEvent } from 'react';
@@ -47,15 +48,20 @@ export function ProfileForm() {
   }, [profile]);
 
   const isFormDirty = useMemo(() => {
-    if (
-      profile &&
-      firstName === profile.firstName &&
-      lastName === profile.lastName &&
-      phoneNumber === profile.phoneNumber
-    )
+    if (!profile) {
       return false;
+    }
+
+    if (
+      bothEmptyOrEqual(profile.firstName, firstName) &&
+      bothEmptyOrEqual(profile.lastName, lastName) &&
+      bothEmptyOrEqual(profile.phoneNumber, phoneNumber)
+    ) {
+      return false;
+    }
+
     return true;
-  }, [firstName, lastName, phoneNumber, profile]);
+  }, [profile, firstName, lastName, phoneNumber]);
 
   useNavigationLock(isFormDirty);
 
