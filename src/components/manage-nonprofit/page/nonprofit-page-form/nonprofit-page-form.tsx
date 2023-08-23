@@ -100,8 +100,6 @@ export function NonprofitPageForm() {
     setMetaDescription(defaultValues.metaDescription);
   }, [defaultValues]);
 
-  const getUpdateAccountOrganizationCancelToken = useCancelToken();
-
   const isFormDirty = useMemo(() => {
     if (isSaving) {
       return false;
@@ -142,6 +140,8 @@ export function NonprofitPageForm() {
   ]);
 
   useNavigationLock(isFormDirty);
+
+  const getUpdateAccountOrganizationCancelToken = useCancelToken();
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {

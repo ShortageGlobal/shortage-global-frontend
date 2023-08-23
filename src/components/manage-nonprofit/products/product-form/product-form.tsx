@@ -115,8 +115,6 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     }
   }, [name, isSlugPristine]);
 
-  const getAccountProductCancelToken = useCancelToken();
-
   const isFormDirty = useMemo(() => {
     if (isSaving) {
       return false;
@@ -155,6 +153,8 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   ]);
 
   useNavigationLock(isFormDirty);
+
+  const getAccountProductCancelToken = useCancelToken();
 
   const handleFormSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
