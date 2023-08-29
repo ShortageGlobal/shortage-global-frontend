@@ -298,6 +298,7 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setAddressLine1(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.addressLine1)}
                 isInvalid={getIsInvalid(ERROR_KEYS.addressLine1)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.addressLine1)}
             </Form.Group>
@@ -317,6 +318,7 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setAddressLine2(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.addressLine2)}
                 isInvalid={getIsInvalid(ERROR_KEYS.addressLine2)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.addressLine2)}
             </Form.Group>
@@ -336,6 +338,7 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setCity(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.city)}
                 isInvalid={getIsInvalid(ERROR_KEYS.city)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.city)}
             </Form.Group>
@@ -355,6 +358,7 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setStateProvinceRegion(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.stateProvinceRegion)}
                 isInvalid={getIsInvalid(ERROR_KEYS.stateProvinceRegion)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.stateProvinceRegion)}
             </Form.Group>
@@ -374,6 +378,7 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setZip(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.zip)}
                 isInvalid={getIsInvalid(ERROR_KEYS.zip)}
+                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.zip)}
             </Form.Group>
@@ -387,7 +392,10 @@ export function DeliveryInstructionForm() {
               <Form.Label>Phone Number</Form.Label>
               <PhoneInput
                 value={phoneNumber}
-                inputProps={{ id: 'phoneNumber' }}
+                inputProps={{
+                  id: 'phoneNumber',
+                  readOnly: !organization.is_draft,
+                }}
                 inputClass="form-control-lg"
                 isValid={getIsValid(ERROR_KEYS.phoneNumber)}
                 isInvalid={getIsInvalid(ERROR_KEYS.phoneNumber)}
@@ -421,6 +429,7 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setComment(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.comment)}
                 isInvalid={getIsInvalid(ERROR_KEYS.comment)}
+                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 Additional comment to the delivery instructions. Optional.
