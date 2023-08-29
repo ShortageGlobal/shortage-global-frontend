@@ -1,6 +1,7 @@
 import styles from './instructions-modal.module.scss';
 import classNames from 'classnames';
 import { useState } from 'react';
+import { Check } from 'react-feather';
 import Link from 'next/link';
 import { Modal, Button, ButtonGroup } from 'react-bootstrap';
 import { Organization, Instruction } from 'core/api/types';
@@ -45,14 +46,17 @@ export function InstructionsModal({
               active={isDropOff}
               onClick={() => setIsDropOff(true)}
             >
-              Drop Off
+              {isDropOff ? <Check size={20} /> : null}
+              <span>Drop Off</span>
             </Button>
+            <span className={styles.separator}>OR</span>
             <Button
               variant="outline-dark"
               active={!isDropOff}
               onClick={() => setIsDropOff(false)}
             >
-              Shipping
+              {!isDropOff ? <Check size={20} /> : null}
+              <span>Shipping</span>
             </Button>
           </ButtonGroup>
         </div>
