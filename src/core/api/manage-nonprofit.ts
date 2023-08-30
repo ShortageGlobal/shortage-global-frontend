@@ -461,6 +461,7 @@ export type UpdateAccountOrganizationProductParams = {
   price: AccountProduct['price'];
   requestedAmount: AccountProduct['requested_amount'];
   topPriority: AccountProduct['top_priority'];
+  isPublic: AccountProduct['is_public'];
   description: AccountProduct['description'];
   position: AccountProduct['position'];
 } & PaginationParams &
@@ -475,6 +476,7 @@ export async function updateAccountOrganizationProduct({
   price,
   requestedAmount,
   topPriority,
+  isPublic,
   description,
   position,
   cancelToken = null,
@@ -491,6 +493,7 @@ export async function updateAccountOrganizationProduct({
       price,
       requested_amount: requestedAmount,
       top_priority: topPriority,
+      is_public: isPublic,
       description,
       position,
     },
@@ -512,6 +515,7 @@ export type CreateAccountOrganizationProductParams = {
   price: AccountProduct['price'];
   requestedAmount: AccountProduct['requested_amount'];
   topPriority: AccountProduct['top_priority'];
+  isPublic: AccountProduct['is_public'];
   description: AccountProduct['description'];
   position: AccountProduct['position'];
 } & PaginationParams &
@@ -525,6 +529,7 @@ export async function createAccountOrganizationProduct({
   price,
   requestedAmount,
   topPriority,
+  isPublic,
   description,
   position,
   cancelToken = null,
@@ -541,6 +546,7 @@ export async function createAccountOrganizationProduct({
       price,
       requested_amount: requestedAmount,
       top_priority: topPriority,
+      is_public: isPublic,
       description,
       position,
     },

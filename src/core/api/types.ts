@@ -185,6 +185,7 @@ export type AccountProduct = {
   price?: number;
   requested_amount: number;
   top_priority: boolean;
+  is_public: boolean;
   description?: string;
   position?: number;
   created_at?: string;
@@ -210,6 +211,7 @@ export type AccountOrganizationPackageItem = {
     id: number;
     is_deleted: boolean;
     top_priority: boolean;
+    is_public: boolean;
   };
   quantity: number;
 };
