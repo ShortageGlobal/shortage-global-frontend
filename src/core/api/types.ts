@@ -191,6 +191,24 @@ export type AccountProduct = {
   created_at?: string;
 };
 
+export type AccountCampaignPreview = {
+  uuid: Uuid;
+  name: string;
+  slug: Slug;
+  banner: string;
+  is_draft: boolean;
+  is_public: boolean;
+};
+
+export type AccountCampaign = AccountCampaignPreview & {
+  description?: string;
+  requested_goods?: string;
+  mission_description?: string;
+  meta_description?: string;
+  banner?: string;
+  deadline?: string;
+};
+
 export type OnlineStore = {
   url: string;
   name: string;

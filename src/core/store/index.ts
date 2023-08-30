@@ -27,6 +27,7 @@ import { packageBlogPostsReducer } from 'core/store/slices/package-blog-posts';
 import { accountOrganizationReducer } from 'core/store/slices/account-organization';
 import { accountDeliveryInstructionsReducer } from 'core/store/slices/account-delivery-instruction';
 import { accountProductReducer } from 'core/store/slices/account-product';
+import { accountCampaignReducer } from 'core/store/slices/account-campaign';
 import { accountBlogPostReducer } from 'core/store/slices/account-blog-post';
 import { accountOrganizationPackageReducer } from 'core/store/slices/account-organization-package';
 
@@ -52,6 +53,7 @@ const combinedReducer = combineReducers({
   accountOrganization: accountOrganizationReducer,
   accountDeliveryInstructions: accountDeliveryInstructionsReducer,
   accountProduct: accountProductReducer,
+  accountCampaign: accountCampaignReducer,
   accountBlogPost: accountBlogPostReducer,
   accountOrganizationPackage: accountOrganizationPackageReducer,
 });

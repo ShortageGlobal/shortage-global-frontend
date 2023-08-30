@@ -7,6 +7,7 @@ import {
   PaginatedResponse,
   AccountOrganization,
   AccountProduct,
+  AccountCampaign,
   AccountDeliveryInstruction,
   AccountBlogPost,
   AccountOrganizationPackage,
@@ -555,6 +556,38 @@ export async function createAccountOrganizationProduct({
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+    }
+  );
+}
+
+export type FetchAccountCampaignsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  search?: string;
+  accessToken?: string;
+} & PaginationParams &
+  CancelTokenParams;
+export async function fetchAccountCampaigns({
+  organizationSlug,
+  search = null,
+  limit = null,
+  offset = null,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountCampaignsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PaginatedResponse<AccountCampaign>>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/`
+    ),
+    {
+      params: {
+        search: search.trim() !== '' ? search : null,
+        limit,
+        offset,
+      },
+      cancelToken: cancelToken?.token,
+      headers,
     }
   );
 }

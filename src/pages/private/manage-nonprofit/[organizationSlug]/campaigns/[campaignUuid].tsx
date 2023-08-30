@@ -14,25 +14,25 @@ import {
   selectAccountOrganization,
 } from 'core/store/slices/account-organization';
 import {
-  fetchAccountOrganizationBlogPost,
-  selectAccountBlogPost,
-} from 'core/store/slices/account-blog-post';
+  fetchAccountOrganizationCampaign,
+  selectAccountCampaign,
+} from 'core/store/slices/account-campaign';
 import { BreadcrumbsPortal } from 'core/layouts/breadcrumbs-portal/breadcrumbs-portal';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageImpactStoriesCrumb,
-  getManageImpactStoriesEditCrumb,
+  getManageCampaignsCrumb,
+  getManageCampaignsEditCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { BlogPostForm } from 'components/manage-nonprofit/blog-posts/blog-post-form/blog-post-form';
-import { BlogPostConfirmDeleteModal } from 'components/manage-nonprofit/blog-posts/blog-post-confirm-delete-modal/blog-post-confirm-delete-modal';
+import { CampaignForm } from 'components/manage-nonprofit/campaigns/campaign-form/campaign-form';
+import { CampaignConfirmDeleteModal } from 'components/manage-nonprofit/campaigns/campaign-confirm-delete-modal/campaign-confirm-delete-modal';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ImpactStoryEditPage: NextPageWithLayout = () => {
+const CampaignEditPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
-  const { blogPost } = useAppSelector(selectAccountBlogPost);
+  const { campaign } = useAppSelector(selectAccountCampaign);
 
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
@@ -45,21 +45,21 @@ const ImpactStoryEditPage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageImpactStoriesCrumb({
+      getManageCampaignsCrumb({
         organizationSlug: organization.slug,
       }),
-      getManageImpactStoriesEditCrumb({
+      getManageCampaignsEditCrumb({
         isActive: true,
         organizationSlug: organization.slug,
-        blogPostUuid: blogPost.uuid,
+        campaignUuid: campaign.uuid,
       }),
     ];
-  }, [organization, blogPost]);
+  }, [organization, campaign]);
 
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Edit Impact Story | Shortage`}</title>
+        <title>{`${organization.name} — Edit Campaign | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
@@ -70,7 +70,7 @@ const ImpactStoryEditPage: NextPageWithLayout = () => {
         <Row className={commonStyles.headerRow}>
           <Col>
             <h2 className={commonStyles.title}>
-              <span>Edit Impact Story</span>
+              <span>Edit Campaign</span>
 
               <Dropdown>
                 <Dropdown.Toggle variant="outline">
@@ -81,10 +81,11 @@ const ImpactStoryEditPage: NextPageWithLayout = () => {
                   <Link
                     href={{
                       pathname:
-                        '/[organizationSlug]/impact-stories/[blogPostSlug]/',
+                        '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/',
                       query: {
                         organizationSlug: organization.slug,
-                        blogPostSlug: blogPost.slug,
+                        campaignSlug: campaign.slug,
+                        campaignUuid: campaign.uuid,
                       },
                     }}
                     passHref
@@ -116,11 +117,11 @@ const ImpactStoryEditPage: NextPageWithLayout = () => {
         </Row>
       </div>
 
-      <BlogPostForm blogPost={blogPost} />
+      <CampaignForm campaign={campaign} />
 
-      <BlogPostConfirmDeleteModal
+      <CampaignConfirmDeleteModal
         organization={organization}
-        blogPost={blogPost}
+        campaign={campaign}
         show={showDeleteConfirmationModal}
         onHide={() => setShowDeleteConfirmationModal(false)}
       />
@@ -134,26 +135,26 @@ export const getServerSideProps = wrapper.getServerSideProps(
       req: context.req,
     });
     const organizationSlug = context.params.organizationSlug as string;
-    const blogPostUuid = context.params.blogPostUuid as string;
+    const campaignUuid = context.params.campaignUuid as string;
 
     await Promise.all([
       store.dispatch(
         fetchAccountOrganization({ organizationSlug, accessToken })
       ),
       store.dispatch(
-        fetchAccountOrganizationBlogPost({
+        fetchAccountOrganizationCampaign({
           organizationSlug,
-          blogPostUuid,
+          campaignUuid,
           accessToken,
         })
       ),
     ]);
 
-    const { accountOrganization, accountBlogPost } = store.getState();
+    const { accountOrganization, accountCampaign } = store.getState();
 
     if (
       accountOrganization.error?.status === 404 ||
-      accountBlogPost.error?.status === 404
+      accountCampaign.error?.status === 404
     ) {
       return {
         redirect: {
@@ -165,7 +166,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     if (
       accountOrganization.error?.status === 401 ||
-      accountBlogPost.error?.status === 401
+      accountCampaign.error?.status === 401
     ) {
       const callbackUrl = encodeURIComponent(context.resolvedUrl);
       return {
@@ -182,6 +183,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-ImpactStoryEditPage.getLayout = manageNonprofitLayout;
+CampaignEditPage.getLayout = manageNonprofitLayout;
 
-export default ImpactStoryEditPage;
+export default CampaignEditPage;

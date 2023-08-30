@@ -189,6 +189,7 @@ export const MANAGE_NONPROFIT_TOUR_ID = {
   NAV_PANEL: 'nav-panel-id',
   NONPROFIT_PAGE_NAV: 'nonprofit-page-nav-id',
   REQUESTED_GOODS_NAV: 'requested-goods-nav-id',
+  CAMPAIGNS_NAV: 'campaigns-nav-id',
   DELIVERY_INSTRUCTIONS_NAV: 'delivery-instructions-nav-id',
   TAX_INFORMATION_NAV: 'tax-information-nav-id',
   DONATIONS_NAV: 'donations-nav-id',

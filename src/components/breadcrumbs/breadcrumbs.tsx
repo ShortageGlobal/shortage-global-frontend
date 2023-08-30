@@ -577,6 +577,61 @@ export const getManageImpactStoriesEditCrumb = ({
     ...props,
   });
 
+export const getManageCampaignsCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-campaigns-crumb',
+    label: 'Campaigns',
+    href: {
+      pathname: '/private/manage-nonprofit/[organizationSlug]/campaigns/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageCampaignsCreateCrumb = ({
+  organizationSlug,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-campaigns-create-crumb',
+    label: 'Create',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/campaigns/create/',
+      query: { organizationSlug },
+    },
+    ...props,
+  });
+
+export const getManageCampaignsEditCrumb = ({
+  organizationSlug,
+  campaignUuid,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountBlogPost['uuid'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-campaigns-edit-crumb',
+    label: 'Edit',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignUuid]/',
+      query: { organizationSlug, campaignUuid },
+    },
+    ...props,
+  });
+
 export const getManageNonprofitDonationsCrumb = ({
   organizationSlug,
   ...props

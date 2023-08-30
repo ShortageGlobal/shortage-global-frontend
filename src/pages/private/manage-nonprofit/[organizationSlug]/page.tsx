@@ -77,6 +77,17 @@ const steps: JoyrideProps['steps'] = [
     disableBeacon: true,
   },
   {
+    target: `#${MANAGE_NONPROFIT_TOUR_ID.CAMPAIGNS_NAV}`,
+    content: (
+      <div>
+        Group requested goods into campaigns to make it easier for donors to
+        donate for a specific cause.
+      </div>
+    ),
+    placement: 'right',
+    disableBeacon: true,
+  },
+  {
     target: `#${MANAGE_NONPROFIT_TOUR_ID.DELIVERY_INSTRUCTIONS_NAV}`,
     content: (
       <div>

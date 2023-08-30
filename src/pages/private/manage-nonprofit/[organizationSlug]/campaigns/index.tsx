@@ -1,7 +1,9 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Alert, Button } from 'react-bootstrap';
+import { Plus } from 'react-feather';
 import Head from 'next/head';
+import Link from 'next/link';
 import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
 import { useAppSelector } from 'core/hooks';
@@ -16,13 +18,12 @@ import {
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageImpactStoriesCrumb,
-  getManageImpactStoriesCreateCrumb,
+  getManageCampaignsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { BlogPostForm } from 'components/manage-nonprofit/blog-posts/blog-post-form/blog-post-form';
+import { CampaignsList } from 'components/manage-nonprofit/campaigns/campaigns-list';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ImpactStoriesCreatePage: NextPageWithLayout = () => {
+const CampaignsPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -33,10 +34,7 @@ const ImpactStoriesCreatePage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageImpactStoriesCrumb({
-        organizationSlug: organization.slug,
-      }),
-      getManageImpactStoriesCreateCrumb({
+      getManageCampaignsCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -46,20 +44,50 @@ const ImpactStoriesCreatePage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Add New Impact Story | Shortage`}</title>
+        <title>{`${organization.name} — Campaigns | Shortage`}</title>
       </Head>
-
       <BreadcrumbsPortal>
         <Breadcrumbs items={breadcrumbs} />
       </BreadcrumbsPortal>
 
-      <Row className={commonStyles.headerRow}>
-        <Col>
-          <h2 className={commonStyles.title}>Add New Impact Story</h2>
-        </Col>
-      </Row>
+      <div className={commonStyles.restrictedWidth}>
+        <Row className={commonStyles.headerRow}>
+          <Col as="h2" md={7} className={commonStyles.title}>
+            Campaigns
+          </Col>
 
-      <BlogPostForm />
+          <Col xs="auto" className={commonStyles.actions}>
+            <Link
+              href={{
+                pathname:
+                  '/private/manage-nonprofit/[organizationSlug]/campaigns/create',
+                query: {
+                  organizationSlug: organization.slug,
+                },
+              }}
+              passHref
+              legacyBehavior
+            >
+              <Button size="lg">
+                <Plus />
+                <span>Add new</span>
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Alert variant="info" className="mb-4">
+              Campaigns help to raise donations for specific cause. Each
+              campaign has its own page, list of products, and delivery
+              instructions.
+            </Alert>
+          </Col>
+        </Row>
+
+        <CampaignsList />
+      </div>
     </>
   );
 };
@@ -102,6 +130,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-ImpactStoriesCreatePage.getLayout = manageNonprofitLayout;
+CampaignsPage.getLayout = manageNonprofitLayout;
 
-export default ImpactStoriesCreatePage;
+export default CampaignsPage;

@@ -16,13 +16,13 @@ import {
   getHomeCrumb,
   getManageNonprofitCrumb,
   getManageNonprofitRootCrumb,
-  getManageImpactStoriesCrumb,
-  getManageImpactStoriesCreateCrumb,
+  getManageCampaignsCrumb,
+  getManageCampaignsCreateCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { BlogPostForm } from 'components/manage-nonprofit/blog-posts/blog-post-form/blog-post-form';
+import { CampaignForm } from 'components/manage-nonprofit/campaigns/campaign-form/campaign-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ImpactStoriesCreatePage: NextPageWithLayout = () => {
+const CampaignsCreatePage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -33,10 +33,10 @@ const ImpactStoriesCreatePage: NextPageWithLayout = () => {
         organizationSlug: organization.slug,
         organizationName: organization.name,
       }),
-      getManageImpactStoriesCrumb({
+      getManageCampaignsCrumb({
         organizationSlug: organization.slug,
       }),
-      getManageImpactStoriesCreateCrumb({
+      getManageCampaignsCreateCrumb({
         isActive: true,
         organizationSlug: organization.slug,
       }),
@@ -46,7 +46,7 @@ const ImpactStoriesCreatePage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Add New Impact Story | Shortage`}</title>
+        <title>{`${organization.name} — Add New Campaign | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
@@ -55,11 +55,11 @@ const ImpactStoriesCreatePage: NextPageWithLayout = () => {
 
       <Row className={commonStyles.headerRow}>
         <Col>
-          <h2 className={commonStyles.title}>Add New Impact Story</h2>
+          <h2 className={commonStyles.title}>Add New Campaign</h2>
         </Col>
       </Row>
 
-      <BlogPostForm />
+      <CampaignForm />
     </>
   );
 };
@@ -102,6 +102,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-ImpactStoriesCreatePage.getLayout = manageNonprofitLayout;
+CampaignsCreatePage.getLayout = manageNonprofitLayout;
 
-export default ImpactStoriesCreatePage;
+export default CampaignsCreatePage;
