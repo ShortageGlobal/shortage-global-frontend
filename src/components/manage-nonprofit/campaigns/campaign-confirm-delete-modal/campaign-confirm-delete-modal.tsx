@@ -49,7 +49,7 @@ export function CampaignConfirmDeleteModal({
 
       showNotification({
         isSuccess: true,
-        message: 'Impact story deleted successfully',
+        message: 'Campaign deleted successfully',
       });
     } catch (rejection) {
       if (isRequestCancel(rejection)) {
@@ -59,7 +59,7 @@ export function CampaignConfirmDeleteModal({
       showNotification({
         isFailure: true,
         message:
-          rejection?.response?.data?.details || 'Failed to delete Impact Story',
+          rejection?.response?.data?.details || 'Failed to delete Campaign',
       });
     }
   }, [campaign, setIsPending]);
@@ -80,8 +80,8 @@ export function CampaignConfirmDeleteModal({
       <Modal.Body>
         <Alert variant="warning">This action cannot be undone.</Alert>
         <div>
-          Are you sure you want to delete the{' '}
-          <b>&quot;{campaign.title}&quot;</b> Impact Story?
+          Are you sure you want to delete the <b>&quot;{campaign.name}&quot;</b>{' '}
+          Campaign?
         </div>
       </Modal.Body>
 

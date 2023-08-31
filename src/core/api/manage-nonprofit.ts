@@ -592,6 +592,150 @@ export async function fetchAccountCampaigns({
   );
 }
 
+export type FetchAccountCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchAccountOrganizationCampaign({
+  organizationSlug,
+  campaignUuid,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<AccountCampaign>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type DeleteAccountCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function deleteAccountOrganizationCampaign({
+  organizationSlug,
+  campaignUuid,
+  accessToken = null,
+  cancelToken = null,
+}: DeleteAccountCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.delete(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type UpdateAccountOrganizationCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  name: AccountCampaign['name'];
+  slug: AccountCampaign['slug'];
+  banner: File | string;
+  deadline: AccountCampaign['deadline'];
+  requestedGoods: AccountCampaign['requested_goods'];
+  missionDescription: AccountCampaign['mission_description'];
+  metaDescription: AccountCampaign['meta_description'];
+  isDraft: AccountCampaign['is_draft'];
+  isPublic: AccountCampaign['is_public'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function updateAccountOrganizationCampaign({
+  organizationSlug,
+  campaignUuid,
+  name,
+  slug,
+  banner,
+  deadline,
+  requestedGoods,
+  missionDescription,
+  metaDescription,
+  isDraft,
+  isPublic,
+  cancelToken = null,
+}: UpdateAccountOrganizationCampaignParams) {
+  return axios.put<AccountCampaign>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/`
+    ),
+    {
+      name,
+      slug,
+      banner,
+      deadline,
+      requested_goods: requestedGoods,
+      mission_description: missionDescription,
+      meta_description: metaDescription,
+      is_draft: isDraft,
+      is_public: isPublic,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
+export type CreateAccountOrganizationCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  name: AccountCampaign['name'];
+  slug: AccountCampaign['slug'];
+  banner: File | string;
+  deadline: AccountCampaign['deadline'];
+  requestedGoods: AccountCampaign['requested_goods'];
+  missionDescription: AccountCampaign['mission_description'];
+  metaDescription: AccountCampaign['meta_description'];
+  isDraft: AccountCampaign['is_draft'];
+  isPublic: AccountCampaign['is_public'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function createAccountOrganizationCampaign({
+  organizationSlug,
+  name,
+  slug,
+  banner,
+  deadline,
+  requestedGoods,
+  missionDescription,
+  metaDescription,
+  isDraft,
+  isPublic,
+  cancelToken = null,
+}: CreateAccountOrganizationCampaignParams) {
+  return axios.post<AccountCampaign>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/`
+    ),
+    {
+      name,
+      slug,
+      banner,
+      deadline,
+      requested_goods: requestedGoods,
+      mission_description: missionDescription,
+      meta_description: metaDescription,
+      is_draft: isDraft,
+      is_public: isPublic,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
 export type FetchAccountBlogPostsParams = {
   organizationSlug: AccountOrganization['slug'];
   search?: string;

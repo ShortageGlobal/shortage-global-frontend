@@ -117,7 +117,7 @@ export function SelectCampaignModal({
       <Modal.Header closeButton className={styles.header}>
         <div className={styles.headerContent}>
           <Modal.Title id="select-campaign-modal-title">
-            Select Impact Story
+            Select Campaign
           </Modal.Title>
 
           <Form className={styles.searchContainer}>
@@ -212,7 +212,7 @@ export function SelectCampaignModal({
         >
           <Button variant="outline-dark">
             <Plus />
-            <span>Add Impact Story</span>
+            <span>Add Campaign</span>
           </Button>
         </Link>
 

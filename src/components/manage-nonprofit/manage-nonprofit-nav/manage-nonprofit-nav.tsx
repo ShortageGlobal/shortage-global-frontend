@@ -34,6 +34,15 @@ export function ManageNonprofitNav() {
       return KEY.requestedGoods;
     }
 
+    // campaigns list/create/edit
+    if (
+      router.pathname.startsWith(
+        '/private/manage-nonprofit/[organizationSlug]/campaigns'
+      )
+    ) {
+      return KEY.campaigns;
+    }
+
     // packages list/details
     if (
       router.pathname.startsWith(

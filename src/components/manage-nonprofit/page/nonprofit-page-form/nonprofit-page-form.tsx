@@ -477,6 +477,7 @@ export function NonprofitPageForm() {
                 type="text"
                 autoComplete="off"
                 placeholder=""
+                rows={4}
                 maxLength={200}
                 value={metaDescription}
                 onChange={(e) => setMetaDescription(e.target.value)}

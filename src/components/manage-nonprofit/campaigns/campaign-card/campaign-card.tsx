@@ -38,6 +38,10 @@ export function CampaignCard({
         key: 'published',
         value: campaign.is_draft ? 'no' : 'yes',
       },
+      {
+        key: 'public',
+        value: campaign.is_public ? 'yes' : 'no',
+      },
     ];
   }, [campaign]);
 
