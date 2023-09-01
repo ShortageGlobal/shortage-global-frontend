@@ -186,8 +186,8 @@ export function SelectCampaignModal({
                   <Card
                     key={campaign.uuid}
                     onClick={() => handleSelect(campaign)}
-                    image={campaign.image}
-                    title={campaign.title}
+                    image={campaign.banner}
+                    title={campaign.name}
                     description={campaign.meta_description}
                     details={details}
                   />
