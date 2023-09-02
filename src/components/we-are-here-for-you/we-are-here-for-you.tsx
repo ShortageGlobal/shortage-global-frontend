@@ -1,16 +1,8 @@
 import styles from './we-are-here-for-you.module.scss';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useCallback } from 'react';
 import Image from 'next/image';
-import { useAppDispatch } from 'core/hooks';
-import { toggleLiveChat } from 'core/store/slices/live-chat';
 
 export function WeAreHereForYou() {
-  const dispatch = useAppDispatch();
-  const handleSupportTeamClick = useCallback(() => {
-    dispatch(toggleLiveChat());
-  }, []);
-
   return (
     <Container className={styles.weAreHereForYou}>
       <Row className="justify-content-center">
@@ -19,14 +11,8 @@ export function WeAreHereForYou() {
           <p>
             If you have any questions or would like more information, please
             reach out to our wonderful{' '}
-            <span
-              role="button"
-              className={styles.supportTeamBtn}
-              onClick={handleSupportTeamClick}
-            >
-              support team
-            </span>{' '}
-            who will be happy to help you.
+            <a href="mailto:support@shortage.global">support team</a> who will
+            be happy to help you.
           </p>
         </Col>
 

@@ -27,7 +27,6 @@ import {
   selectAccountOrganization,
   patchOrganization,
 } from 'core/store/slices/account-organization';
-import { toggleLiveChat } from 'core/store/slices/live-chat';
 import type { OrganizationChecklist } from 'core/api/types';
 
 type PublishModalProps = {
@@ -176,10 +175,6 @@ export function PublishModal({ show, onHide }: PublishModalProps) {
     setChecklistCanPublish(false);
   }, []);
 
-  const handleSupportTeamClick = useCallback(() => {
-    dispatch(toggleLiveChat());
-  }, []);
-
   return (
     <Modal
       centered
@@ -217,14 +212,7 @@ export function PublishModal({ show, onHide }: PublishModalProps) {
               <div>
                 If you have any further questions or concerns, please do not
                 hesitate to reach out to our{' '}
-                <span
-                  role="button"
-                  className={styles.supportTeamBtn}
-                  onClick={handleSupportTeamClick}
-                >
-                  support team
-                </span>
-                .
+                <a href="mailto:support@shortage.global">support team</a>.
               </div>
             </div>
           </Alert>
