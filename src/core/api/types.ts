@@ -203,12 +203,17 @@ export type AccountCampaignPreview = {
 };
 
 export type AccountCampaign = AccountCampaignPreview & {
+  products_count: number;
   description?: string;
   requested_goods?: string;
   mission_description?: string;
   meta_description?: string;
   banner?: string;
   deadline?: string;
+};
+
+export type AccountCampaignProduct = AccountProduct & {
+  is_included_in_campaign: boolean;
 };
 
 export type OnlineStore = {

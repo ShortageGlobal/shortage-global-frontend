@@ -632,6 +632,26 @@ export const getManageCampaignsEditCrumb = ({
     ...props,
   });
 
+export const getManageCampaignsRequestedGoodsCrumb = ({
+  organizationSlug,
+  campaignUuid,
+  ...props
+}: {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountBlogPost['uuid'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'manage-nonprofit-campaigns-requested-goods-crumb',
+    label: 'Requested Goods',
+    href: {
+      pathname:
+        '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignUuid]/requested-goods/',
+      query: { organizationSlug, campaignUuid },
+    },
+    ...props,
+  });
+
 export const getManageNonprofitDonationsCrumb = ({
   organizationSlug,
   ...props

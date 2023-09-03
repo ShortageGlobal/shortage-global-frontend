@@ -8,6 +8,7 @@ import {
   AccountOrganization,
   AccountProduct,
   AccountCampaign,
+  AccountCampaignProduct,
   AccountDeliveryInstruction,
   AccountBlogPost,
   AccountOrganizationPackage,
@@ -410,7 +411,7 @@ export async function fetchAccountOrganizationProducts({
   );
 }
 
-export type FetchAccountProductParams = {
+export type FetchAccountOrganizationProductParams = {
   organizationSlug: AccountOrganization['slug'];
   productId: AccountProduct['id'];
   accessToken?: string;
@@ -420,7 +421,7 @@ export async function fetchAccountOrganizationProduct({
   productId,
   accessToken = null,
   cancelToken = null,
-}: FetchAccountProductParams) {
+}: FetchAccountOrganizationProductParams) {
   const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 
   return axios.get<AccountProduct>(
@@ -431,7 +432,7 @@ export async function fetchAccountOrganizationProduct({
   );
 }
 
-export type DeleteAccountProductParams = {
+export type DeleteAccountOrganizationProductParams = {
   organizationSlug: AccountOrganization['slug'];
   productId: AccountProduct['id'];
   accessToken?: string;
@@ -441,7 +442,7 @@ export async function deleteAccountOrganizationProduct({
   productId,
   accessToken = null,
   cancelToken = null,
-}: DeleteAccountProductParams) {
+}: DeleteAccountOrganizationProductParams) {
   const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 
   return axios.delete(
@@ -732,6 +733,97 @@ export async function createAccountOrganizationCampaign({
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+    }
+  );
+}
+
+export type FetchAccountCampaignProductsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  category?: Category;
+  search?: string;
+  accessToken?: string;
+} & PaginationParams &
+  CancelTokenParams;
+export async function fetchAccountCampaignProducts({
+  organizationSlug,
+  campaignUuid,
+  category = null,
+  search = null,
+  limit = null,
+  offset = null,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountCampaignProductsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PaginatedResponse<AccountCampaignProduct>>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/products/`
+    ),
+    {
+      params: {
+        category: category !== PRODUCT_CATEGORY_ALL_KEY ? category : null,
+        search: search.trim() !== '' ? search : null,
+        limit,
+        offset,
+      },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type RemoveAccountProductFromCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  productId: AccountCampaignProduct['id'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function removeAccountProductFromCampaign({
+  organizationSlug,
+  campaignUuid,
+  productId,
+  accessToken = null,
+  cancelToken = null,
+}: RemoveAccountProductFromCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.delete(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/products/remove/`
+    ),
+    {
+      data: { product_id: productId },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type AddAccountProductToCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  productId: AccountCampaignProduct['id'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function addAccountProductToCampaign({
+  organizationSlug,
+  campaignUuid,
+  productId,
+  accessToken = null,
+  cancelToken = null,
+}: AddAccountProductToCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/products/add/`
+    ),
+    { product_id: productId },
+    {
+      cancelToken: cancelToken?.token,
+      headers,
     }
   );
 }

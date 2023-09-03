@@ -80,8 +80,7 @@ const CampaignsPage: NextPageWithLayout = () => {
           <Col>
             <Alert variant="info" className="mb-4">
               Campaigns help to raise donations for specific cause. Each
-              campaign has its own page, list of products, and delivery
-              instructions.
+              campaign has its own page and list of requested items.
             </Alert>
           </Col>
         </Row>

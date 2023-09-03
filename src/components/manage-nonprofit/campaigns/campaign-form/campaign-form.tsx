@@ -181,10 +181,10 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
             cancelToken,
           });
 
-          // redirect to the campaigns edit
+          // redirect to the campaign's requested goods page
           router.push({
             pathname:
-              '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignId]/',
+              '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignId]/requested-goods/',
             query: {
               organizationSlug: organization.slug,
               campaignId: response.data.uuid,
@@ -516,7 +516,8 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
                 aria-describedby="isDraftHelpBlock"
               />
               <Form.Text as="div" id="isDraftHelpBlock">
-                If checked, the campaign page will be able to be viewed.
+                If checked, the campaign page will be able to be viewed by
+                donors.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.isDraft)}
             </Form.Group>

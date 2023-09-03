@@ -7,12 +7,14 @@ import { PRODUCT_CATEGORY_DETAILS } from 'core/category-details';
 import type { AccountOrganization, AccountProduct } from 'core/api/types';
 
 type ProductCardProps = {
+  className?: string;
   quantity?: number;
   product: AccountProduct;
   organization: AccountOrganization;
 };
 
 export function ProductCard({
+  className,
   quantity,
   product,
   organization,
@@ -40,6 +42,10 @@ export function ProductCard({
         value: product.requested_amount,
       },
       {
+        key: 'public',
+        value: product.is_public ? 'yes' : 'no',
+      },
+      {
         key: 'price',
         value: formatPrice(product.price),
       },
@@ -48,6 +54,7 @@ export function ProductCard({
 
   return (
     <Card
+      className={className}
       href={productHref}
       image={product.photo}
       imageExtra={

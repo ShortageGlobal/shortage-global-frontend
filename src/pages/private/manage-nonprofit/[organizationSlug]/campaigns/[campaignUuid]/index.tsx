@@ -1,10 +1,10 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo, useState } from 'react';
-import { Row, Col, Dropdown } from 'react-bootstrap';
+import { Row, Col, Dropdown, Button, Form } from 'react-bootstrap';
 import classNames from 'classnames';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Eye, Settings, Trash2 } from 'react-feather';
+import { Eye, Settings, Trash2, List } from 'react-feather';
 import { manageNonprofitLayout } from 'core/layouts';
 import { wrapper } from 'core/store';
 import { useAppSelector } from 'core/hooks';
@@ -59,7 +59,7 @@ const CampaignEditPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${organization.name} — Edit Campaign | Shortage`}</title>
+        <title>{`${campaign.name} — Edit Campaign | Shortage`}</title>
       </Head>
 
       <BreadcrumbsPortal>
@@ -97,6 +97,25 @@ const CampaignEditPage: NextPageWithLayout = () => {
                     </Dropdown.Item>
                   </Link>
 
+                  <Link
+                    href={{
+                      pathname:
+                        '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignUuid]/requested-goods/',
+                      query: {
+                        organizationSlug: organization.slug,
+                        campaignSlug: campaign.slug,
+                        campaignUuid: campaign.uuid,
+                      },
+                    }}
+                    passHref
+                    legacyBehavior
+                  >
+                    <Dropdown.Item className={commonStyles.dropdownItem}>
+                      <List size="1rem" />
+                      <span>Requested Goods</span>
+                    </Dropdown.Item>
+                  </Link>
+
                   <Dropdown.Divider />
 
                   <Dropdown.Item
@@ -116,6 +135,33 @@ const CampaignEditPage: NextPageWithLayout = () => {
           </Col>
         </Row>
       </div>
+
+      {/* Products */}
+      <Row>
+        <Form.Group as={Col} className={commonStyles.formGroup}>
+          <Form.Label>Requested Goods ({campaign.products_count})</Form.Label>
+
+          <div className="d-flex justify-content-start">
+            <Link
+              href={{
+                pathname:
+                  '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignUuid]/requested-goods/',
+                query: {
+                  organizationSlug: organization.slug,
+                  campaignUuid: campaign.uuid,
+                },
+              }}
+              passHref
+              legacyBehavior
+            >
+              <Button variant="outline-primary">
+                <List size="1rem" />
+                <span>Manage list of goods</span>
+              </Button>
+            </Link>
+          </div>
+        </Form.Group>
+      </Row>
 
       <CampaignForm campaign={campaign} />
 

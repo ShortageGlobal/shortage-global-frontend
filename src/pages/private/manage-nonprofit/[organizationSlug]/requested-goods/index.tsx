@@ -1,6 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import { useMemo } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Alert, Button } from 'react-bootstrap';
 import { Plus } from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -77,6 +77,14 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
               </Link>
             </Col>
           ) : null}
+        </Row>
+
+        <Row>
+          <Col>
+            <Alert variant="info" className="mb-4">
+              The list of all goods that your organization collects.
+            </Alert>
+          </Col>
         </Row>
 
         <ProductsList />
