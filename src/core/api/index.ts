@@ -5,6 +5,7 @@ export * from './account';
 export * from './cart';
 export * from './promoted';
 export * from './organizations';
+export * from './campaigns';
 export * from './products';
 export * from './packages';
 export * from './blog-posts';

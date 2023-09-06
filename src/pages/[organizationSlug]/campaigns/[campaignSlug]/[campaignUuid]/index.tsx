@@ -10,7 +10,7 @@ import {
   fetchOrganization,
   selectOrganization,
 } from 'core/store/slices/organization';
-import { fetchCampaigns, selectCampaigns } from 'core/store/slices/campaigns';
+import { fetchCampaign, selectCampaign } from 'core/store/slices/campaign';
 import {
   fetchCategories,
   setCurrentCategory,
@@ -26,10 +26,10 @@ import {
   Breadcrumbs,
   getHomeCrumb,
   getOrganizationCrumb,
+  getCampaignCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { OrganizationDetails } from 'components/organization/details/details';
+import { CampaignDetails } from 'components/organization/campaigns/details/details';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
-import { Campaigns } from 'components/organization/campaigns/campaigns';
 import { OrganizationProducts } from 'components/organization/products/products';
 import { OrganizationBlogPosts } from 'components/organization/blog-posts/blog-posts';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
@@ -37,15 +37,14 @@ import {
   ROOT_URL,
   PRODUCT_CATEGORY_ALL_KEY,
   PRODUCTS_PAGE_SIZE,
-  CAMPAIGNS_PAGE_SIZE,
   BLOG_POSTS_PAGE_SIZE,
 } from 'core/constants';
 import type { Category } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const OrganizationPage: NextPageWithLayout = () => {
+const CampaignPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
-  const { campaigns } = useAppSelector(selectCampaigns);
+  const { campaign } = useAppSelector(selectCampaign);
   const { organizationBlogPosts } = useAppSelector(selectOrganizationBlogPosts);
 
   const { metaUrl, metaTitle, metaDescription, metaImage } = useMemo(() => {
@@ -53,14 +52,16 @@ const OrganizationPage: NextPageWithLayout = () => {
       return {};
     }
     return {
-      metaUrl: `${ROOT_URL}/${organization.slug}/`,
-      metaTitle: `Make an in-kind gift to ${organization.name}`,
-      metaDescription: organization.meta_description?.trim()
+      metaUrl: `${ROOT_URL}/${organization.slug}/campaigns/${campaign.slug}/${campaign.uuid}/`,
+      metaTitle: `Make an in-kind gift to ${organization.name}. Support the "${campaign.name}" campaign`,
+      metaDescription: campaign.meta_description?.trim()
+        ? campaign.meta_description.trim()
+        : organization.meta_description?.trim()
         ? organization.meta_description.trim()
         : null,
-      metaImage: organization.banner,
+      metaImage: campaign.banner,
     };
-  }, [organization]);
+  }, [organization, campaign]);
 
   const breadcrumbs = useMemo(() => {
     if (!organization) {
@@ -71,26 +72,41 @@ const OrganizationPage: NextPageWithLayout = () => {
       getOrganizationCrumb({
         organizationSlug: organization.slug,
         organizationName: organization.name,
+      }),
+      getCampaignCrumb({
+        organizationSlug: organization.slug,
+        campaignSlug: campaign.slug,
+        campaignUuid: campaign.uuid,
+        campaignName: campaign.name,
         isActive: true,
       }),
     ];
-  }, [organization]);
+  }, [organization, campaign]);
 
   // track page view
   useEffect(() => {
-    if (!organization) {
+    if (!organization || !campaign) {
       return;
     }
-    gtm.trackOrganizationView({
+    gtm.trackCampaignView({
       organizationSlug: organization.slug,
       organizationName: organization.name,
+      campaignSlug: campaign.slug,
+      campaignUuid: campaign.uuid,
+      campaignName: campaign.name,
     });
-  }, [organization?.slug, organization?.name]);
+  }, [
+    organization?.slug,
+    organization?.name,
+    campaign?.slug,
+    campaign?.name,
+    campaign?.uuid,
+  ]);
 
   return (
     <>
       <Head>
-        <title>{`${organization?.name} | Shortage`}</title>
+        <title>{`${campaign?.name} | ${organization.name} | Shortage`}</title>
         <meta property="og:url" key="og:url" content={metaUrl} />
         <meta property="og:title" key="og:title" content={metaTitle} />
         {metaDescription ? (
@@ -141,12 +157,11 @@ const OrganizationPage: NextPageWithLayout = () => {
         </Row>
       </Container>
 
-      <OrganizationDetails />
+      <CampaignDetails />
 
       <DonationSteps />
 
-      {campaigns?.length > 0 ? <Campaigns /> : null}
-
+      {/* TODO: <CampaignProducts /> */}
       <OrganizationProducts />
 
       {organizationBlogPosts?.length > 0 ? <OrganizationBlogPosts /> : null}
@@ -162,21 +177,24 @@ export const getServerSideProps = wrapper.getServerSideProps(
       req: context.req,
     });
     const organizationSlug = context.params.organizationSlug as string;
+    const campaignSlug = context.params.campaignSlug as string;
+    const campaignUuid = context.params.campaignUuid as string;
 
     await Promise.all([
       store.dispatch(fetchOrganization({ organizationSlug, accessToken })),
+      store.dispatch(
+        fetchCampaign({
+          organizationSlug,
+          campaignSlug,
+          campaignUuid,
+          accessToken,
+        })
+      ),
       store.dispatch(fetchCategories({ organizationSlug, accessToken })),
       store.dispatch(
         fetchOrganizationBlogPosts({
           organizationSlug,
           limit: BLOG_POSTS_PAGE_SIZE,
-          accessToken,
-        })
-      ),
-      store.dispatch(
-        fetchCampaigns({
-          organizationSlug,
-          limit: CAMPAIGNS_PAGE_SIZE,
           accessToken,
         })
       ),
@@ -222,4 +240,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default OrganizationPage;
+export default CampaignPage;

@@ -7,66 +7,64 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import { ChevronsDown } from 'react-feather';
 import { useAppSelector } from 'core/hooks';
 import { selectOrganization } from 'core/store/slices/organization';
-import { stripProtocolFromUrl } from 'core/helpers';
+import { selectCampaign } from 'core/store/slices/campaign';
 import { DeadlineCountdown } from 'components/organization/deadline-countdown/deadline-countdown';
 import { ShareButton } from 'components/share/share-button';
 import { ROOT_URL, REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
 
-export function OrganizationDetails() {
+export function CampaignDetails() {
   const { organization } = useAppSelector(selectOrganization);
+  const { campaign } = useAppSelector(selectCampaign);
 
   const shareUrl = useMemo(() => {
-    return `${ROOT_URL}/${organization.slug}/`;
-  }, [organization.slug]);
+    return `${ROOT_URL}/${organization.slug}/campaigns/${campaign.slug}/${campaign.uuid}/`;
+  }, [organization.slug, campaign.slug, campaign.uuid]);
 
   const shareText = useMemo(() => {
-    return `Make an in-kind gift to ${organization.name}`;
-  }, [organization.name]);
+    return `Make an in-kind gift to ${organization.name}. Support the "${campaign.name}" campaign`;
+  }, [organization.name, campaign.name]);
 
   return (
     <Container>
       <Row>
         <Col>
-          <div className={styles.organizationDetails}>
+          <div className={styles.campaignDetails}>
             <div className={styles.textContent}>
               {/* deadline countdown */}
-              {organization?.deadline &&
-              Date.now() < Number(new Date(organization.deadline)) ? (
-                <DeadlineCountdown deadline={organization.deadline} />
+              {campaign?.deadline &&
+              Date.now() < Number(new Date(campaign.deadline)) ? (
+                <DeadlineCountdown deadline={campaign.deadline} />
               ) : null}
 
-              {/* link */}
-              {organization.url ? (
-                <div className={classNames(styles.link, 'text-truncate')}>
-                  <a
-                    href={organization.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {stripProtocolFromUrl(organization.url)}
-                  </a>
-                </div>
-              ) : null}
+              {/* organization link */}
+              <div className={classNames(styles.link, 'text-truncate')}>
+                <Link
+                  href={{
+                    pathname: '/[organizationSlug]/',
+                    query: { organizationSlug: organization.slug },
+                  }}
+                >
+                  {organization.name}
+                </Link>
+              </div>
 
               {/* description */}
-              {organization.requested_goods ? (
+              {campaign.requested_goods ? (
                 <div className={styles.description}>
                   {/* Title */}
                   <h2 className={styles.title}>
-                    Support{' '}
-                    <span className={styles.organizationName}>
-                      {organization.name}
-                    </span>{' '}
-                    with{' '}
+                    Support the &quot;
+                    <span className={styles.campaignName}>{campaign.name}</span>
+                    &quot; campaign with{' '}
                     <span className={styles.requestedGoods}>
-                      {organization.requested_goods}
+                      {campaign.requested_goods}
                     </span>
                   </h2>
 
                   {/* Mission description */}
-                  {organization.mission_description ? (
+                  {campaign.mission_description ? (
                     <div className={styles.missionDescription}>
-                      {organization.mission_description}
+                      {campaign.mission_description}
                     </div>
                   ) : null}
                 </div>
@@ -95,11 +93,11 @@ export function OrganizationDetails() {
             </div>
 
             {/* banner */}
-            {organization.banner ? (
+            {campaign.banner ? (
               <div className={styles.banner}>
                 <Image
                   alt=""
-                  src={organization.banner}
+                  src={campaign.banner}
                   fill
                   className={styles.bannerImg}
                 />

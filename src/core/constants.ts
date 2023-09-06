@@ -200,6 +200,8 @@ export const MANAGE_NONPROFIT_TOUR_ID = {
 
 export const PRODUCTS_PAGE_SIZE = 15;
 
+export const CAMPAIGNS_PAGE_SIZE = 15;
+
 export const BLOG_POSTS_PAGE_SIZE = 15;
 
 // local storage keys

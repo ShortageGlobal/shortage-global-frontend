@@ -1,0 +1,112 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.campaignDetails {
+  display: flex;
+  flex-direction: row;
+  background-color: $organization-details-background-color;
+
+  .textContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 3rem;
+
+    > * + * {
+      margin-top: 2rem;
+    }
+
+    .link {
+      font-size: 1.2rem;
+    }
+
+    .description {
+      font-size: 1.5rem;
+      word-break: break-word;
+      line-height: 2rem;
+
+      .title {
+        font-weight: 700;
+        font-size: 2rem;
+
+        .campaignName {
+          color: $primary;
+        }
+
+        .requestedGoods {
+          text-decoration: underline;
+          -webkit-text-decoration-color: $primary;
+          text-decoration-color: $primary;
+          text-decoration-thickness: 3px;
+        }
+      }
+
+      .missionDescription {
+        margin-top: 2rem;
+      }
+    }
+
+    .sectionHeader {
+      font-size: 1.5rem;
+      margin-top: 3rem;
+      margin-bottom: 0;
+    }
+
+    .actions {
+      display: flex;
+      margin-top: 1rem;
+
+      > * + * {
+        margin-left: 1rem;
+      }
+    }
+
+    .checkGoodsButton {
+      display: inline-flex;
+      padding: 1rem 2rem;
+      line-height: 1.1;
+
+      @include media-breakpoint-down(sm) {
+        padding: 1rem;
+        font-size: 1rem;
+        width: 100%;
+      }
+    }
+  }
+
+  .banner {
+    flex-grow: 1;
+    position: relative;
+    max-width: 40%;
+    max-height: 700px;
+
+    .bannerImg {
+      object-fit: cover;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    flex-direction: column-reverse;
+
+    .link {
+      text-align: center;
+    }
+
+    .banner {
+      height: 25vh;
+      max-height: 300px;
+      max-width: unset;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .textContent {
+      padding: 2rem;
+
+      .description {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

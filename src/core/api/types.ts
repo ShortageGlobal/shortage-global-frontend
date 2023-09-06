@@ -98,8 +98,7 @@ export type ExternalOrganizationPreview = {
 };
 
 export type Organization = OrganizationPreview & {
-  description?: string;
-  requested_goods?: string;
+  requested_goods: string;
   mission_description?: string;
   meta_description?: string;
   url?: string;
@@ -189,6 +188,24 @@ export type AccountProduct = {
   description?: string;
   position?: number;
   created_at?: string;
+};
+
+export type CampaignPreview = {
+  uuid: Uuid;
+  name: string;
+  slug: Slug;
+  banner: string;
+  created_at: string;
+  updated_at: string;
+  is_draft: boolean;
+  products_count: number;
+};
+
+export type Campaign = CampaignPreview & {
+  requested_goods?: string;
+  mission_description?: string;
+  meta_description?: string;
+  deadline?: string;
 };
 
 export type AccountCampaignPreview = {

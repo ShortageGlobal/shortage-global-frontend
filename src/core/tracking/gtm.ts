@@ -1,5 +1,11 @@
 import { getProductId } from 'core/helpers';
-import type { CartItem, Organization, Package, Product } from 'core/api/types';
+import type {
+  Campaign,
+  CartItem,
+  Organization,
+  Package,
+  Product,
+} from 'core/api/types';
 
 type WindowWithDataLayer = Window & {
   dataLayer: Record<string, any>[];
@@ -54,6 +60,30 @@ export const trackOrganizationView = ({
     event: 'organizationView',
     organizationSlug,
     organizationName,
+  });
+};
+
+// User opened a campaign page
+export const trackCampaignView = ({
+  organizationSlug,
+  organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
+}: {
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+  campaignName: Campaign['name'];
+}) => {
+  window.dataLayer.push({
+    event: 'campaignView',
+    organizationSlug,
+    organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
   });
 };
 

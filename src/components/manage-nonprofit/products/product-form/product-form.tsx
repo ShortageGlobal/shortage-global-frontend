@@ -91,8 +91,8 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       category: product?.category || '',
       price: product?.price || '1',
       requestedAmount: product?.requested_amount || '1',
-      topPriority: product?.top_priority || false,
-      isPublic: product?.is_public,
+      topPriority: product?.top_priority ?? false,
+      isPublic: product?.is_public ?? true,
       description: product?.description || '',
       position: product?.position || '0',
     });
