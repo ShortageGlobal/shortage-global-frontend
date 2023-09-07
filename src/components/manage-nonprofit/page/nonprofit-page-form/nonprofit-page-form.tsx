@@ -64,7 +64,6 @@ export function NonprofitPageForm() {
   const [banner, setBanner] = useState<ImageListType>([]);
   const [url, setUrl] = useState('');
   const [deadline, setDeadline] = useState('');
-  const [description, setDescription] = useState(null);
   const [requestedGoods, setRequestedGoods] = useState('');
   const [missionDescription, setMissionDescription] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
@@ -79,7 +78,6 @@ export function NonprofitPageForm() {
       deadline: organization?.deadline
         ? new Date(organization.deadline).toLocaleString('sv')
         : '',
-      description: organization?.description || '',
       requestedGoods: organization?.requested_goods || '',
       missionDescription: organization?.mission_description || '',
       metaDescription: organization?.meta_description || '',
@@ -94,7 +92,6 @@ export function NonprofitPageForm() {
     setBanner(defaultValues.banner);
     setUrl(defaultValues.url);
     setDeadline(defaultValues.deadline);
-    setDescription(defaultValues.description);
     setRequestedGoods(defaultValues.requestedGoods);
     setMissionDescription(defaultValues.missionDescription);
     setMetaDescription(defaultValues.metaDescription);
@@ -115,7 +112,6 @@ export function NonprofitPageForm() {
         defaultValues.deadline,
         deadline ? new Date(deadline).toLocaleString('sv') : ''
       ) &&
-      bothEmptyOrEqual(defaultValues.description, description) &&
       bothEmptyOrEqual(defaultValues.requestedGoods, requestedGoods) &&
       bothEmptyOrEqual(defaultValues.missionDescription, missionDescription) &&
       bothEmptyOrEqual(defaultValues.metaDescription, metaDescription)
@@ -133,7 +129,6 @@ export function NonprofitPageForm() {
     banner,
     url,
     deadline,
-    description,
     requestedGoods,
     missionDescription,
     metaDescription,
@@ -164,7 +159,6 @@ export function NonprofitPageForm() {
           banner: banner?.length ? banner[0]?.file || null : '',
           url,
           deadline: deadline ? new Date(deadline).toISOString() : '',
-          description,
           requestedGoods,
           missionDescription,
           metaDescription,
@@ -216,7 +210,6 @@ export function NonprofitPageForm() {
       banner,
       url,
       deadline,
-      description,
       requestedGoods,
       missionDescription,
       metaDescription,

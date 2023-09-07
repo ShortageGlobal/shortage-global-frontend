@@ -161,7 +161,6 @@ export type UpdateAccountOrganizationParams = {
   logo?: File | string;
   banner?: File | string;
   url?: AccountOrganization['url'];
-  description?: AccountOrganization['description'];
   requestedGoods?: AccountOrganization['requested_goods'];
   missionDescription?: AccountOrganization['mission_description'];
   metaDescription?: AccountOrganization['meta_description'];
@@ -189,7 +188,6 @@ export async function updateAccountOrganization({
   logo,
   banner,
   url,
-  description,
   requestedGoods,
   missionDescription,
   metaDescription,
@@ -220,7 +218,6 @@ export async function updateAccountOrganization({
       logo,
       banner,
       url,
-      description,
       requested_goods: requestedGoods,
       mission_description: missionDescription,
       meta_description: metaDescription,
