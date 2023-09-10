@@ -8,6 +8,7 @@ import type {
   Uuid,
   Organization,
   Campaign,
+  Product,
   AccountOrganization,
   AccountProduct,
   AccountBlogPost,
@@ -305,6 +306,32 @@ export const getCampaignCrumb = ({
     href: {
       pathname: '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/',
       query: { organizationSlug, campaignSlug, campaignUuid },
+    },
+    ...props,
+  });
+
+export const getCampaignProductCrumb = ({
+  organizationSlug,
+  campaignSlug,
+  campaignUuid,
+  productSlug,
+  productName,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+  productSlug: Product['slug'];
+  productName: Product['name'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'campaign-product-crumb',
+    label: productName,
+    href: {
+      pathname:
+        '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/products/[productSlug]/',
+      query: { organizationSlug, campaignSlug, campaignUuid, productSlug },
     },
     ...props,
   });

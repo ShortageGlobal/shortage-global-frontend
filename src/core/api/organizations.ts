@@ -27,7 +27,7 @@ export async function fetchCategories({
   organizationSlug,
   accessToken = null,
   cancelToken = null,
-}: OrganizationSlugParams) {
+}: FetchCategoriesParams) {
   const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 
   return axios.get<Category[]>(

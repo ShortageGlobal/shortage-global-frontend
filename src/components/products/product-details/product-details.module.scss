@@ -1,0 +1,74 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.photoContainer {
+  text-align: center;
+
+  .photo {
+    max-height: 500px;
+    max-width: 100%;
+  }
+
+  @include media-breakpoint-up(md) {
+    padding-right: 2rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: 2rem;
+
+    .photo {
+      max-height: 250px;
+    }
+  }
+}
+
+.details {
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  .name {
+    margin-bottom: 0;
+    word-break: break-word;
+  }
+
+  .price {
+    font-size: calc(1.25rem + 0.3vw);
+    font-weight: 500;
+  }
+
+  .requestedAmount {
+    font-size: calc(1.25rem + 0.3vw);
+  }
+
+  .orderSection {
+    margin-top: 2rem;
+    word-break: break-word;
+  }
+
+  .inlineTextButton {
+    text-decoration: underline;
+  }
+
+  .primaryActionBtn {
+    display: inline-flex;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin: 1rem 0;
+  }
+
+  .primaryActionBtnPlaceholder {
+    margin: 1rem 0;
+    width: 192px;
+    height: 48px;
+  }
+}
+
+.descriptionContainer {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  .description {
+    word-break: break-word;
+  }
+}

@@ -6,7 +6,7 @@ import type {
   PaginatedResponse,
   Campaign,
   CampaignPreview,
-  Organization,
+  Category,
 } from 'core/api/types';
 
 export type FetchCampaignsParams = OrganizationSlugParams & PaginationParams;
@@ -26,8 +26,6 @@ export function fetchCampaigns({
 }
 
 export type FetchCampaignParams = {
-  accessToken?: string;
-  organizationSlug: Organization['slug'];
   campaignSlug: Campaign['slug'];
   campaignUuid: Campaign['uuid'];
 } & OrganizationSlugParams;
@@ -43,6 +41,27 @@ export function fetchCampaign({
   return axios.get<Campaign>(
     encodeURI(
       `${API_ROOT}/api/organizations/${organizationSlug}/campaigns/${campaignSlug}/${campaignUuid}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type FetchCampaignCategoriesParams = {
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+} & OrganizationSlugParams;
+export async function fetchCampaignCategories({
+  organizationSlug,
+  campaignSlug,
+  campaignUuid,
+  accessToken = null,
+  cancelToken = null,
+}: FetchCampaignCategoriesParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<Category[]>(
+    encodeURI(
+      `${API_ROOT}/api/organizations/${organizationSlug}/campaigns/${campaignSlug}/${campaignUuid}/categories/`
     ),
     { cancelToken: cancelToken?.token, headers }
   );

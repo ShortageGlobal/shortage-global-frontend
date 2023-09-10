@@ -19,6 +19,7 @@ import type { UpdateCartData } from 'core/api';
 import type {
   Product,
   Organization,
+  Campaign,
   CreateCartItem,
   CartItem,
 } from 'core/api/types';
@@ -42,12 +43,24 @@ export function useCart() {
     ({
       productSlug,
       organizationSlug,
+      campaignSlug,
+      campaignUuid,
     }: {
       productSlug: Product['slug'];
       organizationSlug: Organization['slug'];
+      campaignSlug?: Campaign['slug'];
+      campaignUuid?: Campaign['uuid'];
     }) => {
       return cart?.items.find((item) => {
+        // If campaignSlug and campaignUuid are provided, match them.
+        // Otherwise, we are looking for a general organization product
+        const campaingMatch =
+          campaignSlug && campaignUuid
+            ? item.product?.campaign?.slug === campaignSlug &&
+              item.product?.campaign?.uuid === campaignUuid
+            : true;
         return (
+          campaingMatch &&
           item.product.slug === productSlug &&
           item.product.organization.slug === organizationSlug
         );
@@ -60,11 +73,20 @@ export function useCart() {
     ({
       productSlug,
       organizationSlug,
+      campaignSlug,
+      campaignUuid,
     }: {
       productSlug: Product['slug'];
       organizationSlug: Organization['slug'];
+      campaignSlug?: Campaign['slug'];
+      campaignUuid?: Campaign['uuid'];
     }) => {
-      return !!getCartItem({ productSlug, organizationSlug });
+      return !!getCartItem({
+        productSlug,
+        organizationSlug,
+        campaignSlug,
+        campaignUuid,
+      });
     },
     [getCartItem]
   );
@@ -123,9 +145,13 @@ export function useCart() {
       product_slug,
       product_name,
       product_price,
+      campaign_slug,
+      campaign_uuid,
+      campaign_name,
       quantity,
     }: CreateCartItem & {
       organization_name: Organization['name'];
+      campaign_name?: Campaign['name'];
       product_name: Product['name'];
       product_price: Product['price'];
     }) => {
@@ -137,6 +163,8 @@ export function useCart() {
       const isProductInCart = checkIsProductInCart({
         productSlug: product_slug,
         organizationSlug: organization_slug,
+        campaignSlug: campaign_slug,
+        campaignUuid: campaign_uuid,
       });
       if (isProductInCart) {
         // the action should have been disabled, so do nothing
@@ -148,12 +176,17 @@ export function useCart() {
         cartId: cart.uuid,
         product_slug,
         organization_slug,
+        campaign_slug,
+        campaign_uuid,
         quantity,
       });
       dispatch(setCartAction(cartResponse.data));
       gtm.trackAddToCart({
         organizationSlug: organization_slug,
         organizationName: organization_name,
+        campaignSlug: campaign_slug,
+        campaignUuid: campaign_uuid,
+        campaignName: campaign_name,
         productSlug: product_slug,
         productName: product_name,
         productPrice: product_price,

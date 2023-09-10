@@ -165,6 +165,7 @@ type ProductBase = {
   requested_amount: number;
   top_priority: boolean;
   organization: OrganizationPreview;
+  campaign: CampaignMinimalPreview | null;
 };
 
 export type ProductPreview = ProductBase & {
@@ -190,7 +191,14 @@ export type AccountProduct = {
   created_at?: string;
 };
 
-export type CampaignPreview = {
+export type CampaignMinimalPreview = {
+  uuid: Uuid;
+  name: string;
+  slug: Slug;
+  is_draft: boolean;
+};
+
+export type CampaignPreview = CampaignMinimalPreview & {
   uuid: Uuid;
   name: string;
   slug: Slug;
@@ -321,6 +329,8 @@ export type AccountOrganizationPackage = {
 
 export type CreateCartItem = {
   organization_slug: Organization['slug'];
+  campaign_slug?: Campaign['slug'];
+  campaign_uuid?: Campaign['uuid'];
   product_slug: Product['slug'];
   quantity: number;
 };

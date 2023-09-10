@@ -8,9 +8,10 @@ import { SectionHeader } from 'components/section-header/section-header';
 import { CategorySelector } from 'components/products/category-selector/category-selector';
 import { ProductCard } from 'components/products/product-card/product-card';
 import { REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
-import type { Slug, ProductPreview, Category } from 'core/api/types';
+import type { Slug, ProductPreview, Category, Campaign } from 'core/api/types';
 
 type ProductsProps = {
+  campaign?: Campaign;
   products: ProductPreview[];
   count: number;
   isLoading: boolean;
@@ -22,6 +23,7 @@ type ProductsProps = {
 };
 
 export function Products({
+  campaign,
   products,
   count,
   isLoading,
@@ -76,6 +78,8 @@ export function Products({
                   const organizationSlug = getOrganizationSlug(product);
                   const organizationName = product.organization?.name || null;
                   const organizationLogo = product.organization?.logo || null;
+                  const campaignSlug = campaign?.slug || null;
+                  const campaignUuid = campaign?.uuid || null;
                   const key = `${organizationSlug}-${product.slug}`;
                   return (
                     <ProductCard
@@ -84,6 +88,8 @@ export function Products({
                       organizationSlug={organizationSlug}
                       organizationName={organizationName}
                       organizationLogo={organizationLogo}
+                      campaignSlug={campaignSlug}
+                      campaignUuid={campaignUuid}
                     />
                   );
                 })}

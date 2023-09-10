@@ -87,6 +87,40 @@ export const trackCampaignView = ({
   });
 };
 
+// User opened a campaign product page
+export const trackCampaignProductView = ({
+  organizationSlug,
+  organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
+  productSlug,
+  productName,
+  productPrice,
+}: {
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+  campaignName: Campaign['name'];
+  productSlug: Product['slug'];
+  productName: Product['name'];
+  productPrice: Product['price'];
+}) => {
+  window.dataLayer.push({
+    event: 'productView',
+    organizationSlug,
+    organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
+    productSlug,
+    productName,
+    productPrice,
+    productId: getProductId({ organizationSlug, productSlug }),
+  });
+};
+
 // User opened a product page
 export const trackProductView = ({
   organizationSlug,
@@ -116,6 +150,9 @@ export const trackProductView = ({
 export const trackAddToCart = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   productSlug,
   productName,
   productPrice,
@@ -123,6 +160,9 @@ export const trackAddToCart = ({
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+  campaignName: Campaign['name'];
   productSlug: Product['slug'];
   productName: Product['name'];
   productPrice: Product['price'];
@@ -132,6 +172,9 @@ export const trackAddToCart = ({
     event: 'addToCart',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     productSlug,
     productName,
     productPrice,

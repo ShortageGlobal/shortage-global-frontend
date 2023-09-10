@@ -19,6 +19,9 @@ import { promotedBlogPostsReducer } from 'core/store/slices/promoted-blog-posts'
 import { organizationReducer } from 'core/store/slices/organization';
 import { campaignsReducer } from 'core/store/slices/campaigns';
 import { campaignReducer } from 'core/store/slices/campaign';
+import { campaignCategoriesReducer } from 'core/store/slices/campaign-categories';
+import { campaignProductsReducer } from 'core/store/slices/campaign-products';
+import { campaignProductReducer } from 'core/store/slices/campaign-product';
 import { categoriesReducer } from 'core/store/slices/categories';
 import { productsReducer } from 'core/store/slices/products';
 import { organizationBlogPostsReducer } from 'core/store/slices/organization-blog-posts';
@@ -47,6 +50,9 @@ const combinedReducer = combineReducers({
   organization: organizationReducer,
   campaigns: campaignsReducer,
   campaign: campaignReducer,
+  campaignCategories: campaignCategoriesReducer,
+  campaignProducts: campaignProductsReducer,
+  campaignProduct: campaignProductReducer,
   categories: categoriesReducer,
   products: productsReducer,
   organizationBlogPosts: organizationBlogPostsReducer,

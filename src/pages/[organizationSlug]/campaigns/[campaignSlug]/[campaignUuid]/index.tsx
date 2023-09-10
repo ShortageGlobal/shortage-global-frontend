@@ -12,10 +12,10 @@ import {
 } from 'core/store/slices/organization';
 import { fetchCampaign, selectCampaign } from 'core/store/slices/campaign';
 import {
-  fetchCategories,
-  setCurrentCategory,
-} from 'core/store/slices/categories';
-import { fetchProducts } from 'core/store/slices/products';
+  fetchCampaignCategories,
+  setCurrentCampaignCategory,
+} from 'core/store/slices/campaign-categories';
+import { fetchCampaignProducts } from 'core/store/slices/campaign-products';
 import {
   fetchOrganizationBlogPosts,
   selectOrganizationBlogPosts,
@@ -30,7 +30,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { CampaignDetails } from 'components/organization/campaigns/details/details';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
-import { OrganizationProducts } from 'components/organization/products/products';
+import { CampaignProducts } from 'components/organization/campaigns/products/products';
 import { OrganizationBlogPosts } from 'components/organization/blog-posts/blog-posts';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
 import {
@@ -143,8 +143,12 @@ const CampaignPage: NextPageWithLayout = () => {
       {organization?.is_draft || !organization?.is_verified ? (
         <DraftWarning
           adminHref={{
-            pathname: '/private/manage-nonprofit/[organizationSlug]/',
-            query: { organizationSlug: organization?.slug },
+            pathname:
+              '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignUuid]/',
+            query: {
+              organizationSlug: organization?.slug,
+              campaignUuid: campaign?.uuid,
+            },
           }}
         />
       ) : null}
@@ -161,8 +165,7 @@ const CampaignPage: NextPageWithLayout = () => {
 
       <DonationSteps />
 
-      {/* TODO: <CampaignProducts /> */}
-      <OrganizationProducts />
+      <CampaignProducts />
 
       {organizationBlogPosts?.length > 0 ? <OrganizationBlogPosts /> : null}
 
@@ -190,7 +193,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
           accessToken,
         })
       ),
-      store.dispatch(fetchCategories({ organizationSlug, accessToken })),
+      store.dispatch(
+        fetchCampaignCategories({
+          organizationSlug,
+          campaignSlug,
+          campaignUuid,
+          accessToken,
+        })
+      ),
       store.dispatch(
         fetchOrganizationBlogPosts({
           organizationSlug,
@@ -200,21 +210,21 @@ export const getServerSideProps = wrapper.getServerSideProps(
       ),
     ]);
 
-    const { organization } = store.getState();
+    const { organization, campaign } = store.getState();
 
-    if (organization.error?.status === 404) {
+    if (organization.error?.status === 404 || campaign.error?.status === 404) {
       return {
         notFound: true,
       };
     }
 
     // try to extract category from query parameters
-    const { categories } = store.getState().categories;
+    const { campaignCategories } = store.getState().campaignCategories;
     const categoryQuery = context.query.category as Category;
-    const currentCategory = categories?.includes(categoryQuery)
+    const currentCategory = campaignCategories?.includes(categoryQuery)
       ? categoryQuery
       : PRODUCT_CATEGORY_ALL_KEY;
-    store.dispatch(setCurrentCategory(currentCategory));
+    store.dispatch(setCurrentCampaignCategory(currentCategory));
 
     // try to extract search from query parameters
     let search = context.query.search;
@@ -225,8 +235,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     // fetch products
     await store.dispatch(
-      fetchProducts({
+      fetchCampaignProducts({
         organizationSlug,
+        campaignSlug,
+        campaignUuid,
         category: currentCategory,
         search,
         limit: PRODUCTS_PAGE_SIZE,
