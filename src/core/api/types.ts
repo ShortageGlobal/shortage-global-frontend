@@ -165,7 +165,6 @@ type ProductBase = {
   requested_amount: number;
   top_priority: boolean;
   organization: OrganizationPreview;
-  campaign: CampaignMinimalPreview | null;
 };
 
 export type ProductPreview = ProductBase & {
@@ -173,6 +172,7 @@ export type ProductPreview = ProductBase & {
 };
 
 export type Product = ProductBase & {
+  campaign: CampaignMinimalPreview | null;
   description?: string;
 };
 
@@ -338,6 +338,7 @@ export type CreateCartItem = {
 export type CartItem = {
   uuid: Uuid;
   product: ProductBase;
+  campaign: CampaignMinimalPreview | null;
   quantity: number;
   created_at: string;
 };

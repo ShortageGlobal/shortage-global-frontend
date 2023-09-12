@@ -5,6 +5,7 @@ import type {
   Slug,
   CartItem,
   Profile,
+  Campaign,
 } from 'core/api/types';
 import type { ReactNode } from 'react';
 
@@ -36,14 +37,25 @@ export function stripProtocolFromUrl(url: string) {
   return url.replace(/^https?:\/\//, '');
 }
 
-// group a cart items list by organization
 export type CartGroup = {
   organizationName: string;
   organizationSlug: Slug;
   isOrganizationDraft: boolean;
   isOrganizationVerified: boolean;
   items: CartItem[];
+  campaigns: Map<
+    Campaign['uuid'],
+    {
+      campaignUuid: Campaign['uuid'];
+      campaignSlug: Campaign['slug'];
+      campaignName: Campaign['name'];
+      isCampaignDraft: Campaign['is_draft'];
+      campaignItems: CartItem[];
+    }
+  >;
 };
+
+// group a cart items list by organization
 export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
   if (!items?.length) {
     return new Map<Slug, CartGroup>();
@@ -66,11 +78,29 @@ export function groupCartItemsByOrganization({ items }: { items: CartItem[] }) {
           organizationName,
           isOrganizationDraft,
           isOrganizationVerified,
-          items: [item],
+          items: [],
+          campaigns: new Map(),
         });
-      } else {
-        groups.get(organizationSlug).items.push(item);
       }
+      const organizationGroup = groups.get(organizationSlug);
+
+      if (item.campaign) {
+        if (!organizationGroup.campaigns.has(item.campaign.uuid)) {
+          organizationGroup.campaigns.set(item.campaign.uuid, {
+            campaignUuid: item.campaign.uuid,
+            campaignSlug: item.campaign.slug,
+            campaignName: item.campaign.name,
+            isCampaignDraft: item.campaign.is_draft,
+            campaignItems: [],
+          });
+        }
+        organizationGroup.campaigns
+          .get(item.campaign.uuid)
+          .campaignItems.push(item);
+      } else {
+        organizationGroup.items.push(item);
+      }
+
       return groups;
     }, new Map<Slug, CartGroup>());
 }

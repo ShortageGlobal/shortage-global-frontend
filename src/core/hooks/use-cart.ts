@@ -55,9 +55,9 @@ export function useCart() {
         // If campaignSlug and campaignUuid are provided, match them.
         // Otherwise, we are looking for a general organization product
         const campaingMatch =
-          campaignSlug && campaignUuid
-            ? item.product?.campaign?.slug === campaignSlug &&
-              item.product?.campaign?.uuid === campaignUuid
+          (campaignSlug && campaignUuid) || item.campaign
+            ? item.campaign?.slug === campaignSlug &&
+              item.campaign?.uuid === campaignUuid
             : true;
         return (
           campaingMatch &&
