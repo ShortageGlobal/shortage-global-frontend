@@ -224,11 +224,17 @@ export const trackSubmitDonationDetails = ({
 export const trackClickOrderItems = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   items,
   totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
   items: ProductItem[];
   totalPrice: number;
 }) => {
@@ -236,6 +242,9 @@ export const trackClickOrderItems = ({
     event: 'clickOrderItems',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     items: formatProducts({ items }),
     totalPrice,
   });
@@ -245,11 +254,17 @@ export const trackClickOrderItems = ({
 export const trackClickDonateWhatIHave = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   items,
   totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
   items: ProductItem[];
   totalPrice: number;
 }) => {
@@ -257,6 +272,9 @@ export const trackClickDonateWhatIHave = ({
     event: 'clickDonateWhatIHave',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     items: formatProducts({ items }),
     totalPrice,
   });
@@ -266,11 +284,17 @@ export const trackClickDonateWhatIHave = ({
 export const trackPackageRegistrationView = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   items,
   totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
   items: ProductItem[];
   totalPrice: number;
 }) => {
@@ -278,6 +302,9 @@ export const trackPackageRegistrationView = ({
     event: 'packageRegistrationView',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     items: formatProducts({ items }),
     totalPrice,
   });

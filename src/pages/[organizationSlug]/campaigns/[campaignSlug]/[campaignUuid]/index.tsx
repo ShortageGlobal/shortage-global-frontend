@@ -106,7 +106,7 @@ const CampaignPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{`${campaign?.name} | ${organization.name} | Shortage`}</title>
+        <title>{`${campaign.name} | ${organization.name} | Shortage`}</title>
         <meta property="og:url" key="og:url" content={metaUrl} />
         <meta property="og:title" key="og:title" content={metaTitle} />
         {metaDescription ? (

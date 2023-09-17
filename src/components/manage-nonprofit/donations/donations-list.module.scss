@@ -38,6 +38,12 @@
   .statusColumn {
   }
 
+  .campaignColumn {
+    .campaignNameLink {
+      color: var(--bs-body-color);
+    }
+  }
+
   .itemsColumn {
     min-width: 200px;
 

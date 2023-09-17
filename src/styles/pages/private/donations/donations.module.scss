@@ -45,13 +45,15 @@
   }
 
   .recipientColumn {
-    max-width: 150px;
+    min-width: 150px;
+    white-space: normal;
 
-    .orgLink {
-      margin-top: 4px; // dirty hack to compensate difference in vertical position of inline-block element
-      max-width: 100%;
-      display: inline-block;
-      @include text-truncate();
+    .recipient {
+      word-wrap: break-word;
+
+      .recipientLink {
+        color: var(--bs-body-color);
+      }
     }
   }
 

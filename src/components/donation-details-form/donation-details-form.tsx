@@ -128,7 +128,11 @@ export function DonationDetailsForm({
           case PAGE_KEY.PACKAGE_REGISTRATION: {
             router.push({
               pathname: '/[organizationSlug]/packages/',
-              query: { organizationSlug: router.query.nextOrganizationSlug },
+              query: {
+                organizationSlug: router.query.nextOrganizationSlug,
+                campaignSlug: router.query.nextCampaignSlug,
+                campaignUuid: router.query.nextCampaignUuid,
+              },
             });
             break;
           }

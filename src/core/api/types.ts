@@ -297,7 +297,13 @@ export type Package = {
   created_at?: string;
   items?: PackageItem[];
   organization?: OrganizationPreview;
+  campaign?: CampaignMinimalPreview | null;
 };
+
+export type AccountOrganizationPackageCampaignPreview =
+  CampaignMinimalPreview & {
+    is_deleted: boolean;
+  };
 
 export type AccountOrganizationPackage = {
   type: PackageType;
@@ -324,6 +330,7 @@ export type AccountOrganizationPackage = {
   status: PackageStatus;
   created_at?: string;
   items?: AccountOrganizationPackageItem[];
+  campaign?: AccountOrganizationPackageCampaignPreview | null;
   blog_posts?: AccountBlogPost['uuid'][];
 };
 
@@ -399,6 +406,7 @@ export type OrganizationChecklistRemark = {
 
 export type OrganizationChecklist = {
   page: OrganizationChecklistRemark[];
+  campaigns: OrganizationChecklistRemark[];
   products: OrganizationChecklistRemark[];
   instructions: OrganizationChecklistRemark[];
   tax_information: OrganizationChecklistRemark[];

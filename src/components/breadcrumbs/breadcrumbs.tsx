@@ -353,6 +353,27 @@ export const getPackageRegistrationCrumb = ({
     ...props,
   });
 
+export const getCampaignPackageRegistrationCrumb = ({
+  organizationSlug,
+  campaignSlug,
+  campaignUuid,
+  ...props
+}: {
+  organizationSlug: Organization['slug'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'campaign-package-registration',
+    label: 'Package Registration',
+    href: {
+      pathname: '/[organizationSlug]/[campaignSlug]/[campaignUuid]/packages/',
+      query: { organizationSlug, campaignSlug, campaignUuid },
+    },
+    ...props,
+  });
+
 export const getPackageStatusCrumb = ({
   organizationSlug,
   packageId,

@@ -42,6 +42,10 @@ export function CampaignCard({
         key: 'public',
         value: campaign.is_public ? 'yes' : 'no',
       },
+      {
+        key: 'items',
+        value: campaign.products_count,
+      },
     ];
   }, [campaign]);
 

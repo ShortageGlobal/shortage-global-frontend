@@ -10,15 +10,21 @@ import { CartItem } from 'components/cart/cart-item/cart-item';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
 import { PACKAGE_TYPE } from 'core/constants';
 import type { FormEvent } from 'react';
-import type { Organization, CartItem as CartItemType } from 'core/api/types';
+import type {
+  Organization,
+  Campaign,
+  CartItem as CartItemType,
+} from 'core/api/types';
 
 type PackageRegistrationFormProps = {
   organization: Organization;
+  campaign?: Campaign;
   items: CartItemType[];
 };
 
 export function PackageRegistrationForm({
   organization,
+  campaign,
   items,
 }: PackageRegistrationFormProps) {
   const router = useRouter();
@@ -82,6 +88,8 @@ export function PackageRegistrationForm({
             ? PACKAGE_TYPE.DROPPED_OFF_BY_DONOR
             : PACKAGE_TYPE.SENT_BY_DONOR,
           organizationSlug: organization.slug,
+          campaignSlug: campaign?.slug,
+          campaignUuid: campaign?.uuid,
           firstName: cart.first_name,
           lastName: cart.last_name,
           email: cart.email,
@@ -100,15 +108,30 @@ export function PackageRegistrationForm({
           cancelToken,
         });
 
-        router.push({
-          pathname: '/[organizationSlug]/packages/[packageId]/',
-          query: {
-            organizationSlug: organization.slug,
-            packageId: response.data.uuid,
-            dci: items.map((item) => item.uuid),
-            registrationStatus: 'succeeded',
-          },
-        });
+        const route = campaign
+          ? {
+              pathname:
+                '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/packages/[packageId]/',
+              query: {
+                organizationSlug: organization.slug,
+                campaignSlug: campaign.slug,
+                campaignUuid: campaign.uuid,
+                packageId: response.data.uuid,
+                dci: items.map((item) => item.uuid),
+                registrationStatus: 'succeeded',
+              },
+            }
+          : {
+              pathname: '/[organizationSlug]/packages/[packageId]/',
+              query: {
+                organizationSlug: organization.slug,
+                packageId: response.data.uuid,
+                dci: items.map((item) => item.uuid),
+                registrationStatus: 'succeeded',
+              },
+            };
+
+        router.push(route);
       } catch (rejection) {
         if (isRequestCancel(rejection)) {
           return;
@@ -118,6 +141,7 @@ export function PackageRegistrationForm({
     },
     [
       organization,
+      campaign,
       handleItemRemove,
       cart,
       items,

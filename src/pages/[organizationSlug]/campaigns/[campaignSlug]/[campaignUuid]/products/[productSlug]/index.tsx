@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import Head from 'next/head';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Alert } from 'react-bootstrap';
 import * as gtm from 'core/tracking/gtm';
 import { extractAccessTokenFromSession } from 'core/helpers';
 import { isRequestCancel, useAppSelector, useCart } from 'core/hooks';

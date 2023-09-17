@@ -1,6 +1,6 @@
 import commonStyles from 'styles/pages/private/common.module.scss';
 import styles from './donations-list.module.scss';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import {
   Row,
@@ -48,6 +48,10 @@ export function DonationsList() {
   const [pageNumber, setPageNumber] = useState(0);
   const [totalCount, setTotalCount] = useState(null);
   const [donations, setDonations] = useState<AccountOrganizationPackage[]>([]);
+
+  const hasCampaigns = useMemo(() => {
+    return donations.some((d) => d.campaign);
+  }, [donations]);
 
   const getFetchDonationsCancelToken = useCancelToken();
 
@@ -160,6 +164,9 @@ export function DonationsList() {
                 <th className={styles.dateColumn}>Date</th>
                 <th className={styles.typeColumn}>Type</th>
                 <th className={styles.statusColumn}>Status</th>
+                {hasCampaigns ? (
+                  <th className={styles.campaignColumn}>Campaign</th>
+                ) : null}
                 <th className={styles.itemsColumn}>Items</th>
                 <th className={styles.valueColumn}>Value</th>
                 <th className={styles.actionsColumn}></th>
@@ -215,6 +222,33 @@ export function DonationsList() {
                     <td className={styles.statusColumn}>
                       {PACKAGE_STATUS_DISPLAY_LABELS[p.status]}
                     </td>
+
+                    {hasCampaigns ? (
+                      <td className={styles.campaignColumn}>
+                        {p.campaign ? (
+                          <Link
+                            href={{
+                              pathname:
+                                '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignUuid]/',
+                              query: {
+                                organizationSlug: organization.slug,
+                                campaignUuid: p.campaign.uuid,
+                              },
+                            }}
+                            className={classNames(
+                              styles.campaignNameLink,
+                              'break-word',
+                              { 'text-secondary': p.campaign.is_deleted }
+                            )}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <span>{p.campaign.name}</span>
+                          </Link>
+                        ) : (
+                          <span>—</span>
+                        )}
+                      </td>
+                    ) : null}
 
                     <td className={styles.itemsColumn}>
                       {p.items.slice(0, MAX_ITEMS_SHOWN).map((item) => (

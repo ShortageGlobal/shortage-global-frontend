@@ -4,6 +4,7 @@ import type {
   OrganizationSlugParams,
   PackageType,
   Package,
+  Campaign,
   CreatePackageItemParams,
   PaginatedResponse,
   PaginationWithCancelTokenParams,
@@ -13,6 +14,8 @@ import type {
 
 export type CreatePackageParams = OrganizationSlugParams & {
   type: PackageType;
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -33,6 +36,8 @@ export type CreatePackageParams = OrganizationSlugParams & {
 export function createPackage({
   type,
   organizationSlug,
+  campaignSlug,
+  campaignUuid,
   firstName,
   lastName,
   email,
@@ -58,6 +63,8 @@ export function createPackage({
     encodeURI(`${API_ROOT}/api/organizations/${organizationSlug}/packages/`),
     {
       type,
+      campaign_slug: campaignSlug,
+      campaign_uuid: campaignUuid,
       first_name: firstName,
       last_name: lastName,
       email,

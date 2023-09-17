@@ -1,15 +1,18 @@
 import styles from './instructions-modal.module.scss';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Check } from 'react-feather';
 import Link from 'next/link';
 import { Modal, Button, ButtonGroup } from 'react-bootstrap';
-import { Organization, Instruction } from 'core/api/types';
+import { Organization, Campaign, Instruction } from 'core/api/types';
 
 type InstructionsModalProps = {
   show: boolean;
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
   instructions: Instruction[];
   onHide: () => void;
 };
@@ -18,11 +21,36 @@ export function InstructionsModal({
   show,
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   instructions,
   onHide,
 }: InstructionsModalProps) {
   const [selectedInstruction] = useState(instructions?.[0]);
   const [isDropOff, setIsDropOff] = useState(true); // opposite to "Shipping"
+
+  const boxLabel = useMemo(() => {
+    let label = `IN THE BENEFIT OF ${organizationName} VIA SHORTAGE`;
+    if (campaignName) {
+      label = `${label} FOR THE "${campaignName}" CAMPAIGN`;
+    }
+    return `${label.toLocaleUpperCase()} + what's inside and quantity (use capital letters)`;
+  }, [organizationName, campaignName]);
+
+  const registerButtonHref = useMemo(() => {
+    if (!campaignSlug || !campaignUuid) {
+      return {
+        pathname: '/[organizationSlug]/packages/',
+        query: { organizationSlug, isDropOff },
+      };
+    }
+    return {
+      pathname:
+        '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/packages',
+      query: { organizationSlug, campaignSlug, campaignUuid, isDropOff },
+    };
+  }, [organizationSlug, campaignSlug, campaignUuid, isDropOff]);
 
   return (
     <Modal
@@ -67,10 +95,7 @@ export function InstructionsModal({
               <li>
                 Use a marker to label the box/product with the following
                 information:
-                <blockquote>
-                  IN THE BENEFIT OF {organizationName} VIA SHORTAGE +
-                  what&apos;s inside and quantity (use capital letters)
-                </blockquote>
+                <blockquote>{boxLabel}</blockquote>
               </li>
               <li>
                 Drop off the package directly to
@@ -106,10 +131,7 @@ export function InstructionsModal({
               <li>Find the product and package it for shipping</li>
               <li>
                 Write the following on the 2 sides of the package with a marker:
-                <blockquote>
-                  IN THE BENEFIT OF {organizationName} VIA SHORTAGE +
-                  what&apos;s inside and quantity (use capital letters)
-                </blockquote>
+                <blockquote>{boxLabel}</blockquote>
               </li>
               <li>
                 Ship the package directly from an online store or order delivery
@@ -146,16 +168,10 @@ export function InstructionsModal({
       </Modal.Body>
 
       <Modal.Footer>
-        <Link
-          href={{
-            pathname: '/[organizationSlug]/packages/',
-            query: { organizationSlug, isDropOff },
-          }}
-          passHref
-          legacyBehavior
-        >
+        <Link href={registerButtonHref} passHref legacyBehavior>
           <Button size="lg" variant="primary" className={styles.confirmButton}>
             Register package for {organizationName}
+            {campaignName ? ` (the "${campaignName}" campaign)` : null}
           </Button>
         </Link>
       </Modal.Footer>

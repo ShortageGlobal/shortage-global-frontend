@@ -1,0 +1,53 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.cartGroup {
+  margin-top: 2rem;
+
+  .cartGroupTitle {
+    font-size: 1.5rem;
+    word-break: break-word;
+  }
+
+  .cartItemsList {
+    > * + * {
+      margin-top: 1.5rem;
+    }
+  }
+
+  .summaryLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    position: relative;
+
+    > * {
+      margin: 0;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 2px;
+      width: 100%;
+      border-bottom: 2px solid $donation-cart-summary-line-border-color;
+      z-index: -1;
+    }
+
+    .summaryLabel {
+      display: flex;
+      padding-right: 0.5rem;
+      background-color: $donation-cart-summary-line-labels-br-color;
+    }
+
+    .summaryValue {
+      display: flex;
+      padding-left: 0.5rem;
+      background-color: white;
+    }
+  }
+}
