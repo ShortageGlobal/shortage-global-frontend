@@ -10,6 +10,7 @@ import {
   fetchOrganization,
   selectOrganization,
 } from 'core/store/slices/organization';
+import { fetchCampaigns, selectCampaigns } from 'core/store/slices/campaigns';
 import {
   fetchCategories,
   setCurrentCategory,
@@ -28,6 +29,7 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { OrganizationDetails } from 'components/organization/details/details';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
+import { Campaigns } from 'components/organization/campaigns/campaigns';
 import { OrganizationProducts } from 'components/organization/products/products';
 import { OrganizationBlogPosts } from 'components/organization/blog-posts/blog-posts';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
@@ -35,6 +37,7 @@ import {
   ROOT_URL,
   PRODUCT_CATEGORY_ALL_KEY,
   PRODUCTS_PAGE_SIZE,
+  CAMPAIGNS_PAGE_SIZE,
   BLOG_POSTS_PAGE_SIZE,
 } from 'core/constants';
 import type { Category } from 'core/api/types';
@@ -42,6 +45,7 @@ import type { NextPageWithLayout } from 'pages/_app';
 
 const OrganizationPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectOrganization);
+  const { campaigns } = useAppSelector(selectCampaigns);
   const { organizationBlogPosts } = useAppSelector(selectOrganizationBlogPosts);
 
   const { metaUrl, metaTitle, metaDescription, metaImage } = useMemo(() => {
@@ -141,6 +145,8 @@ const OrganizationPage: NextPageWithLayout = () => {
 
       <DonationSteps />
 
+      {campaigns?.length > 0 ? <Campaigns /> : null}
+
       <OrganizationProducts />
 
       {organizationBlogPosts?.length > 0 ? <OrganizationBlogPosts /> : null}
@@ -164,6 +170,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
         fetchOrganizationBlogPosts({
           organizationSlug,
           limit: BLOG_POSTS_PAGE_SIZE,
+          accessToken,
+        })
+      ),
+      store.dispatch(
+        fetchCampaigns({
+          organizationSlug,
+          limit: CAMPAIGNS_PAGE_SIZE,
           accessToken,
         })
       ),

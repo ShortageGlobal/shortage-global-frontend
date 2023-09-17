@@ -1,5 +1,5 @@
 import styles from './cart-sidebar.module.scss';
-import { useCallback, useEffect, useMemo } from 'react';
+import { Fragment, useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Offcanvas, Button, Badge } from 'react-bootstrap';
@@ -157,40 +157,108 @@ export function CartSidebar() {
             isOrganizationDraft,
             isOrganizationVerified,
             items,
+            campaigns,
           }) => {
             return (
-              <div key={organizationSlug} className={styles.cartGroup}>
-                <p className="d-flex align-items-center">
-                  <span className="text-truncate">
-                    For{' '}
-                    <Link
-                      href={{
-                        pathname: '/[organizationSlug]/',
-                        query: { organizationSlug },
-                      }}
-                    >
-                      {organizationName}
-                    </Link>
-                  </span>
+              <Fragment key={organizationSlug}>
+                {/* Organization items */}
+                {items.length > 0 ? (
+                  <div className={styles.cartGroup}>
+                    <p className="break-word">
+                      {isOrganizationDraft || !isOrganizationVerified ? (
+                        <Badge bg="secondary" className="me-2">
+                          Draft
+                        </Badge>
+                      ) : null}
+                      For{' '}
+                      <Link
+                        href={{
+                          pathname: '/[organizationSlug]/',
+                          query: { organizationSlug },
+                        }}
+                      >
+                        {organizationName}
+                      </Link>
+                    </p>
 
-                  {isOrganizationDraft || !isOrganizationVerified ? (
-                    <Badge bg="secondary" className="ms-2">
-                      Draft
-                    </Badge>
-                  ) : null}
-                </p>
+                    <div className={styles.cartGroupItems}>
+                      {items.map((item) => (
+                        <CartItem
+                          key={item.uuid}
+                          item={item}
+                          onQuantityChange={handleItemQuantityChange}
+                          onRemove={handleItemRemove}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
 
-                <div className={styles.cartGroupItems}>
-                  {items.map((item) => (
-                    <CartItem
-                      key={item.uuid}
-                      item={item}
-                      onQuantityChange={handleItemQuantityChange}
-                      onRemove={handleItemRemove}
-                    />
-                  ))}
-                </div>
-              </div>
+                {/* Campaigns */}
+                {Array.from(campaigns.values()).map(
+                  ({
+                    campaignName,
+                    campaignSlug,
+                    campaignUuid,
+                    isCampaignDraft,
+                    campaignItems,
+                  }) => {
+                    const isDraft =
+                      isOrganizationDraft ||
+                      !isOrganizationVerified ||
+                      isCampaignDraft;
+                    return (
+                      <Fragment key={campaignUuid}>
+                        {campaignItems.length > 0 ? (
+                          <div className={styles.cartGroup}>
+                            <p className="break-word">
+                              {isDraft ? (
+                                <Badge bg="secondary" className="me-2">
+                                  Draft
+                                </Badge>
+                              ) : null}
+                              For the &quot;
+                              <Link
+                                href={{
+                                  pathname:
+                                    '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]',
+                                  query: {
+                                    organizationSlug,
+                                    campaignSlug,
+                                    campaignUuid,
+                                  },
+                                }}
+                              >
+                                {campaignName}
+                              </Link>
+                              &quot; campaign of{' '}
+                              <Link
+                                href={{
+                                  pathname: '/[organizationSlug]/',
+                                  query: { organizationSlug },
+                                }}
+                              >
+                                {organizationName}
+                              </Link>
+                            </p>
+
+                            <div className={styles.cartGroupItems}>
+                              {campaignItems.map((item) => (
+                                <CartItem
+                                  key={item.uuid}
+                                  item={item}
+                                  onQuantityChange={handleItemQuantityChange}
+                                  onRemove={handleItemRemove}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+                      </Fragment>
+                    );
+                  }
+                )}
+              </Fragment>
             );
           }
         )}

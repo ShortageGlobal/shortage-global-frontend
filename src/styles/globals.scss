@@ -84,6 +84,10 @@ body.disable-scroll {
   max-width: 500px;
 }
 
+.break-word {
+  word-break: break-word;
+}
+
 // Fix grey border on images in safari
 // See: https://nextjs.org/docs/api-reference/next/image#known-browser-bugs
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {

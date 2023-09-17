@@ -88,6 +88,8 @@ export async function createCartItem({
   cartId,
   product_slug,
   organization_slug,
+  campaign_slug,
+  campaign_uuid,
   quantity,
   cancelToken = null,
 }: CreateCartItemParams) {
@@ -96,6 +98,8 @@ export async function createCartItem({
     {
       product_slug,
       organization_slug,
+      campaign_slug,
+      campaign_uuid,
       quantity,
     },
     { cancelToken: cancelToken?.token }
@@ -149,6 +153,8 @@ export async function createCartItemAndRefetchCart({
   cartId,
   product_slug,
   organization_slug,
+  campaign_slug,
+  campaign_uuid,
   quantity,
   cancelToken = null,
 }: CreateCartItemAndRefetchCartParams) {
@@ -157,6 +163,8 @@ export async function createCartItemAndRefetchCart({
     cartId,
     product_slug,
     organization_slug,
+    campaign_slug,
+    campaign_uuid,
     quantity,
     cancelToken,
   });

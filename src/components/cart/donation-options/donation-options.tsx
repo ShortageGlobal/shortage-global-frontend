@@ -16,13 +16,25 @@ import { pluralize } from 'core/helpers';
 import { createPackage } from 'core/api';
 import { PACKAGE_TYPE } from 'core/constants';
 import { InstructionsModal } from 'components/instructions-modal/instructions-modal';
-import type { CartGroup } from 'core/helpers';
+import { Campaign, CartItem, Organization } from 'core/api/types';
 
 type DonationOptionsProps = {
-  cartGroup: CartGroup;
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
+  items: CartItem[];
 };
 
-export function DonationOptions({ cartGroup }: DonationOptionsProps) {
+export function DonationOptions({
+  organizationSlug,
+  organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
+  items,
+}: DonationOptionsProps) {
   const { cart } = useCart();
   const { instructions } = useAppSelector(selectInstructions);
 
@@ -32,16 +44,19 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
   const getCreatePackageCancelToken = useCancelToken();
 
   const organizationInstructions = useMemo(() => {
-    return instructions?.[cartGroup.organizationSlug];
-  }, [instructions, cartGroup]);
+    return instructions?.[organizationSlug];
+  }, [instructions, organizationSlug]);
 
   const handleFundDonation = useCallback(async () => {
     const cancelToken = getCreatePackageCancelToken();
     setIsPackageBeingCreated(true);
     gtm.trackClickOrderItems({
-      organizationSlug: cartGroup.organizationSlug,
-      organizationName: cartGroup.organizationName,
-      items: cartGroup.items.map((item) => {
+      organizationSlug,
+      organizationName,
+      campaignSlug,
+      campaignUuid,
+      campaignName,
+      items: items.map((item) => {
         return {
           productSlug: item.product.slug,
           productName: item.product.name,
@@ -50,14 +65,15 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           organizationSlug: item.product.organization.slug,
         };
       }),
-      totalPrice: cartGroup.items.reduce((acc, item) => {
+      totalPrice: items.reduce((acc, item) => {
         return acc + item.product.price * item.quantity;
       }, 0),
     });
     try {
       const response = await createPackage({
         type: PACKAGE_TYPE.FUNDED_BY_DONOR,
-        organizationSlug: cartGroup.organizationSlug,
+        organizationSlug: organizationSlug,
+        campaignUuid,
         firstName: cart.first_name,
         lastName: cart.last_name,
         email: cart.email,
@@ -69,7 +85,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
         stateProvinceRegion: cart.state_province_region,
         zip: cart.zip,
         country: cart.country,
-        items: cartGroup.items.map((item) => {
+        items: items.map((item) => {
           return {
             product: item.product.slug,
             quantity: item.quantity,
@@ -86,7 +102,15 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
       }
       setIsPackageBeingCreated(false);
     }
-  }, [cartGroup, cart]);
+  }, [
+    organizationSlug,
+    organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
+    items,
+    cart,
+  ]);
 
   const handleShowInstructionsModal = useCallback(() => {
     setShowInstructionsModal(true);
@@ -98,9 +122,12 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
 
   const handleTangibleDonation = useCallback(() => {
     gtm.trackClickDonateWhatIHave({
-      organizationSlug: cartGroup.organizationSlug,
-      organizationName: cartGroup.organizationName,
-      items: cartGroup.items.map((item) => {
+      organizationSlug,
+      organizationName,
+      campaignSlug,
+      campaignUuid,
+      campaignName,
+      items: items.map((item) => {
         return {
           productSlug: item.product.slug,
           productName: item.product.name,
@@ -109,12 +136,19 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           organizationSlug: item.product.organization.slug,
         };
       }),
-      totalPrice: cartGroup.items.reduce((acc, item) => {
+      totalPrice: items.reduce((acc, item) => {
         return acc + item.product.price * item.quantity;
       }, 0),
     });
     handleShowInstructionsModal();
-  }, [cartGroup]);
+  }, [
+    organizationSlug,
+    organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
+    items,
+  ]);
 
   return (
     <>
@@ -135,9 +169,7 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
           ) : (
             <DollarSign className={styles.buttonGlyph} />
           )}
-          <span>
-            {pluralize(cartGroup.items.length, 'Order item', 'Order items')}
-          </span>
+          <span>{pluralize(items.length, 'Order item', 'Order items')}</span>
         </Button>
 
         {/* Separator */}
@@ -160,8 +192,11 @@ export function DonationOptions({ cartGroup }: DonationOptionsProps) {
       {organizationInstructions?.length > 0 ? (
         <InstructionsModal
           show={showInstructionsModal}
-          organizationSlug={cartGroup.organizationSlug}
-          organizationName={cartGroup.organizationName}
+          organizationSlug={organizationSlug}
+          organizationName={organizationName}
+          campaignSlug={campaignSlug}
+          campaignUuid={campaignUuid}
+          campaignName={campaignName}
           instructions={organizationInstructions}
           onHide={handleHideInstructionsModal}
         />

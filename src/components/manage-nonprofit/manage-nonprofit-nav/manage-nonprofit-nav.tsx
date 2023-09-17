@@ -11,6 +11,7 @@ import { MANAGE_NONPROFIT_TOUR_ID } from 'core/constants';
 const KEY = Object.freeze({
   page: 'page',
   requestedGoods: 'requestedGoods',
+  campaigns: 'campaigns',
   deliveryInstruction: 'deliveryInstruction',
   taxDeduction: 'taxDeduction',
   donations: 'donations',
@@ -31,6 +32,15 @@ export function ManageNonprofitNav() {
       )
     ) {
       return KEY.requestedGoods;
+    }
+
+    // campaigns list/create/edit
+    if (
+      router.pathname.startsWith(
+        '/private/manage-nonprofit/[organizationSlug]/campaigns'
+      )
+    ) {
+      return KEY.campaigns;
     }
 
     // packages list/details
@@ -98,6 +108,14 @@ export function ManageNonprofitNav() {
         id={MANAGE_NONPROFIT_TOUR_ID.REQUESTED_GOODS_NAV}
       >
         Requested Goods
+      </Nav.Link>
+      <Nav.Link
+        as={Link}
+        eventKey={KEY.campaigns}
+        href={`/private/manage-nonprofit/${organization.slug}/campaigns/`}
+        id={MANAGE_NONPROFIT_TOUR_ID.CAMPAIGNS_NAV}
+      >
+        Campaigns
       </Nav.Link>
       <Nav.Link
         as={Link}

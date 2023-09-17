@@ -1,5 +1,11 @@
 import { getProductId } from 'core/helpers';
-import type { CartItem, Organization, Package, Product } from 'core/api/types';
+import type {
+  Campaign,
+  CartItem,
+  Organization,
+  Package,
+  Product,
+} from 'core/api/types';
 
 type WindowWithDataLayer = Window & {
   dataLayer: Record<string, any>[];
@@ -57,6 +63,64 @@ export const trackOrganizationView = ({
   });
 };
 
+// User opened a campaign page
+export const trackCampaignView = ({
+  organizationSlug,
+  organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
+}: {
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+  campaignName: Campaign['name'];
+}) => {
+  window.dataLayer.push({
+    event: 'campaignView',
+    organizationSlug,
+    organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
+  });
+};
+
+// User opened a campaign product page
+export const trackCampaignProductView = ({
+  organizationSlug,
+  organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
+  productSlug,
+  productName,
+  productPrice,
+}: {
+  organizationSlug: Organization['slug'];
+  organizationName: Organization['name'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+  campaignName: Campaign['name'];
+  productSlug: Product['slug'];
+  productName: Product['name'];
+  productPrice: Product['price'];
+}) => {
+  window.dataLayer.push({
+    event: 'productView',
+    organizationSlug,
+    organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
+    productSlug,
+    productName,
+    productPrice,
+    productId: getProductId({ organizationSlug, productSlug }),
+  });
+};
+
 // User opened a product page
 export const trackProductView = ({
   organizationSlug,
@@ -86,6 +150,9 @@ export const trackProductView = ({
 export const trackAddToCart = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   productSlug,
   productName,
   productPrice,
@@ -93,6 +160,9 @@ export const trackAddToCart = ({
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug: Campaign['slug'];
+  campaignUuid: Campaign['uuid'];
+  campaignName: Campaign['name'];
   productSlug: Product['slug'];
   productName: Product['name'];
   productPrice: Product['price'];
@@ -102,6 +172,9 @@ export const trackAddToCart = ({
     event: 'addToCart',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     productSlug,
     productName,
     productPrice,
@@ -151,11 +224,17 @@ export const trackSubmitDonationDetails = ({
 export const trackClickOrderItems = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   items,
   totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
   items: ProductItem[];
   totalPrice: number;
 }) => {
@@ -163,6 +242,9 @@ export const trackClickOrderItems = ({
     event: 'clickOrderItems',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     items: formatProducts({ items }),
     totalPrice,
   });
@@ -172,11 +254,17 @@ export const trackClickOrderItems = ({
 export const trackClickDonateWhatIHave = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   items,
   totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
   items: ProductItem[];
   totalPrice: number;
 }) => {
@@ -184,6 +272,9 @@ export const trackClickDonateWhatIHave = ({
     event: 'clickDonateWhatIHave',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     items: formatProducts({ items }),
     totalPrice,
   });
@@ -193,11 +284,17 @@ export const trackClickDonateWhatIHave = ({
 export const trackPackageRegistrationView = ({
   organizationSlug,
   organizationName,
+  campaignSlug,
+  campaignUuid,
+  campaignName,
   items,
   totalPrice,
 }: {
   organizationSlug: Organization['slug'];
   organizationName: Organization['name'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
+  campaignName?: Campaign['name'];
   items: ProductItem[];
   totalPrice: number;
 }) => {
@@ -205,6 +302,9 @@ export const trackPackageRegistrationView = ({
     event: 'packageRegistrationView',
     organizationSlug,
     organizationName,
+    campaignSlug,
+    campaignUuid,
+    campaignName,
     items: formatProducts({ items }),
     totalPrice,
   });

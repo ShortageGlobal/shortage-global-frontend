@@ -98,8 +98,7 @@ export type ExternalOrganizationPreview = {
 };
 
 export type Organization = OrganizationPreview & {
-  description?: string;
-  requested_goods?: string;
+  requested_goods: string;
   mission_description?: string;
   meta_description?: string;
   url?: string;
@@ -173,6 +172,7 @@ export type ProductPreview = ProductBase & {
 };
 
 export type Product = ProductBase & {
+  campaign: CampaignMinimalPreview | null;
   description?: string;
 };
 
@@ -185,9 +185,60 @@ export type AccountProduct = {
   price?: number;
   requested_amount: number;
   top_priority: boolean;
+  is_public: boolean;
   description?: string;
   position?: number;
   created_at?: string;
+};
+
+export type CampaignMinimalPreview = {
+  uuid: Uuid;
+  name: string;
+  slug: Slug;
+  is_draft: boolean;
+};
+
+export type CampaignPreview = CampaignMinimalPreview & {
+  uuid: Uuid;
+  name: string;
+  slug: Slug;
+  banner: string;
+  created_at: string;
+  updated_at: string;
+  is_draft: boolean;
+  products_count: number;
+};
+
+export type Campaign = CampaignPreview & {
+  requested_goods?: string;
+  mission_description?: string;
+  meta_description?: string;
+  deadline?: string;
+};
+
+export type AccountCampaignPreview = {
+  uuid: Uuid;
+  name: string;
+  slug: Slug;
+  banner: string;
+  is_draft: boolean;
+  is_public: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AccountCampaign = AccountCampaignPreview & {
+  products_count: number;
+  description?: string;
+  requested_goods?: string;
+  mission_description?: string;
+  meta_description?: string;
+  banner?: string;
+  deadline?: string;
+};
+
+export type AccountCampaignProduct = AccountProduct & {
+  is_included_in_campaign: boolean;
 };
 
 export type OnlineStore = {
@@ -210,6 +261,7 @@ export type AccountOrganizationPackageItem = {
     id: number;
     is_deleted: boolean;
     top_priority: boolean;
+    is_public: boolean;
   };
   quantity: number;
 };
@@ -245,7 +297,13 @@ export type Package = {
   created_at?: string;
   items?: PackageItem[];
   organization?: OrganizationPreview;
+  campaign?: CampaignMinimalPreview | null;
 };
+
+export type AccountOrganizationPackageCampaignPreview =
+  CampaignMinimalPreview & {
+    is_deleted: boolean;
+  };
 
 export type AccountOrganizationPackage = {
   type: PackageType;
@@ -272,11 +330,14 @@ export type AccountOrganizationPackage = {
   status: PackageStatus;
   created_at?: string;
   items?: AccountOrganizationPackageItem[];
+  campaign?: AccountOrganizationPackageCampaignPreview | null;
   blog_posts?: AccountBlogPost['uuid'][];
 };
 
 export type CreateCartItem = {
   organization_slug: Organization['slug'];
+  campaign_slug?: Campaign['slug'];
+  campaign_uuid?: Campaign['uuid'];
   product_slug: Product['slug'];
   quantity: number;
 };
@@ -284,6 +345,7 @@ export type CreateCartItem = {
 export type CartItem = {
   uuid: Uuid;
   product: ProductBase;
+  campaign: CampaignMinimalPreview | null;
   quantity: number;
   created_at: string;
 };
@@ -344,6 +406,7 @@ export type OrganizationChecklistRemark = {
 
 export type OrganizationChecklist = {
   page: OrganizationChecklistRemark[];
+  campaigns: OrganizationChecklistRemark[];
   products: OrganizationChecklistRemark[];
   instructions: OrganizationChecklistRemark[];
   tax_information: OrganizationChecklistRemark[];

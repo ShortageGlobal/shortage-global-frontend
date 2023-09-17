@@ -4,6 +4,7 @@ import { useMemo, useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Alert, Button, Form } from 'react-bootstrap';
 import { Paperclip, Loader } from 'react-feather';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as gtm from 'core/tracking/gtm';
 import {
@@ -313,6 +314,27 @@ export function PackageStatus() {
             <Row>
               <Col>
                 <p className="text-center">Thank you for helping 💚</p>
+
+                {packageState.package.campaign ? (
+                  <Alert variant="info" className="mt-4">
+                    The donation was made to the &quot;
+                    <Link
+                      className="break-word"
+                      href={{
+                        pathname:
+                          '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/',
+                        query: {
+                          organizationSlug: organization.slug,
+                          campaignSlug: packageState.package.campaign.slug,
+                          campaignUuid: packageState.package.campaign.uuid,
+                        },
+                      }}
+                    >
+                      {packageState.package.campaign.name}
+                    </Link>
+                    &quot; campaign.
+                  </Alert>
+                ) : null}
 
                 {/* Tracking details */}
                 {packageState.package.delivery_company &&

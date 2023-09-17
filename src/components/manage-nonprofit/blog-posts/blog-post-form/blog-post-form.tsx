@@ -1,4 +1,3 @@
-import styles from './blog-post-form.module.scss';
 import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useEffect, useCallback, useState } from 'react';
@@ -292,9 +291,9 @@ export function BlogPostForm({ blogPost }: BlogPostFormProps = {}) {
                 type="text"
                 autoComplete="off"
                 placeholder=""
+                rows={4}
                 maxLength={200}
                 value={metaDescription}
-                className={styles.metaDescriptionTextarea}
                 onChange={(e) => setMetaDescription(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.metaDescription)}
                 isInvalid={getIsInvalid(ERROR_KEYS.metaDescription)}

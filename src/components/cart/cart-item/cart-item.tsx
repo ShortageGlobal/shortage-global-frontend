@@ -38,6 +38,18 @@ export function CartItem({
   }, [item.quantity]);
 
   const productPageHref = useMemo(() => {
+    if (item.campaign) {
+      return {
+        pathname:
+          '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/products/[productSlug]',
+        query: {
+          organizationSlug: item.product.organization.slug,
+          campaignSlug: item.campaign.slug,
+          campaignUuid: item.campaign.uuid,
+          productSlug: item.product.slug,
+        },
+      };
+    }
     return {
       pathname: '/[organizationSlug]/products/[productSlug]',
       query: {

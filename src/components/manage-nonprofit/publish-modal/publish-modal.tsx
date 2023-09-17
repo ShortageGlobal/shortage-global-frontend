@@ -100,6 +100,11 @@ export function PublishModal({ show, onHide }: PublishModalProps) {
         messages: checklistResponse?.products,
       },
       {
+        title: 'Campaigns',
+        href: `/private/manage-nonprofit/${organization.slug}/campaigns/`,
+        messages: checklistResponse?.campaigns,
+      },
+      {
         title: 'Delivery Instruction',
         href: `/private/manage-nonprofit/${organization.slug}/delivery-instruction/`,
         messages: checklistResponse?.instructions,

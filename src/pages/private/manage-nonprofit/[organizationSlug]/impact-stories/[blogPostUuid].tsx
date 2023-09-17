@@ -30,7 +30,7 @@ import { BlogPostForm } from 'components/manage-nonprofit/blog-posts/blog-post-f
 import { BlogPostConfirmDeleteModal } from 'components/manage-nonprofit/blog-posts/blog-post-confirm-delete-modal/blog-post-confirm-delete-modal';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ImpactStoriesPage: NextPageWithLayout = () => {
+const ImpactStoryEditPage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
   const { blogPost } = useAppSelector(selectAccountBlogPost);
 
@@ -182,6 +182,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-ImpactStoriesPage.getLayout = manageNonprofitLayout;
+ImpactStoryEditPage.getLayout = manageNonprofitLayout;
 
-export default ImpactStoriesPage;
+export default ImpactStoryEditPage;

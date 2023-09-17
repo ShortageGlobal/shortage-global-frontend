@@ -7,6 +7,8 @@ import {
   PaginatedResponse,
   AccountOrganization,
   AccountProduct,
+  AccountCampaign,
+  AccountCampaignProduct,
   AccountDeliveryInstruction,
   AccountBlogPost,
   AccountOrganizationPackage,
@@ -159,7 +161,6 @@ export type UpdateAccountOrganizationParams = {
   logo?: File | string;
   banner?: File | string;
   url?: AccountOrganization['url'];
-  description?: AccountOrganization['description'];
   requestedGoods?: AccountOrganization['requested_goods'];
   missionDescription?: AccountOrganization['mission_description'];
   metaDescription?: AccountOrganization['meta_description'];
@@ -187,7 +188,6 @@ export async function updateAccountOrganization({
   logo,
   banner,
   url,
-  description,
   requestedGoods,
   missionDescription,
   metaDescription,
@@ -218,7 +218,6 @@ export async function updateAccountOrganization({
       logo,
       banner,
       url,
-      description,
       requested_goods: requestedGoods,
       mission_description: missionDescription,
       meta_description: metaDescription,
@@ -409,7 +408,7 @@ export async function fetchAccountOrganizationProducts({
   );
 }
 
-export type FetchAccountProductParams = {
+export type FetchAccountOrganizationProductParams = {
   organizationSlug: AccountOrganization['slug'];
   productId: AccountProduct['id'];
   accessToken?: string;
@@ -419,7 +418,7 @@ export async function fetchAccountOrganizationProduct({
   productId,
   accessToken = null,
   cancelToken = null,
-}: FetchAccountProductParams) {
+}: FetchAccountOrganizationProductParams) {
   const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 
   return axios.get<AccountProduct>(
@@ -430,7 +429,7 @@ export async function fetchAccountOrganizationProduct({
   );
 }
 
-export type DeleteAccountProductParams = {
+export type DeleteAccountOrganizationProductParams = {
   organizationSlug: AccountOrganization['slug'];
   productId: AccountProduct['id'];
   accessToken?: string;
@@ -440,7 +439,7 @@ export async function deleteAccountOrganizationProduct({
   productId,
   accessToken = null,
   cancelToken = null,
-}: DeleteAccountProductParams) {
+}: DeleteAccountOrganizationProductParams) {
   const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 
   return axios.delete(
@@ -461,6 +460,7 @@ export type UpdateAccountOrganizationProductParams = {
   price: AccountProduct['price'];
   requestedAmount: AccountProduct['requested_amount'];
   topPriority: AccountProduct['top_priority'];
+  isPublic: AccountProduct['is_public'];
   description: AccountProduct['description'];
   position: AccountProduct['position'];
 } & PaginationParams &
@@ -475,6 +475,7 @@ export async function updateAccountOrganizationProduct({
   price,
   requestedAmount,
   topPriority,
+  isPublic,
   description,
   position,
   cancelToken = null,
@@ -491,6 +492,7 @@ export async function updateAccountOrganizationProduct({
       price,
       requested_amount: requestedAmount,
       top_priority: topPriority,
+      is_public: isPublic,
       description,
       position,
     },
@@ -512,6 +514,7 @@ export type CreateAccountOrganizationProductParams = {
   price: AccountProduct['price'];
   requestedAmount: AccountProduct['requested_amount'];
   topPriority: AccountProduct['top_priority'];
+  isPublic: AccountProduct['is_public'];
   description: AccountProduct['description'];
   position: AccountProduct['position'];
 } & PaginationParams &
@@ -525,6 +528,7 @@ export async function createAccountOrganizationProduct({
   price,
   requestedAmount,
   topPriority,
+  isPublic,
   description,
   position,
   cancelToken = null,
@@ -541,6 +545,7 @@ export async function createAccountOrganizationProduct({
       price,
       requested_amount: requestedAmount,
       top_priority: topPriority,
+      is_public: isPublic,
       description,
       position,
     },
@@ -549,6 +554,273 @@ export async function createAccountOrganizationProduct({
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+    }
+  );
+}
+
+export type FetchAccountCampaignsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  search?: string;
+  accessToken?: string;
+} & PaginationParams &
+  CancelTokenParams;
+export async function fetchAccountCampaigns({
+  organizationSlug,
+  search = null,
+  limit = null,
+  offset = null,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountCampaignsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PaginatedResponse<AccountCampaign>>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/`
+    ),
+    {
+      params: {
+        search: search.trim() !== '' ? search : null,
+        limit,
+        offset,
+      },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type FetchAccountCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function fetchAccountOrganizationCampaign({
+  organizationSlug,
+  campaignUuid,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<AccountCampaign>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type DeleteAccountCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function deleteAccountOrganizationCampaign({
+  organizationSlug,
+  campaignUuid,
+  accessToken = null,
+  cancelToken = null,
+}: DeleteAccountCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.delete(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/`
+    ),
+    { cancelToken: cancelToken?.token, headers }
+  );
+}
+
+export type UpdateAccountOrganizationCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  name: AccountCampaign['name'];
+  slug: AccountCampaign['slug'];
+  banner: File | string;
+  deadline: AccountCampaign['deadline'];
+  requestedGoods: AccountCampaign['requested_goods'];
+  missionDescription: AccountCampaign['mission_description'];
+  metaDescription: AccountCampaign['meta_description'];
+  isDraft: AccountCampaign['is_draft'];
+  isPublic: AccountCampaign['is_public'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function updateAccountOrganizationCampaign({
+  organizationSlug,
+  campaignUuid,
+  name,
+  slug,
+  banner,
+  deadline,
+  requestedGoods,
+  missionDescription,
+  metaDescription,
+  isDraft,
+  isPublic,
+  cancelToken = null,
+}: UpdateAccountOrganizationCampaignParams) {
+  return axios.put<AccountCampaign>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/`
+    ),
+    {
+      name,
+      slug,
+      banner,
+      deadline,
+      requested_goods: requestedGoods,
+      mission_description: missionDescription,
+      meta_description: metaDescription,
+      is_draft: isDraft,
+      is_public: isPublic,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
+export type CreateAccountOrganizationCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  name: AccountCampaign['name'];
+  slug: AccountCampaign['slug'];
+  banner: File | string;
+  deadline: AccountCampaign['deadline'];
+  requestedGoods: AccountCampaign['requested_goods'];
+  missionDescription: AccountCampaign['mission_description'];
+  metaDescription: AccountCampaign['meta_description'];
+  isDraft: AccountCampaign['is_draft'];
+  isPublic: AccountCampaign['is_public'];
+} & PaginationParams &
+  CancelTokenParams;
+export async function createAccountOrganizationCampaign({
+  organizationSlug,
+  name,
+  slug,
+  banner,
+  deadline,
+  requestedGoods,
+  missionDescription,
+  metaDescription,
+  isDraft,
+  isPublic,
+  cancelToken = null,
+}: CreateAccountOrganizationCampaignParams) {
+  return axios.post<AccountCampaign>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/`
+    ),
+    {
+      name,
+      slug,
+      banner,
+      deadline,
+      requested_goods: requestedGoods,
+      mission_description: missionDescription,
+      meta_description: metaDescription,
+      is_draft: isDraft,
+      is_public: isPublic,
+    },
+    {
+      cancelToken: cancelToken?.token,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+}
+
+export type FetchAccountCampaignProductsParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  category?: Category;
+  search?: string;
+  accessToken?: string;
+} & PaginationParams &
+  CancelTokenParams;
+export async function fetchAccountCampaignProducts({
+  organizationSlug,
+  campaignUuid,
+  category = null,
+  search = null,
+  limit = null,
+  offset = null,
+  accessToken = null,
+  cancelToken = null,
+}: FetchAccountCampaignProductsParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.get<PaginatedResponse<AccountCampaignProduct>>(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/products/`
+    ),
+    {
+      params: {
+        category: category !== PRODUCT_CATEGORY_ALL_KEY ? category : null,
+        search: search.trim() !== '' ? search : null,
+        limit,
+        offset,
+      },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type RemoveAccountProductFromCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  productId: AccountCampaignProduct['id'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function removeAccountProductFromCampaign({
+  organizationSlug,
+  campaignUuid,
+  productId,
+  accessToken = null,
+  cancelToken = null,
+}: RemoveAccountProductFromCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.delete(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/products/remove/`
+    ),
+    {
+      data: { product_id: productId },
+      cancelToken: cancelToken?.token,
+      headers,
+    }
+  );
+}
+
+export type AddAccountProductToCampaignParams = {
+  organizationSlug: AccountOrganization['slug'];
+  campaignUuid: AccountCampaign['uuid'];
+  productId: AccountCampaignProduct['id'];
+  accessToken?: string;
+} & CancelTokenParams;
+export async function addAccountProductToCampaign({
+  organizationSlug,
+  campaignUuid,
+  productId,
+  accessToken = null,
+  cancelToken = null,
+}: AddAccountProductToCampaignParams) {
+  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+  return axios.post(
+    encodeURI(
+      `${API_ROOT}/api/private/organizations/${organizationSlug}/campaigns/${campaignUuid}/products/add/`
+    ),
+    { product_id: productId },
+    {
+      cancelToken: cancelToken?.token,
+      headers,
     }
   );
 }

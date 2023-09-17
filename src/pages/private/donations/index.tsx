@@ -189,18 +189,40 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                           </td>
 
                           <td className={styles.recipientColumn}>
-                            <Link
-                              className={styles.orgLink}
-                              href={{
-                                pathname: '/[organizationSlug]/',
-                                query: {
-                                  organizationSlug: p.organization.slug,
-                                },
-                              }}
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              {p.organization.name}
-                            </Link>
+                            <div className={styles.recipient}>
+                              <Link
+                                className={styles.recipientLink}
+                                href={{
+                                  pathname: '/[organizationSlug]/',
+                                  query: {
+                                    organizationSlug: p.organization.slug,
+                                  },
+                                }}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {p.organization.name}
+                              </Link>
+                              {p.campaign ? (
+                                <div>
+                                  for{' '}
+                                  <Link
+                                    className={styles.recipientLink}
+                                    href={{
+                                      pathname:
+                                        '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/',
+                                      query: {
+                                        organizationSlug: p.organization.slug,
+                                        campaignSlug: p.campaign.slug,
+                                        campaignUuid: p.campaign.uuid,
+                                      },
+                                    }}
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    {p.campaign.name}
+                                  </Link>
+                                </div>
+                              ) : null}
+                            </div>
                           </td>
 
                           <td className={styles.actionsColumn}>

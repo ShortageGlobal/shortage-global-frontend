@@ -71,12 +71,6 @@ export function OrganizationDetails() {
                   ) : null}
                 </div>
               ) : null}
-              {!organization.requested_goods && organization.description ? (
-                <div
-                  className={styles.description}
-                  dangerouslySetInnerHTML={{ __html: organization.description }}
-                ></div>
-              ) : null}
 
               <h5 className={styles.sectionHeader}>Ready to help?</h5>
 
@@ -100,7 +94,7 @@ export function OrganizationDetails() {
               </div>
             </div>
 
-            {/* logo as link */}
+            {/* banner */}
             {organization.banner ? (
               <div className={styles.banner}>
                 <Image

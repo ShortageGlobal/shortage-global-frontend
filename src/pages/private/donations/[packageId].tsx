@@ -100,27 +100,59 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                 <Accordion.Item eventKey={SECTION_KEY.RECIPIENT}>
                   <Accordion.Header>Recipient</Accordion.Header>
                   <Accordion.Body className={styles.statusBody}>
-                    <div className={styles.orgLinkWrap}>
-                      <Link
-                        className={styles.orgLink}
-                        href={{
-                          pathname: '/[organizationSlug]/',
-                          query: {
-                            organizationSlug: donation.organization.slug,
-                          },
-                        }}
-                      >
-                        {donation.organization?.logo ? (
+                    <div className={styles.recipientWrap}>
+                      {donation.organization?.logo ? (
+                        <Link
+                          href={{
+                            pathname: '/[organizationSlug]/',
+                            query: {
+                              organizationSlug: donation.organization.slug,
+                            },
+                          }}
+                        >
                           <Image
                             src={donation.organization.logo}
-                            alt=""
                             className={styles.organizationImg}
                             width={150}
                             height={50}
+                            alt=""
                           />
+                        </Link>
+                      ) : null}
+
+                      <div className={styles.recipientNames}>
+                        <Link
+                          className={styles.orgLink}
+                          href={{
+                            pathname: '/[organizationSlug]/',
+                            query: {
+                              organizationSlug: donation.organization.slug,
+                            },
+                          }}
+                        >
+                          {donation.organization.name}
+                        </Link>
+
+                        {donation.campaign ? (
+                          <span>
+                            for the{' '}
+                            <Link
+                              href={{
+                                pathname:
+                                  '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/',
+                                query: {
+                                  organizationSlug: donation.organization.slug,
+                                  campaignSlug: donation.campaign.slug,
+                                  campaignUuid: donation.campaign.uuid,
+                                },
+                              }}
+                            >
+                              &quot;{donation.campaign.name}&quot;
+                            </Link>{' '}
+                            campaign
+                          </span>
                         ) : null}
-                        <span>{donation.organization.name}</span>
-                      </Link>
+                      </div>
                     </div>
                   </Accordion.Body>
                 </Accordion.Item>

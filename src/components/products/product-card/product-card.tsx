@@ -1,17 +1,20 @@
 import styles from './product-card.module.scss';
+import { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import classNames from 'classnames';
 import { HighDemandBadge } from 'components/high-demand-badge/high-demand-badge';
 import { formatPrice, pluralize } from 'core/helpers';
-import type { ProductPreview, Slug } from 'core/api/types';
+import type { ProductPreview, Organization, Campaign } from 'core/api/types';
 
 type ProductCardProps = {
   product: ProductPreview;
-  organizationSlug?: Slug;
-  organizationName?: string;
-  organizationLogo?: Slug;
+  organizationSlug?: Organization['slug'];
+  organizationName?: Organization['name'];
+  organizationLogo?: Organization['logo'];
+  campaignSlug?: Campaign['slug'];
+  campaignUuid?: Campaign['uuid'];
 };
 
 export function ProductCard({
@@ -19,7 +22,30 @@ export function ProductCard({
   organizationSlug,
   organizationName,
   organizationLogo,
+  campaignSlug,
+  campaignUuid,
 }: ProductCardProps) {
+  const productHref = useMemo(() => {
+    if (!campaignSlug || !campaignUuid) {
+      // link to organization product page
+      return {
+        pathname: '/[organizationSlug]/products/[productSlug]/',
+        query: { organizationSlug, productSlug: product.slug },
+      };
+    }
+    // link to campaign product page
+    return {
+      pathname:
+        '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]/products/[productSlug]/',
+      query: {
+        organizationSlug,
+        campaignSlug,
+        campaignUuid,
+        productSlug: product.slug,
+      },
+    };
+  }, [product.slug, organizationSlug, campaignSlug, campaignUuid]);
+
   return (
     <Card className={styles.productCard}>
       {/* 
@@ -27,10 +53,7 @@ export function ProductCard({
         See: https://stackoverflow.com/a/46707009/1065780 
       */}
       <Link
-        href={{
-          pathname: '/[organizationSlug]/products/[productSlug]/',
-          query: { organizationSlug, productSlug: product.slug },
-        }}
+        href={productHref}
         className={styles.productLinkOverlay}
         aria-label="Visit product page"
       ></Link>

@@ -22,7 +22,7 @@ import {
 import { BlogPostForm } from 'components/manage-nonprofit/blog-posts/blog-post-form/blog-post-form';
 import type { NextPageWithLayout } from 'pages/_app';
 
-const ImpactStoriesPage: NextPageWithLayout = () => {
+const ImpactStoriesCreatePage: NextPageWithLayout = () => {
   const { organization } = useAppSelector(selectAccountOrganization);
 
   const breadcrumbs = useMemo(() => {
@@ -102,6 +102,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-ImpactStoriesPage.getLayout = manageNonprofitLayout;
+ImpactStoriesCreatePage.getLayout = manageNonprofitLayout;
 
-export default ImpactStoriesPage;
+export default ImpactStoriesCreatePage;

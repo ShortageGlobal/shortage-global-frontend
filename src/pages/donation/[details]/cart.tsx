@@ -1,5 +1,5 @@
 import styles from 'styles/pages/donation-cart.module.scss';
-import { useMemo, useCallback, useEffect, useState } from 'react';
+import { Fragment, useMemo, useCallback, useEffect, useState } from 'react';
 import {
   Container,
   Row,
@@ -19,27 +19,24 @@ import {
   useUser,
   useCart,
   useCancelToken,
-  isRequestCancel,
 } from 'core/hooks';
 import {
   fetchInstructions,
   selectInstructions,
 } from 'core/store/slices/instructions';
-import { formatPrice, groupCartItemsByOrganization } from 'core/helpers';
+import { groupCartItemsByOrganization } from 'core/helpers';
 import {
   Breadcrumbs,
   getHomeCrumb,
   getDonationDetailsCrumb,
   getDonationCartCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { CartItem } from 'components/cart/cart-item/cart-item';
+import { CartGroup } from 'components/cart/cart-group/cart-group';
 import { CartItemPlaceholder } from 'components/cart/cart-item/cart-item-placeholder/cart-item-placeholder';
 import { ReviewDonationDetails } from 'components/review-donation-details/review-donation-details';
-import { DonationOptions } from 'components/cart/donation-options/donation-options';
 import { LoadingMessage } from 'components/loading-message/loading-message';
 import { RegistrationEncouragement } from 'components/registration-encouragement/registration-encouragement';
 import { PAGE_KEY, REQUESTED_GOODS_CONTAINER_ID } from 'core/constants';
-import type { CartItem as CartItemType } from 'core/api/types';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const DonationCart: NextPageWithLayout = () => {
@@ -48,13 +45,7 @@ const DonationCart: NextPageWithLayout = () => {
 
   const { isSessionLoading, isUnauthenticated } = useUser();
 
-  const {
-    cart,
-    isCartReady,
-    isDonationDetailsFilled,
-    updateCartItemQuantity,
-    deleteFromCart,
-  } = useCart();
+  const { cart, isCartReady, isDonationDetailsFilled } = useCart();
   const { instructions, isInstructionsLoading } =
     useAppSelector(selectInstructions);
 
@@ -113,6 +104,16 @@ const DonationCart: NextPageWithLayout = () => {
     return !shouldRedirect && !shouldShowContent && !shouldShowNoItemsMessage;
   }, [shouldRedirect, shouldShowContent, shouldShowNoItemsMessage]);
 
+  // count the total number of groups (organizations + campaigns)
+  const totalGroupsCount = useMemo(() => {
+    let total = 0;
+    for (const cartGroup of groupedCartItems.values()) {
+      total += cartGroup.items.length > 0 ? 1 : 0;
+      total += cartGroup.campaigns.size;
+    }
+    return total;
+  }, [groupedCartItems]);
+
   // redirect to Donation Details if they aren't filled yet
   useEffect(() => {
     if (shouldRedirect) {
@@ -141,26 +142,6 @@ const DonationCart: NextPageWithLayout = () => {
     const cancelToken = getFetchInstructionsCancelToken();
     dispatch(fetchInstructions({ organizationSlugs, cancelToken }));
   }, [isCartReady, isDonationDetailsFilled, groupedCartItems, instructions]);
-
-  const handleItemQuantityChange = useCallback(
-    async ({ item, quantity }: { item: CartItemType; quantity: number }) => {
-      try {
-        await updateCartItemQuantity({ cartItemId: item.uuid, quantity });
-      } catch (rejection) {
-        if (!isRequestCancel(rejection)) {
-          throw rejection;
-        }
-      }
-    },
-    [updateCartItemQuantity]
-  );
-
-  const handleItemRemove = useCallback(
-    ({ item }: { item: CartItemType }) => {
-      deleteFromCart({ cartItemId: item.uuid });
-    },
-    [deleteFromCart]
-  );
 
   return (
     <>
@@ -271,77 +252,107 @@ const DonationCart: NextPageWithLayout = () => {
 
                 {/* Cart Groups */}
                 <div>
-                  {Array.from(groupedCartItems.values()).map(
-                    (cartGroup, index) => {
-                      const totalPrice = cartGroup.items.reduce(
-                        (sum, item) =>
-                          sum + (item.product.price || 0) * item.quantity,
-                        0
-                      );
+                  {Array.from(groupedCartItems.values()).map((cartGroup) => {
+                    let counter = 1;
+                    const showOrgDraftBadge =
+                      cartGroup.isOrganizationDraft ||
+                      !cartGroup.isOrganizationVerified;
 
-                      return (
-                        <div
-                          key={cartGroup.organizationSlug}
-                          className={styles.cartGroup}
-                        >
-                          {/* Title */}
-                          <p>
-                            <span className={styles.cartGroupTitle}>
-                              {groupedCartItems.size > 1
-                                ? `${index + 1}. `
-                                : null}
-                              For{' '}
-                              <Link
-                                href={{
-                                  pathname: '/[organizationSlug]/',
-                                  query: {
-                                    organizationSlug:
-                                      cartGroup.organizationSlug,
-                                  },
-                                }}
-                              >
-                                {cartGroup.organizationName}
-                              </Link>
-                            </span>
+                    return (
+                      <Fragment key={cartGroup.organizationSlug}>
+                        {/* Organization group */}
+                        {cartGroup.items.length > 0 ? (
+                          <CartGroup
+                            title={
+                              <>
+                                {totalGroupsCount > 1 ? `${counter++}. ` : null}
+                                {showOrgDraftBadge ? (
+                                  <Badge bg="secondary" className="me-2">
+                                    Draft
+                                  </Badge>
+                                ) : null}
+                                For{' '}
+                                <Link
+                                  href={{
+                                    pathname: '/[organizationSlug]/',
+                                    query: {
+                                      organizationSlug:
+                                        cartGroup.organizationSlug,
+                                    },
+                                  }}
+                                >
+                                  {cartGroup.organizationName}
+                                </Link>
+                              </>
+                            }
+                            organizationSlug={cartGroup.organizationSlug}
+                            organizationName={cartGroup.organizationName}
+                            items={cartGroup.items}
+                          />
+                        ) : null}
 
-                            {cartGroup.isOrganizationDraft ||
-                            !cartGroup.isOrganizationVerified ? (
-                              <Badge bg="secondary" className="ms-2">
-                                Draft
-                              </Badge>
-                            ) : null}
-                          </p>
-
-                          {/* Cart Items */}
-                          <div className={styles.cartItemsList}>
-                            {cartGroup.items.map((item) => {
-                              return (
-                                <CartItem
-                                  key={item.uuid}
-                                  item={item}
-                                  onQuantityChange={handleItemQuantityChange}
-                                  onRemove={handleItemRemove}
-                                />
-                              );
-                            })}
-                          </div>
-
-                          {/* Summary */}
-                          <dl className={styles.summaryLine}>
-                            <dt className={styles.summaryLabel}>
-                              Total donation
-                            </dt>
-                            <dd className={styles.summaryValue}>
-                              {formatPrice(totalPrice)}
-                            </dd>
-                          </dl>
-
-                          {/* Donation Options */}
-                          <DonationOptions cartGroup={cartGroup} />
-                        </div>
-                      );
-                    }
-                  )}
+                        {/* Campaign group */}
+                        {Array.from(cartGroup.campaigns.values()).map(
+                          (cartCampaign) => {
+                            const showCampaignDraftBadge =
+                              showOrgDraftBadge || cartCampaign.isCampaignDraft;
+                            return (
+                              <CartGroup
+                                key={cartCampaign.campaignUuid}
+                                title={
+                                  <>
+                                    {totalGroupsCount > 1
+                                      ? `${counter++}. `
+                                      : null}
+                                    {showCampaignDraftBadge ? (
+                                      <Badge bg="secondary" className="me-2">
+                                        Draft
+                                      </Badge>
+                                    ) : null}
+                                    For the &quot;
+                                    <Link
+                                      href={{
+                                        pathname:
+                                          '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]',
+                                        query: {
+                                          organizationSlug:
+                                            cartGroup.organizationSlug,
+                                          campaignSlug:
+                                            cartCampaign.campaignSlug,
+                                          campaignUuid:
+                                            cartCampaign.campaignUuid,
+                                        },
+                                      }}
+                                    >
+                                      {cartCampaign.campaignName}
+                                    </Link>
+                                    &quot; campaign of{' '}
+                                    <Link
+                                      href={{
+                                        pathname: '/[organizationSlug]/',
+                                        query: {
+                                          organizationSlug:
+                                            cartGroup.organizationSlug,
+                                        },
+                                      }}
+                                    >
+                                      {cartGroup.organizationName}
+                                    </Link>
+                                  </>
+                                }
+                                organizationSlug={cartGroup.organizationSlug}
+                                organizationName={cartGroup.organizationName}
+                                campaignSlug={cartCampaign.campaignSlug}
+                                campaignUuid={cartCampaign.campaignUuid}
+                                campaignName={cartCampaign.campaignName}
+                                items={cartCampaign.campaignItems}
+                              />
+                            );
+                          }
+                        )}
+                      </Fragment>
+                    );
+                  })}
                 </div>
               </>
             ) : null}

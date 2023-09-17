@@ -1,0 +1,52 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.productRow {
+  display: flex;
+  align-items: flex-start;
+
+  > * + * {
+    margin-left: 1rem;
+  }
+
+  .productCard {
+    flex: 1;
+  }
+
+  .controlBtn {
+    flex-shrink: 0;
+    border-color: $border-color;
+
+    > * {
+      margin-left: 0;
+    }
+
+    .xGlyph {
+      display: none;
+    }
+
+    &.isProductIncluded {
+      &:hover,
+      &:focus {
+        .checkGlyph {
+          display: none;
+        }
+
+        .xGlyph {
+          display: unset;
+        }
+      }
+    }
+
+    &:not(.isProductIncluded):not(.isSaving) {
+      color: $border-color;
+    }
+
+    &.isSaving {
+      .checkGlyph,
+      .xGlyph {
+        display: none;
+      }
+    }
+  }
+}

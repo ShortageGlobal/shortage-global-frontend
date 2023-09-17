@@ -376,17 +376,38 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                 <Accordion.Item eventKey={SECTION_KEY.STATUS}>
                   <Accordion.Header>Status</Accordion.Header>
                   <Accordion.Body className={styles.statusBody}>
-                    <div className="d-flex align-items-center">
-                      {donation.type === PACKAGE_TYPE.SENT_BY_DONOR ||
-                      donation.type === PACKAGE_TYPE.DROPPED_OFF_BY_DONOR ? (
-                        <Package size="1rem" />
+                    <div>
+                      <div className="d-flex align-items-center">
+                        {donation.type === PACKAGE_TYPE.SENT_BY_DONOR ||
+                        donation.type === PACKAGE_TYPE.DROPPED_OFF_BY_DONOR ? (
+                          <Package size="1rem" />
+                        ) : null}
+                        {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
+                          <DollarSign size="1rem" />
+                        ) : null}
+                        <span className="ms-1">
+                          {PACKAGE_TYPE_DISPLAY_LABELS[donation.type]}
+                        </span>
+                      </div>
+
+                      {donation.campaign ? (
+                        <div className="mt-2">
+                          For the &quot;
+                          <Link
+                            href={{
+                              pathname:
+                                '/private/manage-nonprofit/[organizationSlug]/campaigns/[campaignUuid]/',
+                              query: {
+                                organizationSlug: organization.slug,
+                                campaignUuid: donation.campaign.uuid,
+                              },
+                            }}
+                          >
+                            {donation.campaign.name}
+                          </Link>
+                          &quot; campaign
+                        </div>
                       ) : null}
-                      {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
-                        <DollarSign size="1rem" />
-                      ) : null}
-                      <span className="ms-1">
-                        {PACKAGE_TYPE_DISPLAY_LABELS[donation.type]}
-                      </span>
                     </div>
 
                     <PackageStatusVisualization package={donation} />

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AppState } from 'core/store';
 import {
   fetchAccountOrganizationProduct as fetchAccountOrganizationProductAxios,
-  FetchAccountProductParams,
+  FetchAccountOrganizationProductParams,
 } from 'core/api';
 import { serizalizeAxiosError } from 'core/helpers';
 import type { AxiosSerializedError, AccountProduct } from 'core/api/types';
@@ -52,7 +52,10 @@ export const selectAccountProduct = (state: AppState) => state.accountProduct;
 // API calls
 export const fetchAccountOrganizationProduct = createAsyncThunk(
   'accountProduct/fetchAccountOrganizationProduct',
-  async (params: FetchAccountProductParams, { rejectWithValue }) => {
+  async (
+    params: FetchAccountOrganizationProductParams,
+    { rejectWithValue }
+  ) => {
     try {
       const response = await fetchAccountOrganizationProductAxios(params);
       return response.data;

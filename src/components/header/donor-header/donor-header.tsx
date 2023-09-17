@@ -23,10 +23,13 @@ export function DonorHeader() {
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
 
   // track current route
-  const { isRootRoute, isOrganizationRoute } = useMemo(() => {
+  const { isRootRoute, isOrganizationRoute, isCampaignRoute } = useMemo(() => {
     return {
       isRootRoute: router.route === '/',
       isOrganizationRoute: router.route === '/[organizationSlug]',
+      isCampaignRoute:
+        router.route ===
+        '/[organizationSlug]/campaigns/[campaignSlug]/[campaignUuid]',
     };
   }, [router]);
 
@@ -47,8 +50,8 @@ export function DonorHeader() {
 
   // control search field visibility
   const shouldShowSearchField = useMemo(() => {
-    return isRootRoute || isOrganizationRoute;
-  }, [isRootRoute, isOrganizationRoute]);
+    return isRootRoute || isOrganizationRoute || isCampaignRoute;
+  }, [isRootRoute, isOrganizationRoute, isCampaignRoute]);
 
   const handleNavbarToggle = useCallback((newIsNavbarExpanded) => {
     setIsNavbarExpanded(newIsNavbarExpanded);

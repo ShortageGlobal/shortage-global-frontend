@@ -39,6 +39,7 @@ const INPUT_ID = Object.freeze({
   price: 'price',
   requestedAmount: 'requestedAmount',
   topPriority: 'topPriority',
+  isPublic: 'isPublic',
   description: 'description',
   position: 'position',
 });
@@ -50,6 +51,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.price]: 'price',
   [INPUT_ID.requestedAmount]: 'requested_amount',
   [INPUT_ID.topPriority]: 'top_priority',
+  [INPUT_ID.isPublic]: 'is_public',
   [INPUT_ID.description]: 'description',
   [INPUT_ID.position]: 'position',
 });
@@ -77,6 +79,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   const [price, setPrice] = useState<string | number>('1');
   const [requestedAmount, setRequestedAmount] = useState<string | number>('1');
   const [topPriority, setTopPriority] = useState<boolean>(false);
+  const [isPublic, setIsPublic] = useState<boolean>(true);
   const [description, setDescription] = useState(null);
   const [position, setPosition] = useState<string | number>('0');
 
@@ -88,7 +91,8 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       category: product?.category || '',
       price: product?.price || '1',
       requestedAmount: product?.requested_amount || '1',
-      topPriority: product?.top_priority || false,
+      topPriority: product?.top_priority ?? false,
+      isPublic: product?.is_public ?? true,
       description: product?.description || '',
       position: product?.position || '0',
     });
@@ -104,6 +108,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     setPrice(defaultValues.price);
     setRequestedAmount(defaultValues.requestedAmount);
     setTopPriority(defaultValues.topPriority);
+    setIsPublic(defaultValues.isPublic);
     setDescription(defaultValues.description);
     setPosition(defaultValues.position);
   }, [defaultValues]);
@@ -131,6 +136,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
         Number(requestedAmount)
       ) &&
       bothEmptyOrEqual(defaultValues.topPriority, topPriority) &&
+      bothEmptyOrEqual(defaultValues.isPublic, isPublic) &&
       bothEmptyOrEqual(defaultValues.description, description) &&
       bothEmptyOrEqual(Number(defaultValues.position), Number(position))
     ) {
@@ -148,6 +154,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     price,
     requestedAmount,
     topPriority,
+    isPublic,
     description,
     position,
   ]);
@@ -179,6 +186,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             price: Number(price),
             requestedAmount: Number(requestedAmount),
             topPriority,
+            isPublic,
             description,
             position: Number(position),
             cancelToken,
@@ -204,6 +212,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             price: Number(price),
             requestedAmount: Number(requestedAmount),
             topPriority,
+            isPublic,
             description,
             position: Number(position),
             cancelToken,
@@ -244,6 +253,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       price,
       requestedAmount,
       topPriority,
+      isPublic,
       description,
       position,
     ]
@@ -429,7 +439,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             </Form.Group>
           </Row>
 
-          {/* Top priority */}
+          {/* High Demand */}
           <Row>
             <Form.Group
               as={Col}
@@ -449,6 +459,32 @@ export function ProductForm({ product }: ProductFormProps = {}) {
               <Form.Text as="div" id="topPriorityHelpBlock">
                 If checked, the product will have a &quot;High demand&quot;
                 badge
+              </Form.Text>
+              {getErrorsFeedback(ERROR_KEYS.topPriority)}
+            </Form.Group>
+          </Row>
+
+          {/* Public */}
+          <Row>
+            <Form.Group
+              as={Col}
+              controlId={INPUT_ID.isPublic}
+              className={commonStyles.formGroup}
+            >
+              <Form.Check
+                type="checkbox"
+                checked={isPublic}
+                label="Public"
+                onChange={(e) => setIsPublic(e.target.checked)}
+                isValid={getIsValid(ERROR_KEYS.isPublic)}
+                isInvalid={getIsInvalid(ERROR_KEYS.isPublic)}
+                aria-describedby="publicHelpBlock"
+                disabled={!organization.is_draft}
+              />
+              <Form.Text as="div" id="topPriorityHelpBlock">
+                If checked, the product will show up on the main
+                nonprofit&apos;s page. Useful, if you want the product to show
+                up on the campaign page only.
               </Form.Text>
               {getErrorsFeedback(ERROR_KEYS.topPriority)}
             </Form.Group>
