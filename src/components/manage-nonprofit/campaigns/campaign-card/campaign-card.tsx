@@ -44,7 +44,7 @@ export function CampaignCard({
       },
       {
         key: 'items',
-        value: campaign.products_count,
+        value: `${campaign.products_count}`,
       },
     ];
   }, [campaign]);
