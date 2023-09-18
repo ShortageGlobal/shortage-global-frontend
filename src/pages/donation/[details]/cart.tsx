@@ -1,5 +1,6 @@
 import styles from 'styles/pages/donation-cart.module.scss';
 import { Fragment, useMemo, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import {
   Container,
   Row,
@@ -251,9 +252,12 @@ const DonationCart: NextPageWithLayout = () => {
                 <ReviewDonationDetails />
 
                 {/* Cart Groups */}
-                <div>
+                <div
+                  className={classNames({
+                    [styles.withCounter]: totalGroupsCount > 1,
+                  })}
+                >
                   {Array.from(groupedCartItems.values()).map((cartGroup) => {
-                    let counter = 1;
                     const showOrgDraftBadge =
                       cartGroup.isOrganizationDraft ||
                       !cartGroup.isOrganizationVerified;
@@ -265,7 +269,7 @@ const DonationCart: NextPageWithLayout = () => {
                           <CartGroup
                             title={
                               <>
-                                {totalGroupsCount > 1 ? `${counter++}. ` : null}
+                                <span className={styles.cartCounter} />
                                 {showOrgDraftBadge ? (
                                   <Badge bg="secondary" className="me-2">
                                     Draft
@@ -301,9 +305,7 @@ const DonationCart: NextPageWithLayout = () => {
                                 key={cartCampaign.campaignUuid}
                                 title={
                                   <>
-                                    {totalGroupsCount > 1
-                                      ? `${counter++}. `
-                                      : null}
+                                    <span className={styles.cartCounter} />
                                     {showCampaignDraftBadge ? (
                                       <Badge bg="secondary" className="me-2">
                                         Draft
