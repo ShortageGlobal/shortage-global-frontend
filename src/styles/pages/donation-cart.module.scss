@@ -17,6 +17,24 @@
   .header {
     text-align: center;
   }
+
+  .cartCounter {
+    display: none;
+  }
+
+  .withCounter {
+    counter-reset: cart;
+
+    .cartCounter {
+      display: inline;
+
+      &::before {
+        display: inline;
+        counter-increment: cart;
+        content: counter(cart) '. ';
+      }
+    }
+  }
 }
 
 .placeholderContainer {
