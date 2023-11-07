@@ -251,7 +251,6 @@ export function NonprofitPageForm() {
                 onChange={(e) => setName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.name)}
                 isInvalid={getIsInvalid(ERROR_KEYS.name)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.name)}
             </Form.Group>
@@ -279,7 +278,6 @@ export function NonprofitPageForm() {
                   onChange={(e) => setSlug(e.target.value)}
                   isValid={getIsValid(ERROR_KEYS.slug)}
                   isInvalid={getIsInvalid(ERROR_KEYS.slug)}
-                  readOnly={!organization.is_draft}
                 />
                 {getErrorsFeedback(ERROR_KEYS.slug)}
               </InputGroup>
@@ -298,7 +296,6 @@ export function NonprofitPageForm() {
                 value={logo}
                 onChange={(image) => setLogo(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.logo)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.logo)}
             </Form.Group>
@@ -316,7 +313,6 @@ export function NonprofitPageForm() {
                 value={banner}
                 onChange={(image) => setBanner(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.banner)}
-                readOnly={!organization.is_draft}
                 helpText="A cover photo for your organization page. Optional."
               />
               {getErrorsFeedback(ERROR_KEYS.banner)}
@@ -341,7 +337,6 @@ export function NonprofitPageForm() {
                 isValid={getIsValid(ERROR_KEYS.url)}
                 isInvalid={getIsInvalid(ERROR_KEYS.url)}
                 aria-describedby="websiteHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="websiteHelpBlock">
                 {`The link to your organization's website outside of Shortage. Optional.`}
@@ -367,7 +362,6 @@ export function NonprofitPageForm() {
                 isValid={getIsValid(ERROR_KEYS.deadline)}
                 isInvalid={getIsInvalid(ERROR_KEYS.deadline)}
                 aria-describedby="deadlineHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="deadlineHelpBlock">
                 {`The countdown to this time and date will be shown on your page. The time you see is local. Optional.`}
@@ -401,7 +395,6 @@ export function NonprofitPageForm() {
                 isValid={getIsValid(ERROR_KEYS.requestedGoods)}
                 isInvalid={getIsInvalid(ERROR_KEYS.requestedGoods)}
                 aria-describedby="requestedGoodsHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="requestedGoodsHelpBlock">
                 Specify what better describes items you are looking for.
@@ -438,7 +431,6 @@ export function NonprofitPageForm() {
                 isValid={getIsValid(ERROR_KEYS.missionDescription)}
                 isInvalid={getIsInvalid(ERROR_KEYS.missionDescription)}
                 aria-describedby="missionDescriptionHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="missionDescriptionHelpBlock">
                 Short description of what you do, who you help, and how donors
@@ -477,7 +469,6 @@ export function NonprofitPageForm() {
                 isValid={getIsValid(ERROR_KEYS.metaDescription)}
                 isInvalid={getIsInvalid(ERROR_KEYS.metaDescription)}
                 aria-describedby="metaDescriptionHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="metaDescriptionHelpBlock">
                 Meta description will be used for link sharing. Optional.
@@ -487,27 +478,25 @@ export function NonprofitPageForm() {
           </Row>
 
           {/* Submit Button */}
-          {organization.is_draft ? (
-            <Row>
-              <Col>
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isSaving}
-                  className={commonStyles.submitBtn}
-                >
-                  {isSaving ? (
-                    <Loader
-                      role="status"
-                      aria-hidden="true"
-                      className={animationStyles.rotate}
-                    />
-                  ) : null}
-                  <span>Save</span>
-                </Button>
-              </Col>
-            </Row>
-          ) : null}
+          <Row>
+            <Col>
+              <Button
+                type="submit"
+                size="lg"
+                disabled={isSaving}
+                className={commonStyles.submitBtn}
+              >
+                {isSaving ? (
+                  <Loader
+                    role="status"
+                    aria-hidden="true"
+                    className={animationStyles.rotate}
+                  />
+                ) : null}
+                <span>Save</span>
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Col>
     </Row>

@@ -275,7 +275,6 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setFacilityName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.facilityName)}
                 isInvalid={getIsInvalid(ERROR_KEYS.facilityName)}
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">The name of the facility.</Form.Text>
               {getErrorsFeedback(ERROR_KEYS.facilityName)}
@@ -298,7 +297,6 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setAddressLine1(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.addressLine1)}
                 isInvalid={getIsInvalid(ERROR_KEYS.addressLine1)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.addressLine1)}
             </Form.Group>
@@ -318,7 +316,6 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setAddressLine2(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.addressLine2)}
                 isInvalid={getIsInvalid(ERROR_KEYS.addressLine2)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.addressLine2)}
             </Form.Group>
@@ -338,7 +335,6 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setCity(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.city)}
                 isInvalid={getIsInvalid(ERROR_KEYS.city)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.city)}
             </Form.Group>
@@ -358,7 +354,6 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setStateProvinceRegion(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.stateProvinceRegion)}
                 isInvalid={getIsInvalid(ERROR_KEYS.stateProvinceRegion)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.stateProvinceRegion)}
             </Form.Group>
@@ -378,7 +373,6 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setZip(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.zip)}
                 isInvalid={getIsInvalid(ERROR_KEYS.zip)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.zip)}
             </Form.Group>
@@ -394,7 +388,6 @@ export function DeliveryInstructionForm() {
                 value={phoneNumber}
                 inputProps={{
                   id: 'phoneNumber',
-                  readOnly: !organization.is_draft,
                 }}
                 inputClass="form-control-lg"
                 isValid={getIsValid(ERROR_KEYS.phoneNumber)}
@@ -429,7 +422,6 @@ export function DeliveryInstructionForm() {
                 onChange={(e) => setComment(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.comment)}
                 isInvalid={getIsInvalid(ERROR_KEYS.comment)}
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 Additional comment to the delivery instructions. Optional.
@@ -439,27 +431,25 @@ export function DeliveryInstructionForm() {
           </Row>
 
           {/* Submit Button */}
-          {organization.is_draft ? (
-            <Row>
-              <Col>
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isSaving}
-                  className={commonStyles.submitBtn}
-                >
-                  {isSaving ? (
-                    <Loader
-                      role="status"
-                      aria-hidden="true"
-                      className={animationStyles.rotate}
-                    />
-                  ) : null}
-                  <span>Save</span>
-                </Button>
-              </Col>
-            </Row>
-          ) : null}
+          <Row>
+            <Col>
+              <Button
+                type="submit"
+                size="lg"
+                disabled={isSaving}
+                className={commonStyles.submitBtn}
+              >
+                {isSaving ? (
+                  <Loader
+                    role="status"
+                    aria-hidden="true"
+                    className={animationStyles.rotate}
+                  />
+                ) : null}
+                <span>Save</span>
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Col>
     </Row>

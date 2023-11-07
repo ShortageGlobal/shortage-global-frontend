@@ -2,7 +2,7 @@ import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
-import { DollarSign, Loader } from 'react-feather';
+import { AlertTriangle, DollarSign, Loader } from 'react-feather';
 import { useRouter } from 'next/router';
 import {
   useAppSelector,
@@ -36,7 +36,7 @@ const INPUT_ID = Object.freeze({
   slug: 'slug',
   category: 'category',
   photo: 'photo',
-  price: 'price',
+  base_price: 'base_price',
   requestedAmount: 'requestedAmount',
   topPriority: 'topPriority',
   isPublic: 'isPublic',
@@ -48,7 +48,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.slug]: 'slug',
   [INPUT_ID.category]: 'category',
   [INPUT_ID.photo]: 'photo',
-  [INPUT_ID.price]: 'price',
+  [INPUT_ID.base_price]: 'base_price',
   [INPUT_ID.requestedAmount]: 'requested_amount',
   [INPUT_ID.topPriority]: 'top_priority',
   [INPUT_ID.isPublic]: 'is_public',
@@ -76,7 +76,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   const [isSlugPristine, setIsSlugPristine] = useState(false);
   const [photo, setPhoto] = useState<ImageListType>([]);
   const [category, setCategory] = useState<AccountProduct['category'] | ''>('');
-  const [price, setPrice] = useState<string | number>('1');
+  const [base_price, setBasePrice] = useState<string | number>('1');
   const [requestedAmount, setRequestedAmount] = useState<string | number>('1');
   const [topPriority, setTopPriority] = useState<boolean>(false);
   const [isPublic, setIsPublic] = useState<boolean>(true);
@@ -89,7 +89,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       slug: product?.slug || '',
       photo: product?.photo ? [{ dataURL: product.photo }] : [],
       category: product?.category || '',
-      price: product?.price || '1',
+      base_price: product?.base_price || '1',
       requestedAmount: product?.requested_amount || '1',
       topPriority: product?.top_priority ?? false,
       isPublic: product?.is_public ?? true,
@@ -105,7 +105,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     setIsSlugPristine(!defaultValues.slug);
     setPhoto(defaultValues.photo);
     setCategory(defaultValues.category);
-    setPrice(defaultValues.price);
+    setBasePrice(defaultValues.base_price);
     setRequestedAmount(defaultValues.requestedAmount);
     setTopPriority(defaultValues.topPriority);
     setIsPublic(defaultValues.isPublic);
@@ -130,7 +130,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       bothEmptyOrEqual(defaultValues.slug, slug) &&
       bothEmptyOrEqual(defaultValues.photo[0]?.dataURL, photo?.[0]?.dataURL) &&
       bothEmptyOrEqual(defaultValues.category, category) &&
-      bothEmptyOrEqual(Number(defaultValues.price), Number(price)) &&
+      bothEmptyOrEqual(Number(defaultValues.base_price), Number(base_price)) &&
       bothEmptyOrEqual(
         Number(defaultValues.requestedAmount),
         Number(requestedAmount)
@@ -151,7 +151,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     slug,
     photo,
     category,
-    price,
+    base_price,
     requestedAmount,
     topPriority,
     isPublic,
@@ -183,7 +183,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             slug,
             category: category as AccountProduct['category'],
             photo: photo?.length ? photo[0]?.file || null : '',
-            price: Number(price),
+            base_price: Number(base_price),
             requestedAmount: Number(requestedAmount),
             topPriority,
             isPublic,
@@ -209,7 +209,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             slug,
             category: category as AccountProduct['category'],
             photo: photo?.length ? photo[0]?.file || null : '',
-            price: Number(price),
+            base_price: Number(base_price),
             requestedAmount: Number(requestedAmount),
             topPriority,
             isPublic,
@@ -250,7 +250,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       slug,
       category,
       photo,
-      price,
+      base_price,
       requestedAmount,
       topPriority,
       isPublic,
@@ -294,7 +294,6 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 onChange={(e) => setName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.name)}
                 isInvalid={getIsInvalid(ERROR_KEYS.name)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.name)}
             </Form.Group>
@@ -325,7 +324,6 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                   }}
                   isValid={getIsValid(ERROR_KEYS.slug)}
                   isInvalid={getIsInvalid(ERROR_KEYS.slug)}
-                  readOnly={!organization.is_draft}
                 />
                 {getErrorsFeedback(ERROR_KEYS.slug)}
               </InputGroup>
@@ -349,7 +347,6 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 onChange={(e) => setCategory(e.target.value as typeof category)}
                 isValid={getIsValid(ERROR_KEYS.category)}
                 isInvalid={getIsInvalid(ERROR_KEYS.category)}
-                disabled={!organization.is_draft}
               >
                 <option></option>
                 {PRODUCT_CATEGORY_LIST.filter(
@@ -367,13 +364,13 @@ export function ProductForm({ product }: ProductFormProps = {}) {
           </Row>
 
           <Row>
-            {/* Price */}
+            {/* Base Price */}
             <Form.Group
               as={Col}
-              controlId={INPUT_ID.price}
+              controlId={INPUT_ID.base_price}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Price</Form.Label>
+              <Form.Label>Base Price</Form.Label>
               <InputGroup>
                 <InputGroup.Text>
                   <DollarSign />
@@ -386,13 +383,20 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                   min="0"
                   required
                   autoComplete="off"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  isValid={getIsValid(ERROR_KEYS.price)}
-                  isInvalid={getIsInvalid(ERROR_KEYS.price)}
-                  readOnly={!organization.is_draft}
+                  value={base_price}
+                  onChange={(e) => setBasePrice(e.target.value)}
+                  isValid={getIsValid(ERROR_KEYS.base_price)}
+                  isInvalid={getIsInvalid(ERROR_KEYS.base_price)}
+                  aria-describedby="basePriceHelpBlock"
                 />
-                {getErrorsFeedback(ERROR_KEYS.price)}
+                <Form.Text as="div" id="basePriceHelpBlock">
+                  <div className={commonStyles.inlineIcon}>
+                    <AlertTriangle />
+                  </div>
+                  Note, the price donors see will include delivery, taxes, and
+                  administration fee.
+                </Form.Text>
+                {getErrorsFeedback(ERROR_KEYS.base_price)}
               </InputGroup>
             </Form.Group>
 
@@ -432,8 +436,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 value={photo}
                 onChange={(image) => setPhoto(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.photo)}
-                readOnly={!organization.is_draft}
-                helpText="Illustration of the product you are looking for."
+                helpText="Illustration of the product."
               />
               {getErrorsFeedback(ERROR_KEYS.photo)}
             </Form.Group>
@@ -454,7 +457,6 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 isValid={getIsValid(ERROR_KEYS.topPriority)}
                 isInvalid={getIsInvalid(ERROR_KEYS.topPriority)}
                 aria-describedby="topPriorityHelpBlock"
-                disabled={!organization.is_draft}
               />
               <Form.Text as="div" id="topPriorityHelpBlock">
                 If checked, the product will have a &quot;High demand&quot;
@@ -479,9 +481,8 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                 isValid={getIsValid(ERROR_KEYS.isPublic)}
                 isInvalid={getIsInvalid(ERROR_KEYS.isPublic)}
                 aria-describedby="publicHelpBlock"
-                disabled={!organization.is_draft}
               />
-              <Form.Text as="div" id="topPriorityHelpBlock">
+              <Form.Text as="div" id="publicHelpBlock">
                 If checked, the product will show up on the main
                 nonprofit&apos;s page. Useful, if you want the product to show
                 up on the campaign page only.
@@ -501,7 +502,6 @@ export function ProductForm({ product }: ProductFormProps = {}) {
               <HtmlEditor
                 value={description}
                 onChange={(newValue) => setDescription(newValue)}
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
                 Describe what you are looking for, so donors could send you

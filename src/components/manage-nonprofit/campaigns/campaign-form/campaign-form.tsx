@@ -282,7 +282,6 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
                 onChange={(e) => setName(e.target.value)}
                 isValid={getIsValid(ERROR_KEYS.name)}
                 isInvalid={getIsInvalid(ERROR_KEYS.name)}
-                readOnly={!organization.is_draft}
               />
               {getErrorsFeedback(ERROR_KEYS.name)}
             </Form.Group>
@@ -331,7 +330,6 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
                 value={banner}
                 onChange={(image) => setBanner(image)}
                 isInvalid={getIsInvalid(ERROR_KEYS.banner)}
-                readOnly={!organization.is_draft}
                 helpText="A cover photo for the campaign. Optional."
               />
               {getErrorsFeedback(ERROR_KEYS.banner)}
@@ -355,7 +353,6 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
                 isValid={getIsValid(ERROR_KEYS.deadline)}
                 isInvalid={getIsInvalid(ERROR_KEYS.deadline)}
                 aria-describedby="deadlineHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="deadlineHelpBlock">
                 {`The countdown to this time and date will be shown on the campaign's page. The time you see is local. Optional.`}
@@ -389,7 +386,6 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
                 isValid={getIsValid(ERROR_KEYS.requestedGoods)}
                 isInvalid={getIsInvalid(ERROR_KEYS.requestedGoods)}
                 aria-describedby="requestedGoodsHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="requestedGoodsHelpBlock">
                 Specify what better describes items you are looking for.
@@ -426,7 +422,6 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
                 isValid={getIsValid(ERROR_KEYS.missionDescription)}
                 isInvalid={getIsInvalid(ERROR_KEYS.missionDescription)}
                 aria-describedby="missionDescriptionHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="missionDescriptionHelpBlock">
                 Short description of the campaign, who you help, and how donors
@@ -465,7 +460,6 @@ export function CampaignForm({ campaign }: CampaignFormProps = {}) {
                 isValid={getIsValid(ERROR_KEYS.metaDescription)}
                 isInvalid={getIsInvalid(ERROR_KEYS.metaDescription)}
                 aria-describedby="metaDescriptionHelpBlock"
-                readOnly={!organization.is_draft}
               />
               <Form.Text as="div" id="metaDescriptionHelpBlock">
                 Meta description will be used for link sharing. Optional.
