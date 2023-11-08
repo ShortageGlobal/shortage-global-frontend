@@ -46,7 +46,7 @@ export function ProductCard({
         value: product.is_public ? 'yes' : 'no',
       },
       {
-        key: 'base_price',
+        key: 'base price',
         value: formatPrice(product.base_price),
       },
     ];
