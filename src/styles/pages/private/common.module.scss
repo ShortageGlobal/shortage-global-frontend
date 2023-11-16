@@ -102,6 +102,19 @@ $restrictedWidth: 650px;
   word-break: break-word;
 }
 
+.inlineIcon {
+  display: inline-flex;
+  align-self: center;
+  margin-right: 0.3em;
+
+  svg {
+    top: 0.125em;
+    position: relative;
+    height: 1em;
+    width: 1em;
+  }
+}
+
 .submitBtn {
   margin-top: 1rem;
 }

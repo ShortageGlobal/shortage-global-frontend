@@ -457,7 +457,7 @@ export type UpdateAccountOrganizationProductParams = {
   slug: AccountProduct['slug'];
   category: AccountProduct['category'];
   photo: File | string;
-  price: AccountProduct['price'];
+  base_price: AccountProduct['base_price'];
   requestedAmount: AccountProduct['requested_amount'];
   topPriority: AccountProduct['top_priority'];
   isPublic: AccountProduct['is_public'];
@@ -472,7 +472,7 @@ export async function updateAccountOrganizationProduct({
   slug,
   category,
   photo,
-  price,
+  base_price,
   requestedAmount,
   topPriority,
   isPublic,
@@ -489,7 +489,7 @@ export async function updateAccountOrganizationProduct({
       slug,
       category,
       photo,
-      price,
+      base_price,
       requested_amount: requestedAmount,
       top_priority: topPriority,
       is_public: isPublic,
@@ -511,7 +511,7 @@ export type CreateAccountOrganizationProductParams = {
   slug: AccountProduct['slug'];
   category: AccountProduct['category'];
   photo: File | string;
-  price: AccountProduct['price'];
+  base_price: AccountProduct['base_price'];
   requestedAmount: AccountProduct['requested_amount'];
   topPriority: AccountProduct['top_priority'];
   isPublic: AccountProduct['is_public'];
@@ -525,7 +525,7 @@ export async function createAccountOrganizationProduct({
   slug,
   category,
   photo,
-  price,
+  base_price,
   requestedAmount,
   topPriority,
   isPublic,
@@ -542,7 +542,7 @@ export async function createAccountOrganizationProduct({
       slug,
       category,
       photo,
-      price,
+      base_price,
       requested_amount: requestedAmount,
       top_priority: topPriority,
       is_public: isPublic,

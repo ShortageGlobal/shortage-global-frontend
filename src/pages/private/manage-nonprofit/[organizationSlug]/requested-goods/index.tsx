@@ -57,26 +57,24 @@ const RequestedGoodsPage: NextPageWithLayout = () => {
             Requested Goods
           </Col>
 
-          {organization.is_draft ? (
-            <Col xs="auto" className={commonStyles.actions}>
-              <Link
-                href={{
-                  pathname:
-                    '/private/manage-nonprofit/[organizationSlug]/requested-goods/create',
-                  query: {
-                    organizationSlug: organization.slug,
-                  },
-                }}
-                passHref
-                legacyBehavior
-              >
-                <Button size="lg">
-                  <Plus />
-                  <span>Add new</span>
-                </Button>
-              </Link>
-            </Col>
-          ) : null}
+          <Col xs="auto" className={commonStyles.actions}>
+            <Link
+              href={{
+                pathname:
+                  '/private/manage-nonprofit/[organizationSlug]/requested-goods/create',
+                query: {
+                  organizationSlug: organization.slug,
+                },
+              }}
+              passHref
+              legacyBehavior
+            >
+              <Button size="lg">
+                <Plus />
+                <span>Add new</span>
+              </Button>
+            </Link>
+          </Col>
         </Row>
 
         <Row>
