@@ -179,7 +179,7 @@ export function DonationsList() {
             >
               {donations?.map((p) => {
                 const totalPrice = p.items.reduce((acc, item) => {
-                  return acc + item.quantity * item.product.price;
+                  return acc + item.quantity * item.product.base_price;
                 }, 0);
                 return (
                   <tr
