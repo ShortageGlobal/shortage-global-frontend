@@ -9,14 +9,28 @@ import type { AccountOrganization, AccountProduct } from 'core/api/types';
 type ProductCardProps = {
   className?: string;
   quantity?: number;
-  product: AccountProduct;
+  id: AccountProduct['id'];
+  name: AccountProduct['name'];
+  category: AccountProduct['category'];
+  photo: AccountProduct['photo'];
+  price: AccountProduct['price'];
+  requestedAmount?: AccountProduct['requested_amount'];
+  isPublic?: AccountProduct['is_public'];
+  topPriority?: AccountProduct['top_priority'];
   organization: AccountOrganization;
 };
 
 export function ProductCard({
   className,
   quantity,
-  product,
+  id,
+  name,
+  category,
+  photo,
+  price,
+  requestedAmount,
+  isPublic,
+  topPriority,
   organization,
 }: ProductCardProps) {
   const productHref = useMemo(() => {
@@ -25,44 +39,52 @@ export function ProductCard({
         '/private/manage-nonprofit/[organizationSlug]/requested-goods/[productId]/',
       query: {
         organizationSlug: organization.slug,
-        productId: product.id,
+        productId: id,
       },
     };
-  }, [product, organization]);
+  }, [id, organization]);
 
   const details = useMemo(() => {
     return [
       ...(quantity ? [{ key: 'quantity', value: quantity }] : []),
       {
         key: 'category',
-        value: PRODUCT_CATEGORY_DETAILS[product.category].name,
+        value: PRODUCT_CATEGORY_DETAILS[category].name,
       },
-      {
-        key: 'requested',
-        value: product.requested_amount,
-      },
-      {
-        key: 'public',
-        value: product.is_public ? 'yes' : 'no',
-      },
+      ...(typeof requestedAmount === 'number'
+        ? [
+            {
+              key: 'requested',
+              value: requestedAmount,
+            },
+          ]
+        : []),
+      ...(typeof isPublic === 'boolean'
+        ? [
+            {
+              key: 'public',
+              value: isPublic ? 'yes' : 'no',
+            },
+          ]
+        : []),
       {
         key: 'price',
-        value: formatPrice(product.price),
+        value: formatPrice(price),
       },
     ];
-  }, [quantity, product]);
+  }, [quantity, category, requestedAmount, isPublic, price]);
 
   return (
     <Card
       className={className}
       href={productHref}
-      image={product.photo}
+      image={photo}
       imageExtra={
-        product.top_priority ? (
+        topPriority ? (
           <HighDemandBadge className={cardStyles.imageBadge} />
         ) : null
       }
-      title={product.name}
+      title={name}
       details={details}
     />
   );
