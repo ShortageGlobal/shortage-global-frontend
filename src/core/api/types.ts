@@ -182,7 +182,7 @@ export type AccountProduct = {
   slug: Slug;
   category: (typeof PRODUCT_CATEGORY_KEY)[CategoryKey];
   photo?: string;
-  price?: number;
+  base_price: number;
   requested_amount: number;
   top_priority: boolean;
   is_public: boolean;

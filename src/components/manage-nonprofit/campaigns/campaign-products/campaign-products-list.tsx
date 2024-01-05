@@ -303,7 +303,7 @@ export function CampaignProductsList() {
                   name={product.name}
                   category={product.category}
                   photo={product.photo}
-                  price={product.price}
+                  basePrice={product.base_price}
                   requestedAmount={product.requested_amount}
                   isPublic={product.is_public}
                   topPriority={product.top_priority}
