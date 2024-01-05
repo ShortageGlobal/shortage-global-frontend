@@ -156,7 +156,14 @@ export function ProductsList() {
             return (
               <ProductCard
                 key={product.slug}
-                product={product}
+                id={product.id}
+                name={product.name}
+                category={product.category}
+                photo={product.photo}
+                price={product.price}
+                requestedAmount={product.requested_amount}
+                isPublic={product.is_public}
+                topPriority={product.top_priority}
                 organization={organization}
               />
             );

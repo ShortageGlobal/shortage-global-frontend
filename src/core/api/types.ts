@@ -257,13 +257,16 @@ export type PackageItem = {
 };
 
 export type AccountOrganizationPackageItem = {
-  product: ProductBase & {
+  product: {
     id: number;
+    slug: Slug;
     is_deleted: boolean;
-    top_priority: boolean;
-    is_public: boolean;
   };
   quantity: number;
+  name: string;
+  category?: (typeof PRODUCT_CATEGORY_KEY)[CategoryKey];
+  photo?: string;
+  price?: number;
 };
 
 export type PackageLog = {
@@ -295,7 +298,7 @@ export type Package = {
   checkout_url?: string;
   status: PackageStatus;
   created_at?: string;
-  items?: PackageItem[];
+  items?: AccountOrganizationPackageItem[];
   organization?: OrganizationPreview;
   campaign?: CampaignMinimalPreview | null;
 };

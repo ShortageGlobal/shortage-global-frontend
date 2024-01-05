@@ -179,7 +179,7 @@ export function DonationsList() {
             >
               {donations?.map((p) => {
                 const totalPrice = p.items.reduce((acc, item) => {
-                  return acc + item.quantity * item.product.price;
+                  return acc + item.quantity * item.price;
                 }, 0);
                 return (
                   <tr
@@ -278,7 +278,7 @@ export function DonationsList() {
                             )}
                             onClick={(e) => e.stopPropagation()}
                           >
-                            <span>{item.product.name}</span>
+                            <span>{item.name}</span>
                           </Link>
                         </div>
                       ))}

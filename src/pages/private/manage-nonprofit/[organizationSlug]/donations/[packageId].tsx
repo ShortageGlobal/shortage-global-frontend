@@ -156,7 +156,7 @@ const DonationDetailsPage: NextPageWithLayout = () => {
       return null;
     }
     return donation.items.reduce(
-      (sum, item) => sum + (item.product.price || 0) * item.quantity,
+      (sum, item) => sum + (item.price || 0) * item.quantity,
       0
     );
   }, [donation.items]);
@@ -410,7 +410,10 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                       ) : null}
                     </div>
 
-                    <PackageStatusVisualization package={donation} />
+                    <PackageStatusVisualization
+                      type={donation.type}
+                      status={donation.status}
+                    />
 
                     <PackageLogs
                       organizationSlug={organization.slug}
@@ -463,7 +466,11 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                         <ProductCard
                           key={item.product.id}
                           quantity={item.quantity}
-                          product={item.product}
+                          id={item.product.id}
+                          name={item.name}
+                          category={item.category}
+                          photo={item.photo}
+                          price={item.price}
                           organization={organization}
                         />
                       );

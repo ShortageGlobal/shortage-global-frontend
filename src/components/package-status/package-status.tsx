@@ -355,7 +355,8 @@ export function PackageStatus() {
 
                 {/* Status Visualization */}
                 <PackageStatusVisualization
-                  package={packageState.package}
+                  type={packageState.package.type}
+                  status={packageState.package.status}
                   className={styles.packageStatusVisualization}
                 />
 

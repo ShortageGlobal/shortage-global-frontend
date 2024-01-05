@@ -67,7 +67,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
       return null;
     }
     return donation.items.reduce(
-      (sum, item) => sum + (item.product.price || 0) * item.quantity,
+      (sum, item) => sum + (item.price || 0) * item.quantity,
       0
     );
   }, [donation.items]);
@@ -160,7 +160,10 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                 <Accordion.Item eventKey={SECTION_KEY.STATUS}>
                   <Accordion.Header>Status</Accordion.Header>
                   <Accordion.Body className={styles.statusBody}>
-                    <PackageStatusVisualization package={donation} />
+                    <PackageStatusVisualization
+                      type={donation.type}
+                      status={donation.status}
+                    />
 
                     <PackageLogs
                       organizationSlug={donation.organization.slug}
@@ -192,10 +195,10 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                               aria-label="Visit product page"
                               className={styles.productLink}
                             >
-                              {item.product.photo ? (
+                              {item.photo ? (
                                 <Image
-                                  src={item.product.photo}
-                                  alt={item.product.name}
+                                  src={item.photo}
+                                  alt={item.name}
                                   fill
                                   className={styles.productImg}
                                 />
@@ -208,7 +211,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                               href={productPageHref}
                               className={styles.nameLink}
                             >
-                              {item.product.name}
+                              {item.name}
                             </Link>
                           </div>
 
@@ -220,7 +223,7 @@ const AccountDonationDetailsPage: NextPageWithLayout = ({
                           {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
                             <dl className={styles.price}>
                               <dt>Price</dt>
-                              <dd>{formatPrice(item.product.price)}</dd>
+                              <dd>{formatPrice(item.price)}</dd>
                             </dl>
                           ) : null}
                         </div>

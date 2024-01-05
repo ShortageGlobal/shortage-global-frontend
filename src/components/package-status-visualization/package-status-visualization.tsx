@@ -10,15 +10,17 @@ import {
 import type { Package, PackageStatus } from 'core/api/types';
 
 type PackageStatusVizualizationProps = {
-  package: Package;
+  type: Package['type'];
+  status: Package['status'];
   className?: string;
 };
 
 export function PackageStatusVisualization({
-  package: packageState,
+  type,
+  status,
   className = '',
 }: PackageStatusVizualizationProps) {
-  const lifecycle = PACKAGE_STATUS_LIFECYCLE[packageState.type];
+  const lifecycle = PACKAGE_STATUS_LIFECYCLE[type];
 
   let activeLifecycleIndex = +Infinity;
 
@@ -30,8 +32,8 @@ export function PackageStatusVisualization({
         {lifecycle.map((steps, index) => {
           let step: PackageStatus;
 
-          if (steps.includes(packageState.status)) {
-            step = packageState.status;
+          if (steps.includes(status)) {
+            step = status;
             activeLifecycleIndex = index;
           } else {
             step = steps[0] as PackageStatus;
