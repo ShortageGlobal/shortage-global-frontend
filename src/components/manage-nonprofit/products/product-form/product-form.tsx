@@ -2,7 +2,7 @@ import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useEffect, useCallback, useState, useMemo } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
-import { DollarSign, Loader } from 'react-feather';
+import { DollarSign, Loader, AlertTriangle } from 'react-feather';
 import { useRouter } from 'next/router';
 import {
   useAppSelector,
@@ -36,7 +36,7 @@ const INPUT_ID = Object.freeze({
   slug: 'slug',
   category: 'category',
   photo: 'photo',
-  price: 'price',
+  basePrice: 'basePrice',
   requestedAmount: 'requestedAmount',
   topPriority: 'topPriority',
   isPublic: 'isPublic',
@@ -48,7 +48,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.slug]: 'slug',
   [INPUT_ID.category]: 'category',
   [INPUT_ID.photo]: 'photo',
-  [INPUT_ID.price]: 'price',
+  [INPUT_ID.basePrice]: 'base_price',
   [INPUT_ID.requestedAmount]: 'requested_amount',
   [INPUT_ID.topPriority]: 'top_priority',
   [INPUT_ID.isPublic]: 'is_public',
@@ -76,7 +76,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
   const [isSlugPristine, setIsSlugPristine] = useState(false);
   const [photo, setPhoto] = useState<ImageListType>([]);
   const [category, setCategory] = useState<AccountProduct['category'] | ''>('');
-  const [price, setPrice] = useState<string | number>('1');
+  const [basePrice, setBasePrice] = useState<string | number>('1');
   const [requestedAmount, setRequestedAmount] = useState<string | number>('1');
   const [topPriority, setTopPriority] = useState<boolean>(false);
   const [isPublic, setIsPublic] = useState<boolean>(true);
@@ -89,7 +89,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       slug: product?.slug || '',
       photo: product?.photo ? [{ dataURL: product.photo }] : [],
       category: product?.category || '',
-      price: product?.price || '1',
+      basePrice: product?.base_price || '1',
       requestedAmount: product?.requested_amount || '1',
       topPriority: product?.top_priority ?? false,
       isPublic: product?.is_public ?? true,
@@ -105,7 +105,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     setIsSlugPristine(!defaultValues.slug);
     setPhoto(defaultValues.photo);
     setCategory(defaultValues.category);
-    setPrice(defaultValues.price);
+    setBasePrice(defaultValues.basePrice);
     setRequestedAmount(defaultValues.requestedAmount);
     setTopPriority(defaultValues.topPriority);
     setIsPublic(defaultValues.isPublic);
@@ -130,7 +130,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       bothEmptyOrEqual(defaultValues.slug, slug) &&
       bothEmptyOrEqual(defaultValues.photo[0]?.dataURL, photo?.[0]?.dataURL) &&
       bothEmptyOrEqual(defaultValues.category, category) &&
-      bothEmptyOrEqual(Number(defaultValues.price), Number(price)) &&
+      bothEmptyOrEqual(Number(defaultValues.basePrice), Number(basePrice)) &&
       bothEmptyOrEqual(
         Number(defaultValues.requestedAmount),
         Number(requestedAmount)
@@ -151,7 +151,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
     slug,
     photo,
     category,
-    price,
+    basePrice,
     requestedAmount,
     topPriority,
     isPublic,
@@ -183,7 +183,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             slug,
             category: category as AccountProduct['category'],
             photo: photo?.length ? photo[0]?.file || null : '',
-            price: Number(price),
+            basePrice: Number(basePrice),
             requestedAmount: Number(requestedAmount),
             topPriority,
             isPublic,
@@ -209,7 +209,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
             slug,
             category: category as AccountProduct['category'],
             photo: photo?.length ? photo[0]?.file || null : '',
-            price: Number(price),
+            basePrice: Number(basePrice),
             requestedAmount: Number(requestedAmount),
             topPriority,
             isPublic,
@@ -250,7 +250,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
       slug,
       category,
       photo,
-      price,
+      basePrice,
       requestedAmount,
       topPriority,
       isPublic,
@@ -367,13 +367,13 @@ export function ProductForm({ product }: ProductFormProps = {}) {
           </Row>
 
           <Row>
-            {/* Price */}
+            {/* Base Price */}
             <Form.Group
               as={Col}
-              controlId={INPUT_ID.price}
+              controlId={INPUT_ID.basePrice}
               className={commonStyles.formGroup}
             >
-              <Form.Label>Price</Form.Label>
+              <Form.Label>Base Price</Form.Label>
               <InputGroup>
                 <InputGroup.Text>
                   <DollarSign />
@@ -386,13 +386,20 @@ export function ProductForm({ product }: ProductFormProps = {}) {
                   min="0"
                   required
                   autoComplete="off"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  isValid={getIsValid(ERROR_KEYS.price)}
-                  isInvalid={getIsInvalid(ERROR_KEYS.price)}
+                  value={basePrice}
+                  onChange={(e) => setBasePrice(e.target.value)}
+                  isValid={getIsValid(ERROR_KEYS.basePrice)}
+                  isInvalid={getIsInvalid(ERROR_KEYS.basePrice)}
                   readOnly={!organization.is_draft}
                 />
-                {getErrorsFeedback(ERROR_KEYS.price)}
+                <Form.Text as="div" id="basePriceHelpBlock">
+                  <div className={commonStyles.inlineIcon}>
+                    <AlertTriangle />
+                  </div>
+                  Note, the price donors see will include delivery, taxes, and
+                  administration fee.
+                </Form.Text>
+                {getErrorsFeedback(ERROR_KEYS.basePrice)}
               </InputGroup>
             </Form.Group>
 
@@ -500,7 +507,10 @@ export function ProductForm({ product }: ProductFormProps = {}) {
               <Form.Label>Minimal Requirements</Form.Label>
               <HtmlEditor
                 value={description}
-                onChange={(newValue) => setDescription(newValue)}
+                onChange={(newValue) => {
+                  console.log('HTML EDITOR ON CHANGE');
+                  setDescription(newValue);
+                }}
                 readOnly={!organization.is_draft}
               />
               <Form.Text as="div">

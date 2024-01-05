@@ -13,7 +13,8 @@ type ProductCardProps = {
   name: AccountProduct['name'];
   category: AccountProduct['category'];
   photo: AccountProduct['photo'];
-  price: AccountProduct['price'];
+  price?: AccountProduct['base_price']; // used for package items
+  basePrice?: AccountProduct['base_price'];
   requestedAmount?: AccountProduct['requested_amount'];
   isPublic?: AccountProduct['is_public'];
   topPriority?: AccountProduct['top_priority'];
@@ -28,6 +29,7 @@ export function ProductCard({
   category,
   photo,
   price,
+  basePrice,
   requestedAmount,
   isPublic,
   topPriority,
@@ -67,12 +69,24 @@ export function ProductCard({
             },
           ]
         : []),
-      {
-        key: 'price',
-        value: formatPrice(price),
-      },
+      ...(typeof price !== 'undefined'
+        ? [
+            {
+              key: 'price',
+              value: formatPrice(price),
+            },
+          ]
+        : []),
+      ...(typeof basePrice !== 'undefined'
+        ? [
+            {
+              key: 'base price',
+              value: formatPrice(basePrice),
+            },
+          ]
+        : []),
     ];
-  }, [quantity, category, requestedAmount, isPublic, price]);
+  }, [quantity, category, requestedAmount, isPublic, price, basePrice]);
 
   return (
     <Card
