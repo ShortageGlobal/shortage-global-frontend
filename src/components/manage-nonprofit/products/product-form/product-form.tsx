@@ -507,10 +507,7 @@ export function ProductForm({ product }: ProductFormProps = {}) {
               <Form.Label>Minimal Requirements</Form.Label>
               <HtmlEditor
                 value={description}
-                onChange={(newValue) => {
-                  console.log('HTML EDITOR ON CHANGE');
-                  setDescription(newValue);
-                }}
+                onChange={(newValue) => setDescription(newValue)}
                 readOnly={!organization.is_draft}
               />
               <Form.Text as="div">
