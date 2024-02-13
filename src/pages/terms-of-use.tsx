@@ -33,7 +33,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
           <Col className={styles.termsOfUse}>
             <header>
               <h2 className={styles.header}>Terms of Use</h2>
-              <p className={styles.effectiveFrom}>Effective June 19, 2022</p>
+              <p className={styles.effectiveFrom}>
+                Last updated: June 19, 2022
+              </p>
             </header>
 
             <p>

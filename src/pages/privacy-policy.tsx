@@ -35,7 +35,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
             <header>
               <h2 className={styles.header}>Privacy Policy</h2>
               <p className={styles.effectiveFrom}>
-                Effective February 12, 2024
+                Last updated: February 12, 2024
               </p>
             </header>
 
