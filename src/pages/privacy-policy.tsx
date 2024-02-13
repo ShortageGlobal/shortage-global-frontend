@@ -34,7 +34,9 @@ const PrivacyPolicy: NextPageWithLayout = () => {
           <Col className={styles.privacyPolicy}>
             <header>
               <h2 className={styles.header}>Privacy Policy</h2>
-              <p className={styles.effectiveFrom}>Effective June 19, 2022</p>
+              <p className={styles.effectiveFrom}>
+                Effective February 12, 2024
+              </p>
             </header>
 
             <p>
@@ -292,6 +294,16 @@ const PrivacyPolicy: NextPageWithLayout = () => {
               you. In those cases, your unique personally identifiable
               information (email, name, address, telephone number) is not
               transferred to the third party.
+            </p>
+
+            <p>
+              Through our self-service feature, nonprofit partners may receive
+              access to user data to facilitate their fundraising activities and
+              enhance donor engagement. This data sharing is conducted in
+              compliance with applicable privacy regulations and is limited to
+              the extent necessary to support the nonprofit&apos;s initiatives.
+              Shortage takes measures to ensure the security and confidentiality
+              of shared user data during transmission and storage.
             </p>
 
             <p>
