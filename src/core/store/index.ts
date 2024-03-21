@@ -16,6 +16,7 @@ import { promotedExternalOrganizationsReducer } from 'core/store/slices/promoted
 import { promotedCategoriesReducer } from 'core/store/slices/promoted-categories';
 import { promotedProductsReducer } from 'core/store/slices/promoted-products';
 import { promotedBlogPostsReducer } from 'core/store/slices/promoted-blog-posts';
+import { shortageBlogPostsReducer } from 'core/store/slices/shortage-blog-posts';
 import { organizationReducer } from 'core/store/slices/organization';
 import { campaignsReducer } from 'core/store/slices/campaigns';
 import { campaignReducer } from 'core/store/slices/campaign';
@@ -47,6 +48,7 @@ const combinedReducer = combineReducers({
   promotedCategories: promotedCategoriesReducer,
   promotedProducts: promotedProductsReducer,
   promotedBlogPosts: promotedBlogPostsReducer,
+  shortageBlogPosts: shortageBlogPostsReducer,
   organization: organizationReducer,
   campaigns: campaignsReducer,
   campaign: campaignReducer,

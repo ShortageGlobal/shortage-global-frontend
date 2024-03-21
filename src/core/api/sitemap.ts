@@ -35,3 +35,14 @@ export async function fetchBlogPostSlugs({
     cancelToken: cancelToken?.token,
   });
 }
+
+export async function fetchShortageBlogPostSlugs({
+  cancelToken = null,
+}: CancelTokenParams = {}) {
+  return axios.get<{ slug: BlogPost['slug'] }[]>(
+    encodeURI(`${API_ROOT}/api/sitemap/all_shortage_blog_post_slugs/`),
+    {
+      cancelToken: cancelToken?.token,
+    }
+  );
+}

@@ -2,21 +2,21 @@ import { useCallback } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useAppDispatch, useAppSelector, useCancelToken } from 'core/hooks';
 import {
-  fetchPromotedBlogPosts,
-  selectPromotedBlogPosts,
+  fetchShortageBlogPosts,
+  selectShortageBlogPosts,
   setIsLoading,
-} from 'core/store/slices/promoted-blog-posts';
+} from 'core/store/slices/shortage-blog-posts';
 import { BlogPosts } from 'components/blog-posts/blog-posts';
 import { BLOG_POSTS_PAGE_SIZE } from 'core/constants';
 
-export function PromotedBlogPosts() {
+export function ShortageBlogPosts() {
   const dispatch = useAppDispatch();
-  const { promotedBlogPosts, count, isLoading } = useAppSelector(
-    selectPromotedBlogPosts
+  const { shortageBlogPosts, count, isLoading } = useAppSelector(
+    selectShortageBlogPosts
   );
-  const getFetchPromotedBlogPostsCancelToken = useCancelToken();
+  const getFetchShortageBlogPostsCancelToken = useCancelToken();
 
-  const debouncedFetchPromotedBlogPosts = useDebouncedCallback(
+  const debouncedFetchShortageBlogPosts = useDebouncedCallback(
     ({
       offset = 0,
       limit = BLOG_POSTS_PAGE_SIZE,
@@ -24,10 +24,10 @@ export function PromotedBlogPosts() {
       offset?: number;
       limit?: number;
     }) => {
-      // fetch promotedBlogPosts
-      const cancelToken = getFetchPromotedBlogPostsCancelToken();
+      // fetch shortageBlogPosts
+      const cancelToken = getFetchShortageBlogPostsCancelToken();
       dispatch(
-        fetchPromotedBlogPosts({
+        fetchShortageBlogPosts({
           offset,
           limit,
           cancelToken,
@@ -40,16 +40,16 @@ export function PromotedBlogPosts() {
   // user clicked "Show more"
   const handleShowMore = useCallback(() => {
     dispatch(setIsLoading(true));
-    debouncedFetchPromotedBlogPosts({
-      offset: promotedBlogPosts.length,
+    debouncedFetchShortageBlogPosts({
+      offset: shortageBlogPosts.length,
       limit: BLOG_POSTS_PAGE_SIZE,
     });
-  }, [promotedBlogPosts]);
+  }, [shortageBlogPosts]);
 
   return (
     <BlogPosts
-      title="Impact Stories"
-      blogPosts={promotedBlogPosts}
+      title="Blog"
+      blogPosts={shortageBlogPosts}
       count={count}
       isLoading={isLoading}
       onShowMore={handleShowMore}

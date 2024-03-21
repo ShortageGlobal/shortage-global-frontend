@@ -4,6 +4,7 @@ export * from './sitemap';
 export * from './account';
 export * from './cart';
 export * from './promoted';
+export * from './shortage-blog-posts';
 export * from './organizations';
 export * from './campaigns';
 export * from './campaign-products';

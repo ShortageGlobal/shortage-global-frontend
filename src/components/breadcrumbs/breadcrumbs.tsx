@@ -435,6 +435,36 @@ export const getOrganizationBlogPostCrumb = ({
     ...props,
   });
 
+export const getShortageBlogCrumb = ({ ...props }: BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'shortage-blog-crumb',
+    label: 'Blog',
+    href: {
+      pathname: '/#blog',
+    },
+    ...props,
+  });
+
+export const getShortageBlogPostCrumb = ({
+  blogPostSlug,
+  blogPostTitle,
+  ...props
+}: {
+  blogPostSlug: Slug;
+  blogPostTitle: string;
+} & BreadcrumbItem) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'shortage-blog-post-crumb',
+    label: blogPostTitle,
+    href: {
+      pathname: '/blog/[blogPostSlug]/',
+      query: { blogPostSlug },
+    },
+    ...props,
+  });
+
 export const getManageNonprofitChooseCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,

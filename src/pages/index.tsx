@@ -11,6 +11,10 @@ import {
   fetchPromotedBlogPosts,
   selectPromotedBlogPosts,
 } from 'core/store/slices/promoted-blog-posts';
+import {
+  fetchShortageBlogPosts,
+  selectShortageBlogPosts,
+} from 'core/store/slices/shortage-blog-posts';
 import { setSearchQuery } from 'core/store/slices/search';
 import { StandWithUkraine } from 'components/stand-with-ukraine/stand-with-ukraine';
 import { PromoBanner } from 'components/promo-banner/promo-banner';
@@ -18,6 +22,7 @@ import { PromoCampaign } from 'components/promo-campaign/promo-campaign';
 import { DonationSteps } from 'components/donation-steps/donation-steps';
 import { PromotedProducts } from 'components/promoted-products/promoted-products';
 import { PromotedBlogPosts } from 'components/promoted-blog-posts/promoted-blog-posts';
+import { ShortageBlogPosts } from 'components/shortage-blog-posts/shortage-blog-posts';
 // import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import { PromoFeedback } from 'components/promo-feedback/promo-feedback';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
@@ -27,6 +32,7 @@ import type { NextPageWithLayout } from 'pages/_app';
 
 const IndexPage: NextPageWithLayout = () => {
   const { promotedBlogPosts } = useAppSelector(selectPromotedBlogPosts);
+  const { shortageBlogPosts } = useAppSelector(selectShortageBlogPosts);
 
   return (
     <>
@@ -45,6 +51,7 @@ const IndexPage: NextPageWithLayout = () => {
       {/* <PromotedOrganizations /> */}
       <PromoFeedback />
       {promotedBlogPosts?.length > 0 ? <PromotedBlogPosts /> : null}
+      {shortageBlogPosts?.length > 0 ? <ShortageBlogPosts /> : null}
       <PromoSocialMedia />
     </>
   );
@@ -57,6 +64,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       // store.dispatch(fetchPromotedOrganizations()),
       store.dispatch(fetchPromotedCategories()),
       store.dispatch(fetchPromotedBlogPosts({ limit: BLOG_POSTS_PAGE_SIZE })),
+      store.dispatch(fetchShortageBlogPosts({ limit: BLOG_POSTS_PAGE_SIZE })),
     ]);
 
     // try to extract category from query parameters

@@ -5,17 +5,23 @@ import {
   fetchOrganizationSlugs,
   fetchProductSlugs,
   fetchBlogPostSlugs,
+  fetchShortageBlogPostSlugs,
 } from 'core/api';
 import { ROOT_URL } from 'core/constants';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // fetch slugs
-  const [{ data: organizations }, { data: products }, { data: blogPosts }] =
-    await Promise.all([
-      fetchOrganizationSlugs(),
-      fetchProductSlugs(),
-      fetchBlogPostSlugs(),
-    ]);
+  const [
+    { data: organizations },
+    { data: products },
+    { data: blogPosts },
+    { data: shortageBlogPosts },
+  ] = await Promise.all([
+    fetchOrganizationSlugs(),
+    fetchProductSlugs(),
+    fetchBlogPostSlugs(),
+    fetchShortageBlogPostSlugs(),
+  ]);
 
   const lastmod = new Date().toISOString();
 
@@ -35,6 +41,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     ...blogPosts.map(({ slug, organization }) => {
       return {
         loc: `${ROOT_URL}/${organization.slug}/impact-stories/${slug}/`,
+        lastmod,
+      };
+    }),
+    ...blogPosts.map(({ slug, organization }) => {
+      return {
+        loc: `${ROOT_URL}/${organization.slug}/impact-stories/${slug}/`,
+        lastmod,
+      };
+    }),
+    ...shortageBlogPosts.map(({ slug }) => {
+      return {
+        loc: `${ROOT_URL}/blog/${slug}/`,
         lastmod,
       };
     }),
