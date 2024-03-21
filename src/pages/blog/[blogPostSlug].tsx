@@ -29,7 +29,7 @@ const BlogPostPage: NextPageWithLayout = ({ blogPost }: BlogPostPageProps) => {
   const breadcrumbs = useMemo(() => {
     return [
       getHomeCrumb(),
-      getShortageBlogCrumb({ isActive: true }),
+      getShortageBlogCrumb({ isActive: false }),
       getShortageBlogPostCrumb({
         blogPostSlug: blogPost.slug,
         blogPostTitle: blogPost.title,

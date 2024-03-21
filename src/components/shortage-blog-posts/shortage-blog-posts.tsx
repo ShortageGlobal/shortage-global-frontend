@@ -49,6 +49,7 @@ export function ShortageBlogPosts() {
   return (
     <BlogPosts
       title="Blog"
+      headerId="blog"
       blogPosts={shortageBlogPosts}
       count={count}
       isLoading={isLoading}

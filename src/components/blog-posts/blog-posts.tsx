@@ -7,6 +7,7 @@ import type { BlogPostPreview, ShortageBlogPostPreview } from 'core/api/types';
 
 type BlogPostsProps = {
   title: string;
+  headerId?: string;
   blogPosts: (BlogPostPreview | ShortageBlogPostPreview)[];
   count: number;
   isLoading: boolean;
@@ -15,6 +16,7 @@ type BlogPostsProps = {
 
 export function BlogPosts({
   title,
+  headerId,
   blogPosts,
   count,
   isLoading,
@@ -26,7 +28,7 @@ export function BlogPosts({
       <Container>
         <Row>
           <Col>
-            <SectionHeader>{title}</SectionHeader>
+            <SectionHeader id={headerId}>{title}</SectionHeader>
           </Col>
         </Row>
       </Container>

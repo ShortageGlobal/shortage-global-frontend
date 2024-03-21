@@ -441,7 +441,8 @@ export const getShortageBlogCrumb = ({ ...props }: BreadcrumbItem) =>
     key: 'shortage-blog-crumb',
     label: 'Blog',
     href: {
-      pathname: '/#blog',
+      pathname: '/',
+      hash: 'blog',
     },
     ...props,
   });
