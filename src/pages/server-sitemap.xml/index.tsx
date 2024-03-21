@@ -44,12 +44,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         lastmod,
       };
     }),
-    ...blogPosts.map(({ slug, organization }) => {
-      return {
-        loc: `${ROOT_URL}/${organization.slug}/impact-stories/${slug}/`,
-        lastmod,
-      };
-    }),
     ...shortageBlogPosts.map(({ slug }) => {
       return {
         loc: `${ROOT_URL}/blog/${slug}/`,
