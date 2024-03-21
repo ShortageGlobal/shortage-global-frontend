@@ -3,16 +3,20 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import { SectionHeader } from 'components/section-header/section-header';
 import { BlogPostCard } from 'components/blog-posts/blog-post-card/blog-post-card';
-import type { BlogPostPreview } from 'core/api/types';
+import type { BlogPostPreview, ShortageBlogPostPreview } from 'core/api/types';
 
 type BlogPostsProps = {
-  blogPosts: BlogPostPreview[];
+  title: string;
+  headerId?: string;
+  blogPosts: (BlogPostPreview | ShortageBlogPostPreview)[];
   count: number;
   isLoading: boolean;
   onShowMore: () => void;
 };
 
 export function BlogPosts({
+  title,
+  headerId,
   blogPosts,
   count,
   isLoading,
@@ -24,7 +28,7 @@ export function BlogPosts({
       <Container>
         <Row>
           <Col>
-            <SectionHeader>Impact Stories</SectionHeader>
+            <SectionHeader id={headerId}>{title}</SectionHeader>
           </Col>
         </Row>
       </Container>
@@ -39,7 +43,10 @@ export function BlogPosts({
               })}
             >
               {blogPosts?.map((blogPost) => {
-                const key = `${blogPost.organization.slug}-${blogPost.slug}`;
+                const key =
+                  'organization' in blogPost
+                    ? `${blogPost.organization.slug}-${blogPost.slug}`
+                    : blogPost.slug;
                 return (
                   <BlogPostCard
                     key={key}

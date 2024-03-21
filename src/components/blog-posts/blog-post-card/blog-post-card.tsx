@@ -3,10 +3,10 @@ import { useMemo } from 'react';
 import { Badge } from 'react-bootstrap';
 import { Card } from 'components/card/card';
 import { formatDateForHumans } from 'core/helpers';
-import type { BlogPostPreview } from 'core/api/types';
+import type { BlogPostPreview, ShortageBlogPostPreview } from 'core/api/types';
 
 type BlogPostCardProps = {
-  blogPost: BlogPostPreview;
+  blogPost: BlogPostPreview | ShortageBlogPostPreview;
   isVertical?: boolean;
 };
 
@@ -15,13 +15,22 @@ export function BlogPostCard({
   isVertical = false,
 }: BlogPostCardProps) {
   const blogPostHref = useMemo(() => {
-    return {
-      pathname: '/[organizationSlug]/impact-stories/[blogPostSlug]/',
-      query: {
-        organizationSlug: blogPost.organization.slug,
-        blogPostSlug: blogPost.slug,
-      },
-    };
+    if ('organization' in blogPost) {
+      return {
+        pathname: '/[organizationSlug]/impact-stories/[blogPostSlug]/',
+        query: {
+          organizationSlug: blogPost.organization.slug,
+          blogPostSlug: blogPost.slug,
+        },
+      };
+    } else {
+      return {
+        pathname: '/blog/[blogPostSlug]/',
+        query: {
+          blogPostSlug: blogPost.slug,
+        },
+      };
+    }
   }, [blogPost]);
 
   const details = useMemo(() => {

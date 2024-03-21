@@ -387,6 +387,10 @@ export type BlogPost = BlogPostPreview & {
   meta_description?: string;
 };
 
+export type ShortageBlogPostPreview = Omit<BlogPostPreview, 'organization'>;
+
+export type ShortageBlogPost = Omit<BlogPost, 'organization'>;
+
 export type AccountBlogPost = {
   uuid: Uuid;
   title: string;

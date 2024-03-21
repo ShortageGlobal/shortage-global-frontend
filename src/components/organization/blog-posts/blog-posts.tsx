@@ -51,6 +51,7 @@ export function OrganizationBlogPosts() {
 
   return (
     <BlogPosts
+      title="Impact Stories"
       blogPosts={organizationBlogPosts}
       count={count}
       isLoading={isLoading}
