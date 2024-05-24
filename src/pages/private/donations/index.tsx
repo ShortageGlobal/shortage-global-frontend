@@ -3,7 +3,11 @@ import styles from 'styles/pages/private/donations/donations.module.scss';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import { Row, Col, Table, Button } from 'react-bootstrap';
-import { Package as PackageGlyph, DollarSign } from 'react-feather';
+import {
+  Package as PackageGlyph,
+  DollarSign,
+  ShoppingBag,
+} from 'react-feather';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -178,6 +182,9 @@ const AccountDonationsPage: NextPageWithLayout = () => {
                               ) : null}
                               {p.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
                                 <DollarSign size="1rem" />
+                              ) : null}
+                              {p.type === PACKAGE_TYPE.SHOPIFY_PURCHASE ? (
+                                <ShoppingBag size="1rem" />
                               ) : null}
 
                               <span>{PACKAGE_TYPE_DISPLAY_LABELS[p.type]}</span>
