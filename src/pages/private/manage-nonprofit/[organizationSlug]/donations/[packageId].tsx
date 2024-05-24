@@ -17,6 +17,7 @@ import {
   RefreshCw,
   DollarSign,
   Package,
+  ShoppingBag,
   Copy,
   Check,
   FilePlus,
@@ -384,6 +385,9 @@ const DonationDetailsPage: NextPageWithLayout = () => {
                         ) : null}
                         {donation.type === PACKAGE_TYPE.FUNDED_BY_DONOR ? (
                           <DollarSign size="1rem" />
+                        ) : null}
+                        {donation.type === PACKAGE_TYPE.SHOPIFY_PURCHASE ? (
+                          <ShoppingBag size="1rem" />
                         ) : null}
                         <span className="ms-1">
                           {PACKAGE_TYPE_DISPLAY_LABELS[donation.type]}

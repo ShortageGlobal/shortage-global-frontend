@@ -94,12 +94,14 @@ export const PACKAGE_TYPE = Object.freeze({
   DROPPED_OFF_BY_DONOR: 'DROPPED_OFF_BY_DONOR',
   SENT_BY_DONOR: 'SENT_BY_DONOR',
   FUNDED_BY_DONOR: 'FUNDED_BY_DONOR',
+  SHOPIFY_PURCHASE: 'SHOPIFY_PURCHASE',
 });
 
 export const PACKAGE_TYPE_DISPLAY_LABELS = Object.freeze({
   [PACKAGE_TYPE.DROPPED_OFF_BY_DONOR]: 'Dropped Off',
   [PACKAGE_TYPE.SENT_BY_DONOR]: 'Sent',
   [PACKAGE_TYPE.FUNDED_BY_DONOR]: 'Funded',
+  [PACKAGE_TYPE.SHOPIFY_PURCHASE]: 'Shopify Purchase',
 });
 
 // !IMPORTANT: the list of package statuses must be synchronized with backend
@@ -175,6 +177,17 @@ export const PACKAGE_STATUS_LIFECYCLE = Object.freeze({
     ]),
     Object.freeze([PACKAGE_STATUS.CONFIRMED]),
     Object.freeze([PACKAGE_STATUS.ON_ITS_WAY]),
+    Object.freeze([PACKAGE_STATUS.DELIVERED]),
+  ]),
+  [PACKAGE_TYPE.SHOPIFY_PURCHASE]: Object.freeze([
+    Object.freeze([
+      PACKAGE_STATUS.REGISTERED,
+      PACKAGE_STATUS.PAYMENT_CANCELED,
+      PACKAGE_STATUS.PAYMENT_FAILED,
+      PACKAGE_STATUS.PAYMENT_PROCESSING,
+      PACKAGE_STATUS.PAYMENT_SUCCEEDED,
+    ]),
+    Object.freeze([PACKAGE_STATUS.ON_ITS_WAY, PACKAGE_STATUS.CONFIRMED]),
     Object.freeze([PACKAGE_STATUS.DELIVERED]),
   ]),
 });
