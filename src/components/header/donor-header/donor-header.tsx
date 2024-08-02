@@ -1,7 +1,7 @@
 import styles from 'components/header/header.module.scss';
 import donorStyles from 'components/header/donor-header/donor-header.module.scss';
 import { useCallback, useState, useMemo, useEffect } from 'react';
-import { Container, Navbar, Nav, Button } from 'react-bootstrap';
+import { Container, Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import { Menu, X } from 'react-feather';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
@@ -108,20 +108,37 @@ export function DonorHeader() {
             <div className={styles.navbarCollapsedTopPlaceholder} />
 
             <Nav>
-              <ActiveLink href="/for-individuals/" passHref>
-                <Nav.Link>For Individuals</Nav.Link>
-              </ActiveLink>
+              {/* Dropdown with links (wide screen) */}
+              <NavDropdown
+                title="For Partners"
+                className={styles.headerControlExpandedNav}
+              >
+                <ActiveLink href="/for-individuals/" passHref>
+                  <NavDropdown.Item>For Individuals</NavDropdown.Item>
+                </ActiveLink>
+                <ActiveLink href="/for-nonprofits/" passHref>
+                  <NavDropdown.Item>For Nonprofits</NavDropdown.Item>
+                </ActiveLink>
+                <ActiveLink href="/for-corporate/" passHref>
+                  <NavDropdown.Item>For Corporate</NavDropdown.Item>
+                </ActiveLink>
+              </NavDropdown>
 
-              <ActiveLink href="/for-nonprofits/" passHref>
-                <Nav.Link>For Nonprofits</Nav.Link>
-              </ActiveLink>
+              {/* Links (narrow screen) */}
+              <div className={styles.headerControlCollapsedNav}>
+                <ActiveLink href="/for-individuals/" passHref>
+                  <Nav.Link>For Individuals</Nav.Link>
+                </ActiveLink>
+                <ActiveLink href="/for-nonprofits/" passHref>
+                  <Nav.Link>For Nonprofits</Nav.Link>
+                </ActiveLink>
+                <ActiveLink href="/for-corporate/" passHref>
+                  <Nav.Link>For Corporate</Nav.Link>
+                </ActiveLink>
+              </div>
 
-              <ActiveLink href="/for-corporate/" passHref>
-                <Nav.Link>For Corporate</Nav.Link>
-              </ActiveLink>
-
-              {/* <ActiveLink href="/impact-stories/" passHref>
-                <Nav.Link>Impact Stories</Nav.Link>
+              {/* <ActiveLink href="/shopify-integration/" passHref>
+                <Nav.Link>Shopify Integration</Nav.Link>
               </ActiveLink> */}
             </Nav>
           </Navbar.Collapse>

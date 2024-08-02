@@ -552,7 +552,7 @@ export function TaxInformationForm({ countries }: TaxInformationFormProps) {
                 value={representativePhoneNumber}
                 inputProps={{
                   id: 'phoneNumber',
-                  ...(organization.is_draft ? {} : { readonly: 'true' }),
+                  ...(organization.is_draft ? {} : { readOnly: true }),
                 }}
                 inputClass="form-control-lg"
                 isValid={getIsValid(ERROR_KEYS.representativePhoneNumber)}
