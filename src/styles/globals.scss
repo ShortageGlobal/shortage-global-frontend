@@ -62,6 +62,11 @@ body.disable-scroll {
   }
 }
 
+.nav-link:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+}
+
 .modal-dialog {
   word-break: break-word;
 
