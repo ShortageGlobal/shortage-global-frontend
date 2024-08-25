@@ -2,6 +2,7 @@ import styles from './landing-banner.module.scss';
 import Image from 'next/image';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { StoreIllustration } from 'components/shopify-integration/store-illustration/store-illustration';
+import { SHOPIFY_APP_URL } from 'core/constants';
 
 export function LandingBanner() {
   return (
@@ -41,7 +42,7 @@ export function LandingBanner() {
           <Button
             size="lg"
             className={styles.installButton}
-            href="https://shopify.com"
+            href={SHOPIFY_APP_URL}
           >
             <span>Install Shortage App</span>
           </Button>

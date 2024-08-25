@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 export function StoreIllustration() {
   return (
-    <div className={styles.storeIllustration} data-nosnippet>
+    <div className={styles.storeIllustration} data-nosnippet tabIndex={0}>
       <div className={styles.header}>
         <div className={styles.brand}>
           <ShoppingBag className={styles.logo} />
@@ -58,6 +58,14 @@ export function StoreIllustration() {
             Donate
           </div>
         </div>
+      </div>
+
+      <div className={styles.explanation}>
+        <p>
+          Allow your customers to{' '}
+          <span className={styles.highlight}>donate</span> while{' '}
+          <span className={styles.highlight}>shopping</span>
+        </p>
       </div>
     </div>
   );
