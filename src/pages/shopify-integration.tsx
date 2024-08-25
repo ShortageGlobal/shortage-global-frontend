@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import classNames from 'classnames';
 import Head from 'next/head';
+import Image from 'next/image';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -96,34 +97,103 @@ const ShopifyIntegration: NextPageWithLayout = () => {
         </Row>
 
         <Row className="justify-content-md-center mx-3">
-          <Col xl={7}>
+          <Col xl={7} lg={10}>
             <ul className={styles.benefitsList}>
               <li className={classNames('fs-5', styles.benefitItem)}>
+                <Image
+                  aria-hidden="true"
+                  className={styles.checkmark}
+                  src="/images/shopify-integration/green_check.svg"
+                  alt="Checkmark icon"
+                  width={24}
+                  height={24}
+                />
                 Set up quickly and effortlessly with full Shopify integration—no
                 coding required
               </li>
               <li className={classNames('fs-5', styles.benefitItem)}>
+                <Image
+                  aria-hidden="true"
+                  className={styles.checkmark}
+                  src="/images/shopify-integration/green_check.svg"
+                  alt="Checkmark icon"
+                  width={24}
+                  height={24}
+                />
                 Access a comprehensive list of nonprofit requests for goods
               </li>
               <li className={classNames('fs-5', styles.benefitItem)}>
+                <Image
+                  aria-hidden="true"
+                  className={styles.checkmark}
+                  src="/images/shopify-integration/green_check.svg"
+                  alt="Checkmark icon"
+                  width={24}
+                  height={24}
+                />
                 Choose charities that align with your mission and sales strategy
               </li>
               <li className={classNames('fs-5', styles.benefitItem)}>
+                <Image
+                  aria-hidden="true"
+                  className={styles.checkmark}
+                  src="/images/shopify-integration/green_check.svg"
+                  alt="Checkmark icon"
+                  width={24}
+                  height={24}
+                />
                 Facilitate meaningful upsells through additional orders
               </li>
               <li className={classNames('fs-5', styles.benefitItem)}>
+                <Image
+                  aria-hidden="true"
+                  className={styles.checkmark}
+                  src="/images/shopify-integration/green_check.svg"
+                  alt="Checkmark icon"
+                  width={24}
+                  height={24}
+                />
                 Save time and resources with automated tax receipts and donation
                 processing
               </li>
               <li className={classNames('fs-5', styles.benefitItem)}>
+                <Image
+                  aria-hidden="true"
+                  className={styles.checkmark}
+                  src="/images/shopify-integration/green_check.svg"
+                  alt="Checkmark icon"
+                  width={24}
+                  height={24}
+                />
                 Showcase your impact on social media with authentic photos
               </li>
               <li className={classNames('fs-5', styles.benefitItem)}>
+                <Image
+                  aria-hidden="true"
+                  className={styles.checkmark}
+                  src="/images/shopify-integration/green_check.svg"
+                  alt="Checkmark icon"
+                  width={24}
+                  height={24}
+                />
                 Receive transparent and detailed reports directly in your
                 Shopify admin
               </li>
             </ul>
           </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionHeader className={styles.sectionHeader}>
+              Pricing
+            </SectionHeader>
+            <p className="fs-5 text-center">All charges are billed in USD</p>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col></Col>
         </Row>
 
         <Row>

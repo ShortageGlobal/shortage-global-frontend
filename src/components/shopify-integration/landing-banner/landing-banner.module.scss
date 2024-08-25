@@ -4,7 +4,7 @@
 .landingBanner {
   max-width: 1100px;
   padding: 3em;
-  background-color: #e6ebf0;
+  background-color: $secondary-background;
   border-radius: 0.25em;
 
   @include media-breakpoint-down(xl) {
