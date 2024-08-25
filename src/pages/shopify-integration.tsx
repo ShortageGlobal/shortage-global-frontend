@@ -1,6 +1,6 @@
 import styles from 'styles/pages/shopify-integration.module.scss';
 import { useMemo } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -62,7 +62,7 @@ const ShopifyIntegration: NextPageWithLayout = () => {
 
         <Row>
           <Col>
-            <SectionHeader className={styles.sectionHeader}>
+            <SectionHeader className={classNames(styles.sectionHeader, 'mt-5')}>
               Boost Your Shopify Store with Meaningful Upsells Using Shortage
               App
             </SectionHeader>
@@ -192,8 +192,63 @@ const ShopifyIntegration: NextPageWithLayout = () => {
           </Col>
         </Row>
 
+        <Row className="justify-content-md-center mb-5">
+          <Col lg={4} md={6}>
+            <div className={styles.pricingPlan}>
+              <div className={styles.pricingOptionTitle}>Basic</div>
+
+              <div>
+                <div className={styles.freePrice}>Free</div>
+              </div>
+
+              <ul className={styles.pricingFeatures}>
+                <li>Set donatable items in your Shopify admin</li>
+                <li>Available on Product & Cart Pages</li>
+                <li>All nonprofit communication on our end</li>
+                <li>
+                  Automatically send customized donation email including tax
+                  dedication receipt
+                </li>
+              </ul>
+            </div>
+          </Col>
+
+          <Col lg={4} md={6}>
+            <div className={styles.pricingPlan}>
+              <div className={styles.pricingOptionTitle}>Advanced</div>
+
+              <div className={styles.pricingCostWrap}>
+                <div className={styles.price}>$9</div>
+                <div className={styles.priceMonthly}>monthly</div>
+                <div className={styles.priceAnnualy}>
+                  or <b>$99</b> per year
+                </div>
+              </div>
+
+              <ul className={styles.pricingFeatures}>
+                <li>All basic plan features</li>
+                <li>
+                  Impact calculator - track and share your impact with real
+                  photos
+                </li>
+                <li>24/7 moderator support</li>
+              </ul>
+            </div>
+          </Col>
+        </Row>
+
         <Row>
-          <Col></Col>
+          <Col>
+            <div className={styles.installButtonWrap}>
+              <Button
+                size="lg"
+                className={styles.installButton}
+                href={SHOPIFY_APP_URL}
+              >
+                <span>Install Shortage App</span>
+              </Button>
+            </div>
+          </Col>
         </Row>
 
         <Row>
