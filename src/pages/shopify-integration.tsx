@@ -95,6 +95,37 @@ const ShopifyIntegration: NextPageWithLayout = () => {
           </Col>
         </Row>
 
+        <Row className="justify-content-md-center mx-3">
+          <Col xl={7}>
+            <ul className={styles.benefitsList}>
+              <li className={classNames('fs-5', styles.benefitItem)}>
+                Set up quickly and effortlessly with full Shopify integration—no
+                coding required
+              </li>
+              <li className={classNames('fs-5', styles.benefitItem)}>
+                Access a comprehensive list of nonprofit requests for goods
+              </li>
+              <li className={classNames('fs-5', styles.benefitItem)}>
+                Choose charities that align with your mission and sales strategy
+              </li>
+              <li className={classNames('fs-5', styles.benefitItem)}>
+                Facilitate meaningful upsells through additional orders
+              </li>
+              <li className={classNames('fs-5', styles.benefitItem)}>
+                Save time and resources with automated tax receipts and donation
+                processing
+              </li>
+              <li className={classNames('fs-5', styles.benefitItem)}>
+                Showcase your impact on social media with authentic photos
+              </li>
+              <li className={classNames('fs-5', styles.benefitItem)}>
+                Receive transparent and detailed reports directly in your
+                Shopify admin
+              </li>
+            </ul>
+          </Col>
+        </Row>
+
         <Row>
           <Col>
             <PromoSocialMedia />
