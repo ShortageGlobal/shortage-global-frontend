@@ -246,6 +246,17 @@ export const getForNonprofitsJoinCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getShopifyIntegrationCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'shopify-integration',
+    label: 'Shopify Integration',
+    href: {
+      pathname: '/shopify-integration/',
+    },
+    ...props,
+  });
+
 export const getDonationDetailsCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,

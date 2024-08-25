@@ -124,6 +124,13 @@ export function DonorHeader() {
                 </ActiveLink>
               </NavDropdown>
 
+              {/* Shopify Integration (wide screen) */}
+              <ActiveLink href="/shopify-integration/" passHref>
+                <Nav.Link className={styles.headerControlExpandedNav}>
+                  Shopify Integration
+                </Nav.Link>
+              </ActiveLink>
+
               {/* Links (narrow screen) */}
               <div className={styles.headerControlCollapsedNav}>
                 <ActiveLink href="/for-individuals/" passHref>
@@ -134,6 +141,9 @@ export function DonorHeader() {
                 </ActiveLink>
                 <ActiveLink href="/for-corporate/" passHref>
                   <Nav.Link>For Corporate</Nav.Link>
+                </ActiveLink>
+                <ActiveLink href="/shopify-integration/" passHref>
+                  <Nav.Link>Shopify Integration</Nav.Link>
                 </ActiveLink>
               </div>
 
