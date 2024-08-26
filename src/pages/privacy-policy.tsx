@@ -29,7 +29,7 @@ const PrivacyPolicy: NextPageWithLayout = () => {
         </Row>
       </Container>
 
-      <Container>
+      <Container className={styles.container}>
         <Row>
           <Col className={styles.privacyPolicy}>
             <header>

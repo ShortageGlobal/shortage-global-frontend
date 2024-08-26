@@ -12,7 +12,7 @@ export const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL;
 export const IS_STAGING = process.env.NEXT_PUBLIC_ENV === 'staging';
 export const IS_BROWSER = typeof window !== 'undefined';
 
-export const SHOPIFY_APP_URL = 'https://shortage.global/shopify-integration/';
+export const SHOPIFY_APP_URL = 'https://apps.shopify.com/shortage';
 
 // Live Chat
 export const LIVE_CHAT_LICENCE_ID =

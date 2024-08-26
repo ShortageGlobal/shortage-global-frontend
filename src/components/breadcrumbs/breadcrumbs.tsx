@@ -191,6 +191,17 @@ export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getShopifyPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'privacy-policy',
+    label: 'Privacy Policy for Shortage App',
+    href: {
+      pathname: '/shopify-privacy-policy/',
+    },
+    ...props,
+  });
+
 export const getTermsOfUseCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
