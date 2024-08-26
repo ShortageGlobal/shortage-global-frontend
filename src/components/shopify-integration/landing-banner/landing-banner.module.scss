@@ -59,5 +59,13 @@
       font-size: 1rem;
       width: 100%;
     }
+
+    &:hover .arrow {
+      transform: translateX(0.25em);
+    }
+
+    .arrow {
+      transition: transform 0.3s ease-in-out;
+    }
   }
 }

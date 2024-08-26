@@ -1,5 +1,6 @@
 import styles from './landing-banner.module.scss';
 import Image from 'next/image';
+import { ArrowRight } from 'react-feather';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { StoreIllustration } from 'components/shopify-integration/store-illustration/store-illustration';
 import { SHOPIFY_APP_URL } from 'core/constants';
@@ -45,6 +46,7 @@ export function LandingBanner() {
             href={SHOPIFY_APP_URL}
           >
             <span>Install Shortage App</span>
+            <ArrowRight size={20} className={styles.arrow} />
           </Button>
         </Col>
 

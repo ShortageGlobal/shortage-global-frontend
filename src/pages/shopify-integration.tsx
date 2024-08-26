@@ -1,9 +1,10 @@
 import styles from 'styles/pages/shopify-integration.module.scss';
 import { useMemo } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import classNames from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { ArrowRight } from 'react-feather';
+import classNames from 'classnames';
 import {
   Breadcrumbs,
   getHomeCrumb,
@@ -246,6 +247,7 @@ const ShopifyIntegration: NextPageWithLayout = () => {
                 href={SHOPIFY_APP_URL}
               >
                 <span>Install Shortage App</span>
+                <ArrowRight size={20} className={styles.arrow} />
               </Button>
             </div>
           </Col>
