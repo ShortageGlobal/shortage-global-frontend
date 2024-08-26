@@ -197,7 +197,7 @@ export const getShopifyPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
     key: 'privacy-policy',
     label: 'Privacy Policy for Shortage App',
     href: {
-      pathname: '/shopify-privacy-policy/',
+      pathname: '/privacy-policy-for-shortage-app/',
     },
     ...props,
   });

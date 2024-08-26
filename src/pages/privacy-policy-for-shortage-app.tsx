@@ -1,4 +1,4 @@
-import styles from 'styles/pages/shopify-privacy-policy.module.scss';
+import styles from 'styles/pages/privacy-policy-for-shortage-app.module.scss';
 import { useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
