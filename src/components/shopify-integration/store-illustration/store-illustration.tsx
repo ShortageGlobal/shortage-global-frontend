@@ -55,16 +55,16 @@ export function StoreIllustration() {
               styles.glow
             )}
           >
-            Donate
+            Donate Item
           </div>
         </div>
       </div>
 
       <div className={styles.explanation}>
         <p>
-          Allow your customers to{' '}
-          <span className={styles.highlight}>donate</span> while{' '}
-          <span className={styles.highlight}>shopping</span>
+          Let shoppers to <span className={styles.highlight}>donate</span> to{' '}
+          important causes with <span className={styles.highlight}>items</span>{' '}
+          from <span className={styles.highlight}>your store</span>
         </p>
       </div>
     </div>
