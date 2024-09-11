@@ -1,0 +1,71 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.landingBanner {
+  max-width: 1100px;
+  padding: 3em;
+  background-color: $secondary-background;
+  border-radius: 0.25em;
+
+  @include media-breakpoint-down(xl) {
+    padding: 2rem;
+  }
+
+  .shopifyImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .appLogoTitle {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3em;
+    column-gap: 1em;
+
+    .appLogo {
+      display: flex;
+      flex-shrink: 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      width: 84px;
+      height: 84px;
+      border-radius: 10px;
+    }
+
+    .appTitle {
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+  }
+
+  .moto {
+    font-size: 1.25rem;
+    margin-top: 1em;
+    font-weight: 300;
+  }
+
+  .installButton {
+    display: inline-flex;
+    padding: 1rem 2rem;
+    line-height: 1.1;
+    margin: 2rem 0;
+
+    @include media-breakpoint-down(sm) {
+      padding: 1rem;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    &:hover .arrow {
+      transform: translateX(0.25em);
+    }
+
+    .arrow {
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+}

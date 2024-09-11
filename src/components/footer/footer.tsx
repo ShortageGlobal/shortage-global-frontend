@@ -91,6 +91,10 @@ export function Footer() {
             <span>
               <Link href="/privacy-policy/">Privacy Policy</Link>
               <span> | </span>
+              <Link href="/privacy-policy-for-shortage-app/">
+                Privacy Policy for Shortage App
+              </Link>
+              <span> | </span>
               <Link href="/terms-of-use/">Terms of Use</Link>
             </span>
           </Col>

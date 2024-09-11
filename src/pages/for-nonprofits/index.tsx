@@ -326,7 +326,8 @@ const ForNonprofits: NextPageWithLayout = () => {
                   <li>Personal account</li>
                   <li>24/7 moderator support</li>
                   <li>
-                    Donor communication is managed on our end (with LiveChat)
+                    Donor communication is managed on our end{' '}
+                    {/*(with LiveChat)*/}
                   </li>
                   <li>Access to all statistics</li>
                 </ul>

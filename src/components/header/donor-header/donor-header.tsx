@@ -1,11 +1,18 @@
 import styles from 'components/header/header.module.scss';
 import donorStyles from 'components/header/donor-header/donor-header.module.scss';
 import { useCallback, useState, useMemo, useEffect } from 'react';
-import { Container, Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
-import { Menu, X } from 'react-feather';
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Button,
+  Badge,
+} from 'react-bootstrap';
+import { Menu, X } from 'react-feather';
+import classNames from 'classnames';
 import { useAppSelector, useScrollPosition } from 'core/hooks';
 import { selectSearch } from 'core/store/slices/search';
 import { LogoImage } from 'components/logo-image/logo-image';
@@ -124,6 +131,16 @@ export function DonorHeader() {
                 </ActiveLink>
               </NavDropdown>
 
+              {/* Shopify Integration (wide screen) */}
+              <ActiveLink href="/shopify-integration/" passHref>
+                <Nav.Link className={styles.headerControlExpandedNav}>
+                  Shopify Integration
+                  <Badge bg="primary" className="ms-2">
+                    new
+                  </Badge>
+                </Nav.Link>
+              </ActiveLink>
+
               {/* Links (narrow screen) */}
               <div className={styles.headerControlCollapsedNav}>
                 <ActiveLink href="/for-individuals/" passHref>
@@ -134,6 +151,12 @@ export function DonorHeader() {
                 </ActiveLink>
                 <ActiveLink href="/for-corporate/" passHref>
                   <Nav.Link>For Corporate</Nav.Link>
+                </ActiveLink>
+                <ActiveLink href="/shopify-integration/" passHref>
+                  <Nav.Link>
+                    Shopify Integration
+                    <Badge className="ms-2">new</Badge>
+                  </Nav.Link>
                 </ActiveLink>
               </div>
 

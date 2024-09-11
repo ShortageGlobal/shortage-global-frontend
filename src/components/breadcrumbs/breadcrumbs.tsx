@@ -191,6 +191,17 @@ export const getPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
     ...props,
   });
 
+export const getShopifyPrivacyPolicyCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'privacy-policy',
+    label: 'Privacy Policy for Shortage App',
+    href: {
+      pathname: '/privacy-policy-for-shortage-app/',
+    },
+    ...props,
+  });
+
 export const getTermsOfUseCrumb = (props: BreadcrumbItem = {}) =>
   Object.freeze({
     ...defaultCrumb,
@@ -242,6 +253,17 @@ export const getForNonprofitsJoinCrumb = (props: BreadcrumbItem = {}) =>
     label: 'Join',
     href: {
       pathname: '/for-nonprofits/join/',
+    },
+    ...props,
+  });
+
+export const getShopifyIntegrationCrumb = (props: BreadcrumbItem = {}) =>
+  Object.freeze({
+    ...defaultCrumb,
+    key: 'shopify-integration',
+    label: 'Shopify Integration',
+    href: {
+      pathname: '/shopify-integration/',
     },
     ...props,
   });
