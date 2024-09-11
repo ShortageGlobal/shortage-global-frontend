@@ -11,6 +11,10 @@
     padding: 2rem;
   }
 
+  @include media-breakpoint-down(sm) {
+    padding: 1.5rem;
+  }
+
   .shopifyImage {
     width: 100%;
     height: 100%;
@@ -22,6 +26,10 @@
     flex-direction: row;
     margin-top: 3em;
     column-gap: 1em;
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 1.5em;
+    }
 
     .appLogo {
       display: flex;
