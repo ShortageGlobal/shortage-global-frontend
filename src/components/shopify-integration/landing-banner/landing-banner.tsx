@@ -40,14 +40,18 @@ export function LandingBanner() {
           </div>
 
           {/* Install Button */}
-          <Button
-            size="lg"
-            className={styles.installButton}
-            href={SHOPIFY_APP_URL}
-          >
-            <span>Install Shortage App</span>
-            <ArrowRight size={20} className={styles.arrow} />
-          </Button>
+          <div className={styles.installButtonWrap}>
+            <Button
+              size="lg"
+              className={styles.installButton}
+              href={SHOPIFY_APP_URL}
+              disabled
+            >
+              <span>Install Shortage App</span>
+              <ArrowRight size={20} className={styles.arrow} />
+            </Button>
+            <em className="text-muted">*Coming soon</em>
+          </div>
         </Col>
 
         <Col lg={7}>
