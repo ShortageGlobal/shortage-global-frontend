@@ -62,7 +62,7 @@ export function StoreIllustration() {
 
       <div className={styles.explanation}>
         <p>
-          Let shoppers to <span className={styles.highlight}>donate</span> to{' '}
+          Let shoppers <span className={styles.highlight}>donate</span> to{' '}
           important causes with <span className={styles.highlight}>items</span>{' '}
           from <span className={styles.highlight}>your store</span>
         </p>
