@@ -6,14 +6,14 @@ import { demoRequest } from 'core/api';
 import { useNotifications, useCancelToken, isRequestCancel } from 'core/hooks';
 import { SubmissionSuccess } from 'components/demo-request-form/submission-success/submission-success';
 import {
-  NONPROFIT_REGISTRATION_FORM_ID,
-  NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
+  DEMO_REQUEST_FORM_ID,
+  DEMO_REQUEST_EMAIL_INPUT_ID,
   DEMO_REQUEST_SOURCE,
 } from 'core/constants';
 import type { FormEvent } from 'react';
 
 const INPUT_ID = Object.freeze({
-  email: NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
+  email: DEMO_REQUEST_EMAIL_INPUT_ID,
 });
 const ERROR_KEYS = Object.freeze({
   [INPUT_ID.email]: 'email',
@@ -98,7 +98,7 @@ export function DemoRequestForm({ source }: { source: DEMO_REQUEST_SOURCE }) {
 
   return (
     <Form
-      id={NONPROFIT_REGISTRATION_FORM_ID}
+      id={DEMO_REQUEST_FORM_ID}
       onSubmit={handleFormSubmit}
       className={styles.demoRequestForm}
     >
