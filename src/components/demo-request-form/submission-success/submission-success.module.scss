@@ -1,0 +1,16 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.submissionSuccess {
+  margin: 2rem 0;
+
+  .header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .dismissBtn {
+    display: block;
+    margin: 2rem auto 0;
+  }
+}

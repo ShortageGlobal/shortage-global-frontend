@@ -42,6 +42,12 @@ export const CLIENT_SESSION_REFETCH_INTERVAL = BACKEND_JWT_MAX_AGE / 2; // 27 mi
 export const MAX_IMAGE_SIZE = 7; // MB
 
 // !IMPORTANT: the list of category keys must be synchronized with backend
+export enum DEMO_REQUEST_SOURCE {
+  GENERAL = 'GENERAL',
+  SHOPIFY_INTEGRATION = 'SHOPIFY_INTEGRATION',
+}
+
+// !IMPORTANT: the list of category keys must be synchronized with backend
 export const PRODUCT_CATEGORY_KEY = Object.freeze({
   VITAL_GOODS: 'VITAL_GOODS',
   HEALTHCARE: 'HEALTHCARE',

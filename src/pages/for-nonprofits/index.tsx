@@ -12,11 +12,12 @@ import {
   getHomeCrumb,
   getForNonprofitsCrumb,
 } from 'components/breadcrumbs/breadcrumbs';
-import { NonprofitRegistrationForm } from 'components/nonprofit-registration-form/nonprofit-registration-form';
+import { DemoRequestForm } from 'components/demo-request-form/demo-request-form';
 import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import {
   NONPROFIT_REGISTRATION_FORM_ID,
   NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
+  DEMO_REQUEST_SOURCE,
 } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 import Link from 'next/link';
@@ -109,24 +110,27 @@ const ForNonprofits: NextPageWithLayout = () => {
         <div className={styles.section}>
           <Row>
             <Col md={5}>
-              <div className={styles.textWrap}>
-                <div
-                  className={classNames(
-                    styles.sectionHeader,
-                    styles.highlightedHeader
-                  )}
-                >
-                  Save your time
-                </div>
-                <div className={styles.sectionText}>
-                  Please fill out the form, and we&apos;ll get back to you right
-                  away
-                </div>
+              <div
+                className={classNames(
+                  styles.sectionHeader,
+                  styles.highlightedHeader
+                )}
+              >
+                Save your time
+              </div>
+              <div
+                className={classNames(
+                  styles.sectionText,
+                  'text-center',
+                  'text-md-start'
+                )}
+              >
+                Fill out the form, and we&apos;ll get back to you right away
               </div>
             </Col>
             <Col md={7}>
               <div className={styles.formWrap}>
-                <NonprofitRegistrationForm />
+                <DemoRequestForm source={DEMO_REQUEST_SOURCE.GENERAL} />
               </div>
             </Col>
           </Row>

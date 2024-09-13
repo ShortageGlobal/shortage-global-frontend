@@ -183,10 +183,17 @@ export const trackAddToCart = ({
   });
 };
 
-// User submitted the "Nonprofit Registration" form on the /for-nonprofits page
+// User submitted the "Nonprofit Registration" form
 export const trackNonprofitRegistrationRequest = () => {
   window.dataLayer.push({
     event: 'nonprofitRegistrationRequest',
+  });
+};
+
+// User submitted the "Demo Request" form
+export const trackDemoRequest = () => {
+  window.dataLayer.push({
+    event: 'demoRequest',
   });
 };
 

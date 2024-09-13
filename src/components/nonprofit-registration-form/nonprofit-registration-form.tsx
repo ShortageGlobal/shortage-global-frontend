@@ -33,7 +33,7 @@ const ERROR_KEYS = Object.freeze({
   [INPUT_ID.einNumber]: 'ein_number',
   [INPUT_ID.agreedToTermsOfUse]: 'agreed_to_terms_of_use',
 });
-type ErrorKey = typeof ERROR_KEYS[keyof typeof ERROR_KEYS];
+type ErrorKey = (typeof ERROR_KEYS)[keyof typeof ERROR_KEYS];
 
 export function NonprofitRegistrationForm() {
   const { showNotification } = useNotifications();
@@ -95,7 +95,7 @@ export function NonprofitRegistrationForm() {
           setErrors(null);
           showNotification({
             isFailure: true,
-            message: 'Failed to submit organization information',
+            message: 'Failed to submit information',
           });
         }
       }

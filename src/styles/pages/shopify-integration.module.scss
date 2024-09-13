@@ -1,6 +1,45 @@
 @import 'bootstrap/scss/mixins';
 @import 'styles/_variables';
 
+.demoRequestRow {
+  margin: 4rem auto 3rem;
+  max-width: 900px;
+
+  .heading {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: $primary;
+
+    @include media-breakpoint-down(md) {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+  }
+
+  .sectionText {
+    font-size: 1.3rem;
+
+    > * + * {
+      margin-top: 1rem;
+    }
+
+    @include media-breakpoint-down(lg) {
+      font-size: 1.1rem;
+    }
+
+    @include media-breakpoint-down(md) {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .formWrap {
+    padding: 1.5rem;
+    border: 1px solid $border-color;
+  }
+}
+
 .sectionHeader {
   margin: 2rem 0;
 }
