@@ -1,0 +1,23 @@
+@import 'bootstrap/scss/mixins';
+@import 'styles/_variables';
+
+.demoRequestForm {
+  scroll-margin-top: calc(80px + 2rem);
+
+  .header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .sectionHeader {
+    margin: 2rem 0;
+  }
+
+  .errorAlert {
+    margin: 1rem 0 0;
+  }
+
+  .confirmDetailsBtn {
+    width: 100%;
+  }
+}

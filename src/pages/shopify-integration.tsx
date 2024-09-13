@@ -12,8 +12,9 @@ import {
 } from 'components/breadcrumbs/breadcrumbs';
 import { SectionHeader } from 'components/section-header/section-header';
 import { LandingBanner } from 'components/shopify-integration/landing-banner/landing-banner';
+import { DemoRequestForm } from 'components/demo-request-form/demo-request-form';
 import { PromoSocialMedia } from 'components/promo-social-media/promo-social-media';
-import { SHOPIFY_APP_URL } from 'core/constants';
+import { SHOPIFY_APP_URL, DEMO_REQUEST_SOURCE } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
 
 const ShopifyIntegration: NextPageWithLayout = () => {
@@ -58,6 +59,28 @@ const ShopifyIntegration: NextPageWithLayout = () => {
         <Row>
           <Col>
             <LandingBanner />
+          </Col>
+        </Row>
+
+        <Row className={styles.demoRequestRow}>
+          <Col md={5}>
+            <div className={styles.heading}>Save your time</div>
+            <div
+              className={classNames(
+                styles.sectionText,
+                'text-center',
+                'text-md-start'
+              )}
+            >
+              Fill out the form, and we&apos;ll get back to you right away
+            </div>
+          </Col>
+          <Col md={7}>
+            <div className={styles.formWrap}>
+              <DemoRequestForm
+                source={DEMO_REQUEST_SOURCE.SHOPIFY_INTEGRATION}
+              />
+            </div>
           </Col>
         </Row>
 
