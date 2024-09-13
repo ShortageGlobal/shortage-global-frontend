@@ -204,9 +204,8 @@ export const BREADCRUMBS_PORTAL_ID = 'breadcrumbs-portal';
 
 // used for scrolling
 export const REQUESTED_GOODS_CONTAINER_ID = 'most-requested-items';
-export const NONPROFIT_REGISTRATION_FORM_ID = 'nonprofit-registration-form';
-export const NONPROFIT_REGISTRATION_EMAIL_INPUT_ID =
-  'nonprofit-registration-email-input';
+export const DEMO_REQUEST_FORM_ID = 'demo-request-form';
+export const DEMO_REQUEST_EMAIL_INPUT_ID = 'demo-request-email-input';
 
 export const MANAGE_NONPROFIT_TOUR_ID = {
   NAV_PANEL: 'nav-panel-id',

@@ -15,8 +15,8 @@ import {
 import { DemoRequestForm } from 'components/demo-request-form/demo-request-form';
 import { PromotedOrganizations } from 'components/promoted-organizations/promoted-organizations';
 import {
-  NONPROFIT_REGISTRATION_FORM_ID,
-  NONPROFIT_REGISTRATION_EMAIL_INPUT_ID,
+  DEMO_REQUEST_FORM_ID,
+  DEMO_REQUEST_EMAIL_INPUT_ID,
   DEMO_REQUEST_SOURCE,
 } from 'core/constants';
 import type { NextPageWithLayout } from 'pages/_app';
@@ -28,9 +28,9 @@ const ForNonprofits: NextPageWithLayout = () => {
   }, []);
 
   const handleBookDemo = useCallback(() => {
-    document.getElementById(NONPROFIT_REGISTRATION_FORM_ID)?.scrollIntoView();
+    document.getElementById(DEMO_REQUEST_FORM_ID)?.scrollIntoView();
     document
-      .getElementById(NONPROFIT_REGISTRATION_EMAIL_INPUT_ID)
+      .getElementById(DEMO_REQUEST_EMAIL_INPUT_ID)
       ?.focus({ preventScroll: true });
   }, []);
 

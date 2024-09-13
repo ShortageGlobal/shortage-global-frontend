@@ -13,5 +13,4 @@ export * from './packages';
 export * from './blog-posts';
 export * from './corporate-donations';
 export * from './manage-nonprofit';
-export * from './nonprofit-registration';
 export * from './demo-request';
