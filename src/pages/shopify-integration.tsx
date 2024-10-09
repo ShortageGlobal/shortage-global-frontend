@@ -212,14 +212,14 @@ const ShopifyIntegration: NextPageWithLayout = () => {
             <SectionHeader className={styles.sectionHeader}>
               Pricing
             </SectionHeader>
-            <p className="fs-5 text-center">All charges are billed in USD</p>
+            {/* <p className="fs-5 text-center">All charges are billed in USD</p> */}
           </Col>
         </Row>
 
         <Row className="justify-content-md-center mb-5">
           <Col lg={4} md={6}>
             <div className={styles.pricingPlan}>
-              <div className={styles.pricingOptionTitle}>Basic</div>
+              {/* <div className={styles.pricingOptionTitle}>Basic</div> */}
 
               <div>
                 <div className={styles.freePrice}>Free</div>
@@ -237,7 +237,7 @@ const ShopifyIntegration: NextPageWithLayout = () => {
             </div>
           </Col>
 
-          <Col lg={4} md={6}>
+          {/* <Col lg={4} md={6}>
             <div className={styles.pricingPlan}>
               <div className={styles.pricingOptionTitle}>Advanced</div>
 
@@ -258,7 +258,7 @@ const ShopifyIntegration: NextPageWithLayout = () => {
                 <li>24/7 moderator support</li>
               </ul>
             </div>
-          </Col>
+          </Col> */}
         </Row>
 
         <Row>
