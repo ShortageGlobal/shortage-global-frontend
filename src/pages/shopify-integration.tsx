@@ -272,7 +272,6 @@ const ShopifyIntegration: NextPageWithLayout = () => {
                 <span>Install Shortage App</span>
                 <ArrowRight size={20} className={styles.arrow} />
               </Button>
-
             </div>
           </Col>
         </Row>
