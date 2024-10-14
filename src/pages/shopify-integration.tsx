@@ -268,13 +268,11 @@ const ShopifyIntegration: NextPageWithLayout = () => {
                 size="lg"
                 className={styles.installButton}
                 href={SHOPIFY_APP_URL}
-                disabled
               >
                 <span>Install Shortage App</span>
                 <ArrowRight size={20} className={styles.arrow} />
               </Button>
 
-              <em className="text-muted">*Coming soon</em>
             </div>
           </Col>
         </Row>
