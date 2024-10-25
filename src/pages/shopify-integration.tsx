@@ -84,6 +84,24 @@ const ShopifyIntegration: NextPageWithLayout = () => {
           </Col>
         </Row>
 
+        {/* ProductHunt widget */}
+        <Row>
+          <Col className={styles.productHuntWidget}>
+            <a
+              href="https://www.producthunt.com/posts/shortage?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-shortage"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=531507&theme=light"
+                alt="Shortage - Shopping&#0032;with&#0032;a&#0032;cause&#0046;&#0032;Give&#0032;directly&#0032;through&#0032;Shopify&#0032;stores&#0033; | Product Hunt"
+                width="250"
+                height="54"
+              />
+            </a>
+          </Col>
+        </Row>
+
         <Row>
           <Col>
             <SectionHeader className={classNames(styles.sectionHeader, 'mt-5')}>
