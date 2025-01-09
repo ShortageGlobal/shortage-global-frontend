@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: 1fr 4rem 1fr;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 
   @include media-breakpoint-down(md) {
     grid-template-columns: 1fr 3rem 1fr;

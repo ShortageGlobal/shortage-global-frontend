@@ -1,8 +1,9 @@
 import styles from './donation-options.module.scss';
+import commonStyles from 'styles/pages/private/common.module.scss';
 import animationStyles from 'styles/animations.module.scss';
 import { useCallback, useState, useMemo } from 'react';
-import { Button } from 'react-bootstrap';
-import { DollarSign, Loader, Package } from 'react-feather';
+import { Button, Form } from 'react-bootstrap';
+import { DollarSign, Loader, Package, AlertTriangle } from 'react-feather';
 import classNames from 'classnames';
 import * as gtm from 'core/tracking/gtm';
 import {
@@ -158,7 +159,7 @@ export function DonationOptions({
           size="lg"
           className={styles.button}
           onClick={handleFundDonation}
-          disabled={isPackageBeingCreated}
+          disabled={isPackageBeingCreated || true}
         >
           {isPackageBeingCreated ? (
             <Loader
@@ -188,6 +189,13 @@ export function DonationOptions({
           <span>Donate what I have</span>
         </Button>
       </div>
+
+      <Form.Text as="div" id="basePriceHelpBlock">
+        <div className={commonStyles.inlineIcon}>
+          <AlertTriangle />
+        </div>
+        Funding donations is currently unavailable.
+      </Form.Text>
 
       {organizationInstructions?.length > 0 ? (
         <InstructionsModal
